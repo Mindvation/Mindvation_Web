@@ -13,17 +13,17 @@ const routes = [
     {
         path: '/',
         exact: true,
-        main: () => <Test1/>
+        main: () => <Projects/>
     },
     {
         path: '/Test2',
         main: () => <Test2/>
     },
     {
-        path: '/Projects',
-        main: () => <Projects/>
+        path: '/Test1',
+        main: () => <Test1/>
     },
-]
+];
 
 class HomePage extends Component {
     render() {

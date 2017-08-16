@@ -14,7 +14,7 @@ class HomeMenu extends Component {
         return (
             <Menu vertical>
                 <Menu.Item name='Projects' active={activeItem === 'Projects'}>
-                    <Link to="/Projects">Projects</Link>
+                    <Link to="/">Projects</Link>
                 </Menu.Item>
 
                 <Menu.Item>
@@ -22,7 +22,7 @@ class HomeMenu extends Component {
                     <Menu.Menu>
                         <Menu.Item name='Test1' active={activeItem === 'Test1'}
                                    onClick={this.handleItemClick}>
-                            <Link to="/">Test1</Link>
+                            <Link to="/Test1">Test1</Link>
                         </Menu.Item>
                         <Menu.Item name='Test2' active={activeItem === 'Test2'}
                                    onClick={this.handleItemClick}>
