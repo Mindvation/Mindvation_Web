@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Icon, Menu, Table} from 'semantic-ui-react';
 
-const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Check List Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
+/*const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Check List Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
 const datas = [["P0001", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0002", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0003", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0004", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0005", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    /*["P0006", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
+    ["P0006", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0007", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0008", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0009", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
@@ -19,11 +19,14 @@ const datas = [["P0001", "DMS", "A system to solve industry project issues which
     ["P0015", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0016", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
     ["P0017", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0018", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"]*/
-];
+    ["P0018", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"]
+];*/
+
+const header = ["Project ID", "Project Name", "Description"];
 
 class ProjectsList extends Component {
     render() {
+        const {projectList} = this.props;
         return (
             <Table striped>
                 <Table.Header>
@@ -38,9 +41,9 @@ class ProjectsList extends Component {
 
                 <Table.Body>
                     {
-                        datas.map((result, i) => {
+                        projectList.map((result, i) => {
                             return <Table.Row key={i}>
-                                {result.map((data, j) => {
+                                {Object.values(result).map((data, j) => {
                                     return <Table.Cell collapsing key={i + "_" + j}>
                                         {data}
                                     </Table.Cell>

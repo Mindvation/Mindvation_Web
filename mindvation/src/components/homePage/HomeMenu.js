@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import {Grid, Menu, Segment} from 'semantic-ui-react';
+import {Menu} from 'semantic-ui-react';
 import {
-    BrowserRouter as Router,
-    Route,
     Link
 } from 'react-router-dom';
-
-
 
 class HomeMenu extends Component {
     state = {activeItem: 'search'};

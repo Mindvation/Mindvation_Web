@@ -5,3 +5,9 @@
 .Project-title {
     padding: 15px;
 }
+
+.modal-header {
+    text-decoration: underline;
+    color: #0247a3 !important;
+    font-style: italic;
+}

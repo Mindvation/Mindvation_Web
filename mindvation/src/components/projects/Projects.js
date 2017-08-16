@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import ProjectsList from './ProjectsList';
-import {Button, Header, Icon} from 'semantic-ui-react';
+import ProjectsList from '../../containers/updateProjectList';
+import {Header, Icon} from 'semantic-ui-react';
 import './Projects.css';
+import CreateProject from './CreateProject';
 
 class Projects extends Component {
     render() {
@@ -14,7 +15,7 @@ class Projects extends Component {
                     </Header.Content>
                 </Header>
                 <ProjectsList/>
-                <Button color='blue'>+ Create Project</Button>
+                <CreateProject/>
             </div>
         );
     }

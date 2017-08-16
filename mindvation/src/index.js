@@ -1,9 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import 'semantic-ui-css/semantic.min.css';
-import HomePage from './components/homePage/HomePage';
+import App from './App.js';
+import {Provider} from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<HomePage/>, document.getElementById('root'));
+import configureStore from './store/configureStore';
+
+const store = configureStore();
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>, document.getElementById('root'));
 registerServiceWorker();
+

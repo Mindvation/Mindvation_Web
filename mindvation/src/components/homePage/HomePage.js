@@ -6,8 +6,7 @@ import Projects from '../projects/Projects';
 import {Grid} from 'semantic-ui-react';
 import {
     BrowserRouter as Router,
-    Route,
-    Link
+    Route
 } from 'react-router-dom';
 
 const routes = [
@@ -30,7 +29,7 @@ class HomePage extends Component {
     render() {
         return (
             <Router>
-                <Grid>
+                <Grid style={{padding: '15px'}}>
                     <Grid.Column width={2}>
                         <Menu/>
                     </Grid.Column>
