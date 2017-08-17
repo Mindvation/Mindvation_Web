@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import ProjectsList from '../../containers/updateProjectList';
+import ProjectsList from './ProjectsList';
 import {Header, Icon} from 'semantic-ui-react';
 import './Projects.css';
 import CreateProject from './CreateProject';
 
 class Projects extends Component {
     render() {
+        const {dispatch, projectList} = this.props;
         return (
             <div>
                 <Header as='h3'>
@@ -14,8 +15,12 @@ class Projects extends Component {
                         PROJECTS
                     </Header.Content>
                 </Header>
-                <ProjectsList/>
-                <CreateProject/>
+                <ProjectsList
+                    projectList={projectList}
+                />
+                <CreateProject
+                    dispatch={dispatch}
+                />
             </div>
         );
     }

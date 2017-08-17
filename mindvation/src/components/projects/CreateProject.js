@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import BasicInfo from './create/BasicInfo';
-import {connect} from 'react-redux';
 import {createProject} from '../../actions/projects_action';
 
 let basicModule;
@@ -45,7 +44,5 @@ class CreateProject extends Component {
         );
     }
 }
-
-CreateProject = connect()(CreateProject);
 
 export default CreateProject;
