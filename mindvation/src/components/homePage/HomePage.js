@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
-import Menu from './HomeMenu';
+import Menu from './Menu';
 import Test1 from '../test/Test1';
 import Test2 from '../test/Test2';
+import CommonHeader from '../common/CommonHeader';
 import Projects from '../../containers/project_container';
-import {logOut} from '../../actions/logon_action';
-import {Grid, Header, Button} from 'semantic-ui-react';
+import {Layout} from 'antd';
 import {
     BrowserRouter as Router,
-    Route,
-    Redirect
+    Route
 } from 'react-router-dom';
+import './HomePage.css';
+
+const {Header, Content, Sider} = Layout;
 
 const routes = [
     {
@@ -28,33 +30,42 @@ const routes = [
 ];
 
 class HomePage extends Component {
-    userLogOut() {
-        this.props.dispatch(logOut());
-        this.props.history.push('/');
+    state = {
+        collapsed: false,
+        minHeight: '0px'
+    };
+    onCollapse = (collapsed) => {
+        console.log(collapsed);
+        this.setState({collapsed});
+    };
+
+    componentWillMount() {
+        this.testHeight();
+        window.onresize = this.testHeight;
     }
 
+    testHeight = () => {
+        const h = document.documentElement.clientHeight;//可见区域高度
+        const minHeight = (h - 64) + "px";
+        this.setState({
+            minHeight: minHeight
+        })
+    };
+
     render() {
-        /*if (!this.props.userInfo.message) {
-            let redirect = this.props.location.pathname + this.props.location.search;
-            this.props.history.push('/login?message=login&redirect_uri=' + encodeURIComponent(redirect));
-        }*/
         return (
             <Router>
-                <Grid style={{padding: '15px'}}>
-                    <Grid.Row>
-                        <Grid.Column width={16}>
-                            <Header as='h2' textAlign='center'>
-                                Mindvation
-                                <Button floated='right' onClick={() => this.userLogOut()}>Log out</Button>
-                            </Header>
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column width={2}>
+                <Layout>
+                    <Header style={{paddingTop: '17px'}}><CommonHeader/></Header>
+                    <Layout>
+                        <Sider collapsible
+                               collapsed={this.state.collapsed}
+                               onCollapse={this.onCollapse}
+                               className="sider-menu"
+                        >
                             <Menu/>
-                        </Grid.Column>
-
-                        <Grid.Column stretched width={14}>
+                        </Sider>
+                        <Content style={{minHeight: this.state.minHeight}}>
                             {routes.map((route, index) => (
                                 // Render more <Route>s with the same paths as
                                 // above, but different components this time.
@@ -65,9 +76,9 @@ class HomePage extends Component {
                                     component={route.main}
                                 />
                             ))}
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+                        </Content>
+                    </Layout>
+                </Layout>
             </Router>
         );
     }
