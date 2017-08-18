@@ -52,7 +52,7 @@ class Logon extends Component {
                 >
                     <Grid.Column style={{maxWidth: 450}}>
                         <Header as='h2' color='teal' textAlign='center'>
-                            <Image src='./logo.png'/>
+                            <Image src={require('../../res/image/logo.png')}/>
                             {' '}Log-in to your account
                         </Header>
                         <Form size='large'>
@@ -86,15 +86,6 @@ class Logon extends Component {
                     </Grid.Column>
                 </Grid>
             </div>
-
-            /*<div>
-                userName:<input ref={node => userName = node}/>
-                passWord:<input ref={node => passWord = node}/>
-                <button onClick={() => this.logonService()}>Logon</button>
-                <div>
-                    {/!*{this.props.userInfo.message}*!/}
-                </div>
-            </div>*/
         );
     }
 }

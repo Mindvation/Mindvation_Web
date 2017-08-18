@@ -28,22 +28,5 @@ export function logon(user) {
                     console.info('登录失败，账号或密码错误');
                 }
             });
-
-        /*fetch('http://192.168.0.105:8081/sports-meetup-papi/users/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(response => response.json())
-            .then(json => {
-                dispatch(logonSuccess(json))
-            })
-            .catch(err => {
-                throw err;
-            })*/
     }
 }

@@ -15,7 +15,7 @@ class App extends Component {
                     <Route exact path="/" render={() => (
                         <Redirect to="/login"/>
                     )}/>
-                    <Route path="/homePage"  component={HomePage}/>
+                    <Route path="/homePage" component={HomePage}/>
                     <Route path="/login" component={LoginPage}/>
                 </div>
             </Router>

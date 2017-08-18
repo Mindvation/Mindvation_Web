@@ -46,6 +46,9 @@ export default function request(method, url, body) {
                 }
                 return res.json();
             }
+        })
+        .catch(error => {
+            return error
         });
 }
 
