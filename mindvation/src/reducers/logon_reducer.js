@@ -7,7 +7,7 @@ function userInfo(state = {}, action) {
         case LOG_OUT:
             return {};
         default:
-            return state
+            return state;
     }
 }
 

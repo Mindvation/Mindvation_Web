@@ -24,7 +24,7 @@ const routes = [
     {
         path: '/homePage/Test1',
         main: () => <Test1/>
-    },
+    }
 ];
 
 class HomePage extends Component {

@@ -23,6 +23,7 @@ const datas = [["P0001", "DMS", "A system to solve industry project issues which
 ];*/
 
 const header = ["Project ID", "Project Name", "Description"];
+const projectKey = ['projectId', 'projectName', 'Description'];
 
 class ProjectsList extends Component {
     render() {
@@ -43,11 +44,13 @@ class ProjectsList extends Component {
                     {
                         projectList.map((result, i) => {
                             return <Table.Row key={i}>
-                                {Object.values(result).map((data, j) => {
-                                    return <Table.Cell collapsing key={i + "_" + j}>
-                                        {data}
-                                    </Table.Cell>
-                                })}
+                                {
+                                    projectKey.map((key, j) => {
+                                        return <Table.Cell collapsing key={i + "_" + j}>
+                                            {result[key]}
+                                        </Table.Cell>
+                                    })
+                                }
                             </Table.Row>
                         })
                     }

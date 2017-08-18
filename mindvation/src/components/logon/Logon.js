@@ -4,6 +4,7 @@ import {Button, Form, Grid, Header, Image, Message, Segment, Input} from 'semant
 import {
     Redirect
 } from 'react-router-dom';
+import 'url-search-params-polyfill';
 
 let userName;
 let passWord;
@@ -11,7 +12,6 @@ let passWord;
 class Logon extends Component {
     constructor(props) {
         super(props);
-        this.state = {response: ''};
     }
 
     logonService() {
@@ -25,7 +25,7 @@ class Logon extends Component {
     render() {
         const {userInfo} = this.props;
 
-        if (userInfo.message) {
+        if (userInfo.responseCode === "000") {
             let redirect = this.props.location.pathname + this.props.location.search;
             let urlParams = new URLSearchParams(decodeURIComponent(redirect));
             let newUrl = urlParams.get("redirect_uri");
@@ -55,6 +55,10 @@ class Logon extends Component {
                             <Image src={require('../../res/image/logo.png')}/>
                             {' '}Log-in to your account
                         </Header>
+                        {userInfo.responseCode && userInfo.responseCode !== "000" ?
+                            <Message style={{textAlign: 'left'}} error>
+                                <p>{userInfo.message}</p>
+                            </Message> : null}
                         <Form size='large'>
                             <Segment stacked>
                                 <Form.Field>
@@ -80,9 +84,9 @@ class Logon extends Component {
                                         onClick={() => this.logonService()}>Login</Button>
                             </Segment>
                         </Form>
-                        <Message>
+                        {/*<Message>
                             New to us? <a href='#'>Sign Up</a>
-                        </Message>
+                        </Message>*/}
                     </Grid.Column>
                 </Grid>
             </div>

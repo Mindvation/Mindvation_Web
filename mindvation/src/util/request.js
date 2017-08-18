@@ -1,4 +1,5 @@
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
+import errorMsg from '../res/data/errorMessage.json';
 
 const history = createHistory();
 
@@ -47,9 +48,38 @@ export default function request(method, url, body) {
                 return res.json();
             }
         })
+        .then(res => {
+            let errorInfo = _respHandle(res);
+            return errorInfo ? Promise.resolve(errorInfo) : Promise.resolve(res);
+        })
         .catch(error => {
-            return error
+            let errorInfo = _errorHandle(error);
+            return Promise.resolve(errorInfo);
         });
+}
+
+function _respHandle(res) {
+    if (res.responseCode !== "000") {
+        return {
+            'responseCode': res.responseCode,
+            'message': errorMsg[res.responseCode] ? errorMsg[res.responseCode] : errorMsg.default
+        };
+    }
+    return;
+}
+
+function _errorHandle(error) {
+    if (error.message) {
+        return {
+            'responseCode': 'A001',
+            'message': error.message
+        }
+    }
+
+    return {
+        'responseCode': 'A001',
+        'message': '系统错误'
+    }
 }
 
 export const get = (url, body) => request('GET', url, body);
