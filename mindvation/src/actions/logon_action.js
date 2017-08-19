@@ -20,17 +20,17 @@ export function logOut() {
 
 export function logon(user) {
     return dispatch => {
-        /*post('http://192.168.0.103:8081/sports-meetup-papi/users/login', user)
+        post('http://192.168.0.103:8081/sports-meetup-papi/users/login', user)
             .then((res) => {
                 if (res) {
                     dispatch(logonSuccess(res))
                 } else {
                     console.info('登录失败，账号或密码错误');
                 }
-            });*/
-        const res = {
+            });
+        /*const res = {
             'responseCode': '000'
         };
-        dispatch(logonSuccess(res))
+        dispatch(logonSuccess(res))*/
     }
 }

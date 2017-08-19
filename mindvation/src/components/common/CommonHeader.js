@@ -16,7 +16,7 @@ class CommonHeader extends Component {
         }*/
         return (
             <Header as='h2' textAlign='center'>
-                <span style={{color:'#f9f9f9'}}>Mindvation</span>
+                <span style={{color: '#f9f9f9'}}>Mindvation</span>
                 <Button floated='right' onClick={() => this.userLogOut()}>Log out</Button>
             </Header>
         );

@@ -19,6 +19,7 @@ class Logon extends Component {
             "phoneNumber": userName.inputRef.value,
             "password": passWord.inputRef.value
         };
+        //TODO this.props.dispatch(logon(user,this.props.history));
         this.props.dispatch(logon(user));
     }
 

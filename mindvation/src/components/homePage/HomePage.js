@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Menu from './Menu';
 import Test1 from '../test/Test1';
 import Test2 from '../test/Test2';
-import CommonHeader from '../common/CommonHeader';
+import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
 import {Layout} from 'antd';
 import {
@@ -56,7 +56,7 @@ class HomePage extends Component {
         return (
             <Router>
                 <Layout>
-                    <Header style={{paddingTop: '17px'}}><CommonHeader/></Header>
+                    <Header style={{paddingTop: '17px'}}><CommonHeader history={this.props.history}/></Header>
                     <Layout>
                         <Sider collapsible
                                collapsed={this.state.collapsed}

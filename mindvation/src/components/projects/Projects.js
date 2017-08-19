@@ -8,7 +8,7 @@ class Projects extends Component {
     render() {
         const {dispatch, projectList} = this.props;
         return (
-            <div>
+            <div className="project-content">
                 <Header as='h3'>
                     <Icon name='window maximize'/>
                     <Header.Content className={"Project-title UnderLine"}>

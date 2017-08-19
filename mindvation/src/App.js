@@ -6,11 +6,12 @@ import {
     Route,
     Redirect
 } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 
 class App extends Component {
     render() {
         return (
-            <Router>
+            <Router history={createHistory()}>
                 <div>
                     <Route exact path="/" render={() => (
                         <Redirect to="/login"/>
