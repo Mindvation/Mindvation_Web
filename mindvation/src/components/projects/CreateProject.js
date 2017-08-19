@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import BasicInfo from './create/BasicInfo';
+import OtherInfo from './create/OtherInfo';
+import MultiImage from '../common/MultiImage';
+import UploadFile from '../common/UploadFile';
+import SingleImage from '../common/SingleImage';
 import {createProject} from '../../actions/projects_action';
 
 let basicModule;
@@ -31,6 +35,10 @@ class CreateProject extends Component {
                     <BasicInfo ref={node => {
                         basicModule = node
                     }}/>
+                    <OtherInfo/>
+                    <SingleImage/>
+                    <MultiImage/>
+                    <UploadFile/>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
                             Cancel

@@ -44,9 +44,14 @@ class HomePage extends Component {
         window.onresize = this.testHeight;
     }
 
+    componentWillUnmount() {
+        window.onresize = null;
+    }
+
     testHeight = () => {
         const h = document.documentElement.clientHeight;//可见区域高度
         const minHeight = (h - 64) + "px";
+        console.info("minHeight==" + minHeight);
         this.setState({
             minHeight: minHeight
         })
