@@ -51,6 +51,7 @@ class OtherInfo extends Component {
                 <RangePicker
                     ranges={{Today: [moment(), moment()], 'This Month': [moment(), moment().endOf('month')]}}
                     onChange={this.dateChange}
+                    placeholder={["Start Date","End Date"]}
                 />
                 <Header as='h4'>
                     <Icon name='user'/>

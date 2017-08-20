@@ -9,7 +9,7 @@ class MultiImage extends Component {
             uid: -1,
             name: 'xxx.png',
             status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            url: require('../../res/image/photo.jpg')
         }],
     };
 

@@ -5,6 +5,7 @@ import {
     Redirect
 } from 'react-router-dom';
 import 'url-search-params-polyfill';
+import {FormattedMessage} from 'react-intl';
 
 let userName;
 let passWord;
@@ -46,8 +47,11 @@ class Logon extends Component {
                 >
                     <Grid.Column style={{maxWidth: 450}}>
                         <Header as='h2' color='teal' textAlign='center'>
-                            <Image src={require('../../res/image/logo.png')}/>
-                            {' '}Log-in to your account
+                            <Image src={require('../../res/image/logo.png')}/>{' '}
+                            <FormattedMessage
+                                id='logInAccount'
+                                defaultMessage='Log-in to your account!'
+                            />
                         </Header>
                         {userInfo.responseCode && userInfo.responseCode !== "000" ?
                             <Message style={{textAlign: 'left'}} error>

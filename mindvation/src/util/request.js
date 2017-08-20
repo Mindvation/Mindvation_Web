@@ -34,7 +34,7 @@ export default function request(method, url, body) {
                 let redirect = '';
                 if (location.pathname !== "/login" && location.pathname !== "/") {
                     redirect = location.pathname + location.search;
-                    redirect = '/login?message=login&redirect_uri=' + encodeURIComponent(redirect);
+                    redirect = '/login?language=login&redirect_uri=' + encodeURIComponent(redirect);
                 }
 
                 let url = redirect ? redirect : '/login';

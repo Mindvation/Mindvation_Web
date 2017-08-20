@@ -10,9 +10,9 @@ class CommonHeader extends Component {
     }
 
     render() {
-        /*if (!this.props.userInfo.message) {
+        /*if (!this.props.userInfo.language) {
             let redirect = this.props.location.pathname + this.props.location.search;
-            this.props.history.push('/login?message=login&redirect_uri=' + encodeURIComponent(redirect));
+            this.props.history.push('/login?language=login&redirect_uri=' + encodeURIComponent(redirect));
         }*/
         return (
             <Header as='h2' textAlign='center'>
