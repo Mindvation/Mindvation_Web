@@ -9,6 +9,7 @@ import {
 import createHistory from 'history/createBrowserHistory';
 
 class App extends Component {
+
     render() {
         return (
             <Router history={createHistory()}>

@@ -3,6 +3,7 @@ import ProjectsList from './ProjectsList';
 import {Header, Icon} from 'semantic-ui-react';
 import './Projects.css';
 import CreateProject from './CreateProject';
+import ECharts from './ECharts';
 
 class Projects extends Component {
     render() {
@@ -21,6 +22,7 @@ class Projects extends Component {
                 <CreateProject
                     dispatch={dispatch}
                 />
+                <ECharts/>
             </div>
         );
     }

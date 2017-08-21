@@ -7,6 +7,19 @@ import {
 import 'url-search-params-polyfill';
 import {FormattedMessage} from 'react-intl';
 
+import {intlShape, injectIntl, defineMessages} from 'react-intl';
+
+const messages = defineMessages({
+    userNameDescription: {
+        id: 'userName',
+        defaultMessage: 'User name'
+    },
+    passWordDescription: {
+        id: 'passWord',
+        defaultMessage: 'Password'
+    }
+});
+
 let userName;
 let passWord;
 
@@ -26,6 +39,7 @@ class Logon extends Component {
 
     render() {
         const {userInfo} = this.props;
+        const {formatMessage} = this.props.intl;
 
         if (userInfo.responseCode === "000") {
             let redirect = this.props.location.pathname + this.props.location.search;
@@ -39,6 +53,7 @@ class Logon extends Component {
         }
 
         return (
+
             <div className='login-form'>
                 <Grid
                     textAlign='center'
@@ -64,7 +79,7 @@ class Logon extends Component {
                                         fluid
                                         icon='user'
                                         iconPosition='left'
-                                        placeholder='User Name'
+                                        placeholder={formatMessage(messages.userNameDescription)}
                                         ref={node => userName = node}
                                     />
                                 </Form.Field>
@@ -73,13 +88,18 @@ class Logon extends Component {
                                         fluid
                                         icon='lock'
                                         iconPosition='left'
-                                        placeholder='Password'
+                                        placeholder={formatMessage(messages.passWordDescription)}
                                         type='password'
                                         ref={node => passWord = node}
                                     />
                                 </Form.Field>
                                 <Button color='teal' fluid size='large'
-                                        onClick={() => this.logonService()}>Login</Button>
+                                        onClick={() => this.logonService()}>
+                                    <FormattedMessage
+                                        id='logIn'
+                                        defaultMessage='Log in'
+                                    />
+                                </Button>
                             </Segment>
                         </Form>
                         {/*<Message>
@@ -92,4 +112,4 @@ class Logon extends Component {
     }
 }
 
-export default Logon;
+export default injectIntl(Logon);
