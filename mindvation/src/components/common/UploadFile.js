@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Upload, Icon, message, Button} from 'antd';
+import {Upload, Icon, Button} from 'antd';
 
 class UploadFile extends Component {
     state = {

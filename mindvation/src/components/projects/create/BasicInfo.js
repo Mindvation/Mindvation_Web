@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Input, Form, TextArea} from 'semantic-ui-react';
+import {Header, Modal} from 'semantic-ui-react';
+import Input from '../../common/Input';
+import TextArea from '../../common/TextArea';
 
 let name;
 let description;
@@ -9,8 +11,8 @@ class BasicInfo extends Component {
     getBasicInfo = () => {
         return {
             "projectId": "P002",
-            "projectName": name.inputRef.value,
-            "Description": description.ref.value
+            "projectName": name.getValue(),
+            "Description": description.getValue()
         }
     };
 
@@ -20,26 +22,14 @@ class BasicInfo extends Component {
                 <Modal.Description>
                     <Header as="h3" className="modal-header">Basic info</Header>
                 </Modal.Description>
-                <Header as='h4'>
-                    <Icon name='product hunt'/>
-                    <Header.Content>
-                        Project Name
-                    </Header.Content>
-                </Header>
-                <Input fluid ref={node => {
-                    name = node
-                }}/>
-                <Header as='h4'>
-                    <Icon name='book'/>
-                    <Header.Content>
-                        Description
-                    </Header.Content>
-                </Header>
-                <Form>
-                    <TextArea ref={node => {
-                        description = node
-                    }} autoHeight style={{minHeight: 100}}/>
-                </Form>
+                <Input label="Project Name" icon="product hunt" required={true} checked={false}
+                       ref={node => {
+                           name = node
+                       }}/>
+                <TextArea label="Description" icon="book" required={true} checked={false}
+                          ref={node => {
+                              description = node
+                          }}/>
             </Modal.Content>
         );
     }

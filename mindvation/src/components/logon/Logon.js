@@ -7,7 +7,7 @@ import {
 import 'url-search-params-polyfill';
 import {FormattedMessage} from 'react-intl';
 
-import {intlShape, injectIntl, defineMessages} from 'react-intl';
+import {injectIntl, defineMessages} from 'react-intl';
 
 const messages = defineMessages({
     userNameDescription: {
@@ -24,9 +24,6 @@ let userName;
 let passWord;
 
 class Logon extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     logonService() {
         const user = {

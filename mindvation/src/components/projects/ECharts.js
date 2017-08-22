@@ -2,10 +2,7 @@ import React, {Component} from 'react';
 import {Segment} from 'semantic-ui-react';
 import echarts from 'echarts';
 
-class EchartsTest extends Component {
-    constructor(props) {
-        super(props);
-    }
+class Echarts extends Component {
 
     componentDidMount() {
         this.getECharts();
@@ -197,4 +194,4 @@ class EchartsTest extends Component {
     }
 }
 
-export default EchartsTest;
+export default Echarts;

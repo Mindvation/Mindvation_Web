@@ -1,0 +1,21 @@
+.components-item {
+    margin-top: 15px;
+}
+
+.components-length {
+    width: 80% !important;
+}
+
+.input-label:after {
+    margin: -.2em 0 0 .2em;
+    content: '*';
+    color: #db2828;
+}
+
+.ui.form textarea.error {
+    background-color: #fff6f6;
+    border-color: #e0b4b4;
+    color: #9f3a38;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

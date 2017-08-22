@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Input, Button, Form, TextArea, Dropdown} from 'semantic-ui-react';
+import {Header, Icon, Modal, Dropdown} from 'semantic-ui-react';
 import {DatePicker} from 'antd';
 import moment from 'moment';
 
@@ -51,7 +51,7 @@ class OtherInfo extends Component {
                 <RangePicker
                     ranges={{Today: [moment(), moment()], 'This Month': [moment(), moment().endOf('month')]}}
                     onChange={this.dateChange}
-                    placeholder={["Start Date","End Date"]}
+                    placeholder={["Start Date", "End Date"]}
                 />
                 <Header as='h4'>
                     <Icon name='user'/>
