@@ -35,7 +35,6 @@ class HomePage extends Component {
         minHeight: '0px'
     };
     onCollapse = (collapsed) => {
-        console.log(collapsed);
         this.setState({collapsed});
     };
 
@@ -51,7 +50,6 @@ class HomePage extends Component {
     testHeight = () => {
         const h = document.documentElement.clientHeight;//可见区域高度
         const minHeight = (h - 64) + "px";
-        console.info("minHeight==" + minHeight);
         this.setState({
             minHeight: minHeight
         })
