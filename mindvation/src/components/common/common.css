@@ -1,5 +1,5 @@
 .components-item {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .components-length {
@@ -12,10 +12,55 @@
     color: #db2828;
 }
 
-.ui.form textarea.error {
+.ui.form textarea.components-error,
+.ui.selection.dropdown.components-error,
+.components-error .ant-calendar-picker-input {
     background-color: #fff6f6;
     border-color: #e0b4b4;
     color: #9f3a38;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.ant-input {
+    height: 38px;
+    font-size: 14px;
+    padding: .78571429em 2.1em .78571429em 1em;
+}
+
+.ant-calendar-range-picker-input {
+    font-size: 14px;
+}
+
+.ant-calendar-picker-icon:after {
+    font-size: 18px;
+}
+
+.ant-calendar-picker-clear,
+.ant-calendar-picker-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+}
+
+.ant-input:hover {
+    border-color: rgba(34, 36, 38, .35) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.item-horizontal{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    padding: 0;
 }

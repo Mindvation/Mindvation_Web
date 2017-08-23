@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Dropdown} from 'semantic-ui-react';
-import {DatePicker} from 'antd';
-import moment from 'moment';
+import {Header, Icon, Modal} from 'semantic-ui-react';
+import Select from '../../common/Select';
+import DatePicker from '../../common/DatePicker';
 
-const RangePicker = DatePicker.RangePicker;
 const assignOptions = [
     {
         text: 'Bob',
@@ -27,6 +26,21 @@ const assignOptions = [
     }
 ];
 
+const priorityOptions = [
+    {
+        text: 'High',
+        value: 'h'
+    },
+    {
+        text: 'Medium',
+        value: 'm'
+    },
+    {
+        text: 'Low',
+        value: 'l'
+    }
+];
+
 class OtherInfo extends Component {
 
     state = {};
@@ -40,33 +54,28 @@ class OtherInfo extends Component {
         return (
             <Modal.Content>
                 <Modal.Description>
-                    <Header as="h3" className="modal-header">Other Info</Header>
+                    <Header as="h3" className="modal-header">Additional Info</Header>
                 </Modal.Description>
                 <Header as='h4'>
-                    <Icon name='clock'/>
+                    <Icon name='tag'/>
                     <Header.Content>
-                        Start / End Date
+                        Tags
                     </Header.Content>
                 </Header>
-                <RangePicker
-                    ranges={{Today: [moment(), moment()], 'This Month': [moment(), moment().endOf('month')]}}
-                    onChange={this.dateChange}
-                    placeholder={["Start Date", "End Date"]}
+                <Select icon="flag" options={priorityOptions} label="Priority" placeHolder="Priority"/>
+                <Select icon="user" options={assignOptions} multiple={true} label="Leaders" search={true}
+                        placeHolder="Leaders"
+                        horizontal={true}/>
+                <DatePicker icon="clock" label="Start / End Date"
+                            placeHolder={["Start Date", "End Date"]}
+                            range={true}
                 />
                 <Header as='h4'>
-                    <Icon name='user'/>
+                    <Icon name='file'/>
                     <Header.Content>
-                        Assign To
+                        Choose Project Models
                     </Header.Content>
                 </Header>
-                <Dropdown placeholder='Assgin to' fluid search selection options={assignOptions}/>
-                <Header as='h4'>
-                    <Icon name='attach'/>
-                    <Header.Content>
-                        Attachments
-                    </Header.Content>
-                </Header>
-
             </Modal.Content>
         );
     }

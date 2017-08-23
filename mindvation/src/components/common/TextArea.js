@@ -46,7 +46,7 @@ class MVTextArea extends Component {
                         inputValue = node
                     }}
                     placeholder={placeHolder}
-                    className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "error" : "")}
+                    className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                     onChange={this.checkValue}/>
                 </Form>
             </div>

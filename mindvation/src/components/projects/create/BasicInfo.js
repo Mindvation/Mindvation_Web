@@ -25,7 +25,8 @@ class BasicInfo extends Component {
                 <Input label="Project Name" icon="product hunt" required={true} checked={false}
                        ref={node => {
                            name = node
-                       }}/>
+                       }}
+                />
                 <TextArea label="Description" icon="book" required={true} checked={false}
                           ref={node => {
                               description = node
