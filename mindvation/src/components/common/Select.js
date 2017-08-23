@@ -33,14 +33,14 @@ class MVSelect extends Component {
         const {label, options, icon, required, checked, search, multiple, placeHolder, horizontal} = this.props;
 
         return (
-            <div className={"components-item" + " " + (horizontal ? "item-horizontal" : "")}>
+            <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}>
                 <Header as='h4'>
                     {icon ? <Icon name={icon}/> : null}
                     <Header.Content className={required ? "input-label" : null}>
                         {label}
                     </Header.Content>
                 </Header>
-                <Dropdown placeholder={placeHolder} fluid search={search} multiple={multiple} selection
+                <Dropdown placeholder={placeHolder} search={search} multiple={multiple} selection
                           options={options}
                           className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                           onChange={(event, data) => {

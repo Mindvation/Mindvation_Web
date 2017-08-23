@@ -41,6 +41,41 @@ const priorityOptions = [
     }
 ];
 
+const contingencyOptions = [
+    {
+        text: '10%',
+        value: '10'
+    },
+    {
+        text: '20%',
+        value: '20'
+    },
+    {
+        text: '30%',
+        value: '30'
+    },
+    {
+        text: '50%',
+        value: '50'
+    },
+    {
+        text: '75%',
+        value: '75'
+    },
+    {
+        text: '100%',
+        value: '100'
+    },
+    {
+        text: '150%',
+        value: '150'
+    },
+    {
+        text: '200%',
+        value: '200'
+    },
+];
+
 class OtherInfo extends Component {
 
     state = {};
@@ -64,8 +99,7 @@ class OtherInfo extends Component {
                 </Header>
                 <Select icon="flag" options={priorityOptions} label="Priority" placeHolder="Priority"/>
                 <Select icon="user" options={assignOptions} multiple={true} label="Leaders" search={true}
-                        placeHolder="Leaders"
-                        horizontal={true}/>
+                        placeHolder="Leaders"/>
                 <DatePicker icon="clock" label="Start / End Date"
                             placeHolder={["Start Date", "End Date"]}
                             range={true}
@@ -76,6 +110,20 @@ class OtherInfo extends Component {
                         Choose Project Models
                     </Header.Content>
                 </Header>
+                <Select options={assignOptions} label="Software Model"
+                        placeHolder="Software Model"
+                        horizontal={true}/>
+                <Select options={assignOptions} label="Engineering Model"
+                        placeHolder="Engineering Model"
+                        horizontal={true}/>
+                <Select options={assignOptions} label="Business Requirement Model"
+                        placeHolder="Business Requirement Models"
+                        horizontal={true}/>
+                <Select options={assignOptions} label="Technique Model"
+                        placeHolder="Technique Model"
+                        horizontal={true}/>
+                <Select icon="percent" options={contingencyOptions} label="Contingency"
+                        placeHolder="Contingency"/>
             </Modal.Content>
         );
     }
