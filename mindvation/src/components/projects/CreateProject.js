@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import {Button, Modal, Divider} from 'semantic-ui-react';
 import BasicInfo from './create/BasicInfo';
 import AdditionalInfo from './create/AdditionalInfo';
+import OptionalItem from './create/OptionalItem';
 import {createProject} from '../../actions/projects_action';
+import {celarTempChecklist} from '../../actions/checklist_action';
+import {isEmpty} from '../../util/CommUtil';
 
-let basicModule;
+let basicModule, optionalModule, AdditionalModule;
+let mandatoryFile = ["projectName", "description"];
 
 class CreateProject extends Component {
     state = {modalOpen: false};
@@ -13,14 +17,34 @@ class CreateProject extends Component {
 
     closeModal = () => this.setState({modalOpen: false});
 
+    checkCompleted = (info) => {
+        let flag = true;
+        mandatoryFile.some((result) => {
+            if (isEmpty(info[result])) {
+                flag = false;
+                return true;
+            }
+        });
+        return flag;
+    };
+
     newProject = () => {
-        let project = basicModule.getBasicInfo();
-        this.props.dispatch(createProject(project));
-        this.setState({modalOpen: false});
+
+        let basicInfo = basicModule.getInfo();
+        let optionalInfo = optionalModule.getInfo();
+        let additionalInfo = AdditionalModule.getInfo();
+        let projectInfo = Object.assign(basicInfo, additionalInfo, optionalInfo);
+        let flag = this.checkCompleted(projectInfo);
+        if (flag) {
+            this.props.dispatch(createProject(projectInfo));
+            this.props.dispatch(celarTempChecklist());
+            this.setState({modalOpen: false});
+        }
     };
 
     render() {
         const {modalOpen} = this.state;
+        const {dispatch} = this.props;
         return (
             <div>
                 <Button color='blue' onClick={() => this.openModal()}>+ Create Project</Button>
@@ -33,7 +57,12 @@ class CreateProject extends Component {
                         basicModule = node
                     }}/>
                     <Divider/>
-                    <AdditionalInfo/>
+                    <AdditionalInfo ref={node => {
+                        AdditionalModule = node
+                    }}/>
+                    <OptionalItem dispatch={dispatch} ref={node => {
+                        optionalModule = node
+                    }}/>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
                             Cancel

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Dropdown, Icon} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-
-let inputValue;
+import {isEmpty} from '../../util/CommUtil';
 
 class MVSelect extends Component {
     state = {
@@ -11,8 +10,8 @@ class MVSelect extends Component {
     };
 
     checkValue = (event, data) => {
-        inputValue = data.value;
-        if (inputValue === null || inputValue === undefined || inputValue === "") {
+        let inputValue = data.value;
+        if (isEmpty(inputValue)) {
             this.setState({
                 isEmpty: true,
                 selfChecked: true
@@ -23,10 +22,14 @@ class MVSelect extends Component {
                 selfChecked: true
             })
         }
+
+        this.setState({
+            returnValue: inputValue
+        })
     };
 
     getValue = () => {
-        return inputValue;
+        return this.state.returnValue;
     };
 
     render() {

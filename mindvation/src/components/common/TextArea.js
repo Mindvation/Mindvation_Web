@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import {Header, TextArea, Icon, Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-
-let inputValue;
+import {isEmpty} from '../../util/CommUtil';
 
 class MVTextArea extends Component {
     state = {
         isEmpty: true,
-        selfChecked: false
+        selfChecked: false,
     };
 
-    checkValue = () => {
-        const value = inputValue.ref.value;
-        if (value === null || value === undefined || value === "") {
+    checkValue = (event, data) => {
+        let inputValue = data.value;
+        if (isEmpty(inputValue)) {
             this.setState({
                 isEmpty: true,
                 selfChecked: true
@@ -23,10 +22,13 @@ class MVTextArea extends Component {
                 selfChecked: true
             })
         }
+        this.setState({
+            returnValue: inputValue
+        })
     };
 
     getValue = () => {
-        return inputValue.ref.value;
+        return this.state.returnValue;
     };
 
     render() {
@@ -42,12 +44,9 @@ class MVTextArea extends Component {
                 <Form>
                 <TextArea
                     autoHeight style={{minHeight: 100}}
-                    ref={node => {
-                        inputValue = node
-                    }}
                     placeholder={placeHolder}
                     className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
-                    onChange={this.checkValue}/>
+                    onChange={(event, data) => this.checkValue(event, data)}/>
                 </Form>
             </div>
         );

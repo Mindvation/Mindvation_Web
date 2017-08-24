@@ -22,8 +22,8 @@ const datas = [["P0001", "DMS", "A system to solve industry project issues which
     ["P0018", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"]
 ];*/
 
-const header = ["Project ID", "Project Name", "Description"];
-const projectKey = ['projectId', 'projectName', 'Description'];
+const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Check List Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
+const projectKey = ['projectId', 'projectName', 'description', 'checklist'];
 
 class ProjectsList extends Component {
     render() {
@@ -34,7 +34,7 @@ class ProjectsList extends Component {
                     <Table.Row>
                         {
                             header.map((result, i) => {
-                                return <Table.HeaderCell collapsing key={i}>{result}</Table.HeaderCell>
+                                return <Table.HeaderCell  key={i}>{result}</Table.HeaderCell>
                             })
                         }
                     </Table.Row>
@@ -46,7 +46,7 @@ class ProjectsList extends Component {
                             return <Table.Row key={i}>
                                 {
                                     projectKey.map((key, j) => {
-                                        return <Table.Cell collapsing key={i + "_" + j}>
+                                        return <Table.Cell  key={i + "_" + j}>
                                             {result[key]}
                                         </Table.Cell>
                                     })

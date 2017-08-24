@@ -43,10 +43,16 @@
     font-size: 15px;
 }
 
-.ant-input:hover {
+.ant-input:focus,
+.ant-input:hover{
     border-color: rgba(34, 36, 38, .35) !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
+}
+
+.components-error .ant-calendar-picker-icon:after,
+.components-error .ant-picker-icon:after {
+    color: #9f3a38;
 }
 
 .item-horizontal {

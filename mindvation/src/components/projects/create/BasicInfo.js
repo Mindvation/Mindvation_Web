@@ -4,15 +4,17 @@ import Input from '../../common/Input';
 import TextArea from '../../common/TextArea';
 
 let name;
-let description;
+let projectDesc;
 
 class BasicInfo extends Component {
-
-    getBasicInfo = () => {
+    state = {checked: false};
+    getInfo = () => {
+        this.setState({
+            checked: true
+        });
         return {
-            "projectId": "P002",
             "projectName": name.getValue(),
-            "Description": description.getValue()
+            "description": projectDesc.getValue()
         }
     };
 
@@ -22,15 +24,18 @@ class BasicInfo extends Component {
                 <Modal.Description>
                     <Header as="h3" className="modal-header">Basic info</Header>
                 </Modal.Description>
-                <Input label="Project Name" icon="product hunt" required={true} checked={false}
+                <Input label="Project Name" icon="product hunt" required={true}
                        ref={node => {
                            name = node
                        }}
+                       checked={this.state.checked}
                 />
-                <TextArea label="Description" icon="book" required={true} checked={false}
+                <TextArea label="Description" icon="book" required={true}
                           ref={node => {
-                              description = node
-                          }}/>
+                              projectDesc = node
+                          }}
+                          checked={this.state.checked}
+                />
             </Modal.Content>
         );
     }

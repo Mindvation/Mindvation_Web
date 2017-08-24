@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Input, Icon} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-
-let inputValue;
+import {isEmpty} from '../../util/CommUtil';
 
 class MVInput extends Component {
     state = {
@@ -10,9 +9,9 @@ class MVInput extends Component {
         selfChecked: false
     };
 
-    checkValue = () => {
-        const value = inputValue.inputRef.value;
-        if (value === null || value === undefined || value === "") {
+    checkValue = (event, data) => {
+        let inputValue = data.value;
+        if (isEmpty(inputValue)) {
             this.setState({
                 isEmpty: true,
                 selfChecked: true
@@ -23,10 +22,14 @@ class MVInput extends Component {
                 selfChecked: true
             })
         }
+
+        this.setState({
+            returnValue: inputValue
+        })
     };
 
     getValue = () => {
-        return inputValue.inputRef.value;
+        return this.state.returnValue;
     };
 
     render() {
@@ -40,13 +43,10 @@ class MVInput extends Component {
                     </Header.Content>
                 </Header>
                 <Input fluid
-                       ref={node => {
-                           inputValue = node
-                       }}
                        placeholder={placeHolder}
                        error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
                        className="components-length"
-                       onChange={this.checkValue}/>
+                       onChange={(event, data) => this.checkValue(event, data)}/>
             </div>
         );
     }

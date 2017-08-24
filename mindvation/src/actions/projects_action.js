@@ -3,6 +3,7 @@
  */
 
 export const CREATE_PROJECT = 'CREATE_PROJECT';
+export const ADD_CHECKLIST = 'ADD_CHECKLIST';
 
 
 /*
@@ -11,4 +12,8 @@ export const CREATE_PROJECT = 'CREATE_PROJECT';
 
 export function createProject(project) {
     return {type: CREATE_PROJECT, project}
+}
+
+export function addChecklist(project, checklist) {
+    return {type: ADD_CHECKLIST, project, checklist}
 }

@@ -3,8 +3,8 @@ import {Header, Icon} from 'semantic-ui-react';
 import {DatePicker} from 'antd';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import {isEmpty} from '../../util/CommUtil';
 
-let inputValue;
 const RangePicker = DatePicker.RangePicker;
 
 class MVDatePicker extends Component {
@@ -14,9 +14,11 @@ class MVDatePicker extends Component {
     };
 
     dateChange = (event, data) => {
-        inputValue = data;
-        if (inputValue[0] === null || inputValue[0] === undefined || inputValue[0] === ""
-            || inputValue[1] === null || inputValue[1] === undefined || inputValue[1] === "") {
+        let inputValue = data;
+        const {range} = this.props;
+        if ((range && (isEmpty(inputValue[0]) || isEmpty(inputValue[1])))
+            || (!range && isEmpty(inputValue))
+        ) {
             this.setState({
                 isEmpty: true,
                 selfChecked: true
@@ -27,10 +29,14 @@ class MVDatePicker extends Component {
                 selfChecked: true
             })
         }
+
+        this.setState({
+            returnValue: inputValue
+        })
     };
 
     getValue = () => {
-        return inputValue;
+        return this.state.returnValue;
     };
 
     disabledDate = (current) => {
@@ -54,17 +60,11 @@ class MVDatePicker extends Component {
                         ranges={{Today: [moment(), moment()], 'This Month': [moment(), moment().endOf('month')]}}
                         onChange={this.dateChange}
                         className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
-                        ref={node => {
-                            inputValue = node
-                        }}
                         placeholder={placeHolder}
                         //disabledDate={this.disabledDate}
                     /> : <DatePicker
                         className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
                         onChange={this.dateChange}
-                        ref={node => {
-                            inputValue = node
-                        }}
                         placeholder={placeHolder}/>
                 }
             </div>
