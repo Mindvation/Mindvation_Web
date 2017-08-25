@@ -147,11 +147,11 @@ class AddTags extends Component {
     render() {
         const {modalOpen} = this.state;
         return (
-            <div style={{marginBottom: '10px'}}>
+            <div style={{marginBottom: '10px'}} className="components-length">
                 <TagList tagList={this.state.projectTags} handleClick={(tag) => {
                     this.removeProjectTags(tag)
                 }}/>
-                <Segment className="components-length">
+                <Segment>
                     <Header size='small' className="underLine">You can select some recommandations as below</Header>
                     <TagList
                         tagList={allTags.slice(0, 5)}
