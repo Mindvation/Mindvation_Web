@@ -51,7 +51,8 @@ class CreateProject extends Component {
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
-                    open={modalOpen}>
+                    open={modalOpen}
+                    size='large'>
                     <Modal.Header>Create New Project</Modal.Header>
                     <BasicInfo ref={node => {
                         basicModule = node

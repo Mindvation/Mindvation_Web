@@ -151,7 +151,7 @@ class AddTags extends Component {
                 <TagList tagList={this.state.projectTags} handleClick={(tag) => {
                     this.removeProjectTags(tag)
                 }}/>
-                <Segment>
+                <Segment className="components-length">
                     <Header size='small' className="underLine">You can select some recommandations as below</Header>
                     <TagList
                         tagList={allTags.slice(0, 5)}
