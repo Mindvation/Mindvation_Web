@@ -25,7 +25,6 @@
 .ant-input {
     height: 38px;
     font-size: 14px;
-    padding: .78571429em 2.1em .78571429em 1em;
 }
 
 .ant-calendar-range-picker-input {
@@ -44,7 +43,7 @@
 }
 
 .ant-input:focus,
-.ant-input:hover{
+.ant-input:hover {
     border-color: rgba(34, 36, 38, .35) !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
@@ -78,4 +77,9 @@
 
 .ui.selection.dropdown {
     flex: 1;
+}
+
+.ui.horizontal.list > .item {
+    margin-left: 0;
+    margin-right: 1em;
 }

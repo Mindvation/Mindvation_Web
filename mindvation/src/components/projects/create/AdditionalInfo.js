@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {Header, Icon, Modal} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
+import AddTags from "./AddTags";
 
-let priority, leaders, startEndDate, softwareModel, engineeringModel, businessModel, techniqueModel, contingency;
+let priority, leaders, startEndDate, softwareModel, engineeringModel, businessModel, techniqueModel, contingency,
+    addTagsNode;
 
 class OtherInfo extends Component {
 
@@ -17,7 +19,8 @@ class OtherInfo extends Component {
             "engineeringModel": engineeringModel.getValue(),
             "businessModel": businessModel.getValue(),
             "techniqueModel": techniqueModel.getValue(),
-            "contingency": contingency.getValue()
+            "contingency": contingency.getValue(),
+            "tags": addTagsNode.getValue()
         }
     };
 
@@ -33,6 +36,9 @@ class OtherInfo extends Component {
                         Tags
                     </Header.Content>
                 </Header>
+                <AddTags ref={node => {
+                    addTagsNode = node
+                }}/>
                 <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority" placeHolder="Priority"
                         ref={node => {
                             priority = node

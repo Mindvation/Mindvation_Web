@@ -22,7 +22,7 @@ class Projects extends Component {
             <div className="project-content">
                 <Header as='h3'>
                     <Icon name='window maximize'/>
-                    <Header.Content className={"Project-title UnderLine"}>
+                    <Header.Content className={"project-title underLine"}>
                         PROJECTS
                     </Header.Content>
                 </Header>

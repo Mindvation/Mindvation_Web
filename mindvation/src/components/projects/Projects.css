@@ -1,8 +1,8 @@
-.UnderLine {
+.underLine {
     text-decoration: underline;
 }
 
-.Project-title {
+.project-title {
     padding: 15px;
 }
 
@@ -54,4 +54,76 @@
     margin-top: 8px;
     font-size: 12px;
     color: #666;
+}
+
+.all-tags-segment {
+    max-height: calc(50vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.tags-icon {
+    position: absolute;
+    right: -10px;
+    top: -4px;
+}
+
+.tag-popup {
+    position: absolute;
+    top: 45px;
+    min-width: -webkit-min-content;
+    min-width: -moz-min-content;
+    min-width: min-content;
+    z-index: 1900;
+    border: 1px solid #d4d4d5;
+    line-height: 1.4285em;
+    background: #fff;
+    padding: .833em 1em;
+    font-weight: 400;
+    font-style: normal;
+    color: rgba(0, 0, 0, .87);
+    border-radius: .28571429rem;
+    box-shadow: 0 2px 4px 0 rgba(34, 36, 38, .12), 0 2px 10px 0 rgba(34, 36, 38, .15);
+}
+
+.tag-popup:before {
+    position: absolute;
+    content: '';
+    width: .71428571em;
+    height: .71428571em;
+    background: #fff;
+    -webkit-transform: rotate(225deg);
+    transform: rotate(225deg);
+    z-index: 2;
+    box-shadow: 1px 1px 0 0 #bababc;
+    top: -.30714286em;
+    left: 1em;
+    bottom: auto;
+    right: auto;
+    margin-left: 0;
+}
+
+.tag-popup-footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    padding: 0;
+    float: right;
+}
+
+.tag-popup-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }

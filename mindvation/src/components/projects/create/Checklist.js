@@ -6,10 +6,6 @@ const header = ["ID Number", "Description", "Follower", "Assigner", "Create Date
 const checklistKey = ["idNumber", "description", "follower", "assigner", "createDate", "lastUpdateDate", "status"];
 
 class Checklist extends Component {
-    getChecklists = () => {
-        const {checklist} = this.props;
-        return checklist;
-    };
 
     render() {
         const {checklist} = this.props;

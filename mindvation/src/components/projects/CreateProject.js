@@ -60,6 +60,7 @@ class CreateProject extends Component {
                     <AdditionalInfo ref={node => {
                         AdditionalModule = node
                     }}/>
+                    <Divider/>
                     <OptionalItem dispatch={dispatch} ref={node => {
                         optionalModule = node
                     }}/>

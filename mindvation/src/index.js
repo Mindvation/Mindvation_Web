@@ -14,6 +14,7 @@ import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
+import 'classlist-polyfill';
 
 const store = configureStore();
 
