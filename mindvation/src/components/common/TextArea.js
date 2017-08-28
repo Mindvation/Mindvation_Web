@@ -11,6 +11,16 @@ class MVTextArea extends Component {
         selfChecked: false,
     };
 
+    getWrappedInstance = () => {
+        if (this.props.widthRef) {
+            return this.wrappedInstance;
+        }
+    };
+
+    setWrappedInstance = (ref) => {
+        this.wrappedInstance = ref;
+    };
+
     checkValue = (event, data) => {
         let inputValue = data.value;
         if (isEmpty(inputValue)) {
@@ -34,7 +44,14 @@ class MVTextArea extends Component {
     };
 
     render() {
+        let props = {
+            ...this.props
+        };
         const {label, icon, required, checked, placeHolder} = this.props;
+        const {formatMessage} = this.props.intl;
+        if (this.props.withRef) {
+            props.ref = this.setWrappedInstance;
+        }
         return (
             <div className="components-item">
                 <Header as='h4'>
@@ -48,7 +65,7 @@ class MVTextArea extends Component {
                 <Form>
                 <TextArea
                     autoHeight style={{minHeight: 100}}
-                    placeholder={placeHolder}
+                    placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                     className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                     onChange={(event, data) => this.checkValue(event, data)}/>
                 </Form>
@@ -65,4 +82,4 @@ MVTextArea.propTypes = {
     placeHolder: PropTypes.string
 };
 
-export default MVTextArea;
+export default injectIntl(MVTextArea, {withRef: true});

@@ -30,8 +30,8 @@ class AddChecklist extends Component {
 
     createChecklist = () => {
         const checkList = {
-            "description": checklistDesc.getValue(),
-            "Assignee": assignTo.getValue(),
+            "description": checklistDesc.getWrappedInstance().getValue(),
+            "Assignee": assignTo.getWrappedInstance().getValue(),
             "assigner": "Leaders",
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),

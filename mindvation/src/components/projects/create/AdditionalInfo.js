@@ -12,15 +12,15 @@ class OtherInfo extends Component {
 
     getInfo = () => {
         return {
-            "priority": priority.getValue(),
-            "leaders": leaders.getValue(),
+            "priority": priority.getWrappedInstance().getValue(),
+            "leaders": leaders.getWrappedInstance().getValue(),
             "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            "softwareModel": softwareModel.getValue(),
-            "engineeringModel": engineeringModel.getValue(),
-            "businessModel": businessModel.getValue(),
-            "techniqueModel": techniqueModel.getValue(),
-            "contingency": contingency.getValue(),
+            "softwareModel": softwareModel.getWrappedInstance().getValue(),
+            "engineeringModel": engineeringModel.getWrappedInstance().getValue(),
+            "businessModel": businessModel.getWrappedInstance().getValue(),
+            "techniqueModel": techniqueModel.getWrappedInstance().getValue(),
+            "contingency": contingency.getWrappedInstance().getValue(),
             "tags": addTagsNode.getValue()
         }
     };
@@ -48,7 +48,8 @@ class OtherInfo extends Component {
                 <AddTags ref={node => {
                     addTagsNode = node
                 }}/>
-                <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority" placeHolder="priorityPlaceHolderDesc"
+                <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
+                        placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
                             priority = node
                         }}

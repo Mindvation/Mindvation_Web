@@ -11,6 +11,16 @@ class MVSelect extends Component {
         selfChecked: false
     };
 
+    getWrappedInstance = () => {
+        if (this.props.widthRef) {
+            return this.wrappedInstance;
+        }
+    };
+
+    setWrappedInstance = (ref) => {
+        this.wrappedInstance = ref;
+    };
+
     checkValue = (event, data) => {
         let inputValue = data.value;
         if (isEmpty(inputValue)) {
@@ -35,7 +45,14 @@ class MVSelect extends Component {
     };
 
     render() {
+        let props = {
+            ...this.props
+        };
         const {label, options, icon, required, checked, search, multiple, placeHolder, horizontal} = this.props;
+        const {formatMessage} = this.props.intl;
+        if (this.props.withRef) {
+            props.ref = this.setWrappedInstance;
+        }
         return (
             <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}>
                 <Header as='h4'>
@@ -46,7 +63,7 @@ class MVSelect extends Component {
                         />
                     </Header.Content>
                 </Header>
-                <Dropdown placeholder={placeHolder}
+                <Dropdown placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                           search={search}
                           multiple={multiple}
                           selection
@@ -73,4 +90,4 @@ MVSelect.propTypes = {
     horizontal: PropTypes.bool
 };
 
-export default MVSelect;
+export default injectIntl(MVSelect, {withRef: true});

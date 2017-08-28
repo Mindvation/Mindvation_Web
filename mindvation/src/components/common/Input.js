@@ -11,6 +11,16 @@ class MVInput extends Component {
         selfChecked: false
     };
 
+    getWrappedInstance = () => {
+        if (this.props.widthRef) {
+            return this.wrappedInstance;
+        }
+    };
+
+    setWrappedInstance = (ref) => {
+        this.wrappedInstance = ref;
+    };
+
     checkValue = (event, data) => {
         let inputValue = data.value;
         if (isEmpty(inputValue)) {
@@ -35,7 +45,14 @@ class MVInput extends Component {
     };
 
     render() {
+        let props = {
+            ...this.props
+        };
         const {label, icon, required, checked, placeHolder} = this.props;
+        const {formatMessage} = this.props.intl;
+        if (this.props.withRef) {
+            props.ref = this.setWrappedInstance;
+        }
         return (
             <div className="components-item">
                 <Header as='h4'>
@@ -47,7 +64,7 @@ class MVInput extends Component {
                     </Header.Content>
                 </Header>
                 <Input fluid
-                       placeholder={placeHolder}
+                       placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                        error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
                        className="components-length"
                        onChange={(event, data) => this.checkValue(event, data)}/>
@@ -64,4 +81,4 @@ MVInput.propTypes = {
     placeHolder: PropTypes.string
 };
 
-export default MVInput;
+export default injectIntl(MVInput, {withRef: true});

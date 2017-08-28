@@ -14,8 +14,8 @@ class BasicInfo extends Component {
             checked: true
         });
         return {
-            "projectName": name.getValue(),
-            "description": projectDesc.getValue()
+            "projectName": name.getWrappedInstance().getValue(),
+            "description": projectDesc.getWrappedInstance().getValue()
         }
     };
 
