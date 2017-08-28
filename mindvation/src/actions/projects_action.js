@@ -3,7 +3,7 @@
  */
 
 export const CREATE_PROJECT = 'CREATE_PROJECT';
-export const ADD_CHECKLIST = 'ADD_CHECKLIST';
+export const RETRIEVED_PROJECTS = 'RETRIEVE_PROJECTS';
 
 
 /*
@@ -14,6 +14,21 @@ export function createProject(project) {
     return {type: CREATE_PROJECT, project}
 }
 
-export function addChecklist(project, checklist) {
-    return {type: ADD_CHECKLIST, project, checklist}
+function retrievedProjects(projects) {
+    return {type: RETRIEVED_PROJECTS, projects}
+}
+
+export function retrieveProjects(page, pageSize) {
+    return dispatch => {
+        fetch('../stub/retrieveProjects.json')
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                dispatch(retrievedProjects(data.slice((page - 1) * pageSize, page * pageSize)));
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
+    }
 }

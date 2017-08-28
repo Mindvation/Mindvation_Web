@@ -4,6 +4,7 @@ import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
 import {addChecklist} from '../../../actions/checklist_action';
 import {dateFormat} from '../../../util/CommUtil';
+import {FormattedMessage} from 'react-intl';
 
 let checklistDesc, assignTo;
 
@@ -30,11 +31,11 @@ class AddChecklist extends Component {
     createChecklist = () => {
         const checkList = {
             "description": checklistDesc.getValue(),
-            "follower": assignTo.getValue(),
+            "Assignee": assignTo.getValue(),
             "assigner": "Leaders",
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-            "status": "Open"
+            "status": "open"
         };
         this.setState({modalOpen: false});
         this.props.dispatch(addChecklist(checkList));
@@ -44,29 +45,45 @@ class AddChecklist extends Component {
         const {modalOpen} = this.state;
         return (
             <div>
-                <Button color='blue' onClick={() => this.openModal()}>Add Checklist</Button>
+                <Button color='blue' onClick={() => this.openModal()}>
+                    <FormattedMessage
+                        id='addTask'
+                        defaultMessage='Add Task'
+                    />
+                </Button>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
-                    <Modal.Header>Add Checklist</Modal.Header>
+                    <Modal.Header>
+                        <FormattedMessage
+                            id='addTask'
+                            defaultMessage='Add Task'
+                        />
+                    </Modal.Header>
                     <Modal.Content>
                         <TextArea label="Description" icon="book"
                                   ref={node => {
                                       checklistDesc = node
                                   }}/>
                         <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
-                                placeHolder="Assign To"
+                                placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node
                                 }}/>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
-                            Cancel
+                            <FormattedMessage
+                                id='cancel'
+                                defaultMessage='Cancel'
+                            />
                         </Button>
                         <Button primary onClick={() => this.createChecklist()}>
-                            Confirm
+                            <FormattedMessage
+                                id='confirm'
+                                defaultMessage='Confirm'
+                            />
                         </Button>
                     </Modal.Actions>
                 </Modal>

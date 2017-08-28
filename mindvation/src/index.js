@@ -15,6 +15,8 @@ import en from 'react-intl/locale-data/en';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 import 'classlist-polyfill';
+import {LocaleProvider} from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
 
 const store = configureStore();
 
@@ -29,6 +31,17 @@ const chooseLocale = () => {
     }
 };
 
+const chooseLocaleForAntd = () => {
+    switch (navigator.language.split('-')[0]) {
+        case 'en':
+            return enUS;
+        case 'zh':
+            return;
+        default:
+            return en_US;
+    }
+};
+
 addLocaleData([...en, ...zh]);
 
 ReactDOM.render(
@@ -37,7 +50,9 @@ ReactDOM.render(
             locale={navigator.language.split('-')[0]}
             messages={chooseLocale()}
         >
-            <App/>
+            <LocaleProvider locale={chooseLocaleForAntd()}>
+                <App/>
+            </LocaleProvider>
         </IntlProvider>
     </Provider>, document.getElementById('root'));
 registerServiceWorker();

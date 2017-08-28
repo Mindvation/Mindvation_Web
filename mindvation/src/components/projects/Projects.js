@@ -4,7 +4,8 @@ import {Header, Icon} from 'semantic-ui-react';
 import './Projects.css';
 import CreateProject from './CreateProject';
 import {updateGobalData} from '../../util/CommUtil';
-import {assignOptions, contingencyOptions, priorityOptions} from "../../res/data/dummyData";
+import {assignOptions, contingencyOptions, priorityOptions, statusOptions} from "../../res/data/dummyData";
+import {FormattedMessage} from 'react-intl';
 
 class Projects extends Component {
     constructor() {
@@ -12,7 +13,8 @@ class Projects extends Component {
         updateGobalData("dummyData", {
             assignOptions: assignOptions,
             contingencyOptions: contingencyOptions,
-            priorityOptions: priorityOptions
+            priorityOptions: priorityOptions,
+            statusOptions: statusOptions
         })
     }
 
@@ -23,7 +25,10 @@ class Projects extends Component {
                 <Header as='h3'>
                     <Icon name='window maximize'/>
                     <Header.Content className={"project-title underLine"}>
-                        PROJECTS
+                        <FormattedMessage
+                            id='projectsUpper'
+                            defaultMessage='PROJECTS'
+                        />
                     </Header.Content>
                 </Header>
                 <ProjectsList/>

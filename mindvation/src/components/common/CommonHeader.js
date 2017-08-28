@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Button} from 'semantic-ui-react';
 import {logOut} from '../../actions/logon_action';
+import {FormattedMessage} from 'react-intl';
 
 class CommonHeader extends Component {
 
@@ -16,8 +17,18 @@ class CommonHeader extends Component {
         }*/
         return (
             <Header as='h2' textAlign='center'>
-                <span style={{color: '#f9f9f9'}}>Mindvation</span>
-                <Button floated='right' onClick={() => this.userLogOut()}>Log out</Button>
+                <span style={{color: '#f9f9f9'}}>
+                    <FormattedMessage
+                        id='mindvation'
+                        defaultMessage='Mindvation'
+                    />
+                </span>
+                <Button floated='right' onClick={() => this.userLogOut()}>
+                    <FormattedMessage
+                        id='logOut'
+                        defaultMessage='Log out'
+                    />
+                </Button>
             </Header>
         );
     }

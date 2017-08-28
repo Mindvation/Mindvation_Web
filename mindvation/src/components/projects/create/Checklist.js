@@ -1,11 +1,25 @@
 import React, {Component} from 'react';
 import {Table} from 'semantic-ui-react';
-import {getDesc} from '../../../util/CommUtil';
+import {getDesc, isEmpty} from '../../../util/CommUtil';
+import {FormattedMessage} from 'react-intl';
 
-const header = ["ID Number", "Description", "Follower", "Assigner", "Create Date", "Latest Update", "Status"];
-const checklistKey = ["idNumber", "description", "follower", "assigner", "createDate", "lastUpdateDate", "status"];
+const header = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status"];
+const checklistKey = ["idNumber", "description", "Assignee", "assigner", "createDate", "lastUpdateDate", "status"];
 
 class Checklist extends Component {
+
+    getTaskDesc = (result, key) => {
+        if (key === "Assignee" && !isEmpty(result[key])) {
+            return getDesc(global.dummyData.assignOptions, result[key])
+        }
+        if (key === "status" && !isEmpty(result[key])) {
+            return getDesc(global.dummyData.statusOptions, result[key])
+        }
+        if (isEmpty(result[key])) {
+            return 'N/A';
+        }
+        return result[key];
+    };
 
     render() {
         const {checklist} = this.props;
@@ -15,7 +29,11 @@ class Checklist extends Component {
                     <Table.Row>
                         {
                             header.map((result, i) => {
-                                return <Table.HeaderCell collapsing key={i}>{result}</Table.HeaderCell>
+                                return <Table.HeaderCell collapsing key={i}>
+                                    <FormattedMessage
+                                        id={result}
+                                    />
+                                </Table.HeaderCell>
                             })
                         }
                     </Table.Row>
@@ -28,7 +46,7 @@ class Checklist extends Component {
                                 {
                                     checklistKey.map((key, j) => {
                                         return <Table.Cell collapsing key={i + "_" + j}>
-                                            {key === "follower" ? getDesc(global.dummyData.assignOptions, result[key]) : result[key]}
+                                            {this.getTaskDesc(result, key)}
                                         </Table.Cell>
                                     })
                                 }

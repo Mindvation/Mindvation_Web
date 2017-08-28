@@ -1,31 +1,38 @@
 import React, {Component} from 'react';
-import {Icon, Menu, Table} from 'semantic-ui-react';
+import {Table} from 'semantic-ui-react';
+import {Pagination} from 'antd';
+import {retrieveProjects} from '../../actions/projects_action';
+import {getDesc, isEmpty} from '../../util/CommUtil';
+import {FormattedMessage} from 'react-intl';
 
-/*const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Check List Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
-const datas = [["P0001", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0002", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0003", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0004", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0005", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0006", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0007", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0008", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0009", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0010", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0011", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0012", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0013", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0014", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0015", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0016", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0017", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"],
-    ["P0018", "DMS", "A system to solve industry project issues which include.....", "High", "2017-04-05", "2017-07-20", "87'", "90%", "210", "26", "46.5", "20M", "7", "15", "12M", "24.4%"]
-];*/
-
-const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Check List Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
-const projectKey = ['projectId', 'projectName', 'description', 'checklist'];
+const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Task Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
+const projectKey = ['projectId', 'projectName', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPoints', 'taskQty', 'CRQty', 'CRSPs', 'CRCost', 'SPsCost', 'CRRate'];
 
 class ProjectsList extends Component {
+    componentDidMount() {
+        this.props.dispatch(retrieveProjects(1, 10));
+    };
+
+    pageChange(page, pageSize) {
+        this.props.dispatch(retrieveProjects(page, pageSize));
+    }
+
+    handleDisplayData(data, key) {
+        if (key === "priority" && !isEmpty(data[key])) {
+            return getDesc(global.dummyData.priorityOptions, data[key]);
+        }
+        if (key === "taskQty") {
+            if (data.checklist) {
+                return data.checklist.length;
+            }
+            return 0;
+        }
+        if (isEmpty(data[key])) {
+            return 'N/A';
+        }
+        return data[key];
+    }
+
     render() {
         const {projectList} = this.props;
         return (
@@ -34,7 +41,11 @@ class ProjectsList extends Component {
                     <Table.Row>
                         {
                             header.map((result, i) => {
-                                return <Table.HeaderCell  key={i}>{result}</Table.HeaderCell>
+                                return <Table.HeaderCell key={i}>
+                                    <FormattedMessage
+                                        id={result}
+                                    />
+                                </Table.HeaderCell>
                             })
                         }
                     </Table.Row>
@@ -46,8 +57,8 @@ class ProjectsList extends Component {
                             return <Table.Row key={i}>
                                 {
                                     projectKey.map((key, j) => {
-                                        return <Table.Cell  key={i + "_" + j}>
-                                            {result[key]}
+                                        return <Table.Cell key={i + "_" + j}>
+                                            {this.handleDisplayData(result, key)}
                                         </Table.Cell>
                                     })
                                 }
@@ -59,18 +70,9 @@ class ProjectsList extends Component {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan={header.length}>
-                            <Menu floated='right' pagination>
-                                <Menu.Item as='a' icon>
-                                    <Icon name='left chevron'/>
-                                </Menu.Item>
-                                <Menu.Item as='a'>1</Menu.Item>
-                                <Menu.Item as='a'>2</Menu.Item>
-                                <Menu.Item as='a'>3</Menu.Item>
-                                <Menu.Item as='a'>4</Menu.Item>
-                                <Menu.Item as='a' icon>
-                                    <Icon name='right chevron'/>
-                                </Menu.Item>
-                            </Menu>
+                            <Pagination defaultCurrent={1} total={96}
+                                        showQuickJumper
+                                        onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Footer>

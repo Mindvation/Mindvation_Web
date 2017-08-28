@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Header, Icon} from 'semantic-ui-react';
 import {DatePicker} from 'antd';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import {isEmpty} from '../../util/CommUtil';
+import {FormattedMessage} from 'react-intl';
 
 const RangePicker = DatePicker.RangePicker;
 
@@ -45,27 +45,25 @@ class MVDatePicker extends Component {
     };
 
     render() {
-        const {label, icon, required, checked, placeHolder, range} = this.props;
-
+        const {label, icon, required, checked, range} = this.props;
         return (
             <div className="components-item">
                 <Header as='h4'>
                     {icon ? <Icon name={icon}/> : null}
                     <Header.Content className={required ? "input-label" : null}>
-                        {label}
+                        <FormattedMessage
+                            id={label}
+                        />
                     </Header.Content>
                 </Header>
                 {
                     range ? <RangePicker
-                        ranges={{Today: [moment(), moment()], 'This Month': [moment(), moment().endOf('month')]}}
                         onChange={this.dateChange}
                         className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
-                        placeholder={placeHolder}
                         //disabledDate={this.disabledDate}
                     /> : <DatePicker
                         className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
-                        onChange={this.dateChange}
-                        placeholder={placeHolder}/>
+                        onChange={this.dateChange}/>
                 }
             </div>
         );

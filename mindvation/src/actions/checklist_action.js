@@ -13,6 +13,6 @@ export function addChecklist(checklist) {
     return {type: ADD_CHECKLIST, checklist}
 }
 
-export function celarTempChecklist() {
+export function clearTempChecklist() {
     return {type: CLEAR_TEMP_CHECKLIST}
 }

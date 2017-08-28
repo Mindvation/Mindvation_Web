@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Header, Input, Icon} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {isEmpty} from '../../util/CommUtil';
+import {injectIntl, FormattedMessage} from 'react-intl';
+import {messages} from '../../res/language/defineMessages';
 
 class MVInput extends Component {
     state = {
@@ -39,7 +41,9 @@ class MVInput extends Component {
                 <Header as='h4'>
                     {icon ? <Icon name={icon}/> : null}
                     <Header.Content className={required ? "input-label" : null}>
-                        {label}
+                        <FormattedMessage
+                            id={label}
+                        />
                     </Header.Content>
                 </Header>
                 <Input fluid

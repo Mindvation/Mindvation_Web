@@ -5,20 +5,8 @@ import {
     Redirect
 } from 'react-router-dom';
 import 'url-search-params-polyfill';
-import {FormattedMessage} from 'react-intl';
-
-import {injectIntl, defineMessages} from 'react-intl';
-
-const messages = defineMessages({
-    userNameDescription: {
-        id: 'userName',
-        defaultMessage: 'User name'
-    },
-    passWordDescription: {
-        id: 'passWord',
-        defaultMessage: 'Password'
-    }
-});
+import {injectIntl, FormattedMessage} from 'react-intl';
+import {messages} from '../../res/language/defineMessages';
 
 let userName;
 let passWord;

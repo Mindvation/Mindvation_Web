@@ -1,3 +1,6 @@
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
+
 export const assignOptions = [
     {
         text: 'Bob',
@@ -23,16 +26,25 @@ export const assignOptions = [
 
 export const priorityOptions = [
     {
-        text: 'High',
-        value: 'h'
+        text: <FormattedMessage
+            id='high'
+            defaultMessage='High'
+        />,
+        value: 'H'
     },
     {
-        text: 'Medium',
-        value: 'm'
+        text: <FormattedMessage
+            id='medium'
+            defaultMessage='Medium'
+        />,
+        value: 'M'
     },
     {
-        text: 'Low',
-        value: 'l'
+        text: <FormattedMessage
+            id='low'
+            defaultMessage='Low'
+        />,
+        value: 'L'
     }
 ];
 
@@ -70,3 +82,11 @@ export const contingencyOptions = [
         value: '200'
     },
 ];
+
+export const statusOptions = [{
+    text: <FormattedMessage
+        id='open'
+        defaultMessage='Open'
+    />,
+    value: "open"
+}]

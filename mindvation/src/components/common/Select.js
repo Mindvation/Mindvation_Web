@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Header, Dropdown, Icon} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {isEmpty} from '../../util/CommUtil';
+import {injectIntl, FormattedMessage} from 'react-intl';
+import {messages} from '../../res/language/defineMessages';
 
 class MVSelect extends Component {
     state = {
@@ -34,16 +36,20 @@ class MVSelect extends Component {
 
     render() {
         const {label, options, icon, required, checked, search, multiple, placeHolder, horizontal} = this.props;
-
         return (
             <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}>
                 <Header as='h4'>
                     {icon ? <Icon name={icon}/> : null}
                     <Header.Content className={required ? "input-label" : null}>
-                        {label}
+                        <FormattedMessage
+                            id={label}
+                        />
                     </Header.Content>
                 </Header>
-                <Dropdown placeholder={placeHolder} search={search} multiple={multiple} selection
+                <Dropdown placeholder={placeHolder}
+                          search={search}
+                          multiple={multiple}
+                          selection
                           options={options}
                           className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                           onChange={(event, data) => {

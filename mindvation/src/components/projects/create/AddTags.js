@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Button, Modal, Segment, Header, Input, Popup} from 'semantic-ui-react';
 import {isEmpty} from '../../../util/CommUtil';
 import TagList from './TagList';
+import {injectIntl, FormattedMessage} from 'react-intl';
+import {messages} from '../../../res/language/defineMessages';
 
 let createTagNode, allTagsNode, existOption;
 
@@ -146,13 +148,19 @@ class AddTags extends Component {
 
     render() {
         const {modalOpen} = this.state;
+
         return (
             <div style={{marginBottom: '10px'}} className="components-length">
                 <TagList tagList={this.state.projectTags} handleClick={(tag) => {
                     this.removeProjectTags(tag)
                 }}/>
                 <Segment>
-                    <Header size='small' className="underLine">You can select some recommandations as below</Header>
+                    <Header size='small' className="underLine">
+                        <FormattedMessage
+                            id='selectTagsHeader'
+                            defaultMessage='You can select some recommendations as below'
+                        />
+                    </Header>
                     <TagList
                         tagList={allTags.slice(0, 5)}
                         handleClick={(tag) => {
@@ -163,7 +171,12 @@ class AddTags extends Component {
                         paddingTop: '13px'
                     }}>
                         <Header style={{cursor: 'pointer'}} size='small' className="underLine" floated='right'
-                                onClick={() => this.openModal()}>{"More >>"}</Header>
+                                onClick={() => this.openModal()}>
+                            <FormattedMessage
+                                id='moreTags'
+                                defaultMessage='More >>'
+                            />
+                        </Header>
                     </div>
                 </Segment>
 
@@ -171,7 +184,12 @@ class AddTags extends Component {
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
-                    <Modal.Header>Add Tags</Modal.Header>
+                    <Modal.Header>
+                        <FormattedMessage
+                            id='addTags'
+                            defaultMessage='Add Tags'
+                        />
+                    </Modal.Header>
                     <Modal.Content>
                         <Segment className="all-tags-segment">
                             <TagList tagList={this.state.allTags}
@@ -189,12 +207,15 @@ class AddTags extends Component {
                                 label={{
                                     style: {cursor: 'pointer'},
                                     tag: true,
-                                    content: 'Create Tag',
+                                    content: <FormattedMessage
+                                        id='createTags'
+                                        defaultMessage='Create Tags'
+                                    />,
                                     color: 'teal',
                                     onClick: () => this.createTag()
                                 }}
                                 labelPosition='right'
-                                placeholder='Enter tag'
+                                placeholder='Enter Tag'
                                 ref={node => {
                                     createTagNode = node
                                 }}
@@ -202,13 +223,24 @@ class AddTags extends Component {
                             {this.state.popupOpen ?
                                 <div>
                                     <div className="tag-popup">
-                                        <Header size='small'>This tag is exist!Will you add it to this project?</Header>
+                                        <Header size='small'>
+                                            <FormattedMessage
+                                                id='tagExist'
+                                                defaultMessage='This tag is exist! Will you add it to this project?'
+                                            />
+                                        </Header>
                                         <div className="tag-popup-footer">
-                                            <Button secondary onClick={() => this.closePopup()}>
-                                                Cancel
+                                            <Button secondary size='tiny' onClick={() => this.closePopup()}>
+                                                <FormattedMessage
+                                                    id='no'
+                                                    defaultMessage='No'
+                                                />
                                             </Button>
-                                            <Button primary onClick={() => this.addExistTagToProject()}>
-                                                OK
+                                            <Button primary size='tiny' onClick={() => this.addExistTagToProject()}>
+                                                <FormattedMessage
+                                                    id='yes'
+                                                    defaultMessage='Yes'
+                                                />
                                             </Button>
                                         </div>
                                     </div>
@@ -218,10 +250,16 @@ class AddTags extends Component {
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
-                            Cancel
+                            <FormattedMessage
+                                id='cancel'
+                                defaultMessage='Cancel'
+                            />
                         </Button>
                         <Button primary onClick={() => this.addTagsToProject()}>
-                            Confirm
+                            <FormattedMessage
+                                id='confirm'
+                                defaultMessage='Confirm'
+                            />
                         </Button>
                     </Modal.Actions>
                 </Modal>
