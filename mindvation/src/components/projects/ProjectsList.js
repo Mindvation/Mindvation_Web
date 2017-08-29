@@ -41,7 +41,7 @@ class ProjectsList extends Component {
                     <Table.Row>
                         {
                             header.map((result, i) => {
-                                return <Table.HeaderCell key={i}>
+                                return <Table.HeaderCell className="table-cell-length" key={i}>
                                     <FormattedMessage
                                         id={result}
                                     />
@@ -57,7 +57,7 @@ class ProjectsList extends Component {
                             return <Table.Row key={i}>
                                 {
                                     projectKey.map((key, j) => {
-                                        return <Table.Cell key={i + "_" + j}>
+                                        return <Table.Cell className="table-cell-length" key={i + "_" + j}>
                                             {this.handleDisplayData(result, key)}
                                         </Table.Cell>
                                     })

@@ -127,3 +127,11 @@
     bottom: 0;
     right: 0;
 }
+
+.table-cell-length{
+    max-width: calc(20vw);
+}
+
+.task-table-cell-length{
+    max-width: calc(30vw);
+}

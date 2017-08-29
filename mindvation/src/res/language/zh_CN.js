@@ -68,6 +68,10 @@ const zh_CN = {
     high: "高",
     medium: "中",
     low: "低",
-    open: "新建"
+    open: "新建",
+    Attachments: "附件",
+    selectFile: "选择文件",
+    startUpload: "开始上传",
+    menuProjects: "项目"
 };
 export default zh_CN;

@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Upload, Icon, Button} from 'antd';
+import {Upload} from 'antd';
+import {Header, Icon, Button} from 'semantic-ui-react';
+import {FormattedMessage} from 'react-intl';
+import PropTypes from 'prop-types';
 
 class UploadFile extends Component {
     state = {
@@ -21,6 +24,7 @@ class UploadFile extends Component {
 
     render() {
         const {uploading} = this.state;
+        const {label, icon, required} = this.props;
 
         const props = {
             action: '//jsonplaceholder.typicode.com/posts/',
@@ -45,24 +49,45 @@ class UploadFile extends Component {
         };
 
         return (
-            <div>
+            <div className="components-item">
+                <Header as='h4'>
+                    {icon ? <Icon name={icon}/> : null}
+                    <Header.Content className={required ? "input-label" : null}>
+                        <FormattedMessage
+                            id={label}
+                        />
+                    </Header.Content>
+                </Header>
                 <Upload {...props}>
-                    <Button>
-                        <Icon name="upload"/> Select File
+                    <Button basic>
+                        <Icon name="upload"/>
+                        <FormattedMessage
+                            id='selectFile'
+                            defaultMessage='Select File'
+                        />
                     </Button>
                 </Upload>
                 <Button
-                    className="upload-demo-start"
-                    type="primary"
+                    primary
                     onClick={this.handleUpload}
                     disabled={this.state.fileList.length === 0}
                     loading={uploading}
+                    style={{marginTop: '15px'}}
                 >
-                    {uploading ? 'Uploading' : 'Start Upload'}
+                    <FormattedMessage
+                        id='startUpload'
+                        defaultMessage='Start Upload'
+                    />
                 </Button>
             </div>
         );
     }
 }
+
+UploadFile.propTypes = {
+    label: PropTypes.string,
+    icon: PropTypes.string,
+    required: PropTypes.bool
+};
 
 export default UploadFile;

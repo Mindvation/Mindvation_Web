@@ -3,6 +3,7 @@ import {Header, Icon, Modal} from 'semantic-ui-react';
 import Checklist from '../../../containers/checklist_container';
 import AddChecklist from './AddChecklist';
 import {FormattedMessage} from 'react-intl';
+import UploadFile from '../../common/UploadFile';
 
 let checkListNode;
 
@@ -24,7 +25,7 @@ class OptionalItem extends Component {
                             id='optionalItems'
                             defaultMessage='Optional Items'
                         />
-                        </Header>
+                    </Header>
                 </Modal.Description>
                 <Header as='h4'>
                     <Icon name='tag'/>
@@ -39,6 +40,7 @@ class OptionalItem extends Component {
                     checkListNode = node
                 }}/>
                 <AddChecklist dispatch={dispatch}/>
+                <UploadFile label="Attachments" icon="attach"/>
             </Modal.Content>
         );
     }

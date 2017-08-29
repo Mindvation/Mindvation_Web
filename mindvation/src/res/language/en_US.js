@@ -68,6 +68,10 @@ const en_US = {
     high: "High",
     medium: "Medium",
     low: "Low",
-    open: "Open"
+    open: "Open",
+    Attachments: "Attachments",
+    selectFile: "Select File",
+    startUpload: "Start Upload",
+    menuProjects: "Projects"
 };
 export default en_US;

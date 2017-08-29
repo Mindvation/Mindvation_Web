@@ -3,6 +3,7 @@ import {Menu, Icon} from 'antd';
 import {
     Link
 } from 'react-router-dom';
+import {FormattedMessage} from 'react-intl';
 
 const SubMenu = Menu.SubMenu;
 
@@ -14,7 +15,12 @@ class HomeMenu extends Component {
                 <Menu.Item key="1">
                     <Link to="/homePage"/>
                     <Icon type="pie-chart"/>
-                    <span>Projects</span>
+                    <span>
+                        <FormattedMessage
+                            id='menuProjects'
+                            defaultMessage='Projects'
+                        />
+                    </span>
                 </Menu.Item>
                 <Menu.Item key="2">
                     <Link to="/homePage/Test1"/>

@@ -29,7 +29,7 @@ class Checklist extends Component {
                     <Table.Row>
                         {
                             header.map((result, i) => {
-                                return <Table.HeaderCell collapsing key={i}>
+                                return <Table.HeaderCell className="task-table-cell-length" key={i}>
                                     <FormattedMessage
                                         id={result}
                                     />
@@ -45,7 +45,7 @@ class Checklist extends Component {
                             return <Table.Row key={i}>
                                 {
                                     checklistKey.map((key, j) => {
-                                        return <Table.Cell collapsing key={i + "_" + j}>
+                                        return <Table.Cell className="task-table-cell-length" key={i + "_" + j}>
                                             {this.getTaskDesc(result, key)}
                                         </Table.Cell>
                                     })
