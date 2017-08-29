@@ -1,0 +1,18 @@
+{
+  "projectId": "P0001",
+  "projectName": "DMS",
+  "description": "A system to solve industry project issues which include.....",
+  "priority": "H",
+  "startDate": "2017-04-05",
+  "endDate": "2017-07-20",
+  "efficiency": "87'",
+  "progress": "90%",
+  "storyQty": "210",
+  "storyPoints": "26",
+  "checkListQty": "46.5",
+  "CRQty": "20M",
+  "CRSPs": "7",
+  "CRCost": "15",
+  "SPsCost": "12M",
+  "CRRate": "24.4%"
+}

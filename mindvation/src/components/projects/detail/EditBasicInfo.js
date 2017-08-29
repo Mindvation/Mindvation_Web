@@ -4,6 +4,7 @@ import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../create/BasicInfo';
 import {checkCompleted} from '../../../util/CommUtil';
+import {updateProject} from '../../../actions/project_action';
 
 let basicModule;
 let mandatoryFile = ["projectName", "description"];
@@ -24,12 +25,14 @@ class EditBasicInfo extends Component {
         let basicInfo = basicModule.getInfo();
         let flag = checkCompleted(mandatoryFile, basicInfo);
         if (flag) {
+            this.props.dispatch(updateProject(basicInfo));
             this.closeModal();
         }
     };
 
     render() {
         const {modalOpen} = this.state;
+        const {project} = this.props;
         return (
             <div>
                 <Header as="h3" className="underLine" style={{display: 'flex'}}>
@@ -42,19 +45,16 @@ class EditBasicInfo extends Component {
                         <Icon name='pencil'/>
                     </div>
                 </Header>
-                <ReadOnly icon="product hunt" title="Project Name" value="DMS"/>
+                <ReadOnly icon="product hunt" title="Project Name" value={project.projectName}/>
                 <ReadOnly icon="book" title="Description"
-                          value="A system to solve industry project issues which includeA system to solve industry project issues which includeA system to solve industry project issues which includeA system to solve industry project issues which includeA system to solve industry project issues which include....."/>
+                          value={project.description}/>
 
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
                     <BasicInfo
-                        info={{
-                            "projectName": "DMS",
-                            "description": "A system to solve industry project issues which includeA system to solve industry project issues which includeA system to solve industry project issues which includeA system to solve industry project issues which includeA system to solve industry project issues which include....."
-                        }}
+                        info={project}
                         ref={node => {
                             basicModule = node
                         }}

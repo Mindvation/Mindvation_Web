@@ -3,7 +3,7 @@ import Projects from '../components/projects/Projects';
 
 const mapStateToProps = (state) => {
     return {
-        projectList: state.project
+        projectList: state.projects
     }
 };
 

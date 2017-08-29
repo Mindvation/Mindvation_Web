@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Menu from './Menu';
 import Test1 from '../test/Test1';
 import Test2 from '../test/Test2';
-import ProjectDetail from '../projects/detail/ProjectDetail';
+import ProjectDetail from '../../containers/projectDetail_container';
 import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
 import {Layout} from 'antd';

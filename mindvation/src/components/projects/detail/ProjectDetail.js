@@ -2,14 +2,20 @@ import React, {Component} from 'react';
 import {Grid, Header, Segment} from 'semantic-ui-react';
 import EditBasicInfo from './EditBasicInfo';
 import {FormattedMessage} from 'react-intl';
+import {getProjectById} from '../../../actions/project_action';
 
 class ProjectDetail extends Component {
     constructor(props) {
         super(props);
     }
 
-    render() {
+    componentDidMount() {
         const {id} = this.props.match.params;
+        this.props.dispatch(getProjectById(id));
+    };
+
+    render() {
+        const {project, dispatch} = this.props;
         return (
             <div className="project-detail">
                 <Grid columns={3}>
@@ -23,11 +29,11 @@ class ProjectDetail extends Component {
                                             defaultMessage='PROJECTS'
                                         />
                                     </span>{'>'}
-                                    <span className={"underLine header-id"}>{id}</span>
+                                    <span className={"underLine header-id"}>{project.projectId}</span>
                                 </Header.Content>
                             </Header>
                             <Segment>
-                                <EditBasicInfo/>
+                                <EditBasicInfo project={project} dispatch={dispatch}/>
                             </Segment>
                         </div>
 

@@ -2,7 +2,7 @@ import {CREATE_PROJECT, RETRIEVED_PROJECTS} from '../actions/projects_action';
 
 let projectId = 0;
 
-function project(state = [], action) {
+function projects(state = [], action) {
     switch (action.type) {
         case CREATE_PROJECT:
             action.project.projectId = "P" + projectId++;
@@ -15,4 +15,4 @@ function project(state = [], action) {
     }
 }
 
-export default project;
+export default projects;
