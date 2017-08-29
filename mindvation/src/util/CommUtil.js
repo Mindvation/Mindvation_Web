@@ -38,3 +38,14 @@ export const getDesc = (options, key) => {
     });
     return desc;
 };
+
+export const checkCompleted = (mandatoryFile, info) => {
+    let flag = true;
+    mandatoryFile.some((result) => {
+        if (isEmpty(info[result])) {
+            flag = false;
+            return true;
+        }
+    });
+    return flag;
+};

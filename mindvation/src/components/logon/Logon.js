@@ -32,7 +32,7 @@ class Logon extends Component {
             let newUrl = urlParams.get("redirect_uri");
             return (
                 <Redirect to={{
-                    pathname: newUrl ? newUrl : '/homePage'
+                    pathname: newUrl ? newUrl : '/projects'
                 }}/>
             )
         }

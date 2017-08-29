@@ -13,7 +13,7 @@ class HomeMenu extends Component {
         return (
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                 <Menu.Item key="1">
-                    <Link to="/homePage"/>
+                    <Link to="/projects"/>
                     <Icon type="pie-chart"/>
                     <span>
                         <FormattedMessage
@@ -23,7 +23,7 @@ class HomeMenu extends Component {
                     </span>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Link to="/homePage/Test1"/>
+                    <Link to="/Test1"/>
                     <Icon type="desktop"/>
                     <span>Test1</span>
                 </Menu.Item>
@@ -31,7 +31,7 @@ class HomeMenu extends Component {
                     key="sub1"
                     title={<span><Icon type="user"/><span>User</span></span>}
                 >
-                    <Menu.Item key="3"><Link to="/homePage/Test2">Test2</Link></Menu.Item>
+                    <Menu.Item key="3"><Link to="/Test2">Test2</Link></Menu.Item>
                     <Menu.Item key="4">Bill</Menu.Item>
                     <Menu.Item key="5">Alex</Menu.Item>
                 </SubMenu>

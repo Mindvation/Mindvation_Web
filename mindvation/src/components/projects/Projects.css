@@ -141,3 +141,38 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.project-detail .grid-component {
+    padding-left: 1em;
+    padding-top: 1em;
+}
+
+.project-detail .header-project {
+    color: #cbc9ca;
+    margin-right: 1em;
+}
+
+.project-detail .header-id {
+    color: #6a9abe;
+    margin-left: 1em;
+}
+
+.read-only-title {
+    color: #6a9abe;
+}
+
+.read-only-text {
+    padding-left: 2.65em;
+}
+
+.edit-info-icon {
+    float: right;
+    cursor: pointer;
+}
+
+.edit-info-line {
+    flex: 1;
+    text-decoration: underline;
+    border-bottom: 2px dotted #666666;
+    margin: 5px;
+}

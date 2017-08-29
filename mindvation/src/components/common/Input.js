@@ -11,6 +11,10 @@ class MVInput extends Component {
         selfChecked: false
     };
 
+    componentDidMount() {
+        this.checkDefaultValue();
+    };
+
     getWrappedInstance = () => {
         if (this.props.widthRef) {
             return this.wrappedInstance;
@@ -19,6 +23,23 @@ class MVInput extends Component {
 
     setWrappedInstance = (ref) => {
         this.wrappedInstance = ref;
+    };
+
+    checkDefaultValue = () => {
+        const {defaultValue} = this.props;
+        if (isEmpty(defaultValue)) {
+            this.setState({
+                isEmpty: true
+            })
+        } else {
+            this.setState({
+                isEmpty: false
+            })
+        }
+
+        this.setState({
+            returnValue: defaultValue
+        })
     };
 
     checkValue = (event, data) => {
@@ -48,7 +69,7 @@ class MVInput extends Component {
         let props = {
             ...this.props
         };
-        const {label, icon, required, checked, placeHolder} = this.props;
+        const {label, icon, required, checked, placeHolder, defaultValue} = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
@@ -67,7 +88,9 @@ class MVInput extends Component {
                        placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                        error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
                        className="components-length"
-                       onChange={(event, data) => this.checkValue(event, data)}/>
+                       onChange={(event, data) => this.checkValue(event, data)}
+                       defaultValue={defaultValue}
+                />
             </div>
         );
     }
@@ -78,7 +101,8 @@ MVInput.propTypes = {
     icon: PropTypes.string,
     required: PropTypes.bool,
     checked: PropTypes.bool,
-    placeHolder: PropTypes.string
+    placeHolder: PropTypes.string,
+    defaultValue: PropTypes.string
 };
 
 export default injectIntl(MVInput, {withRef: true});

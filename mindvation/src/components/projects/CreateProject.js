@@ -5,7 +5,7 @@ import AdditionalInfo from './create/AdditionalInfo';
 import OptionalItem from './create/OptionalItem';
 import {createProject} from '../../actions/projects_action';
 import {clearTempChecklist} from '../../actions/checklist_action';
-import {isEmpty} from '../../util/CommUtil';
+import {checkCompleted} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
 let basicModule, optionalModule, AdditionalModule;
@@ -19,17 +19,6 @@ class CreateProject extends Component {
     closeModal = () => {
         this.setState({modalOpen: false});
         this.props.dispatch(clearTempChecklist());
-    };
-
-    checkCompleted = (info) => {
-        let flag = true;
-        mandatoryFile.some((result) => {
-            if (isEmpty(info[result])) {
-                flag = false;
-                return true;
-            }
-        });
-        return flag;
     };
 
     handleProjectInfo = (projectInfo) => {
@@ -48,7 +37,7 @@ class CreateProject extends Component {
         let optionalInfo = optionalModule.getInfo();
         let additionalInfo = AdditionalModule.getInfo();
         let projectInfo = Object.assign(basicInfo, additionalInfo, optionalInfo);
-        let flag = this.checkCompleted(projectInfo);
+        let flag = checkCompleted(mandatoryFile, projectInfo);
         if (flag) {
             this.handleProjectInfo(projectInfo);
             this.props.dispatch(createProject(projectInfo));

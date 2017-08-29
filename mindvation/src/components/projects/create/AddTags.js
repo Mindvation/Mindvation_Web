@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Button, Modal, Segment, Header, Input, Popup} from 'semantic-ui-react';
 import {isEmpty} from '../../../util/CommUtil';
 import TagList from './TagList';
-import {injectIntl, FormattedMessage} from 'react-intl';
-import {messages} from '../../../res/language/defineMessages';
+import {FormattedMessage} from 'react-intl';
 
 let createTagNode, allTagsNode, existOption;
 

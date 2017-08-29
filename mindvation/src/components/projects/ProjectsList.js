@@ -4,6 +4,9 @@ import {Pagination} from 'antd';
 import {retrieveProjects} from '../../actions/projects_action';
 import {getDesc, isEmpty} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
+import {
+    Link
+} from 'react-router-dom';
 
 const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Task Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
 const projectKey = ['projectId', 'projectName', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPoints', 'taskQty', 'CRQty', 'CRSPs', 'CRCost', 'SPsCost', 'CRRate'];
@@ -18,6 +21,11 @@ class ProjectsList extends Component {
     }
 
     handleDisplayData(data, key) {
+        if (key === "projectId") {
+            return <Link to={`projects/${data[key]}`}>
+                {data[key]}
+            </Link>
+        }
         if (key === "priority" && !isEmpty(data[key])) {
             return getDesc(global.dummyData.priorityOptions, data[key]);
         }
@@ -33,7 +41,7 @@ class ProjectsList extends Component {
                 content={data[key]}
                 basic
                 position="bottom left"
-                style={{maxWidth:'50%'}}
+                style={{maxWidth: '50%'}}
             />
         }
         if (isEmpty(data[key])) {

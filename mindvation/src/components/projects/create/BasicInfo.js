@@ -20,6 +20,7 @@ class BasicInfo extends Component {
     };
 
     render() {
+        const {info = {}} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -36,12 +37,14 @@ class BasicInfo extends Component {
                        }}
                        checked={this.state.checked}
                        placeHolder="projectNamePlaceHolderDesc"
+                       defaultValue={info.projectName}
                 />
                 <TextArea label="Description" icon="book" required={true}
                           ref={node => {
                               projectDesc = node
                           }}
                           checked={this.state.checked}
+                          defaultValue={info.description}
                 />
             </Modal.Content>
         );

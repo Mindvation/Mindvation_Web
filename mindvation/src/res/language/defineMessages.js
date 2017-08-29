@@ -11,7 +11,7 @@ export const messages = defineMessages({
     },
     projectNamePlaceHolderDesc: {
         id: 'projectNamePlaceHolder',
-        defaultMessage: 'Please enter project name'
+        defaultMessage: 'Please enter detail name'
     },
     priorityPlaceHolderDesc: {
         id: 'priorityPlaceHolder',

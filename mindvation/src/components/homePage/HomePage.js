@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Menu from './Menu';
 import Test1 from '../test/Test1';
 import Test2 from '../test/Test2';
+import ProjectDetail from '../projects/detail/ProjectDetail';
 import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
 import {Layout} from 'antd';
@@ -15,17 +16,22 @@ const {Header, Content, Sider} = Layout;
 
 const routes = [
     {
-        path: '/homePage',
+        path: '/projects',
         exact: true,
         main: () => <Projects/>
     },
     {
-        path: '/homePage/Test2',
+        path: '/Test2',
         main: () => <Test2/>
     },
     {
-        path: '/homePage/Test1',
+        path: '/Test1',
         main: () => <Test1/>
+    },
+    {
+        path: '/projects/:id',
+        exact: true,
+        main: ProjectDetail
     }
 ];
 
