@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table} from 'semantic-ui-react';
+import {Table, Popup} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {retrieveProjects} from '../../actions/projects_action';
 import {getDesc, isEmpty} from '../../util/CommUtil';
@@ -26,6 +26,15 @@ class ProjectsList extends Component {
                 return data.checklist.length;
             }
             return 0;
+        }
+        if (key === "description") {
+            return <Popup
+                trigger={<span>{data[key]}</span>}
+                content={data[key]}
+                basic
+                position="bottom left"
+                style={{maxWidth:'50%'}}
+            />
         }
         if (isEmpty(data[key])) {
             return 'N/A';
@@ -57,7 +66,9 @@ class ProjectsList extends Component {
                             return <Table.Row key={i}>
                                 {
                                     projectKey.map((key, j) => {
-                                        return <Table.Cell className="table-cell-length" key={i + "_" + j}>
+                                        return <Table.Cell
+                                            className={"table-cell-length " + (key === "description" ? "text-ellipsis" : "")}
+                                            key={i + "_" + j}>
                                             {this.handleDisplayData(result, key)}
                                         </Table.Cell>
                                     })

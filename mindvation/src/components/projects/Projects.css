@@ -128,10 +128,16 @@
     right: 0;
 }
 
-.table-cell-length{
+.table-cell-length {
     max-width: calc(20vw);
 }
 
-.task-table-cell-length{
+.task-table-cell-length {
     max-width: calc(30vw);
+}
+
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

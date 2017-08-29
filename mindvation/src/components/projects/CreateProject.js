@@ -16,7 +16,10 @@ class CreateProject extends Component {
 
     openModal = () => this.setState({modalOpen: true});
 
-    closeModal = () => this.setState({modalOpen: false});
+    closeModal = () => {
+        this.setState({modalOpen: false});
+        this.props.dispatch(clearTempChecklist());
+    };
 
     checkCompleted = (info) => {
         let flag = true;
