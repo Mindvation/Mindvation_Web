@@ -4,7 +4,7 @@ import BasicInfo from './create/BasicInfo';
 import AdditionalInfo from './create/AdditionalInfo';
 import OptionalItem from './create/OptionalItem';
 import {createProject} from '../../actions/projects_action';
-import {clearTempChecklist} from '../../actions/checklist_action';
+import {clearTempTask} from '../../actions/task_action';
 import {checkCompleted} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
@@ -18,7 +18,7 @@ class CreateProject extends Component {
 
     closeModal = () => {
         this.setState({modalOpen: false});
-        this.props.dispatch(clearTempChecklist());
+        this.props.dispatch(clearTempTask());
     };
 
     handleProjectInfo = (projectInfo) => {
@@ -41,7 +41,7 @@ class CreateProject extends Component {
         if (flag) {
             this.handleProjectInfo(projectInfo);
             this.props.dispatch(createProject(projectInfo));
-            this.props.dispatch(clearTempChecklist());
+            this.props.dispatch(clearTempTask());
             this.setState({modalOpen: false});
         }
     };

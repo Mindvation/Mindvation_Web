@@ -83,10 +83,68 @@ export const contingencyOptions = [
     },
 ];
 
+export const softModelOptions = [
+    {
+        text: 'Agile',
+        value: 'agile'
+    },
+    {
+        text: 'Waterfall',
+        value: 'waterfall'
+    }];
+
+export const businessModelOptions = [
+    {
+        text: 'Business Canvas',
+        value: 'bc'
+    },
+    {
+        text: 'EPICs',
+        value: 'epics'
+    },
+    {
+        text: 'SWOT',
+        value: 'swot'
+    }];
+
+export const engineeringModelOptions = [
+    {
+        text: '8D',
+        value: 'd8'
+    },
+    {
+        text: '6 Sigma',
+        value: 'sigma6'
+    }
+];
+
+export const techniqueModelOptions = [
+    {
+        text: 'DevOps',
+        value: 'devOps'
+    },
+    {
+        text: 'Technique Platform',
+        value: 'tp'
+    }
+];
+
 export const statusOptions = [{
     text: <FormattedMessage
-        id='open'
-        defaultMessage='Open'
+        id='new'
+        defaultMessage='New'
     />,
-    value: "open"
-}]
+    value: "new"
+},{
+    text: <FormattedMessage
+        id='inProgress'
+        defaultMessage='In Progress'
+    />,
+    value: "inProgress"
+},{
+    text: <FormattedMessage
+        id='done'
+        defaultMessage='Done'
+    />,
+    value: "done"
+}];

@@ -45,15 +45,15 @@ class HomePage extends Component {
     };
 
     componentWillMount() {
-        this.testHeight();
-        window.onresize = this.testHeight;
+        this.setHeight();
+        window.onresize = this.setHeight;
     }
 
     componentWillUnmount() {
         window.onresize = null;
     }
 
-    testHeight = () => {
+    setHeight = () => {
         const h = document.documentElement.clientHeight;//可见区域高度
         const minHeight = (h - 64) + "px";
         this.setState({
@@ -74,7 +74,7 @@ class HomePage extends Component {
                         >
                             <Menu/>
                         </Sider>
-                        <Content style={{minHeight: this.state.minHeight}}>
+                        <Content style={{minHeight: this.state.minHeight, overflowY: 'hidden'}}>
                             {routes.map((route, index) => (
                                 // Render more <Route>s with the same paths as
                                 // above, but different components this time.

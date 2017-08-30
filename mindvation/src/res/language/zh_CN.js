@@ -28,6 +28,7 @@ const zh_CN = {
     projectNamePlaceHolder: "请输入项目名称",
     additionalInfo: "其他信息",
     tags: "标签",
+    Tags: "标签",
     priorityPlaceHolder: "优先级",
     leadersPlaceHolder: "负责人",
     Leaders: "负责人",
@@ -55,7 +56,7 @@ const zh_CN = {
     yes: "是",
     tagExist: "该标签已存在！是否添加到本项目？",
     optionalItems: "可选信息",
-    tasks: "任务",
+    Tasks: "任务",
     "ID Number": "编号",
     "Assignee": "执行人",
     "Assigner": "分配人",
@@ -68,10 +69,13 @@ const zh_CN = {
     high: "高",
     medium: "中",
     low: "低",
-    open: "新建",
+    new: "新建",
+    inProgress: "进行中",
+    done: "已完成",
     Attachments: "附件",
     selectFile: "选择文件",
     startUpload: "开始上传",
-    menuProjects: "项目"
+    menuProjects: "项目",
+    projectModels: "项目模式"
 };
 export default zh_CN;

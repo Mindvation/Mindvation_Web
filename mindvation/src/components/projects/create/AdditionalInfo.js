@@ -26,6 +26,7 @@ class OtherInfo extends Component {
     };
 
     render() {
+        const {info = {}} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -47,12 +48,15 @@ class OtherInfo extends Component {
                 </Header>
                 <AddTags ref={node => {
                     addTagsNode = node
-                }}/>
+                }}
+                         defaultValue={info.tags}
+                />
                 <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
                             priority = node
                         }}
+                        defaultValue={info.priority}
                 />
                 <Select icon="user" options={global.dummyData.assignOptions} multiple={true} label="Leaders"
                         search={true}
@@ -60,12 +64,14 @@ class OtherInfo extends Component {
                         ref={node => {
                             leaders = node
                         }}
+                        defaultValue={info.leaders}
                 />
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}
                             ref={node => {
                                 startEndDate = node
                             }}
+                            defaultValue={[info.startDate, info.endDate]}
                 />
                 <Header as='h4'>
                     <Icon name='file'/>
@@ -76,39 +82,44 @@ class OtherInfo extends Component {
                         />
                     </Header.Content>
                 </Header>
-                <Select options={global.dummyData.assignOptions} label="Software Model"
+                <Select options={global.dummyData.softModelOptions} label="Software Model"
                         placeHolder="softwareModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {
                             softwareModel = node
                         }}
+                        defaultValue={info.softwareModel}
                 />
-                <Select options={global.dummyData.assignOptions} label="Engineering Model"
+                <Select options={global.dummyData.engineeringModelOptions} label="Engineering Model"
                         placeHolder="engineeringModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {
                             engineeringModel = node
                         }}
+                        defaultValue={info.engineeringModel}
                 />
-                <Select options={global.dummyData.assignOptions} label="Business Requirement Model"
+                <Select options={global.dummyData.businessModelOptions} label="Business Requirement Model"
                         placeHolder="businessRequirementModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {
                             businessModel = node
                         }}
+                        defaultValue={info.businessModel}
                 />
-                <Select options={global.dummyData.assignOptions} label="Technique Model"
+                <Select options={global.dummyData.techniqueModelOptions} label="Technique Model"
                         placeHolder="techniqueModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {
                             techniqueModel = node
                         }}
+                        defaultValue={info.techniqueModel}
                 />
                 <Select icon="percent" options={global.dummyData.contingencyOptions} label="Contingency"
                         placeHolder="ContingencyPlaceHolderDesc"
                         ref={node => {
                             contingency = node
                         }}
+                        defaultValue={info.contingency}
                 />
             </Modal.Content>
         );

@@ -44,7 +44,8 @@ class TagList extends Component {
                                   className="tags-icon"
                             /> : null}
                         <Button size="mini" style={{backgroundColor: tag.color}} onClick={() => {
-                            toggle ? this.toggleTag(tag) : handleClick(tag)
+                            toggle ? this.toggleTag(tag) : (handleClick ? handleClick(tag) : () => {
+                            })
                         }}>
                             {tag.text}
                         </Button>

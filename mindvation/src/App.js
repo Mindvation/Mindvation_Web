@@ -7,8 +7,32 @@ import {
     Redirect
 } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
+import {
+    assignOptions,
+    contingencyOptions,
+    priorityOptions,
+    statusOptions,
+    softModelOptions,
+    businessModelOptions,
+    engineeringModelOptions,
+    techniqueModelOptions
+} from "./res/data/dummyData";
+import {updateGobalData} from './util/CommUtil';
 
 class App extends Component {
+    constructor() {
+        super();
+        updateGobalData("dummyData", {
+            assignOptions: assignOptions,
+            contingencyOptions: contingencyOptions,
+            priorityOptions: priorityOptions,
+            statusOptions: statusOptions,
+            softModelOptions: softModelOptions,
+            businessModelOptions: businessModelOptions,
+            engineeringModelOptions: engineeringModelOptions,
+            techniqueModelOptions: techniqueModelOptions
+        })
+    }
 
     render() {
         return (

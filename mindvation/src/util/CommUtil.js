@@ -39,6 +39,17 @@ export const getDesc = (options, key) => {
     return desc;
 };
 
+export const getOption = (options, key) => {
+    let returnOption = {};
+    options.some((option) => {
+        if (option.value === key) {
+            returnOption = option;
+            return true
+        }
+    });
+    return returnOption;
+};
+
 export const checkCompleted = (mandatoryFile, info) => {
     let flag = true;
     mandatoryFile.some((result) => {

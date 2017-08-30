@@ -142,9 +142,13 @@
     white-space: nowrap;
 }
 
-.project-detail .grid-component {
-    padding-left: 1em;
-    padding-top: 1em;
+.project-detail {
+    padding: 1em 1em 1em 1em;
+}
+
+.project-detail .grid-component-right {
+    margin-left: -1em;
+    padding-right: 0 !important;
 }
 
 .project-detail .header-project {
@@ -175,4 +179,48 @@
     text-decoration: underline;
     border-bottom: 2px dotted #666666;
     margin: 5px;
+}
+
+.read-only-component {
+    margin-bottom: 30px;
+}
+
+.read-only-component:last-child {
+    margin-bottom: 0;
+}
+
+.read-only-sub-item {
+    padding-left: 2.65em;
+}
+
+.read-only-sub-item .read-only-text {
+    padding-left: 0;
+}
+
+.read-only-text-item {
+    margin-bottom: 10px;
+}
+
+.task-list-new,
+.ui.list > .task-list-new.item .description {
+    color: #66cc33;
+}
+
+.task-list-inProgress,
+.ui.list > .task-list-inProgress.item .description {
+    color: #ff9900;
+}
+
+.task-list-done,
+.ui.list > .task-list-done.item .description {
+    color: #0099cc;
+    text-decoration: line-through;
+}
+
+.e-charts-segment {
+    height: calc(41vw);
+}
+
+.e-charts-segment-small{
+    height: calc(20vw);
 }

@@ -30,8 +30,8 @@ class ProjectsList extends Component {
             return getDesc(global.dummyData.priorityOptions, data[key]);
         }
         if (key === "taskQty") {
-            if (data.checklist) {
-                return data.checklist.length;
+            if (data.tasks) {
+                return data.tasks.length;
             }
             return 0;
         }

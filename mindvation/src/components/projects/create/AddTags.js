@@ -49,7 +49,7 @@ const allTags = [{
 }];
 
 class AddTags extends Component {
-    state = {modalOpen: false, popupOpen: false, allTags: allTags, projectTags: []};
+    state = {modalOpen: false, popupOpen: false, allTags: allTags, projectTags: this.props.defaultValue || []};
 
     componentWillUpdate() {
         this.fixBody();
@@ -147,7 +147,6 @@ class AddTags extends Component {
 
     render() {
         const {modalOpen} = this.state;
-
         return (
             <div style={{marginBottom: '10px'}} className="components-length">
                 <TagList tagList={this.state.projectTags} handleClick={(tag) => {

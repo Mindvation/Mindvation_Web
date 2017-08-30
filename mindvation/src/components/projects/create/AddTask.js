@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
-import {addChecklist} from '../../../actions/checklist_action';
+import {addTask} from '../../../actions/task_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
-let checklistDesc, assignTo;
+let taskDesc, assignTo;
 
-class AddChecklist extends Component {
+class AddTask extends Component {
     state = {modalOpen: false};
 
     componentWillUpdate() {
@@ -28,17 +28,17 @@ class AddChecklist extends Component {
 
     closeModal = () => this.setState({modalOpen: false});
 
-    createChecklist = () => {
-        const checkList = {
-            "description": checklistDesc.getWrappedInstance().getValue(),
+    createTask = () => {
+        const task = {
+            "description": taskDesc.getWrappedInstance().getValue(),
             "Assignee": assignTo.getWrappedInstance().getValue(),
             "assigner": "Leaders",
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-            "status": "open"
+            "status": "new"
         };
         this.setState({modalOpen: false});
-        this.props.dispatch(addChecklist(checkList));
+        this.props.dispatch(addTask(task));
     };
 
     render() {
@@ -64,7 +64,7 @@ class AddChecklist extends Component {
                     <Modal.Content>
                         <TextArea label="Description" icon="book"
                                   ref={node => {
-                                      checklistDesc = node
+                                      taskDesc = node
                                   }}/>
                         <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
                                 placeHolder="assignToPlaceHolderDesc"
@@ -79,7 +79,7 @@ class AddChecklist extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.createChecklist()}>
+                        <Button primary onClick={() => this.createTask()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'
@@ -92,4 +92,4 @@ class AddChecklist extends Component {
     }
 }
 
-export default AddChecklist;
+export default AddTask;

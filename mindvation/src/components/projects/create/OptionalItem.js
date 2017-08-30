@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
 import {Header, Icon, Modal} from 'semantic-ui-react';
-import Checklist from '../../../containers/checklist_container';
-import AddChecklist from './AddChecklist';
+import Tasks from '../../../containers/task_container';
+import AddTask from './AddTask';
 import {FormattedMessage} from 'react-intl';
 import UploadFile from '../../common/UploadFile';
+import {addTempTasks} from '../../../actions/task_action';
 
-let checkListNode;
+let tasksNode;
 
 class OptionalItem extends Component {
+    componentDidMount() {
+        const {info = {}, dispatch} = this.props;
+        if (info.tasks && info.tasks.length > 0) {
+            dispatch(addTempTasks(info.tasks))
+        }
+    }
 
     getInfo = () => {
         return {
-            checklist: checkListNode.store.getState().checklist
+            tasks: tasksNode.store.getState().task
         };
     };
 
@@ -28,18 +35,20 @@ class OptionalItem extends Component {
                     </Header>
                 </Modal.Description>
                 <Header as='h4'>
-                    <Icon name='tag'/>
+                    <Icon name='tasks'/>
                     <Header.Content>
                         <FormattedMessage
-                            id='tasks'
+                            id='Tasks'
                             defaultMessage='Tasks'
                         />
                     </Header.Content>
                 </Header>
-                <Checklist ref={node => {
-                    checkListNode = node
-                }}/>
-                <AddChecklist dispatch={dispatch}/>
+                <Tasks
+                    ref={node => {
+                        tasksNode = node
+                    }}
+                />
+                <AddTask dispatch={dispatch}/>
                 <UploadFile label="Attachments" icon="attach"/>
             </Modal.Content>
         );

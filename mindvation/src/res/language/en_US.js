@@ -28,6 +28,7 @@ const en_US = {
     projectNamePlaceHolder: "Please enter detail name",
     additionalInfo: "Additional Info",
     tags: "Tags",
+    Tags: "Tags",
     priorityPlaceHolder: "Priority",
     leadersPlaceHolder: "Leaders",
     Leaders: "Leaders",
@@ -55,7 +56,7 @@ const en_US = {
     yes: "Yes",
     tagExist: "This tag is exist! Will you add it to this detail?",
     optionalItems: "Optional Items",
-    tasks: "Tasks",
+    Tasks: "Tasks",
     "ID Number": "ID Number",
     "Assignee": "Assignee",
     "Assigner": "Assigner",
@@ -68,10 +69,13 @@ const en_US = {
     high: "High",
     medium: "Medium",
     low: "Low",
-    open: "Open",
+    new: "New",
+    done: "Done",
+    inProgress: "In Progress",
     Attachments: "Attachments",
     selectFile: "Select File",
     startUpload: "Start Upload",
-    menuProjects: "Projects"
+    menuProjects: "Projects",
+    projectModels: "Project Models"
 };
 export default en_US;

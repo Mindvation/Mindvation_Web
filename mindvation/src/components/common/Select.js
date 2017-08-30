@@ -11,6 +11,10 @@ class MVSelect extends Component {
         selfChecked: false
     };
 
+    componentDidMount() {
+        this.checkDefaultValue();
+    };
+
     getWrappedInstance = () => {
         if (this.props.widthRef) {
             return this.wrappedInstance;
@@ -19,6 +23,23 @@ class MVSelect extends Component {
 
     setWrappedInstance = (ref) => {
         this.wrappedInstance = ref;
+    };
+
+    checkDefaultValue = () => {
+        const {defaultValue} = this.props;
+        if (isEmpty(defaultValue)) {
+            this.setState({
+                isEmpty: true
+            })
+        } else {
+            this.setState({
+                isEmpty: false
+            })
+        }
+
+        this.setState({
+            returnValue: defaultValue
+        })
     };
 
     checkValue = (event, data) => {
@@ -48,7 +69,7 @@ class MVSelect extends Component {
         let props = {
             ...this.props
         };
-        const {label, options, icon, required, checked, search, multiple, placeHolder, horizontal} = this.props;
+        const {label, options, icon, required, checked, search, multiple, placeHolder, horizontal, defaultValue} = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
@@ -72,6 +93,7 @@ class MVSelect extends Component {
                           onChange={(event, data) => {
                               this.checkValue(event, data)
                           }}
+                          defaultValue={defaultValue}
                 />
             </div>
         );

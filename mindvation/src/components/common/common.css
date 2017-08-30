@@ -72,7 +72,7 @@
 
 .item-horizontal h4.ui.header {
     margin: 0;
-    padding: 7.5px 20px 7.5px 0;
+    padding: 8px 20px 8px 0;
 }
 
 .ui.selection.dropdown {
@@ -82,4 +82,8 @@
 .ui.horizontal.list > .item {
     margin-left: 0;
     margin-right: 1em;
+}
+
+.display-file .ant-upload-list-item .anticon-cross {
+    font-size: 0;
 }

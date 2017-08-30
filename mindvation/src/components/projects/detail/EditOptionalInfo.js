@@ -1,63 +1,83 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button} from 'semantic-ui-react';
+import {Header, Icon, Modal, Button, List} from 'semantic-ui-react';
 import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
-import BasicInfo from '../create/BasicInfo';
-import {checkCompleted} from '../../../util/CommUtil';
+import OptionalItem from '../create/OptionalItem';
 import {updateProject} from '../../../actions/project_action';
+import {clearTempTask} from '../../../actions/task_action';
+import DisplayFile from '../../common/DisplayFile';
 
-let basicModule;
-let mandatoryFile = ["projectName", "description"];
+let optionalModule;
 
-class EditBasicInfo extends Component {
+class EditOptionalInfo extends Component {
 
     state = {modalOpen: false};
 
     openModal = () => this.setState({modalOpen: true});
 
-    closeModal = () => this.setState({modalOpen: false});
+    closeModal = () => {
+        this.setState({modalOpen: false});
+        this.props.dispatch(clearTempTask());
+    };
 
     edit = () => {
         this.openModal();
     };
 
     update = () => {
-        let basicInfo = basicModule.getInfo();
-        let flag = checkCompleted(mandatoryFile, basicInfo);
-        if (flag) {
-            this.props.dispatch(updateProject(basicInfo));
-            this.closeModal();
+        let optionalInfo = optionalModule.getInfo();
+        this.props.dispatch(updateProject(optionalInfo));
+        this.props.dispatch(clearTempTask());
+        this.closeModal();
+    };
+
+    formatTasks = () => {
+        const {project} = this.props;
+        if (project.tasks && project.tasks.length) {
+            return <List>
+                {project.tasks.map((result, i) => {
+                    return <List.Item key={i} className={"task-list-" + result.status}>
+                        <List.Icon name='circle'/>
+                        <List.Content>
+                            <List.Description>{result.description}</List.Description>
+                        </List.Content>
+                    </List.Item>
+                })}
+            </List>;
         }
+        return "";
     };
 
     render() {
         const {modalOpen} = this.state;
-        const {project} = this.props;
+        const {project, dispatch} = this.props;
         return (
             <div className="read-only-component">
                 <Header as="h3" className="underLine" style={{display: 'flex'}}>
                     <FormattedMessage
-                        id='basicInfo'
-                        defaultMessage='Basic info'
+                        id='optionalItems'
+                        defaultMessage='Optional Items'
                     />
                     <div className="edit-info-line"/>
                     <div className="edit-info-icon" onClick={this.edit}>
                         <Icon name='pencil'/>
                     </div>
                 </Header>
-                <ReadOnly icon="product hunt" title="Project Name" value={project.projectName}/>
-                <ReadOnly icon="book" title="Description"
-                          value={project.description}/>
-
+                <ReadOnly icon="tasks" title="Tasks"
+                          value={this.formatTasks()}/>
+                <ReadOnly icon="attach" title="Attachments"
+                          value={project.fileList && project.fileList.length > 0 ?
+                              <DisplayFile fileList={project.fileList}/> : ""}/>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}
                     size='large'>
-                    <BasicInfo
+                    <OptionalItem
                         info={project}
+                        dispatch={dispatch}
                         ref={node => {
-                            basicModule = node
+                            optionalModule = node
                         }}
                     />
                     <Modal.Actions>
@@ -80,4 +100,4 @@ class EditBasicInfo extends Component {
     }
 }
 
-export default EditBasicInfo;
+export default EditOptionalInfo;

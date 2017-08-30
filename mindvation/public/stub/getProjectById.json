@@ -3,8 +3,76 @@
   "projectName": "DMS",
   "description": "A system to solve industry project issues which include.....",
   "priority": "H",
+  "leaders": [
+    "43845076",
+    "43547206"
+  ],
+  "tags": [
+    {
+      "key": "T1",
+      "text": "React Native",
+      "color": "#7efefe"
+    },
+    {
+      "key": "T5",
+      "text": "BI",
+      "color": "#ffcc00"
+    },
+    {
+      "key": "T3",
+      "text": "Business Canvas",
+      "color": "#66cc33"
+    }
+  ],
+  "tasks": [
+    {
+      "idNumber": "C0",
+      "description": "Need to assign our RnD team in this projects ASAP.",
+      "Assignee": "43845077",
+      "assigner": "Leaders",
+      "createDate": "2017-08-30 14:32",
+      "lastUpdateDate": "2017-08-30 14:32",
+      "status": "new"
+    },
+    {
+      "idNumber": "C1",
+      "description": "Need to take a rest.",
+      "Assignee": "43547206",
+      "assigner": "Leaders",
+      "createDate": "2017-08-30 14:32",
+      "lastUpdateDate": "2017-08-30 14:32",
+      "status": "inProgress"
+    },
+    {
+      "idNumber": "C2",
+      "description": "Need to play a game.",
+      "Assignee": "43547206",
+      "assigner": "Leaders",
+      "createDate": "2017-08-30 14:32",
+      "lastUpdateDate": "2017-08-30 14:32",
+      "status": "done"
+    }
+  ],
+  "fileList": [
+    {
+      "uid": -1,
+      "name": "Project Plan.jpg",
+      "status": "done",
+      "url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504091638497&di=85f5aab639de6bb85c442abc731eb235&imgtype=0&src=http%3A%2F%2Fupload.gezila.com%2Fdata%2F20151016%2F23841444979024.jpg"
+    },
+    {
+      "uid": -2,
+      "name": "ReactJs.jpg",
+      "status": "done",
+      "url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504092367650&di=5a70268ba1e13d119994b548afcf3fc3&imgtype=0&src=http%3A%2F%2Fimg.kuqin.com%2Fupimg%2Fallimg%2F150409%2F22131251c-0.jpg"
+    }
+  ],
   "startDate": "2017-04-05",
   "endDate": "2017-07-20",
+  "softwareModel": "agile",
+  "engineeringModel": "d8",
+  "businessModel": "",
+  "contingency": "50",
   "efficiency": "87'",
   "progress": "90%",
   "storyQty": "210",

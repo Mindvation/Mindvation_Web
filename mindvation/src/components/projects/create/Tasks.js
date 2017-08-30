@@ -4,9 +4,9 @@ import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
 const header = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status"];
-const checklistKey = ["idNumber", "description", "Assignee", "assigner", "createDate", "lastUpdateDate", "status"];
+const taskKey = ["idNumber", "description", "Assignee", "assigner", "createDate", "lastUpdateDate", "status"];
 
-class Checklist extends Component {
+class Tasks extends Component {
 
     getTaskDesc = (result, key) => {
         if (key === "Assignee" && !isEmpty(result[key])) {
@@ -22,7 +22,7 @@ class Checklist extends Component {
     };
 
     render() {
-        const {checklist} = this.props;
+        const {tasks} = this.props;
         return (
             <Table striped>
                 <Table.Header>
@@ -41,10 +41,10 @@ class Checklist extends Component {
 
                 <Table.Body>
                     {
-                        checklist.map((result, i) => {
+                        tasks.map((result, i) => {
                             return <Table.Row key={i}>
                                 {
-                                    checklistKey.map((key, j) => {
+                                    taskKey.map((key, j) => {
                                         return <Table.Cell
                                             className={"table-cell-length " + (key === "description" ? "text-ellipsis" : "")}
                                             key={i + "_" + j}>
@@ -61,4 +61,4 @@ class Checklist extends Component {
     }
 }
 
-export default Checklist;
+export default Tasks;
