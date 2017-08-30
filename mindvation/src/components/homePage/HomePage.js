@@ -40,17 +40,22 @@ class HomePage extends Component {
         collapsed: false,
         minHeight: '0px'
     };
+
     onCollapse = (collapsed) => {
         this.setState({collapsed});
+        let interval = setInterval(() => {
+            let e = document.createEvent("Event");
+            e.initEvent("resize", true, true);
+            window.dispatchEvent(e);
+            interval && clearInterval(interval);
+        }, 250)
     };
 
     componentWillMount() {
         this.setHeight();
-        window.onresize = this.setHeight;
-    }
-
-    componentWillUnmount() {
-        window.onresize = null;
+        window.addEventListener('resize', () => {
+            this.setHeight()
+        }, false);
     }
 
     setHeight = () => {
@@ -58,7 +63,7 @@ class HomePage extends Component {
         const minHeight = (h - 64) + "px";
         this.setState({
             minHeight: minHeight
-        })
+        });
     };
 
     render() {

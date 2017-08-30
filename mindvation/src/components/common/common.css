@@ -87,3 +87,8 @@
 .display-file .ant-upload-list-item .anticon-cross {
     font-size: 0;
 }
+
+.e-chart-component {
+    height: 100%;
+    width: 100%;
+}

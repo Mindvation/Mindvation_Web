@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ECharts from '../ECharts';
+import ECharts from '../../common/ECharts';
 
 class BurndownChart extends Component {
 

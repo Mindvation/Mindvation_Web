@@ -17,9 +17,10 @@ class Echarts extends Component {
             this.showClickParams(params);
         });
 
-        window.onresize = function () {
+        window.addEventListener('resize', () => {
             myChart.resize();
-        }
+        }, false);
+
     }
 
     showClickParams(params) {
@@ -28,7 +29,7 @@ class Echarts extends Component {
 
     render() {
         return (
-            <div id={this.props.eChartId} style={{width: '100%', height: '100%'}}>
+            <div id={this.props.eChartId} className="e-chart-component">
 
             </div>
         );
