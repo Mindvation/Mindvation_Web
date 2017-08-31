@@ -1418,6 +1418,11 @@ class EfficiencyDiagram extends Component {
                     return a.name;
                 })
             }],
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
             series: [

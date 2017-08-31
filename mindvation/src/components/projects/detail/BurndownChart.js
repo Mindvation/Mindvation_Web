@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
 import ECharts from '../../common/ECharts';
+import PropTypes from 'prop-types';
 
-class BurndownChart extends Component {
+class BurnDownChart extends Component {
 
     getOption() {
         const option = {
             title: {
-                text: 'Burn down'
+                text: 'Burn Down'
             },
             tooltip: {
                 trigger: 'axis'
             },
-            legend: {
+            /*legend: {
                 data: ['Project']
-            },
+            },*/
             grid: {
                 left: '3%',
                 right: '4%',
@@ -42,15 +43,18 @@ class BurndownChart extends Component {
                 }
             ]
         };
-
         return option;
     }
 
     render() {
         return (
-            <ECharts eChartId="burndownChart" option={this.getOption()}/>
+            <ECharts eChartId="burnDownChart" option={this.getOption()}/>
         );
     }
 }
 
-export default BurndownChart;
+BurnDownChart.propTypes = {
+    eChartId: PropTypes.string
+};
+
+export default BurnDownChart;

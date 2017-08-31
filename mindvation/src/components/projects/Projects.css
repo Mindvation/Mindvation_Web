@@ -219,12 +219,51 @@
 
 .e-charts-segment {
     height: calc(41vw);
+    padding: 1em;
+    overflow: hidden;
 }
 
-.e-charts-segment-small {
-    height: calc(20vw);
+.e-charts-segment-right {
+    height: calc(41vw - 58px);
+    padding: 1em;
+    overflow: hidden;
+}
+
+.e-charts-small {
+    height: calc(50% - 1em);
+    margin-bottom: 2em;
+}
+
+.e-charts-small:last-child {
+    margin-bottom: 0;
 }
 
 .task-action-cell {
     display: flex;
+}
+
+.e-charts-segment-outer {
+    padding: 0 !important;
+}
+
+.carousel-button {
+    width: 100%;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.carousel-button-up {
+    border-top: 0;
+}
+
+.carousel-button-down {
+    border-bottom: 0;
+}
+
+.requirement-segment {
+}
+
+.grid-component-right-bottom {
+    margin-top: 1em;
 }

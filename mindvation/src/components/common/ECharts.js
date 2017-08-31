@@ -11,8 +11,15 @@ class Echarts extends Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.state.myChart.resize);
+        window.removeEventListener('resize', this.eChartsResize);
     }
+
+    eChartsResize = () => {
+        let interval = setInterval(() => {
+            this.state.myChart.resize();
+            interval && clearInterval(interval);
+        }, 250)
+    };
 
     getECharts() {
         const {option, eChartId} = this.props;
@@ -23,11 +30,11 @@ class Echarts extends Component {
             this.showClickParams(params);
         });
 
-        window.addEventListener('resize', myChart.resize, false);
-
         this.setState({
             myChart: myChart
         })
+
+        window.addEventListener('resize', this.eChartsResize, false);
     }
 
     showClickParams(params) {

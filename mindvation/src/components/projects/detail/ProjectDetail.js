@@ -6,7 +6,10 @@ import EditOptionalInfo from './EditOptionalInfo';
 import {FormattedMessage} from 'react-intl';
 import {getProjectById} from '../../../actions/project_action';
 import EfficiencyDiagram from './EfficiencyDiagram';
-import BurndownChart from './BurndownChart';
+import BurnDownChart from './BurnDownChart';
+import EfficiencyDashboard from './EfficiencyDashboard';
+import ProgressDashboard from './ProgressDashboard';
+import Carousel from '../../common/Carousel';
 
 class ProjectDetail extends Component {
     constructor(props) {
@@ -49,13 +52,25 @@ class ProjectDetail extends Component {
                                 </Segment>
                             </Grid.Column>
                             <Grid.Column width={5} className="grid-component-right">
-                                <Segment padded className="e-charts-segment-small">
-                                    <BurndownChart/>
-                                </Segment>
+                                <Carousel>
+                                    <div className="e-charts-segment-right">
+                                        <div className="e-charts-small">
+                                            <BurnDownChart/>
+                                        </div>
+                                        <div className="e-charts-small">
+                                            <EfficiencyDashboard/>
+                                        </div>
+                                        <div className="e-charts-small">
+                                            <ProgressDashboard/>
+                                        </div>
+                                    </div>
+                                </Carousel>
                             </Grid.Column>
                         </Grid>
-                        <Grid.Row>
-                            <div style={{backgroundColor: 'green', height: '800px'}}/>
+                        <Grid.Row className="grid-component-right-bottom">
+                            <Segment padded className="requirement-segment">
+                                Requirement
+                            </Segment>
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>

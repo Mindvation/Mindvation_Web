@@ -9,3 +9,7 @@
 #root > div > div.login-form {
     height: 100%;
 }
+
+.ui.grid {
+    margin-right: -1em;
+}
