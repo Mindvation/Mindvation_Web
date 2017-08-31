@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Segment, Icon} from 'semantic-ui-react';
 import {Button} from 'antd';
+import $ from 'jquery';
 
 class Carousel extends Component {
 
@@ -41,16 +42,16 @@ class Carousel extends Component {
             tempScrollTop - (targetElm.scrollHeight - targetElm.clientHeight) > -5) {
             tempScrollTop = targetElm.scrollHeight - targetElm.clientHeight;
         }
-        targetElm.scrollTop = tempScrollTop;
-        this.checkScrollable();
+        $(targetElm).animate({scrollTop: tempScrollTop}, 400, this.checkScrollable);
+        return false;
     };
 
     up = () => {
         let targetElm = this.refs.myCarousel.firstElementChild;
         let tempScrollTop = targetElm.scrollTop - targetElm.clientHeight / 2;
         tempScrollTop < 5 ? tempScrollTop = 0 : tempScrollTop;
-        targetElm.scrollTop = tempScrollTop;
-        this.checkScrollable();
+        $(targetElm).animate({scrollTop: tempScrollTop}, 400, this.checkScrollable);
+        return false;
     };
 
     render() {
