@@ -55,7 +55,7 @@ class Carousel extends Component {
 
     render() {
         return (
-            <Segment className="e-charts-segment-outer">
+            <Segment className="carousel-segment-outer">
                 <Button className={"carousel-button carousel-button-up"}
                         onClick={this.up} disabled={this.state.upDisabled}>
                     <Icon name="chevron up"/>

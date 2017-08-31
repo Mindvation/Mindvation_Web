@@ -97,3 +97,22 @@
     right: 50px;
     bottom: 50px;
 }
+
+.carousel-segment-outer {
+    padding: 0 !important;
+}
+
+.carousel-button {
+    width: 100%;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.carousel-button-up {
+    border-top: 0;
+}
+
+.carousel-button-down {
+    border-bottom: 0;
+}
