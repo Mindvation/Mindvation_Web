@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
-import {addTask} from '../../../actions/task_action';
+import {editTask} from '../../../actions/task_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
 let taskDesc, assignTo;
 
-class AddTask extends Component {
-    state = {modalOpen: false};
+class EditTask extends Component {
+    state = {modalOpen: false, taskInfo: {}};
 
     componentWillUpdate() {
         this.fixBody();
@@ -24,53 +24,48 @@ class AddTask extends Component {
         if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
     };
 
-    openModal = () => this.setState({modalOpen: true});
+    openModal = (taskInfo) => this.setState({modalOpen: true, taskInfo: taskInfo});
 
     closeModal = () => this.setState({modalOpen: false});
 
-    createTask = () => {
+    updateTask = () => {
         const task = {
             "description": taskDesc.getWrappedInstance().getValue(),
             "assignee": assignTo.getWrappedInstance().getValue(),
-            "assigner": "Leaders",
-            "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-            "status": "new"
         };
         this.setState({modalOpen: false});
-        this.props.dispatch(addTask(task));
+        this.props.dispatch(editTask(Object.assign(this.state.taskInfo, task)));
     };
 
     render() {
         const {modalOpen} = this.state;
         return (
             <div>
-                <Button color='blue' onClick={() => this.openModal()}>
-                    <FormattedMessage
-                        id='addTask'
-                        defaultMessage='Add Task'
-                    />
-                </Button>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
                     <Modal.Header>
                         <FormattedMessage
-                            id='addTask'
-                            defaultMessage='Add Task'
+                            id='editTask'
+                            defaultMessage='Edit Task'
                         />
                     </Modal.Header>
                     <Modal.Content>
                         <TextArea label="Description" icon="book"
                                   ref={node => {
                                       taskDesc = node
-                                  }}/>
+                                  }}
+                                  defaultValue={this.state.taskInfo.description}
+                        />
                         <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node
-                                }}/>
+                                }}
+                                defaultValue={this.state.taskInfo.assignee}
+                        />
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
@@ -79,7 +74,7 @@ class AddTask extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.createTask()}>
+                        <Button primary onClick={() => this.updateTask()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'
@@ -92,4 +87,4 @@ class AddTask extends Component {
     }
 }
 
-export default AddTask;
+export default EditTask;

@@ -23,7 +23,7 @@ class OptionalItem extends Component {
     };
 
     render() {
-        const {dispatch} = this.props;
+        const {dispatch, showAction} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -47,6 +47,8 @@ class OptionalItem extends Component {
                     ref={node => {
                         tasksNode = node
                     }}
+                    showAction={showAction}
+                    dispatch={dispatch}
                 />
                 <AddTask dispatch={dispatch}/>
                 <UploadFile label="Attachments" icon="attach"/>

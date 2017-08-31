@@ -221,6 +221,10 @@
     height: calc(41vw);
 }
 
-.e-charts-segment-small{
+.e-charts-segment-small {
     height: calc(20vw);
+}
+
+.task-action-cell {
+    display: flex;
 }

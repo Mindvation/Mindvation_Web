@@ -28,7 +28,7 @@
     {
       "idNumber": "C0",
       "description": "Need to assign our RnD team in this projects ASAP.",
-      "Assignee": "43845077",
+      "assignee": "43845077",
       "assigner": "Leaders",
       "createDate": "2017-08-30 14:32",
       "lastUpdateDate": "2017-08-30 14:32",
@@ -37,7 +37,7 @@
     {
       "idNumber": "C1",
       "description": "Need to take a rest.",
-      "Assignee": "43547206",
+      "assignee": "43547206",
       "assigner": "Leaders",
       "createDate": "2017-08-30 14:32",
       "lastUpdateDate": "2017-08-30 14:32",
@@ -46,7 +46,7 @@
     {
       "idNumber": "C2",
       "description": "Need to play a game.",
-      "Assignee": "43547206",
+      "assignee": "43547206",
       "assigner": "Leaders",
       "createDate": "2017-08-30 14:32",
       "lastUpdateDate": "2017-08-30 14:32",

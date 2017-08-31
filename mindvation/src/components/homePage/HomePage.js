@@ -66,7 +66,6 @@ class HomePage extends Component {
         this.setState({
             minHeight: minHeight
         });
-        console.info(111111111)
     };
 
     render() {

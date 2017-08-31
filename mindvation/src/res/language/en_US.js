@@ -76,6 +76,9 @@ const en_US = {
     selectFile: "Select File",
     startUpload: "Start Upload",
     menuProjects: "Projects",
-    projectModels: "Project Models"
+    projectModels: "Project Models",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editTask": "Edit Task"
 };
 export default en_US;

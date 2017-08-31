@@ -76,6 +76,9 @@ const zh_CN = {
     selectFile: "选择文件",
     startUpload: "开始上传",
     menuProjects: "项目",
-    projectModels: "项目模式"
+    projectModels: "项目模式",
+    "edit": "修改",
+    "delete": "删除",
+    "editTask": "修改任务"
 };
 export default zh_CN;

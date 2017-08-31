@@ -79,6 +79,7 @@ class EditOptionalInfo extends Component {
                         ref={node => {
                             optionalModule = node
                         }}
+                        showAction={true}
                     />
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
