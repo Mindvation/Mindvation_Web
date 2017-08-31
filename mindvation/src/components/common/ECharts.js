@@ -4,8 +4,14 @@ import PropTypes from 'prop-types';
 
 class Echarts extends Component {
 
+    state = {};
+
     componentDidMount() {
         this.getECharts();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.state.myChart.resize);
     }
 
     getECharts() {
@@ -17,10 +23,11 @@ class Echarts extends Component {
             this.showClickParams(params);
         });
 
-        window.addEventListener('resize', () => {
-            myChart.resize();
-        }, false);
+        window.addEventListener('resize', myChart.resize, false);
 
+        this.setState({
+            myChart: myChart
+        })
     }
 
     showClickParams(params) {

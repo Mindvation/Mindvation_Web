@@ -53,9 +53,11 @@ class HomePage extends Component {
 
     componentWillMount() {
         this.setHeight();
-        window.addEventListener('resize', () => {
-            this.setHeight()
-        }, false);
+        window.addEventListener('resize', this.setHeight, false);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.setHeight);
     }
 
     setHeight = () => {
@@ -64,6 +66,7 @@ class HomePage extends Component {
         this.setState({
             minHeight: minHeight
         });
+        console.info(111111111)
     };
 
     render() {
