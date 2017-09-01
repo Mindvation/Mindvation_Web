@@ -136,6 +136,10 @@
     max-width: calc(30vw);
 }
 
+.requirement-cell-length {
+    max-width: calc(30vw);
+}
+
 .text-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -242,9 +246,52 @@
     display: flex;
 }
 
-.requirement-segment {
-}
-
 .grid-component-right-bottom {
     margin-top: 1em;
+}
+
+.requirement-segment {
+
+}
+
+.create-requirement-button {
+    width: 100%;
+    font-size: 4em !important;
+}
+
+.ui.button.select-member-role-button {
+    width: 8em;
+    height: 8em;
+    padding: 0.5em;
+    margin: 1em;
+}
+
+.select-member-role-button-text {
+    margin-top: 1em;
+    color: #000000;
+}
+
+.ui.modal.choose-members-modal {
+    left: auto;
+    right: 0;
+}
+
+.tag-footer {
+}
+
+.tag-footer-line {
+    width: calc(100% - 0.25em);
+    height: 3px;
+    margin-top: 2px;
+    background-color: #db2828;
+    position: absolute;
+    webkit-box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
+    box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
+}
+
+.tag-footer-text {
+    position: absolute;
+    margin-top: 8px;
+    width: calc(100% - 0.25em);
+    text-align: center;
 }

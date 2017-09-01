@@ -61,7 +61,7 @@ class Tasks extends Component {
                                     {
                                         taskKey.map((key, j) => {
                                             return <Table.Cell
-                                                className={"table-cell-length " + (key === "description" ? "text-ellipsis" : "")}
+                                                className={"task-table-cell-length " + (key === "description" ? "text-ellipsis" : "")}
                                                 key={i + "_" + j}>
                                                 {this.getTaskDesc(result, key)}
                                             </Table.Cell>

@@ -10,6 +10,7 @@ import BurnDownChart from './BurnDownChart';
 import EfficiencyDashboard from './EfficiencyDashboard';
 import ProgressDashboard from './ProgressDashboard';
 import Carousel from '../../common/Carousel';
+import Requirement from '../requirement/Requirement';
 
 class ProjectDetail extends Component {
     constructor(props) {
@@ -68,8 +69,8 @@ class ProjectDetail extends Component {
                             </Grid.Column>
                         </Grid>
                         <Grid.Row className="grid-component-right-bottom">
-                            <Segment padded className="requirement-segment">
-                                Requirement
+                            <Segment>
+                                <Requirement project={project}/>
                             </Segment>
                         </Grid.Row>
                     </Grid.Column>

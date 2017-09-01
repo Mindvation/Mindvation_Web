@@ -1433,7 +1433,7 @@ class EfficiencyDiagram extends Component {
                     data: graph.nodes,
                     links: graph.links,
                     categories: categories,
-                    roam: true,
+                    roam: false,
                     label: {
                         normal: {
                             position: 'right',

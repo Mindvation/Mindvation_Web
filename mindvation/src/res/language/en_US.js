@@ -79,6 +79,14 @@ const en_US = {
     projectModels: "Project Models",
     "edit": "Edit",
     "delete": "Delete",
-    "editTask": "Edit Task"
+    "editTask": "Edit Task",
+    requirements: "Requirements",
+    "Req ID": "Req ID",
+    "Summary": "Summary",
+    "Start Time": "Start Time",
+    "End Time": "End Time",
+    "Leader": "Leader",
+    "Members": "Members",
+    createRequirement: "Create Requirement"
 };
 export default en_US;

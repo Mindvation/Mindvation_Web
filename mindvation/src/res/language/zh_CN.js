@@ -79,6 +79,14 @@ const zh_CN = {
     projectModels: "项目模式",
     "edit": "修改",
     "delete": "删除",
-    "editTask": "修改任务"
+    "editTask": "修改任务",
+    requirements: "需求",
+    "Req ID": "编号",
+    "Summary": "概要",
+    "Start Time": "开始时间",
+    "End Time": "结束时间",
+    "Leader": "负责人",
+    "Members": "成员",
+    createRequirement: "创建需求"
 };
 export default zh_CN;
