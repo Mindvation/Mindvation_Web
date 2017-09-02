@@ -1,0 +1,31 @@
+[
+  {
+    "model": "agile",
+    "roles": [
+      {
+        "key": "Scrum Master"
+      },
+      {
+        "key": "Front-End Dev"
+      },
+      {
+        "key": "Backend Dev"
+      },
+      {
+        "key": "UX Designer"
+      },
+      {
+        "key": "Business"
+      },
+      {
+        "key": "Analyst"
+      },
+      {
+        "key": "BDD"
+      },
+      {
+        "key": "Architect"
+      }
+    ]
+  }
+]

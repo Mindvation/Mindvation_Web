@@ -4,6 +4,7 @@ import {FormattedMessage} from 'react-intl';
 import BasicInfo from './BasicInfo';
 import AdditionalInfo from './AdditionalInfo';
 import OptionalItem from '../create/OptionalItem';
+import {createRequirement} from '../../../actions/requirement_action';
 
 class CreateRequirement extends Component {
     state = {modalOpen: false};
@@ -12,11 +13,18 @@ class CreateRequirement extends Component {
 
     closeModal = () => this.setState({modalOpen: false});
 
+    createTempRequirement = () => {
+        this.props.dispatch(createRequirement());
+        this.openModal();
+    };
+
     render() {
         const {modalOpen} = this.state;
+        const {requirement} = this.props;
         return (
             <div>
-                <Button className="create-requirement-button" compact basic onClick={() => this.openModal()}>
+                <Button className="create-requirement-button" compact basic
+                        onClick={() => this.createTempRequirement()}>
                     <Icon name="plus circle"/>
                     <FormattedMessage
                         id='createRequirement'
@@ -35,7 +43,7 @@ class CreateRequirement extends Component {
                         />
                     </Modal.Header>
                     <BasicInfo/>
-                    <AdditionalInfo/>
+                    <AdditionalInfo requirement={requirement}/>
                     <OptionalItem/>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>

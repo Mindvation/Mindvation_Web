@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
-import {Button, Modal, Segment, Header, Icon} from 'semantic-ui-react';
+import {Button, Modal, Segment, Header, Icon, Image} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
-import ChooseMembers from './ChooseMembers';
+import ChooseMembers from '../../../containers/member_container';
+import {getRolesByModel} from '../../../actions/role_action';
+import {updateRequirement} from '../../../actions/requirement_action';
 
-const roles = ["Scrum Master", "Front-End Dev", "Backend Dev", "Backend Dev", "UX Designer", "Business", "Analyst", "BDD", "Architect"];
 let chooseMembersNode;
 
 class SelectMembers extends Component {
     state = {modalOpen: false};
+
+    componentWillMount() {
+        this.props.dispatch(getRolesByModel('agile'));
+    }
 
     componentWillUpdate() {
         this.fixBody();
@@ -27,17 +32,38 @@ class SelectMembers extends Component {
     closeModal = () => this.setState({modalOpen: false});
 
     chooseMembersForRole = (role) => {
-        chooseMembersNode.openModal(role);
+        chooseMembersNode.getWrappedInstance().openModal(role);
+    };
+
+    update = () => {
+        const {requirement, roles} = this.props;
+        requirement.roles = roles;
+        this.props.dispatch(updateRequirement(requirement));
+        this.closeModal();
     };
 
     render() {
         const {modalOpen} = this.state;
+        const {requirement, roles} = this.props;
         return (
             <div style={{marginBottom: '10px'}} className={"components-length components-item"}>
                 <Segment>
                     <Header style={{cursor: 'pointer'}} size='small' className="underLine" floated='right'
                             onClick={() => this.openModal()}>
                         Using Agile Team Structure Mode
+                        {requirement.roles && requirement.roles.length > 0 ?
+                            requirement.roles.map((role, i) => {
+                                return role.members && role.members.length > 0 ?
+                                    <div key={i}>{role.key}
+                                        {role.members.map((member, j) => {
+                                            return <div key={i + "_" + j}>
+                                                <Image src={member.name.image.src} avatar/>
+                                                <span>{member.name.text}</span>
+                                            </div>
+                                        })}
+                                    </div> : null
+
+                            }) : null}
                     </Header>
                 </Segment>
 
@@ -51,15 +77,17 @@ class SelectMembers extends Component {
                     <Modal.Content>
                         {
                             roles.map((role, i) => {
-                                return <Button key={i} basic className="select-member-role-button" onClick={(role) => {
+                                return <Button key={i} basic className="select-member-role-button" onClick={() => {
                                     this.chooseMembersForRole(role)
                                 }}>
-                                    <Icon.Group size='big'>
-                                        <Icon size='large' name='user' color='black'/>
-                                        <Icon corner name='add' color='black'/>
-                                    </Icon.Group>
+                                    {role.members && role.members.length > 0 ?
+                                        <Icon size='big' name='users' color='black'/> :
+                                        <Icon size='big' name='add user' color='black'/>
+                                    }
                                     <div className="select-member-role-button-text">
-                                        {role}
+                                        {role.members && role.members.length > 0 ?
+                                            role.key + "(" + role.members.length + " Members)" :
+                                            role.key}
                                     </div>
                                 </Button>
                             })
@@ -73,7 +101,7 @@ class SelectMembers extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.addTagsToProject()}>
+                        <Button primary onClick={() => this.update()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

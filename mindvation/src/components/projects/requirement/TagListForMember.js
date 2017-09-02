@@ -24,19 +24,23 @@ class TagListForMember extends Component {
         })
     }
 
+    getTagOrder() {
+        return this.state.order;
+    }
+
     render() {
-        const {tagList} = this.props;
+        const {tagList, shortTag} = this.props;
         return (
             tagList.length === 0 ? null : <List horizontal>
                 {tagList.map((tag) => {
                     return <List.Item key={tag.key} style={{position: 'relative'}}>
                         <Button size="mini" style={{backgroundColor: tag.color}}
                                 onClick={() => {
-                                    this.mappingTagOrder(tag.key)
+                                    return shortTag ? {} : this.mappingTagOrder(tag.key);
                                 }}>
-                            {tag.text}
+                            {shortTag ? tag.text.substr(0, 1) : tag.text}
                         </Button>
-                        {this.state.order[tag.key] ? <div className="tag-footer">
+                        {this.state.order[tag.key] && !shortTag ? <div className="tag-footer">
                             <div className="tag-footer-line"/>
                             <div className="tag-footer-text">{this.state.order[tag.key]}</div>
                         </div> : null}
@@ -48,7 +52,8 @@ class TagListForMember extends Component {
 }
 
 TagListForMember.propTypes = {
-    tagList: PropTypes.array
+    tagList: PropTypes.array,
+    shortTag: PropTypes.bool
 };
 
 export default TagListForMember;

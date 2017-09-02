@@ -3,7 +3,7 @@ import {Header, Modal, Icon} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
 import AddTags from "../create/AddTags";
-import SelectMembers from './SelectMembers';
+import ProjectRoles from '../../../containers/role_container';
 import {FormattedMessage} from 'react-intl';
 
 let priority, startEndDate, addTagsNode;
@@ -20,7 +20,7 @@ class AdditionalInfo extends Component {
     };
 
     render() {
-        const {info = {}} = this.props;
+        const {requirement = {}} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -44,23 +44,20 @@ class AdditionalInfo extends Component {
                     ref={node => {
                         addTagsNode = node
                     }}
-                    defaultValue={info.tags}
                 />
                 <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
                             priority = node
                         }}
-                        defaultValue={info.priority}
                 />
-                <SelectMembers/>
+                <ProjectRoles requirement={requirement}/>
 
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}
                             ref={node => {
                                 startEndDate = node
                             }}
-                            defaultValue={[info.startDate, info.endDate]}
                 />
             </Modal.Content>
         );

@@ -3,12 +3,18 @@ import projects from './projects_reducer';
 import project from './project_reducer';
 import userInfo from './logon_reducer';
 import task from './task_reducer';
+import member from './member_reducer';
+import requirement from './requirement_reducer';
+import role from './role_reducer';
 
 const mindvationApp = combineReducers({
     projects,
     userInfo,
     task,
-    project
+    project,
+    member,
+    requirement,
+    role
 });
 
 export default mindvationApp;

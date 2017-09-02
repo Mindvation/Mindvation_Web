@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Modal} from 'semantic-ui-react';
-import {editTask} from '../../../actions/task_action';
-import {dateFormat} from '../../../util/CommUtil';
+import {Button, Modal, Input} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import TagList from './TagListForMember';
-
-let taskDesc, assignTo;
+import Members from './Members';
+import {searchMembersByTags, clearTempMembers} from '../../../actions/member_action';
+import {updateRoleMembers} from '../../../actions/role_action';
 
 const allTags = [{
     key: "T1",
@@ -33,8 +32,10 @@ const allTags = [{
     color: "#7efefe"
 }];
 
+let searchNode, tagsNode, membersNode;
+
 class ChooseMembers extends Component {
-    state = {modalOpen: false, taskInfo: {}};
+    state = {modalOpen: false, role: ''};
 
     componentWillUpdate() {
         this.fixBody();
@@ -49,22 +50,29 @@ class ChooseMembers extends Component {
         if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
     };
 
-    openModal = (taskInfo) => this.setState({modalOpen: true, taskInfo: taskInfo});
+    openModal = (role) => this.setState({modalOpen: true, role: role});
 
-    closeModal = () => this.setState({modalOpen: false});
-
-    updateTask = () => {
-        const task = {
-            "description": taskDesc.getWrappedInstance().getValue(),
-            "assignee": assignTo.getWrappedInstance().getValue(),
-            "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-        };
+    closeModal = () => {
         this.setState({modalOpen: false});
-        this.props.dispatch(editTask(Object.assign(this.state.taskInfo, task)));
+        this.props.dispatch(clearTempMembers());
+    };
+
+    searchMembers = () => {
+        let tagOrder = tagsNode.getTagOrder();
+        this.props.dispatch(searchMembersByTags(tagOrder));
+    };
+
+    addMemberToRole = () => {
+        let membersForRole = membersNode.getSelectedMembers();
+        let tempRole = Object.assign({}, this.state.role);
+        tempRole.members = membersForRole;
+        this.props.dispatch(updateRoleMembers(tempRole));
+        this.closeModal();
     };
 
     render() {
         const {modalOpen} = this.state;
+        const {members} = this.props;
         return (
             <div>
                 <Modal
@@ -76,7 +84,23 @@ class ChooseMembers extends Component {
                         Choose Members
                     </Modal.Header>
                     <Modal.Content>
-                        <TagList tagList={allTags}/>
+                        <TagList
+                            tagList={allTags}
+                            ref={node => tagsNode = node}
+                        />
+                        <Input
+                            className="choose-members-search"
+                            fluid
+                            icon={{
+                                name: 'search', circular: true, link: true,
+                                onClick: () => this.searchMembers()
+                            }}
+                            ref={node => searchNode = node}
+                            defaultValue={this.state.role.key}
+                        />
+                        <Members
+                            ref={node => membersNode = node}
+                            members={members}/>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
@@ -85,7 +109,7 @@ class ChooseMembers extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.updateTask()}>
+                        <Button primary onClick={() => this.addMemberToRole()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

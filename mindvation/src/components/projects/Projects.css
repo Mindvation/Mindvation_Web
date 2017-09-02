@@ -295,3 +295,8 @@
     width: calc(100% - 0.25em);
     text-align: center;
 }
+
+.choose-members-search {
+    margin-top: 35px;
+    width: 50%;
+}

@@ -116,3 +116,7 @@
 .carousel-button-down {
     border-bottom: 0;
 }
+
+.pointer-cursor {
+    cursor: pointer !important;
+}
