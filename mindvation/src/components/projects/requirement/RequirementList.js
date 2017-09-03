@@ -8,16 +8,7 @@ import {
 } from 'react-router-dom';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
-const rmKey = ["reqId", "summary", "priority", "startTime", "endTime", "leader", "members"];
-const requirements = [{
-    "reqId": "R0",
-    "summary": "We need make a B2B project which can help company to solve teamwork.......",
-    "priority": "H",
-    "startTime": "2017/07/07",
-    "endTime": "2017/09/01",
-    "leader": "43845076",
-    "members": 7
-}];
+const rmKey = ["reqId", "summary", "priority", "startDate", "endDate", "leader", "members"];
 
 class RequirementList extends Component {
     componentDidMount() {
@@ -29,11 +20,11 @@ class RequirementList extends Component {
     }
 
     handleDisplayData(data, key) {
-        if (key === "projectId") {
+        /*if (key === "projectId") {
             return <Link to={`projects/${data[key]}`}>
                 {data[key]}
             </Link>
-        }
+        }*/
         if (key === "priority" && !isEmpty(data[key])) {
             return getDesc(global.dummyData.priorityOptions, data[key]);
         }
@@ -43,14 +34,14 @@ class RequirementList extends Component {
             }
             return 0;
         }
-        if (key === "description") {
-            return <Popup
-                trigger={<span>{data[key]}</span>}
-                content={data[key]}
-                basic
-                position="bottom left"
-                style={{maxWidth: '50%'}}
-            />
+        if (key === "members") {
+            let memberNumber = 0;
+            data.roles.map((role) => {
+                if (role.members) {
+                    memberNumber += role.members.length;
+                }
+            })
+            return memberNumber;
         }
         if (isEmpty(data[key])) {
             return 'N/A';
@@ -59,7 +50,7 @@ class RequirementList extends Component {
     }
 
     render() {
-        const {projectList} = this.props;
+        const {requirements} = this.props;
         return (
             <Table striped>
                 <Table.Header>
@@ -79,18 +70,17 @@ class RequirementList extends Component {
                 <Table.Body>
                     {
                         requirements.map((result, i) => {
-                            return
-                                <Table.Row key={i}>
-                                    {
-                                        rmKey.map((key, j) => {
-                                            return <Table.Cell
-                                                className={"requirement-cell-length " + (key === "summary" ? "text-ellipsis" : "")}
-                                                key={i + "_" + j}>
-                                                {result[key]}
-                                            </Table.Cell>
-                                        })
-                                    }
-                                </Table.Row>
+                            return <Table.Row key={i}>
+                                {
+                                    rmKey.map((key, j) => {
+                                        return <Table.Cell
+                                            className={"requirement-cell-length " + (key === "summary" ? "text-ellipsis" : "")}
+                                            key={i + "_" + j}>
+                                            {this.handleDisplayData(result, key)}
+                                        </Table.Cell>
+                                    })
+                                }
+                            </Table.Row>
                         })
                     }
                 </Table.Body>

@@ -6,7 +6,7 @@ import AddTags from "../create/AddTags";
 import ProjectRoles from '../../../containers/role_container';
 import {FormattedMessage} from 'react-intl';
 
-let priority, startEndDate, addTagsNode;
+let priority, startEndDate, addTagsNode, rolesNode;
 
 class AdditionalInfo extends Component {
 
@@ -15,7 +15,8 @@ class AdditionalInfo extends Component {
             "priority": priority.getWrappedInstance().getValue(),
             "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            "tags": addTagsNode.getValue()
+            "tags": addTagsNode.getValue(),
+            "roles": rolesNode.store.getState().requirement.roles
         }
     };
 
@@ -51,7 +52,11 @@ class AdditionalInfo extends Component {
                             priority = node
                         }}
                 />
-                <ProjectRoles requirement={requirement}/>
+                <ProjectRoles
+                    ref={node => {
+                        rolesNode = node
+                    }}
+                    requirement={requirement}/>
 
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}

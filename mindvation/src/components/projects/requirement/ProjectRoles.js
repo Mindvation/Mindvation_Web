@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, Segment, Header, Icon, Image} from 'semantic-ui-react';
+import {Button, Modal, Segment, Header, Icon, Image, Table} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import ChooseMembers from '../../../containers/member_container';
 import {getRolesByModel} from '../../../actions/role_action';
@@ -47,25 +47,49 @@ class SelectMembers extends Component {
         const {requirement, roles} = this.props;
         return (
             <div style={{marginBottom: '10px'}} className={"components-length components-item"}>
-                <Segment>
-                    <Header style={{cursor: 'pointer'}} size='small' className="underLine" floated='right'
+                <div className="single-line">
+                    <Header as='h4'>
+                        <Icon name="group"/>
+                        <Header.Content>
+                            <FormattedMessage
+                                id="Members"
+                                defaultValue="Members"
+                            />
+                        </Header.Content>
+                    </Header>
+                    <Header style={{cursor: 'pointer', marginLeft: '50px', color: 'blue'}}
+                            size='small' className="underLine"
+                            floated='right'
                             onClick={() => this.openModal()}>
                         Using Agile Team Structure Mode
-                        {requirement.roles && requirement.roles.length > 0 ?
-                            requirement.roles.map((role, i) => {
-                                return role.members && role.members.length > 0 ?
-                                    <div key={i}>{role.key}
-                                        {role.members.map((member, j) => {
-                                            return <div key={i + "_" + j}>
-                                                <Image src={member.name.image.src} avatar/>
-                                                <span>{member.name.text}</span>
-                                            </div>
-                                        })}
-                                    </div> : null
 
-                            }) : null}
                     </Header>
-                </Segment>
+                </div>
+
+                {requirement.roles && requirement.roles.length > 0 ?
+                    <Table basic='very' collapsing>
+                        <Table.Body>
+                            {requirement.roles.map((role, i) => {
+                                return role.members && role.members.length > 0 ?
+                                    <Table.Row key={i}>
+                                        <Table.Cell>{role.key}</Table.Cell>
+                                        <Table.Cell>
+                                            {
+                                                role.members.map((member, j) => {
+                                                    return <div className="table-single-line" key={i + "_" + j}>
+                                                        <Image src={member.name.image.src}
+                                                               avatar><span>{member.name.text}</span>
+                                                        </Image>
+                                                    </div>
+                                                })
+                                            }
+
+                                        </Table.Cell>
+                                    </Table.Row> :
+                                    null
+                            })}
+                        </Table.Body>
+                    </Table> : null}
 
                 <Modal
                     closeOnEscape={false}

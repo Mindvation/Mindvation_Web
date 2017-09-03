@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import RequirementList from './RequirementList';
+import RequirementList from '../../../containers/requirements_container';
 import CreateRequirement from '../../../containers/requirement_container';
 import {Header, Icon} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';

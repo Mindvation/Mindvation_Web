@@ -4,8 +4,7 @@ import Input from '../../common/Input';
 import TextArea from '../../common/TextArea';
 import {FormattedMessage} from 'react-intl';
 
-let name;
-let projectDesc;
+let summary, desc;
 
 class BasicInfo extends Component {
     state = {checked: false};
@@ -14,8 +13,8 @@ class BasicInfo extends Component {
             checked: true
         });
         return {
-            "projectName": name.getWrappedInstance().getValue(),
-            "description": projectDesc.getWrappedInstance().getValue()
+            "summary": summary.getWrappedInstance().getValue(),
+            "description": desc.getWrappedInstance().getValue()
         }
     };
 
@@ -33,17 +32,15 @@ class BasicInfo extends Component {
                 </Modal.Description>
                 <Input label="Summary" icon="product hunt" required={true}
                        ref={node => {
-                           name = node
+                           summary = node
                        }}
                        checked={this.state.checked}
-                       defaultValue={info.projectName}
                 />
                 <TextArea label="Description" icon="book" required={true}
                           ref={node => {
-                              projectDesc = node
+                              desc = node
                           }}
                           checked={this.state.checked}
-                          defaultValue={info.description}
                 />
             </Modal.Content>
         );

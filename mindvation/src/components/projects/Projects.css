@@ -300,3 +300,13 @@
     margin-top: 35px;
     width: 50%;
 }
+
+.single-line {
+    display: inline-flex;
+}
+
+.table-single-line {
+    display: inline-block;
+    padding-left: 1em;
+    padding-right: 1em;
+}
