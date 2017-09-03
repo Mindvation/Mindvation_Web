@@ -35,13 +35,13 @@ class RequirementList extends Component {
             return 0;
         }
         if (key === "members") {
-            let memberNumber = 0;
+            let members = [];
             data.roles.map((role) => {
-                if (role.members) {
-                    memberNumber += role.members.length;
+                if (role.members && role.members.length > 0) {
+                    Object.assign(members, role.members)
                 }
             })
-            return memberNumber;
+            return members.length;
         }
         if (isEmpty(data[key])) {
             return 'N/A';

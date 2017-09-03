@@ -77,9 +77,9 @@ class SelectMembers extends Component {
                                             {
                                                 role.members.map((member, j) => {
                                                     return <div className="table-single-line" key={i + "_" + j}>
-                                                        <Image src={member.name.image.src}
-                                                               avatar><span>{member.name.text}</span>
-                                                        </Image>
+                                                        <Image verticalAlign="middle" src={member.name.image.src}
+                                                               avatar/>
+                                                        <span>{member.name.text}</span>
                                                     </div>
                                                 })
                                             }
@@ -109,9 +109,12 @@ class SelectMembers extends Component {
                                         <Icon size='big' name='add user' color='black'/>
                                     }
                                     <div className="select-member-role-button-text">
-                                        {role.members && role.members.length > 0 ?
-                                            role.key + "(" + role.members.length + " Members)" :
-                                            role.key}
+                                        {role.key}
+                                    </div>
+                                    <div>
+                                        ({role.members && role.members.length > 0 ? role.members.length + " Member" +
+                                        (role.members.length > 1 ? "s" : "")
+                                        : "No Member"})
                                     </div>
                                 </Button>
                             })
