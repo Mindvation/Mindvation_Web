@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table, Image, Checkbox} from 'semantic-ui-react';
+import {Table, Image, Checkbox, Icon} from 'semantic-ui-react';
 import {isEmpty} from '../../../util/CommUtil';
 import TagList from './TagListForMember';
 import {FormattedMessage} from 'react-intl';
@@ -47,7 +47,8 @@ class Members extends Component {
 
     getMemberDesc = (result, key) => {
         if (key === "selected") {
-            return <Checkbox onClick={() => this.toggleSelected(result)}/>
+            return <Checkbox checked={this.state.selectedMembers.indexOf(result) > -1}
+                             onClick={() => this.toggleSelected(result)}/>
         }
         if (key === "tags" && !isEmpty(result[key])) {
             return <TagList tagList={result[key]} shortTag={true}/>
@@ -108,10 +109,10 @@ class Members extends Component {
                                                       className="pointer-cursor"
                                                       sorted={column === result.sortKey ? direction : null}
                                                       onClick={this.handleSort(result.sortKey)}>
-
                                         {result.text ? <FormattedMessage
                                             id={result.text}
                                         /> : ""}
+                                        <Icon name="arrow down"/>
                                     </Table.HeaderCell> :
                                     <Table.HeaderCell key={i}>
                                         {result.text ? <FormattedMessage
