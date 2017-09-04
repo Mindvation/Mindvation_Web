@@ -81,7 +81,10 @@ class ChooseMembers extends Component {
                     open={modalOpen}
                     className="choose-members-modal">
                     <Modal.Header>
-                        Choose Members
+                        <FormattedMessage
+                            id="chooseMembers"
+                            defaultValue="Choose Members"
+                        />
                     </Modal.Header>
                     <Modal.Content>
                         <TagList

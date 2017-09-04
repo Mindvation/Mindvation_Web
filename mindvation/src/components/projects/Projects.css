@@ -315,3 +315,7 @@
 .select-member-role-button > i {
     margin: 0 !important;
 }
+
+.mode-desc-popup {
+    opacity: 0.7;
+}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Table, Image, Checkbox} from 'semantic-ui-react';
 import {isEmpty} from '../../../util/CommUtil';
 import TagList from './TagListForMember';
+import {FormattedMessage} from 'react-intl';
 
 const header = [
     {text: ""},
@@ -107,10 +108,15 @@ class Members extends Component {
                                                       className="pointer-cursor"
                                                       sorted={column === result.sortKey ? direction : null}
                                                       onClick={this.handleSort(result.sortKey)}>
-                                        {result.text}
+
+                                        {result.text ? <FormattedMessage
+                                            id={result.text}
+                                        /> : ""}
                                     </Table.HeaderCell> :
                                     <Table.HeaderCell key={i}>
-                                        {result.text}
+                                        {result.text ? <FormattedMessage
+                                            id={result.text}
+                                        /> : ""}
                                     </Table.HeaderCell>
                             })
                         }

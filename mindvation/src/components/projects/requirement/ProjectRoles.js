@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, Segment, Header, Icon, Image, Table} from 'semantic-ui-react';
+import {Button, Modal, Popup, Header, Icon, Image, Table} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import ChooseMembers from '../../../containers/member_container';
 import {getRolesByModel} from '../../../actions/role_action';
@@ -61,9 +61,22 @@ class SelectMembers extends Component {
                             size='small' className="underLine"
                             floated='right'
                             onClick={() => this.openModal()}>
-                        Using Agile Team Structure Mode
-
+                        <FormattedMessage
+                            id="usingAgile"
+                            defaultValue="Using Agile Team Structure Mode"
+                        />
                     </Header>
+
+                    <Popup
+                        trigger={<Icon size='large' name='attention'/>}
+                        content={<FormattedMessage
+                            id="agileModelDesc"
+                            defaultValue='This Project had select to be Software Dev model with Agile template'
+                        />}
+                        position='right center'
+                        inverted
+                        className="mode-desc-popup"
+                    />
                 </div>
 
                 {requirement.roles && requirement.roles.length > 0 ?
@@ -96,7 +109,10 @@ class SelectMembers extends Component {
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
                     <Modal.Header>
-                        Agile team + TP Structure
+                        <FormattedMessage
+                            id="agileAndTP"
+                            defaultValue='Agile team + TP Structure'
+                        />
                     </Modal.Header>
                     <Modal.Content>
                         {
@@ -112,9 +128,20 @@ class SelectMembers extends Component {
                                         {role.key}
                                     </div>
                                     <div>
-                                        ({role.members && role.members.length > 0 ? role.members.length + " Member" +
-                                        (role.members.length > 1 ? "s" : "")
-                                        : "No Member"})
+                                        {role.members && role.members.length > 0 ?
+                                            role.members.length : <FormattedMessage
+                                                id="noMember"
+                                                defaultValue="No Member"
+                                            />}
+                                        {role.members && role.members.length > 0 ?
+                                            <FormattedMessage
+                                                id="quantifierOfMember"
+                                                defaultValue=' Member'
+                                            /> : null}
+                                        {role.members && role.members.length > 1 ? <FormattedMessage
+                                            id="pluralForEnglish"
+                                            defaultValue=' s'
+                                        /> : null}
                                     </div>
                                 </Button>
                             })

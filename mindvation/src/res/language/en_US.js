@@ -87,6 +87,16 @@ const en_US = {
     "End Time": "End Time",
     "Leader": "Leader",
     "Members": "Members",
-    createRequirement: "Create Requirement"
+    createRequirement: "Create Requirement",
+    usingAgile: "Using Agile Team Structure Mode",
+    agileModelDesc: "This Project had select to be Software Dev model with Agile template",
+    agileAndTP: "Agile team + TP Structure",
+    quantifierOfMember: " Member",
+    pluralForEnglish: "s",
+    noMember: "No Member",
+    chooseMembers: "Choose Members",
+    "Name": "Name",
+    "Contribution": "Contribution",
+    "Rec.": "Rec."
 };
 export default en_US;

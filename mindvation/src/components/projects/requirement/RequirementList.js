@@ -3,9 +3,6 @@ import {Table, Popup} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
-import {
-    Link
-} from 'react-router-dom';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
 const rmKey = ["reqId", "summary", "priority", "startDate", "endDate", "leader", "members"];
@@ -20,11 +17,6 @@ class RequirementList extends Component {
     }
 
     handleDisplayData(data, key) {
-        /*if (key === "projectId") {
-            return <Link to={`projects/${data[key]}`}>
-                {data[key]}
-            </Link>
-        }*/
         if (key === "priority" && !isEmpty(data[key])) {
             return getDesc(global.dummyData.priorityOptions, data[key]);
         }
@@ -38,15 +30,33 @@ class RequirementList extends Component {
             let members = [];
             data.roles.map((role) => {
                 if (role.members && role.members.length > 0) {
-                    Object.assign(members, role.members)
+                    role.members.map((member) => {
+                        if (this.checkRepeat(members, member)) {
+                            members.push(member);
+                        }
+                    })
                 }
-            })
+            });
             return members.length;
         }
         if (isEmpty(data[key])) {
             return 'N/A';
         }
         return data[key];
+    }
+
+    checkRepeat(members, member) {
+        let flag = true;
+        if (members.length !== 0) {
+            members.some((item) => {
+                if (item.name.value === member.name.value) {
+                    flag = false;
+                    return true;
+                }
+            })
+        }
+
+        return flag;
     }
 
     render() {
@@ -88,7 +98,7 @@ class RequirementList extends Component {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan={header.length}>
-                            <Pagination defaultCurrent={1} total={96}
+                            <Pagination defaultCurrent={1} total={10}
                                         showQuickJumper
                                         onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                         </Table.HeaderCell>

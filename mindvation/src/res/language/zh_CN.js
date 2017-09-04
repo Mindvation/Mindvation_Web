@@ -87,6 +87,16 @@ const zh_CN = {
     "End Time": "结束时间",
     "Leader": "负责人",
     "Members": "成员",
-    createRequirement: "创建需求"
+    createRequirement: "创建需求",
+    usingAgile: "使用敏捷模式",
+    agileModelDesc: "该项目选择了敏捷模板作为软件开发模式",
+    agileAndTP: "敏捷和TP模式",
+    quantifierOfMember: " 名成员",
+    pluralForEnglish: " ",
+    noMember: "无成员",
+    chooseMembers: "选择成员",
+    "Name": "姓名",
+    "Contribution": "贡献",
+    "Rec.": "Rec."
 };
 export default zh_CN;
