@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Transition, Icon, Segment} from 'semantic-ui-react';
-import Comment from './Comment';
+import Comment from '../../common/Comment';
 import PropTypes from 'prop-types';
+import {updateRequirements} from '../../../actions/requirements_action';
 
 class Discussion extends Component {
     state = {
@@ -14,19 +15,31 @@ class Discussion extends Component {
         })
     };
 
+    updateRequirement = (comment, action) => {
+        const {requirement, dispatch} = this.props;
+        if (action === 'add') {
+            requirement.comments.push(comment);
+        } else {
+            Object.assign(requirement.comments, comment);
+            dispatch(updateRequirements(requirement));
+        }
+        dispatch(updateRequirements(requirement));
+    };
+
 
     render() {
         const {visible} = this.state;
-        const {requirement, dispatch} = this.props;
+        const {comments, dispatch} = this.props.requirement;
         return (
             <div>
                 <div className={"discussion-comment-link pointer-cursor"} onClick={this.toggleVisibility}>
                     <Icon name='talk outline'/>
-                    {requirement.comments.length}
+                    {comments.length}
                 </div>
                 <Transition visible={visible} animation='slide down' duration={250}>
                     <Segment>
-                        <Comment requirement={requirement} dispatch={dispatch}/>
+                        <Comment comments={comments} dispatch={dispatch}
+                                 changeComment={(comment, action) => this.updateRequirement(comment, action)}/>
                     </Segment>
                 </Transition>
             </div>

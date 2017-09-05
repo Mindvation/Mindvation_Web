@@ -123,6 +123,8 @@
 
 .discussion-comment-link {
     color: blue;
+    padding-right: 1em;
+    display: inline-block;
 }
 
 .comment-footer {

@@ -3,7 +3,7 @@ import {Table, Popup} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
-import Discussion from '../../common/Discussion';
+import Discussion from './Discussion';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
 const rmKey = ["reqId", "summary", "priority", "startDate", "endDate", "leader", "members"];

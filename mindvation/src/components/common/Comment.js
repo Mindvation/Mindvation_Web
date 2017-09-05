@@ -14,7 +14,7 @@ class MVComment extends Component {
     };
 
     sendComment = () => {
-        const {dispatch, requirement} = this.props;
+        const {changeComment} = this.props;
         const {text} = this.mentionNode.getInfo();
         if (isEmpty(text.trim())) return;
         const comment = {
@@ -28,13 +28,13 @@ class MVComment extends Component {
             approve: [],
             disagree: []
         };
-        requirement.comments.push(comment);
-        dispatch(updateRequirements(requirement));
+        changeComment(comment, 'add');
+
         this.mentionNode.handleReset();
     };
 
     approve = (comment) => {
-        const {dispatch, requirement} = this.props;
+        const {changeComment} = this.props;
         let approves = comment.approve;
         let disagrees = comment.disagree;
         disagrees.indexOf(logOnUser) > -1 ?
@@ -46,13 +46,11 @@ class MVComment extends Component {
             approves.push(logOnUser);
         comment.approve = approves;
         comment.disagree = disagrees;
-
-        Object.assign(requirement.comments, comment);
-        dispatch(updateRequirements(requirement));
+        changeComment(comment, 'update');
     };
 
     disagree = (comment) => {
-        const {dispatch, requirement} = this.props;
+        const {changeComment} = this.props;
         let approves = comment.approve;
         let disagrees = comment.disagree;
         disagrees.indexOf(logOnUser) > -1 ?
@@ -63,12 +61,11 @@ class MVComment extends Component {
             null;
         comment.disagree = disagrees;
         comment.approve = approves;
-        Object.assign(requirement.comments, comment);
-        dispatch(updateRequirements(requirement));
+        changeComment(comment, 'update');
     };
 
     render() {
-        const {comments} = this.props.requirement;
+        const {comments} = this.props;
         return (
             <Comment.Group>
                 {
