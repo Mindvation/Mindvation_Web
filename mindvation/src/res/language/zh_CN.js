@@ -97,6 +97,8 @@ const zh_CN = {
     chooseMembers: "选择成员",
     "Name": "姓名",
     "Contribution": "贡献",
-    "Rec.": "Rec."
+    "Rec.": "Rec.",
+    reply: "回复",
+    send: "发送"
 };
 export default zh_CN;

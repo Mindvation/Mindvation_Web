@@ -97,6 +97,8 @@ const en_US = {
     chooseMembers: "Choose Members",
     "Name": "Name",
     "Contribution": "Contribution",
-    "Rec.": "Rec."
+    "Rec.": "Rec.",
+    reply: "Reply",
+    send: "Send"
 };
 export default en_US;

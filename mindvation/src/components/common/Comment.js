@@ -3,7 +3,7 @@ import {Button, Comment, Icon} from 'semantic-ui-react';
 import Mention from './Mention';
 import PropTypes from 'prop-types';
 import {dateFormat, isEmpty} from '../../util/CommUtil';
-import {updateRequirements} from '../../actions/requirements_action';
+import {FormattedMessage} from 'react-intl';
 
 const logOnUser = '43845076';
 
@@ -93,7 +93,12 @@ class MVComment extends Component {
                                               color={item.disagree.indexOf(logOnUser) > -1 ? 'red' : 'grey'}/>
                                         {item.disagree.length}
                                     </Comment.Action>
-                                    <Comment.Action onClick={() => this.replay(item.author)}>Reply</Comment.Action>
+                                    <Comment.Action onClick={() => this.replay(item.author)}>
+                                        <FormattedMessage
+                                            id='reply'
+                                            defaultMessage='Reply'
+                                        />
+                                    </Comment.Action>
                                 </Comment.Actions>
                             </Comment.Content>
                         </Comment>
@@ -101,8 +106,13 @@ class MVComment extends Component {
                 }
                 <div className="comment-footer">
                     <Mention wrappedComponentRef={node => this.mentionNode = node}/>
-                    <Button onClick={() => this.sendComment()} className="comment-send-button" content='Send'
-                            primary/>
+                    <Button onClick={() => this.sendComment()} className="comment-send-button"
+                            primary>
+                        <FormattedMessage
+                            id='send'
+                            defaultMessage='Send'
+                        />
+                    </Button>
                 </div>
             </Comment.Group>
         );
