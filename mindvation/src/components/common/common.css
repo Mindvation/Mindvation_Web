@@ -120,3 +120,20 @@
 .pointer-cursor {
     cursor: pointer !important;
 }
+
+.discussion-comment-link {
+    color: blue;
+}
+
+.comment-footer {
+    padding-top: 2em;
+    text-align: right;
+}
+
+.comment-send-button {
+    margin-top: 1em !important;
+}
+
+.ant-mention-wrapper .DraftEditor-editorContainer .public-DraftEditor-content {
+    min-height: 100px;
+}

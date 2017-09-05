@@ -3,6 +3,7 @@ import {Table, Popup} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
+import Discussion from '../../common/Discussion';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
 const rmKey = ["reqId", "summary", "priority", "startDate", "endDate", "leader", "members"];
@@ -28,15 +29,17 @@ class RequirementList extends Component {
         }
         if (key === "members") {
             let members = [];
-            data.roles.map((role) => {
-                if (role.members && role.members.length > 0) {
-                    role.members.map((member) => {
-                        if (this.checkRepeat(members, member)) {
-                            members.push(member);
-                        }
-                    })
-                }
-            });
+            if (data.roles) {
+                data.roles.map((role) => {
+                    if (role.members && role.members.length > 0) {
+                        role.members.map((member) => {
+                            if (this.checkRepeat(members, member)) {
+                                members.push(member);
+                            }
+                        })
+                    }
+                })
+            }
             return members.length;
         }
         if (isEmpty(data[key])) {
@@ -60,7 +63,7 @@ class RequirementList extends Component {
     }
 
     render() {
-        const {requirements} = this.props;
+        const {requirements, dispatch} = this.props;
         return (
             <Table striped>
                 <Table.Header>
@@ -76,11 +79,10 @@ class RequirementList extends Component {
                         }
                     </Table.Row>
                 </Table.Header>
-
-                <Table.Body>
-                    {
-                        requirements.map((result, i) => {
-                            return <Table.Row key={i}>
+                {
+                    requirements.map((result, i) => {
+                        return <Table.Body key={i}>
+                            <Table.Row>
                                 {
                                     rmKey.map((key, j) => {
                                         return <Table.Cell
@@ -91,9 +93,15 @@ class RequirementList extends Component {
                                     })
                                 }
                             </Table.Row>
-                        })
-                    }
-                </Table.Body>
+                            <Table.Row>
+                                <Table.Cell colSpan={rmKey.length}>
+                                    <Discussion requirement={result} dispatch={dispatch}/>
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    })
+                }
+
 
                 <Table.Footer>
                     <Table.Row>

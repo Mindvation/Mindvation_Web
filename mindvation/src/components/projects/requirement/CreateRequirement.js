@@ -33,6 +33,7 @@ class CreateRequirement extends Component {
         let optionalInfo = optionalModule.getInfo();
         let additionalInfo = AdditionalModule.getInfo();
         let requirementInfo = Object.assign(basicInfo, additionalInfo, optionalInfo);
+        requirementInfo.comments = [];
         let flag = checkCompleted(mandatoryFile, requirementInfo);
         if (flag) {
             this.props.dispatch(createRequirements(requirementInfo));

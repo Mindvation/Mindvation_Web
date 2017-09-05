@@ -3,7 +3,6 @@ import RequirementList from '../../../containers/requirements_container';
 import CreateRequirement from '../../../containers/requirement_container';
 import {Header, Icon} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
-import Comment from '../../common/Comment';
 
 class Requirement extends Component {
     constructor() {
@@ -24,7 +23,6 @@ class Requirement extends Component {
                 </Header>
                 <RequirementList/>
                 <CreateRequirement/>
-                <Comment/>
             </div>
         );
     }

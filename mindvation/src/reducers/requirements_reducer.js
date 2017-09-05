@@ -1,4 +1,4 @@
-import {CREATE_REQUIREMENTS} from '../actions/requirements_action';
+import {CREATE_REQUIREMENTS, UPDATE_REQUIREMENTS} from '../actions/requirements_action';
 
 let reqId = 0;
 
@@ -8,6 +8,8 @@ function projects(state = [], action) {
             action.requirement.reqId = "R" + reqId++;
             return [...state,
                 action.requirement];
+        case UPDATE_REQUIREMENTS:
+            return Object.assign([], state, action.requirement);
         default:
             return state
     }
