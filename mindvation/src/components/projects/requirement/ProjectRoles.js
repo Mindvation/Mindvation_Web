@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Modal, Popup, Header, Icon, Image, Table} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import ChooseMembers from '../../../containers/member_container';
-import {getRolesByModel} from '../../../actions/role_action';
+import {getRolesByModel, setRoles} from '../../../actions/role_action';
 import {updateRequirement} from '../../../actions/requirement_action';
 
 let chooseMembersNode;
@@ -11,7 +11,11 @@ class SelectMembers extends Component {
     state = {modalOpen: false};
 
     componentWillMount() {
-        this.props.dispatch(getRolesByModel('agile'));
+        if (this.props.requirement.roles) {
+            this.props.dispatch(setRoles(this.props.requirement.roles));
+        } else {
+            this.props.dispatch(getRolesByModel('agile'));
+        }
     }
 
     componentWillUpdate() {

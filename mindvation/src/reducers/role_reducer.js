@@ -1,4 +1,4 @@
-import {UPDATE_ROLE_MEMBERS, CLEAR_TEMP_ROLES, GET_ROLES_BY_MODEL} from '../actions/role_action';
+import {UPDATE_ROLE_MEMBERS, CLEAR_TEMP_ROLES, GET_ROLES_BY_MODEL, SET_ROLES} from '../actions/role_action';
 
 function role(state = [], action) {
     switch (action.type) {
@@ -15,6 +15,8 @@ function role(state = [], action) {
             return Object.assign([], state, tempState);
         case CLEAR_TEMP_ROLES:
             return [];
+        case SET_ROLES:
+            return action.roles;
         default:
             return state
     }

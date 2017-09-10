@@ -4,6 +4,9 @@ import {Pagination} from 'antd';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import Discussion from './Discussion';
+import {
+    Link
+} from 'react-router-dom';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
 const rmKey = ["reqId", "summary", "priority", "startDate", "endDate", "leader", "members"];
@@ -18,6 +21,11 @@ class RequirementList extends Component {
     }
 
     handleDisplayData(data, key) {
+        if (key === "reqId") {
+            return <Link to={`requirement/${data[key]}`}>
+                {data[key]}
+            </Link>
+        }
         if (key === "priority" && !isEmpty(data[key])) {
             return getDesc(global.dummyData.priorityOptions, data[key]);
         }

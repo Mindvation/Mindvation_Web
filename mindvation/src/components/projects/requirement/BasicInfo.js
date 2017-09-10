@@ -35,12 +35,14 @@ class BasicInfo extends Component {
                            summary = node
                        }}
                        checked={this.state.checked}
+                       defaultValue={info.summary}
                 />
                 <TextArea label="Description" icon="book" required={true}
                           ref={node => {
                               desc = node
                           }}
                           checked={this.state.checked}
+                          defaultValue={info.description}
                 />
             </Modal.Content>
         );

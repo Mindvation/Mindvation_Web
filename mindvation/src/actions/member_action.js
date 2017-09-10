@@ -14,7 +14,7 @@ function retrievedMembers(members) {
 
 export function searchMembersByTags(tags) {
     return dispatch => {
-        fetch('../stub/getMembersByTags.json')
+        fetch('/stub/getMembersByTags.json')
             .then((res) => {
                 return res.json();
             })

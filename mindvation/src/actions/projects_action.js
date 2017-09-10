@@ -20,7 +20,7 @@ function retrievedProjects(projects) {
 
 export function retrieveProjects(page, pageSize) {
     return dispatch => {
-        fetch('../stub/retrieveProjects.json')
+        fetch('/stub/retrieveProjects.json')
             .then((res) => {
                 return res.json();
             })

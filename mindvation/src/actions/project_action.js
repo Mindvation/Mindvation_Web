@@ -15,11 +15,12 @@ function retrievedProject(project) {
 
 export function getProjectById(id) {
     return dispatch => {
-        fetch('../stub/getProjectById.json')
+        fetch('/stub/getProjectById.json')
             .then((res) => {
                 return res.json();
             })
             .then((data) => {
+                data.projectId = id;
                 dispatch(retrievedProject(data));
             })
             .catch((e) => {
