@@ -10,6 +10,7 @@ class Story extends Component {
     }
 
     render() {
+        const {requirement} = this.props;
         return (
             <div className="requirement-segment">
                 <Header as='h3'>
@@ -22,7 +23,7 @@ class Story extends Component {
                     </Header.Content>
                 </Header>
                 <StoryList/>
-                <CreateStory/>
+                <CreateStory requirement={requirement}/>
             </div>
         );
     }

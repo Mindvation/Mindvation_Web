@@ -311,6 +311,7 @@
     display: inline-block;
     padding-left: 1em;
     padding-right: 1em;
+    position: relative;
 }
 
 .select-member-role-button > i {
@@ -323,4 +324,10 @@
 
 .table-origin-data {
     background-color: #e8e8e8;
+}
+
+.selected-member-icon {
+    position: absolute;
+    right: 2px;
+    top: -8px;
 }

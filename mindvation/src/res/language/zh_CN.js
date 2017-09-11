@@ -101,6 +101,16 @@ const zh_CN = {
     reply: "回复",
     send: "发送",
     storyList: "用户故事",
-    createStory: "创建用户故事"
+    createStory: "创建用户故事",
+    "Story ID": "编号",
+    "Duration": "用时",
+    "Finished SP": "完成用故事点",
+    "Defect Qty": "缺陷数",
+    "Critical Defects": "缺陷-严重",
+    "High Defects": "缺陷-高",
+    "Medium Defects": "缺陷-中",
+    "Low Defects": "缺陷-低",
+    "Defect fix rate": "缺陷修复率",
+    "Quality Index": "品控指数"
 };
 export default zh_CN;

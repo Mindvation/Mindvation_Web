@@ -4,10 +4,10 @@ import Select from '../../common/Select';
 import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';
 import AddTags from "../create/AddTags";
-import ProjectRoles from '../../../containers/role_container';
+import ChooseMembers from './ChooseMembers';
 import {FormattedMessage} from 'react-intl';
 
-let priority, startEndDate, addTagsNode, rolesNode, storyPointsNode;
+let priority, startEndDate, addTagsNode, chooseMembersNode, storyPointsNode;
 
 class AdditionalInfo extends Component {
 
@@ -17,12 +17,13 @@ class AdditionalInfo extends Component {
             "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
             "tags": addTagsNode.getValue(),
-            "storyPoints": storyPointsNode.getWrappedInstance().getValue()
+            "storyPoints": storyPointsNode.getWrappedInstance().getValue(),
+            "roles": chooseMembersNode.getValue()
         }
     };
 
     render() {
-        const {info = {}} = this.props;
+        const {info = {}, requirement} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -55,7 +56,11 @@ class AdditionalInfo extends Component {
                         }}
                         defaultValue={info.priority}
                 />
-
+                <ChooseMembers
+                    ref={node => {
+                        chooseMembersNode = node
+                    }}
+                    requirement={requirement}/>
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}
                             ref={node => {

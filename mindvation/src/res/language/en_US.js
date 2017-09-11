@@ -101,6 +101,16 @@ const en_US = {
     reply: "Reply",
     send: "Send",
     storyList: "Story List",
-    createStory: "Create Story"
+    createStory: "Create Story",
+    "Story ID": "Story ID",
+    "Duration": "Duration",
+    "Finished SP": "Finished SP",
+    "Defect Qty": "Defect Qty",
+    "Critical Defects": "Critical Defects",
+    "High Defects": "High Defects",
+    "Medium Defects": "Medium Defects",
+    "Low Defects": "Low Defects",
+    "Defect fix rate": "Defect fix rate",
+    "Quality Index": "Quality Index"
 };
 export default en_US;
