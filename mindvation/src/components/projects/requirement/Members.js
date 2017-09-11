@@ -16,16 +16,53 @@ const memberKey = ["selected", "name", "tags", "efficiency", "contribution", "re
 class Members extends Component {
     state = {
         column: null,
-        data: this.props.members,
+        data: [],
+        originData: [],
         direction: null,
         selectedMembers: []
     };
 
+    componentWillMount() {
+        this.handleMembersData(this.props.members, this.props.originMembers)
+    }
+
     componentWillReceiveProps(nextProps) {
         const {members} = nextProps;
-        this.setState({
-            data: members
-        })
+        const {originMembers} = this.props;
+        this.handleMembersData(members, originMembers)
+    }
+
+    handleMembersData(members, originMembers) {
+        if (originMembers && originMembers.length > 0) {
+            let tempMebers = [];
+            if (members && members.length > 0) {
+                members.map((member) => {
+                    if (!this.existMember(originMembers, member)) {
+                        tempMebers.push(member)
+                    }
+                })
+            }
+            this.setState({
+                data: tempMebers,
+                originData: originMembers,
+                selectedMembers: Object.assign([], originMembers)
+            });
+        } else {
+            this.setState({
+                data: members
+            })
+        }
+    }
+
+    existMember(originMembers, member) {
+        let flag = false;
+        originMembers.some((orgMember) => {
+            if (orgMember.name.value === member.name.value) {
+                flag = true;
+                return true;
+            }
+        });
+        return flag;
     }
 
     toggleSelected(member) {
@@ -97,7 +134,7 @@ class Members extends Component {
     }
 
     render() {
-        const {column, data, direction} = this.state;
+        const {column, data, originData, direction} = this.state;
         return (
             <Table striped>
                 <Table.Header>
@@ -123,6 +160,25 @@ class Members extends Component {
                         }
                     </Table.Row>
                 </Table.Header>
+                {
+                    originData && originData.length > 0 ?
+                        <Table.Body className="table-origin-data">
+                            {
+                                originData.map((result, i) => {
+                                    return <Table.Row key={i}>
+                                        {
+                                            memberKey.map((key, j) => {
+                                                return <Table.Cell
+                                                    key={i + "_" + j}>
+                                                    {this.getMemberDesc(result, key)}
+                                                </Table.Cell>
+                                            })
+                                        }
+                                    </Table.Row>
+                                })
+                            }
+                        </Table.Body> : null
+                }
                 <Table.Body>
                     {
                         data.map((result, i) => {

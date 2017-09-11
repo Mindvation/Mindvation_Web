@@ -5,6 +5,7 @@ import {getRequirementById} from '../../../../actions/requirement_action';
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
+import Story from '../../story/Story';
 
 class RequirementDetail extends Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class RequirementDetail extends Component {
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
                         <Segment>
-
+                            <Story requirement={requirement}/>
                         </Segment>
                     </Grid.Column>
                 </Grid>

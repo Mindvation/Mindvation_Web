@@ -99,6 +99,8 @@ const zh_CN = {
     "Contribution": "贡献",
     "Rec.": "Rec.",
     reply: "回复",
-    send: "发送"
+    send: "发送",
+    storyList: "用户故事",
+    createStory: "创建用户故事"
 };
 export default zh_CN;

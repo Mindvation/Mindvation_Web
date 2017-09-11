@@ -35,7 +35,7 @@ const allTags = [{
 let searchNode, tagsNode, membersNode;
 
 class ChooseMembers extends Component {
-    state = {modalOpen: false, role: ''};
+    state = {modalOpen: false, role: '', originMembers: []};
 
     componentWillUpdate() {
         this.fixBody();
@@ -50,7 +50,7 @@ class ChooseMembers extends Component {
         if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
     };
 
-    openModal = (role) => this.setState({modalOpen: true, role: role});
+    openModal = (role) => this.setState({modalOpen: true, role: role, originMembers: Object.assign([], role.members)});
 
     closeModal = () => {
         this.setState({modalOpen: false});
@@ -71,7 +71,7 @@ class ChooseMembers extends Component {
     };
 
     render() {
-        const {modalOpen} = this.state;
+        const {modalOpen, originMembers} = this.state;
         const {members} = this.props;
         return (
             <div>
@@ -103,7 +103,8 @@ class ChooseMembers extends Component {
                         />
                         <Members
                             ref={node => membersNode = node}
-                            members={members}/>
+                            members={members}
+                            originMembers={originMembers}/>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>

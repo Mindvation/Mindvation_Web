@@ -99,6 +99,8 @@ const en_US = {
     "Contribution": "Contribution",
     "Rec.": "Rec.",
     reply: "Reply",
-    send: "Send"
+    send: "Send",
+    storyList: "Story List",
+    createStory: "Create Story"
 };
 export default en_US;
