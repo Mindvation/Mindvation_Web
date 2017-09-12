@@ -114,6 +114,7 @@ const en_US = {
     "Quality Index": "Quality Index",
     createChangeRequest: "Create Change Request",
     functionLabelPlaceHolder: "Process/Function Label",
-    "Process/Function Label": "Process/Function Label"
+    "Process/Function Label": "Process/Function Label",
+    subFunctionLabelPH: "Sub Process/Function Label"
 };
 export default en_US;

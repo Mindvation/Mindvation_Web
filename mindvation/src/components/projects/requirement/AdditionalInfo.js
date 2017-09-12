@@ -23,7 +23,7 @@ class AdditionalInfo extends Component {
     };
 
     render() {
-        const {info = {}} = this.props;
+        const {info = {}, requirement} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -60,7 +60,7 @@ class AdditionalInfo extends Component {
                     ref={node => {
                         rolesNode = node
                     }}
-                    requirement={info}/>
+                    requirement={requirement}/>
 
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}
@@ -69,7 +69,7 @@ class AdditionalInfo extends Component {
                             }}
                             defaultValue={[info.startDate, info.endDate]}
                 />
-                <Input label="Story Points" icon="database"
+                <Input label="Story Points" icon="database" type="number"
                        ref={node => {
                            storyPointsNode = node
                        }}

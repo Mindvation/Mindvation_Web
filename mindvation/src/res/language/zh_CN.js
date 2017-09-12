@@ -114,6 +114,7 @@ const zh_CN = {
     "Quality Index": "品控指数",
     createChangeRequest: "创建需求变更",
     functionLabelPlaceHolder: "过程/方法模块",
-    "Process/Function Label": "过程/方法模块"
+    "Process/Function Label": "过程/方法模块",
+    subFunctionLabelPH: "过程/方法子模块"
 };
 export default zh_CN;

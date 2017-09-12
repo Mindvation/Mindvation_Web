@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Header, Modal, Icon} from 'semantic-ui-react';
+import {Header, Modal, Icon, Input as SUInput} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';
+import Display from '../../common/Display';
 import AddTags from "../create/AddTags";
 import ChooseMembers from './ChooseMembers';
 import {FormattedMessage} from 'react-intl';
 
-let priority, startEndDate, addTagsNode, chooseMembersNode, storyPointsNode;
+let priority, startEndDate, addTagsNode, chooseMembersNode, storyPointsNode, subFunctionLabel;
 
 class AdditionalInfo extends Component {
 
@@ -18,6 +19,7 @@ class AdditionalInfo extends Component {
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
             "tags": addTagsNode.getValue(),
             "storyPoints": storyPointsNode.getWrappedInstance().getValue(),
+            "functionLabel": subFunctionLabel.getWrappedInstance().getValue(),
             "roles": chooseMembersNode.getValue()
         }
     };
@@ -49,6 +51,31 @@ class AdditionalInfo extends Component {
                     }}
                     defaultValue={info.tags}
                 />
+                <Header as='h4'>
+                    <Icon name='sitemap'/>
+                    <Header.Content>
+                        <FormattedMessage
+                            id='Process/Function Label'
+                            defaultMessage='Process/Function Label'
+                        />
+                    </Header.Content>
+                </Header>
+                <div style={{display: "flex"}} className="components-length">
+                    <Display
+                        value={requirement.functionLabel}
+                        options={global.dummyData.functionOptions}
+                    />
+                    <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
+                    <Input
+                        ref={node => {
+                            subFunctionLabel = node
+                        }}
+                        style={{flex: 1, marginTop: '1em'}}
+                        fullWidth={true}
+                        placeHolder="subFunctionLabelPHDesc"
+                        defaultValue={info.functionLabel}
+                    />
+                </div>
                 <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
@@ -68,7 +95,7 @@ class AdditionalInfo extends Component {
                             }}
                             defaultValue={[info.startDate, info.endDate]}
                 />
-                <Input label="Story Points" icon="database"
+                <Input label="Story Points" icon="database" type="number"
                        ref={node => {
                            storyPointsNode = node
                        }}

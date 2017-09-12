@@ -69,27 +69,33 @@ class MVInput extends Component {
         let props = {
             ...this.props
         };
-        const {label, icon, required, checked, placeHolder, defaultValue} = this.props;
+        const {
+            label, icon, required, checked, placeHolder, defaultValue, type = "text",
+            step = "0.1", style, fullWidth
+        } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
         }
         return (
-            <div className="components-item">
-                <Header as='h4'>
-                    {icon ? <Icon name={icon}/> : null}
-                    <Header.Content className={required ? "input-label" : null}>
-                        <FormattedMessage
-                            id={label}
-                        />
-                    </Header.Content>
-                </Header>
+            <div className="components-item" style={style}>
+                {
+                    label ? <Header as='h4'>
+                        {icon ? <Icon name={icon}/> : null}
+                        <Header.Content className={required ? "input-label" : null}>
+                            <FormattedMessage
+                                id={label}
+                            />
+                        </Header.Content>
+                    </Header> : null
+                }
                 <Input fluid
                        placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                        error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
-                       className="components-length"
+                       className={fullWidth ? "" : "components-length"}
                        onChange={(event, data) => this.checkValue(event, data)}
                        defaultValue={defaultValue}
+                       type={type} step={step}
                 />
             </div>
         );
@@ -102,7 +108,11 @@ MVInput.propTypes = {
     required: PropTypes.bool,
     checked: PropTypes.bool,
     placeHolder: PropTypes.string,
-    defaultValue: PropTypes.string
+    defaultValue: PropTypes.string,
+    type: PropTypes.string,
+    step: PropTypes.string,
+    style: PropTypes.object,
+    fullWidth: PropTypes.bool
 };
 
 export default injectIntl(MVInput, {withRef: true});

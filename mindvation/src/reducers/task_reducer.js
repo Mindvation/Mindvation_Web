@@ -5,7 +5,7 @@ let idNumber = 0;
 function task(state = [], action) {
     switch (action.type) {
         case ADD_TASK:
-            action.task.idNumber = "C" + idNumber++;
+            action.task.idNumber = "T" + idNumber++;
             return [...state,
                 action.task];
         case CLEAR_TEMP_TASK:

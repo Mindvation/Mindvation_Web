@@ -52,5 +52,9 @@ export const messages = defineMessages({
     functionLabelPlaceHolderDesc: {
         id: 'functionLabelPlaceHolder',
         defaultMessage: 'Process/Function Label'
+    },
+    subFunctionLabelPHDesc: {
+        id: 'subFunctionLabelPH',
+        defaultMessage: 'Sub Process/Function Label'
     }
 });
