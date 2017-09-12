@@ -33,13 +33,25 @@ class TagList extends Component {
         })
     }
 
+    checkTagStatus(tags, tag) {
+        let flag = false;
+        tags.some((item) => {
+            if (item.key === tag.key) {
+                flag = true;
+                return true;
+            }
+        });
+        return flag;
+    }
+
     render() {
         const {tagList, handleClick, toggle} = this.props;
+        const {selectedTags} = this.state;
         return (
             tagList.length === 0 ? null : <List horizontal>
                 {tagList.map((tag) => {
                     return <List.Item key={tag.key} style={{position: 'relative'}}>
-                        {toggle && this.state.selectedTags.indexOf(tag) > -1 ?
+                        {toggle && this.checkTagStatus(selectedTags, tag) ?
                             <Icon name="check circle outline" color="green" size="large"
                                   className="tags-icon"
                             /> : null}

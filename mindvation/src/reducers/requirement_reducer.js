@@ -1,5 +1,4 @@
 import {
-    CREATE_REQUIREMENT,
     UPDATE_REQUIREMENT,
     CLEAR_TEMP_REQUIREMENT,
     GET_REQUIREMENT_BY_ID
@@ -7,8 +6,6 @@ import {
 
 function requirement(state = {}, action) {
     switch (action.type) {
-        case CREATE_REQUIREMENT:
-            return {};
         case UPDATE_REQUIREMENT:
             return Object.assign({}, state, action.requirement);
         case CLEAR_TEMP_REQUIREMENT:

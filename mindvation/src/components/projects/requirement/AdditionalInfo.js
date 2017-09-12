@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {Header, Modal, Icon} from 'semantic-ui-react';
 import Select from '../../common/Select';
-import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';
 import AddTags from "../create/AddTags";
 import ProjectRoles from '../../../containers/role_container';
 import {FormattedMessage} from 'react-intl';
 
-let priority, startEndDate, addTagsNode, rolesNode, storyPointsNode;
+let priority, startEndDate, addTagsNode, rolesNode;
 
 class AdditionalInfo extends Component {
 
@@ -17,8 +16,7 @@ class AdditionalInfo extends Component {
             "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
             "tags": addTagsNode.getValue(),
-            "roles": rolesNode.store.getState().requirement.roles,
-            "storyPoints": storyPointsNode.getWrappedInstance().getValue()
+            "roles": rolesNode.store.getState().requirement.roles
         }
     };
 

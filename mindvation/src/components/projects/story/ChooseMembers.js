@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl';
 class ChooseMembers extends Component {
 
     state = {
-        chooseRoleMembers: []
+        chooseRoleMembers: Object.assign([], (this.props.info.roles))
     };
 
     toggleChooseMember(role, member) {
@@ -48,7 +48,18 @@ class ChooseMembers extends Component {
         let flag = false;
         roleMembers.some((roleMember) => {
             if (roleMember.key === role.key) {
-                flag = roleMember.members.indexOf(member) > -1;
+                flag = this.isChooseMember(roleMember.members, member);
+                return true;
+            }
+        });
+        return flag;
+    }
+
+    isChooseMember(members, member) {
+        let flag = false;
+        members.some((item) => {
+            if (item.name.value === member.name.value) {
+                flag = true;
                 return true;
             }
         });
@@ -60,7 +71,7 @@ class ChooseMembers extends Component {
     }
 
     render() {
-        const {requirement} = this.props;
+        const {requirement = {}, info = {}} = this.props;
         return (
             <div className="components-item">
                 <Header as='h4'>
@@ -74,7 +85,7 @@ class ChooseMembers extends Component {
                 </Header>
                 <Table basic='very' collapsing>
                     <Table.Body>
-                        {requirement.roles.map((role, i) => {
+                        {(requirement.roles || info.requirementRoles).map((role, i) => {
                             return role.members && role.members.length > 0 ?
                                 <Table.Row key={i}>
                                     <Table.Cell>{role.key}</Table.Cell>

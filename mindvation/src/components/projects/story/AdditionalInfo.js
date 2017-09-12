@@ -25,7 +25,7 @@ class AdditionalInfo extends Component {
     };
 
     render() {
-        const {info = {}, requirement} = this.props;
+        const {info = {}, requirement = {}} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -62,7 +62,7 @@ class AdditionalInfo extends Component {
                 </Header>
                 <div style={{display: "flex"}} className="components-length">
                     <Display
-                        value={requirement.functionLabel}
+                        value={requirement.functionLabel || info.requirementFunctionLabel}
                         options={global.dummyData.functionOptions}
                     />
                     <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
@@ -87,6 +87,7 @@ class AdditionalInfo extends Component {
                     ref={node => {
                         chooseMembersNode = node
                     }}
+                    info={info}
                     requirement={requirement}/>
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}

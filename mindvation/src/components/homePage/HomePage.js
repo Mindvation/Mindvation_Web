@@ -4,6 +4,7 @@ import Test1 from '../test/Test1';
 import Test2 from '../test/Test2';
 import ProjectDetail from '../../containers/projectDetail_container';
 import RequirementDetail from '../../containers/requirementDetail_container';
+import StoryDetail from '../../containers/storyDetail_container';
 import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
 import {Layout, BackTop} from 'antd';
@@ -38,6 +39,11 @@ const routes = [
         path: '/projects/requirement/:id',
         exact: true,
         main: RequirementDetail
+    },
+    {
+        path: '/projects/requirement/story/:id',
+        exact: true,
+        main: StoryDetail
     }
 ];
 
