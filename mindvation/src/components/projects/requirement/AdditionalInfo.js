@@ -69,12 +69,12 @@ class AdditionalInfo extends Component {
                             }}
                             defaultValue={[requirement.startDate, requirement.endDate]}
                 />
-                <Input label="Story Points" icon="database" type="number"
+                {/*<Input label="Story Points" icon="database" type="number"
                        ref={node => {
                            storyPointsNode = node
                        }}
                        defaultValue={requirement.storyPoints}
-                />
+                />*/}
             </Modal.Content>
         );
     }
