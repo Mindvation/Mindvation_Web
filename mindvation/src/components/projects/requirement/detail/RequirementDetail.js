@@ -8,9 +8,6 @@ import EditOptionalInfo from './EditOptionalInfo';
 import Story from '../../story/Story';
 
 class RequirementDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         const {id} = this.props.match.params;

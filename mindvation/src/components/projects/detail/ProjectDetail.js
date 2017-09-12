@@ -13,10 +13,6 @@ import Carousel from '../../common/Carousel';
 import Requirement from '../requirement/Requirement';
 
 class ProjectDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         const {id} = this.props.match.params;
         this.props.dispatch(getProjectById(id));

@@ -111,6 +111,9 @@ const zh_CN = {
     "Medium Defects": "缺陷-中",
     "Low Defects": "缺陷-低",
     "Defect fix rate": "缺陷修复率",
-    "Quality Index": "品控指数"
+    "Quality Index": "品控指数",
+    createChangeRequest: "创建需求变更",
+    functionLabelPlaceHolder: "过程/方法模块",
+    "Process/Function Label": "过程/方法模块"
 };
 export default zh_CN;

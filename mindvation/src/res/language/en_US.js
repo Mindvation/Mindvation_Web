@@ -111,6 +111,9 @@ const en_US = {
     "Medium Defects": "Medium Defects",
     "Low Defects": "Low Defects",
     "Defect fix rate": "Defect fix rate",
-    "Quality Index": "Quality Index"
+    "Quality Index": "Quality Index",
+    createChangeRequest: "Create Change Request",
+    functionLabelPlaceHolder: "Process/Function Label",
+    "Process/Function Label": "Process/Function Label"
 };
 export default en_US;

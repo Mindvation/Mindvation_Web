@@ -48,5 +48,9 @@ export const messages = defineMessages({
     assignToPlaceHolderDesc: {
         id: 'assignToPlaceHolder',
         defaultMessage: 'Assign To'
+    },
+    functionLabelPlaceHolderDesc: {
+        id: 'functionLabelPlaceHolder',
+        defaultMessage: 'Process/Function Label'
     }
 });

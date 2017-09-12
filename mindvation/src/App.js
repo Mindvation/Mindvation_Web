@@ -15,7 +15,8 @@ import {
     softModelOptions,
     businessModelOptions,
     engineeringModelOptions,
-    techniqueModelOptions
+    techniqueModelOptions,
+    functionOptions
 } from "./res/data/dummyData";
 import {updateGobalData} from './util/CommUtil';
 
@@ -30,7 +31,8 @@ class App extends Component {
             softModelOptions: softModelOptions,
             businessModelOptions: businessModelOptions,
             engineeringModelOptions: engineeringModelOptions,
-            techniqueModelOptions: techniqueModelOptions
+            techniqueModelOptions: techniqueModelOptions,
+            functionOptions: functionOptions
         })
     }
 

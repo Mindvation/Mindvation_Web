@@ -4,13 +4,13 @@ import {FormattedMessage} from 'react-intl';
 import BasicInfo from './BasicInfo';
 import AdditionalInfo from './AdditionalInfo';
 import OptionalItem from '../create/OptionalItem';
-import {createRequirement, clearTempRequirement} from '../../../actions/requirement_action';
+import {clearTempRequirement} from '../../../actions/requirement_action';
 import {createRequirements} from '../../../actions/requirements_action';
 import {clearTempTask} from '../../../actions/task_action';
 import {checkCompleted} from '../../../util/CommUtil';
 
 let basicModule, optionalModule, AdditionalModule;
-let mandatoryFile = ["summary", "description"];
+let mandatoryFile = ["summary", "description", "functionLabel"];
 
 class CreateRequirement extends Component {
     state = {modalOpen: false};
@@ -28,7 +28,6 @@ class CreateRequirement extends Component {
     };
 
     newRequirement = () => {
-
         let basicInfo = basicModule.getInfo();
         let optionalInfo = optionalModule.getInfo();
         let additionalInfo = AdditionalModule.getInfo();
@@ -37,7 +36,10 @@ class CreateRequirement extends Component {
         let flag = checkCompleted(mandatoryFile, requirementInfo);
         if (flag) {
             this.props.dispatch(createRequirements(requirementInfo));
-            this.closeModal();
+            let timer = setTimeout(() => {
+                this.closeModal();
+                timer && clearTimeout(timer);
+            }, 0);
         }
     };
 

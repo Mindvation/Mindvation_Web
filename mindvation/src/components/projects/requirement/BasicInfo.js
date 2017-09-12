@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Header, Modal} from 'semantic-ui-react';
 import Input from '../../common/Input';
 import TextArea from '../../common/TextArea';
+import Select from '../../common/Select';
 import {FormattedMessage} from 'react-intl';
 
-let summary, desc;
+let summary, desc, functionLabelNode;
 
 class BasicInfo extends Component {
     state = {checked: false};
@@ -14,7 +15,8 @@ class BasicInfo extends Component {
         });
         return {
             "summary": summary.getWrappedInstance().getValue(),
-            "description": desc.getWrappedInstance().getValue()
+            "description": desc.getWrappedInstance().getValue(),
+            "functionLabel": functionLabelNode.getWrappedInstance().getValue()
         }
     };
 
@@ -43,6 +45,15 @@ class BasicInfo extends Component {
                           }}
                           checked={this.state.checked}
                           defaultValue={info.description}
+                />
+                <Select icon="sitemap" options={global.dummyData.functionOptions}
+                        search={true} required={true} checked={this.state.checked}
+                        label="Process/Function Label"
+                        placeHolder="functionLabelPlaceHolderDesc"
+                        ref={node => {
+                            functionLabelNode = node
+                        }}
+                        defaultValue={info.functionLabel}
                 />
             </Modal.Content>
         );

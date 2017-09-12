@@ -4,13 +4,17 @@
 
 export const GET_PROJECT_BY_ID = 'GET_PROJECT_BY_ID';
 export const UPDATE_PROJECT = 'UPDATE_PROJECT';
-
+export const SET_REQUIREMENT = 'SET_REQUIREMENT';
 
 /*
  * action 创建函数
  */
 function retrievedProject(project) {
     return {type: GET_PROJECT_BY_ID, project}
+}
+
+function setRequirement(requirements) {
+    return {type: SET_REQUIREMENT, requirements}
 }
 
 export function getProjectById(id) {
@@ -22,6 +26,7 @@ export function getProjectById(id) {
             .then((data) => {
                 data.projectId = id;
                 dispatch(retrievedProject(data));
+                dispatch(setRequirement(data.requirements));
             })
             .catch((e) => {
                 console.log(e.message);

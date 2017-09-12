@@ -3,6 +3,7 @@
   "reqId": "R0",
   "summary": "Make a B2B project",
   "description": "We need make a B2B project which can help to company to solve teamwork efficiency issue",
+  "functionLabel": "register",
   "priority": "M",
   "startDate": "2017-09-05",
   "endDate": "2017-10-26",
@@ -288,5 +289,6 @@
         "43845076"
       ]
     }
-  ]
+  ],
+  "stories": []
 }

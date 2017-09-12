@@ -7,10 +7,6 @@ import CreateProject from './CreateProject';
 import {FormattedMessage} from 'react-intl';
 
 class Projects extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         const {dispatch} = this.props;
         return (

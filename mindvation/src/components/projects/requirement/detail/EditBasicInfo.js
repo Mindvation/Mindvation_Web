@@ -48,7 +48,9 @@ class EditBasicInfo extends Component {
                 <ReadOnly icon="product hunt" title="Summary" value={requirement.summary}/>
                 <ReadOnly icon="book" title="Description"
                           value={requirement.description}/>
-
+                <ReadOnly icon="sitemap" title="Process/Function Label"
+                          value={requirement.functionLabel}
+                          options={global.dummyData.functionOptions}/>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

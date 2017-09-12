@@ -135,16 +135,43 @@ export const statusOptions = [{
         defaultMessage='New'
     />,
     value: "new"
-},{
+}, {
     text: <FormattedMessage
         id='inProgress'
         defaultMessage='In Progress'
     />,
     value: "inProgress"
-},{
+}, {
     text: <FormattedMessage
         id='done'
         defaultMessage='Done'
     />,
     value: "done"
 }];
+
+export const functionOptions = [
+    {
+        text: 'Market Analysis',
+        value: 'marketAnalysis'
+    }, {
+        text: 'Requirement Analysis',
+        value: 'requirementAnalysis'
+    }, {
+        text: 'Register',
+        value: 'register'
+    }, {
+        text: 'Sign In',
+        value: 'signIn'
+    }, {
+        text: 'Main Function Flow',
+        value: 'mainFunctionFlow'
+    }, {
+        text: 'Feedback Function',
+        value: 'feedbackFunction'
+    }, {
+        text: 'Data Driven',
+        value: 'dataDriven'
+    }, {
+        text: 'Defect Fixing',
+        value: 'defectFixing'
+    }];

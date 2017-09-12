@@ -12,7 +12,7 @@ let basicModule, optionalModule, AdditionalModule;
 let mandatoryFile = ["summary", "description"];
 
 class CreateRequirement extends Component {
-    state = {modalOpen: false};
+    state = {modalOpen: false, storyType: 'story'};
 
     openModal = () => this.setState({modalOpen: true});
 
@@ -21,7 +21,8 @@ class CreateRequirement extends Component {
         this.setState({modalOpen: false});
     };
 
-    createTempStory = () => {
+    createTempStory = (type) => {
+        this.setState({storyType: type});
         this.openModal();
     };
 
@@ -34,7 +35,7 @@ class CreateRequirement extends Component {
         let flag = checkCompleted(mandatoryFile, storyInfo);
         if (flag) {
             this.formatStory(storyInfo);
-            this.props.dispatch(addStoryToList(storyInfo));
+            this.props.dispatch(addStoryToList(storyInfo, this.state.storyType));
             this.closeModal();
         }
     };
@@ -54,11 +55,19 @@ class CreateRequirement extends Component {
         return (
             <div>
                 <Button className="create-requirement-button" compact basic
-                        onClick={() => this.createTempStory()}>
+                        onClick={() => this.createTempStory('story')}>
                     <Icon name="plus circle"/>
                     <FormattedMessage
                         id='createStory'
                         defaultMessage='Create Story'
+                    />
+                </Button>
+                <Button style={{marginTop: '10px'}} className="create-requirement-button" compact basic
+                        onClick={() => this.createTempStory('cr')}>
+                    <Icon name="plus circle"/>
+                    <FormattedMessage
+                        id='createChangeRequest'
+                        defaultMessage='Create Change Request'
                     />
                 </Button>
                 <Modal
@@ -67,10 +76,13 @@ class CreateRequirement extends Component {
                     open={modalOpen}
                     size='large'>
                     <Modal.Header>
-                        <FormattedMessage
+                        {this.state.storyType === 'story' ? <FormattedMessage
                             id='createStory'
                             defaultMessage='Create Story'
-                        />
+                        /> : <FormattedMessage
+                            id='createChangeRequest'
+                            defaultMessage='Create Change Request'
+                        />}
                     </Modal.Header>
                     <BasicInfo ref={node => {
                         basicModule = node

@@ -82,5 +82,6 @@
   "CRSPs": "7",
   "CRCost": "15",
   "SPsCost": "12M",
-  "CRRate": "24.4%"
+  "CRRate": "24.4%",
+  "requirement": []
 }

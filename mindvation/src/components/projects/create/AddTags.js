@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, Segment, Header, Input, Popup} from 'semantic-ui-react';
+import {Button, Modal, Segment, Header, Input} from 'semantic-ui-react';
 import {isEmpty} from '../../../util/CommUtil';
 import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
