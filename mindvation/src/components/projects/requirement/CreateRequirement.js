@@ -24,6 +24,7 @@ class CreateRequirement extends Component {
 
     createTempRequirement = () => {
         this.props.dispatch(clearTempTask());
+        this.props.dispatch(clearTempRequirement());
         this.openModal();
     };
 

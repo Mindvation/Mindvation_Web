@@ -23,7 +23,7 @@ class AdditionalInfo extends Component {
     };
 
     render() {
-        const {info = {}, requirement} = this.props;
+        const {requirement = {}} = this.props;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -47,14 +47,14 @@ class AdditionalInfo extends Component {
                     ref={node => {
                         addTagsNode = node
                     }}
-                    defaultValue={info.tags}
+                    defaultValue={requirement.tags}
                 />
                 <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
                             priority = node
                         }}
-                        defaultValue={info.priority}
+                        defaultValue={requirement.priority}
                 />
                 <ProjectRoles
                     ref={node => {
@@ -67,13 +67,13 @@ class AdditionalInfo extends Component {
                             ref={node => {
                                 startEndDate = node
                             }}
-                            defaultValue={[info.startDate, info.endDate]}
+                            defaultValue={[requirement.startDate, requirement.endDate]}
                 />
                 <Input label="Story Points" icon="database" type="number"
                        ref={node => {
                            storyPointsNode = node
                        }}
-                       defaultValue={info.storyPoints}
+                       defaultValue={requirement.storyPoints}
                 />
             </Modal.Content>
         );

@@ -104,7 +104,7 @@ class EditAdditionalInfo extends Component {
                     open={modalOpen}
                     size='large'>
                     <AdditionalInfo
-                        info={requirement}
+                        requirement={requirement}
                         ref={node => {
                             AdditionalModule = node
                         }}
