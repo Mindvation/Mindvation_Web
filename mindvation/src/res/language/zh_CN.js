@@ -115,6 +115,10 @@ const zh_CN = {
     createChangeRequest: "创建需求变更",
     functionLabelPlaceHolder: "过程/方法模块",
     "Process/Function Label": "过程/方法模块",
-    subFunctionLabelPH: "过程/方法子模块"
+    subFunctionLabelPH: "过程/方法子模块",
+    noFile: '没有附件...',
+    uploadAttachment: '上传附件',
+    uploadSuccess: '上传成功',
+    uploadFail: '上传失败'
 };
 export default zh_CN;

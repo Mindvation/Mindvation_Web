@@ -64,3 +64,40 @@ export const checkCompleted = (mandatoryFile, info) => {
 export const getRandomColor = () => {
     return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
 };
+
+function createHexRandom() {
+    let num = '';
+    for (let i = 0; i <= 6; i++) {
+        let tmp = Math.ceil(Math.random() * 15);
+        if (tmp > 9) {
+            switch (tmp) {
+                case(10):
+                    num += 'a';
+                    break;
+                case(11):
+                    num += 'b';
+                    break;
+                case(12):
+                    num += 'c';
+                    break;
+                case(13):
+                    num += 'd';
+                    break;
+                case(14):
+                    num += 'e';
+                    break;
+                case(15):
+                    num += 'f';
+                    break;
+            }
+        } else {
+            num += tmp;
+        }
+    }
+
+    return num;
+}
+
+export const getTimeAndRandom = () => {
+    return createHexRandom() + new Date().getTime();
+};

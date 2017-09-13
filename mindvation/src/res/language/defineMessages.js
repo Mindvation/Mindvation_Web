@@ -56,5 +56,13 @@ export const messages = defineMessages({
     subFunctionLabelPHDesc: {
         id: 'subFunctionLabelPH',
         defaultMessage: 'Sub Process/Function Label'
+    },
+    uploadSuccess: {
+        id: 'uploadSuccess',
+        defaultMessage: 'Upload Success'
+    },
+    uploadFail: {
+        id: 'uploadFail',
+        defaultMessage: 'Upload Fail'
     }
 });

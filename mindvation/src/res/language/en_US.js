@@ -115,6 +115,10 @@ const en_US = {
     createChangeRequest: "Create Change Request",
     functionLabelPlaceHolder: "Process/Function Label",
     "Process/Function Label": "Process/Function Label",
-    subFunctionLabelPH: "Sub Process/Function Label"
+    subFunctionLabelPH: "Sub Process/Function Label",
+    noFile: 'No File...',
+    uploadAttachment: 'Upload Attachment',
+    uploadSuccess: 'Upload Success',
+    uploadFail: 'Upload Fail'
 };
 export default en_US;

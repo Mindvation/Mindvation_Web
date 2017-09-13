@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Grid, Segment, Button} from 'semantic-ui-react';
+import {Grid, Segment, Button, Header, Input} from 'semantic-ui-react';
 import BurnDownChart from '../../detail/BurnDownChart';
 import EfficiencyDashboard from '../../detail/EfficiencyDashboard';
 import ProgressDashboard from '../../detail/ProgressDashboard';
 import UploadMulti from '../../../common/UploadMulti';
 import MultiImage from '../../../common/MultiImage';
+import {getTimeAndRandom} from '../../../../util/CommUtil';
 
 const moduleMapping = [
     {
@@ -31,6 +32,10 @@ const moduleMapping = [
         key: "otherAtt",
         text: "其他",
         component: <ProgressDashboard/>
+    },
+    {
+        key: "custom",
+        text: "自定义"
     }
 ];
 
@@ -41,11 +46,23 @@ class UploadAttach extends Component {
 
     addModule = (module) => {
         let tempArray = this.state.moduleArray;
-        if (tempArray.indexOf(module) === -1) {
-            tempArray.push(module);
+        if (module.key === 'custom') {
+            tempArray.push({
+                key: getTimeAndRandom(),
+                custom: true,
+                text: "自定义",
+                component: <UploadMulti/>
+            });
             this.setState({
                 moduleArray: tempArray
             })
+        } else {
+            if (tempArray.indexOf(module) === -1) {
+                tempArray.push(module);
+                this.setState({
+                    moduleArray: tempArray
+                })
+            }
         }
     };
 
@@ -68,6 +85,21 @@ class UploadAttach extends Component {
                         moduleArray.map((module, i) => {
                             return <Grid.Column key={i}>
                                 <Segment padded className="story-upload-file">
+                                    {module.custom ?
+                                        <Input
+                                            action={{
+                                                style: {cursor: 'pointer'},
+                                                icon: 'search',
+                                                onClick: () => alert("111")
+                                            }}
+                                            labelPosition='right'
+                                        /> : <Header as='h4'>
+                                            <Header.Content>
+                                            <span className="underLine">
+                                                {module.text}
+                                            </span>
+                                            </Header.Content>
+                                        </Header>}
                                     {module.component}
                                 </Segment>
                             </Grid.Column>
