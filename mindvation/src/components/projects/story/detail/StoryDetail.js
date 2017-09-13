@@ -5,6 +5,7 @@ import {getStoryById} from '../../../../actions/story_action';
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
+import UploadAttach from './UploadAttach';
 
 class StoryDetail extends Component {
 
@@ -42,7 +43,7 @@ class StoryDetail extends Component {
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
                         <Segment>
-
+                            <UploadAttach/>
                         </Segment>
                     </Grid.Column>
                 </Grid>

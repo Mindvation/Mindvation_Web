@@ -47,7 +47,7 @@ addLocaleData([...en, ...zh]);
 ReactDOM.render(
     <Provider store={store}>
         <IntlProvider
-            locale={navigator.language.split('-')[0]}
+            locale={navigator.language}
             messages={chooseLocale()}
         >
             <LocaleProvider locale={chooseLocaleForAntd()}>

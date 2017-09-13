@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, Segment, Header, Input} from 'semantic-ui-react';
-import {isEmpty} from '../../../util/CommUtil';
+import {isEmpty, getRandomColor} from '../../../util/CommUtil';
 import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
 
@@ -99,7 +99,7 @@ class AddTags extends Component {
                 let willAddTag = {
                     key: "T" + (tempTags.length + 1),
                     text: tag,
-                    color: this.getRandomColor()
+                    color: getRandomColor()
                 };
                 tempTags.push(willAddTag);
                 this.setState({
@@ -122,10 +122,6 @@ class AddTags extends Component {
         });
         return tempOption;
     };
-
-    getRandomColor() {
-        return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
-    }
 
     updateProjectTags = (tag) => {
         if (this.state.projectTags.indexOf(tag) === -1) {

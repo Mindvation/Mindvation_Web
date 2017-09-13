@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Transition, Icon, Segment} from 'semantic-ui-react';
+import {Transition, Icon, Segment} from 'semantic-ui-react';
 import Comment from '../../common/Comment';
-import PropTypes from 'prop-types';
 import {updateRequirements} from '../../../actions/requirements_action';
 
 class Discussion extends Component {

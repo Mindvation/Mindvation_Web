@@ -331,3 +331,11 @@
     right: 2px;
     top: -8px;
 }
+
+.ui.button.upload-attach-button {
+    margin-right: 1em;
+}
+
+.ui.grid.upload-attach-content {
+    margin-top: 1em;
+}

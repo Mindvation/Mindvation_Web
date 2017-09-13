@@ -139,3 +139,112 @@
 .ant-mention-wrapper .DraftEditor-editorContainer .public-DraftEditor-content {
     min-height: 100px;
 }
+
+.ant-carousel .slick-slide {
+    text-align: center;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+    color: #fff;
+}
+
+.list-no-file {
+    padding-top: 5em;
+}
+
+.story-upload-file {
+    height: calc(20vw);
+    padding: 1em;
+    overflow: hidden;
+}
+
+.upload-multi .ant-upload.ant-upload-select {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.upload-multi .ui.button {
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.upload-multi .ant-upload-list {
+    display: none;
+}
+
+.upload-multi .ant-carousel .slick-slider .slick-list {
+    height: calc(20vw - 5em);
+}
+
+.upload-multi .ant-carousel .slick-dots {
+    bottom: 0;
+}
+
+.upload-multi .ant-carousel .slick-dots li button {
+    background: #000;
+}
+
+.upload-multi .ant-carousel .slick-slide img {
+    height: calc(20vw - 6em);
+    width: 100%;
+}
+
+.upload-multi .list-actions {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    white-space: nowrap;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+.upload-multi .list-content {
+    position: relative;
+}
+
+.upload-multi .list-action-icon {
+    font-size: 3em;
+    color: #ffffff;
+    opacity: 0.9;
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+}
+
+.upload-multi a {
+    text-decoration: none;
+}
+
+.upload-multi .list-content:hover .list-actions-content {
+    opacity: 1;
+}
+
+.upload-multi .list-actions-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    white-space: nowrap;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}

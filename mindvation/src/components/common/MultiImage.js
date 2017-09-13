@@ -22,7 +22,10 @@ class MultiImage extends Component {
         });
     }
 
-    handleChange = ({fileList}) => this.setState({fileList});
+    handleChange = ({file, fileList}) => {
+        console.info(file.status);
+        this.setState({fileList})
+    };
 
     render() {
         const {previewVisible, previewImage, fileList} = this.state;
