@@ -10,7 +10,7 @@ export const LOG_OUT = 'LOG_OUT';
  * action 创建函数
  */
 
-export function logonSuccess(userInfo) {
+function logonSuccess(userInfo) {
     return {type: LOGON_SUCCESS, userInfo}
 }
 

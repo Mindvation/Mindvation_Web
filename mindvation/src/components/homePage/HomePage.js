@@ -32,17 +32,14 @@ const routes = [
     },
     {
         path: '/projects/:id',
-        exact: true,
         main: ProjectDetail
     },
     {
         path: '/projects/requirement/:id',
-        exact: true,
         main: RequirementDetail
     },
     {
         path: '/projects/requirement/story/:id',
-        exact: true,
         main: StoryDetail
     }
 ];
