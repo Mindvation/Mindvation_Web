@@ -71,7 +71,7 @@ class MVInput extends Component {
         };
         const {
             label, icon, required, checked, placeHolder, defaultValue, type = "text",
-            step = "0.1", style, fullWidth
+            step = "0.1", style, fullWidth, action
         } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
@@ -95,7 +95,7 @@ class MVInput extends Component {
                        className={fullWidth ? "" : "components-length"}
                        onChange={(event, data) => this.checkValue(event, data)}
                        defaultValue={defaultValue}
-                       type={type} step={step}
+                       type={type} step={step} action={action}
                 />
             </div>
         );
@@ -112,7 +112,8 @@ MVInput.propTypes = {
     type: PropTypes.string,
     step: PropTypes.string,
     style: PropTypes.object,
-    fullWidth: PropTypes.bool
+    fullWidth: PropTypes.bool,
+    action: PropTypes.object
 };
 
 export default injectIntl(MVInput, {withRef: true});

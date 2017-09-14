@@ -334,8 +334,8 @@
 
 .ui.button.upload-attach-button {
     margin-right: 1em;
+    margin-bottom: 1em;
 }
 
 .ui.grid.upload-attach-content {
-    margin-top: 1em;
 }

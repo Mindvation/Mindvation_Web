@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Grid, Segment, Button, Header, Input} from 'semantic-ui-react';
+import {Grid, Segment, Button, Header} from 'semantic-ui-react';
 import BurnDownChart from '../../detail/BurnDownChart';
 import EfficiencyDashboard from '../../detail/EfficiencyDashboard';
 import ProgressDashboard from '../../detail/ProgressDashboard';
 import UploadMulti from '../../../common/UploadMulti';
 import MultiImage from '../../../common/MultiImage';
+import Input from '../../../common/Input';
 import {getTimeAndRandom} from '../../../../util/CommUtil';
 
 const moduleMapping = [
@@ -39,6 +40,8 @@ const moduleMapping = [
     }
 ];
 
+let titleNode;
+
 class UploadAttach extends Component {
     state = {
         moduleArray: []
@@ -50,7 +53,6 @@ class UploadAttach extends Component {
             tempArray.push({
                 key: getTimeAndRandom(),
                 custom: true,
-                text: "自定义",
                 component: <UploadMulti/>
             });
             this.setState({
@@ -64,6 +66,14 @@ class UploadAttach extends Component {
                 })
             }
         }
+    };
+
+    updateTitle = (module) => {
+        const title = titleNode.getWrappedInstance().getValue();
+        module.text = title;
+        this.setState({
+            moduleArray: Object.assign(this.state.moduleArray, module)
+        })
     };
 
     render() {
@@ -85,21 +95,26 @@ class UploadAttach extends Component {
                         moduleArray.map((module, i) => {
                             return <Grid.Column key={i}>
                                 <Segment padded className="story-upload-file">
-                                    {module.custom ?
-                                        <Input
-                                            action={{
-                                                style: {cursor: 'pointer'},
-                                                icon: 'search',
-                                                onClick: () => alert("111")
-                                            }}
-                                            labelPosition='right'
-                                        /> : <Header as='h4'>
+                                    {module.text ? <Header as='h4'>
                                             <Header.Content>
                                             <span className="underLine">
                                                 {module.text}
                                             </span>
                                             </Header.Content>
-                                        </Header>}
+                                        </Header>
+                                        : <Input
+                                            style={{marginTop: 0, marginBottom: "1em"}}
+                                            action={{
+                                                style: {cursor: 'pointer'},
+                                                icon: {
+                                                    name: 'check circle',
+                                                    size: 'large'
+                                                },
+                                                onClick: () => this.updateTitle(module)
+                                            }}
+                                            fullWidth={true}
+                                            ref={node => titleNode = node}
+                                        />}
                                     {module.component}
                                 </Segment>
                             </Grid.Column>
