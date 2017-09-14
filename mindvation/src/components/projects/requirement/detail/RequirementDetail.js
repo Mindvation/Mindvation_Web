@@ -6,6 +6,9 @@ import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
 import Story from '../../story/Story';
+import {
+    Link
+} from 'react-router-dom';
 
 class RequirementDetail extends Component {
 
@@ -26,7 +29,11 @@ class RequirementDetail extends Component {
                                             defaultMessage='PROJECTS'
                                         />
                                     </span>{'>'}
-                        <span className={"underLine header-id"}>{requirement.projectId}</span>
+                        <span className={"underLine header-id"}>
+                            <Link to={`/projects/${requirement.projectId}`}>
+                                {requirement.projectId}
+                            </Link>
+                        </span>
                         {'>'}
                         <span className={"underLine header-id"}>{requirement.reqId}</span>
                     </Header.Content>

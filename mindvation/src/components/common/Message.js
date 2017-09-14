@@ -22,7 +22,7 @@ class Message extends Component {
 
     error(messageKey) {
         const {formatMessage} = this.props.intl;
-        message.success(formatMessage(messages[messageKey]), 5)
+        message.error(formatMessage(messages[messageKey]), 5)
     }
 
     render() {

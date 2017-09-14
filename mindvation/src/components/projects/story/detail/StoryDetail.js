@@ -6,6 +6,9 @@ import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
 import UploadAttach from './UploadAttach';
+import {
+    Link
+} from 'react-router-dom';
 
 class StoryDetail extends Component {
 
@@ -26,9 +29,17 @@ class StoryDetail extends Component {
                                             defaultMessage='PROJECTS'
                                         />
                                     </span>{'>'}
-                        <span className={"underLine header-id"}>{story.projectId}</span>
+                        <span className={"underLine header-id"}>
+                            <Link to={`/projects/${story.projectId}`}>
+                                {story.projectId}
+                            </Link>
+                        </span>
                         {'>'}
-                        <span className={"underLine header-id"}>{story.reqId}</span>
+                        <span className={"underLine header-id"}>
+                            <Link to={`/projects/requirement/${story.reqId}`}>
+                                {story.reqId}
+                            </Link>
+                        </span>
                         {'>'}
                         <span className={"underLine header-id"}>{story.storyId}</span>
                     </Header.Content>

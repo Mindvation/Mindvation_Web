@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Segment, Button, Header} from 'semantic-ui-react';
+import {Grid, Segment, Button, Header, Icon} from 'semantic-ui-react';
 import BurnDownChart from '../../detail/BurnDownChart';
 import EfficiencyDashboard from '../../detail/EfficiencyDashboard';
 import ProgressDashboard from '../../detail/ProgressDashboard';
@@ -68,6 +68,17 @@ class UploadAttach extends Component {
         }
     };
 
+    removeCustomModel = (module) => {
+        let tempArray = this.state.moduleArray;
+        if (tempArray.indexOf(module) !== -1) {
+            tempArray.splice(tempArray.indexOf(module), 1);
+            this.setState({
+                moduleArray: tempArray
+            })
+        }
+
+    };
+
     updateTitle = (module) => {
         const title = titleNode.getWrappedInstance().getValue();
         module.text = title;
@@ -116,6 +127,9 @@ class UploadAttach extends Component {
                                             ref={node => titleNode = node}
                                         />}
                                     {module.component}
+                                    {module.text && module.custom ?
+                                        <Icon name="trash" size="big" className={"custom-module-delete pointer-cursor"}
+                                              onClick={() => this.removeCustomModel(module)}/> : null}
                                 </Segment>
                             </Grid.Column>
                         })

@@ -10,24 +10,8 @@ class UploadMulti extends Component {
     state = {
         previewVisible: false,
         previewImage: '',
-        fileList: [{
-            uid: 1,
-            url: require('../../res/image/photo.jpg'),
-            thumbUrl: require('../../res/image/photo.jpg')
-        }, {
-            uid: 2,
-            url: require('../../res/image/BurnDown.png'),
-            thumbUrl: require('../../res/image/BurnDown.png')
-        }],
-        displayFileList: [{
-            uid: 1,
-            url: require('../../res/image/photo.jpg'),
-            thumbUrl: require('../../res/image/photo.jpg')
-        }, {
-            uid: 2,
-            url: require('../../res/image/BurnDown.png'),
-            thumbUrl: require('../../res/image/BurnDown.png')
-        }],
+        fileList: [],
+        displayFileList: [],
         uploading: false
     };
 
