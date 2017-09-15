@@ -8,6 +8,9 @@ import {clearTempRequirement} from '../../../actions/requirement_action';
 import {createRequirements} from '../../../actions/requirements_action';
 import {clearTempTask} from '../../../actions/task_action';
 import {checkCompleted} from '../../../util/CommUtil';
+import {
+    Link
+} from 'react-router-dom';
 
 let basicModule, optionalModule, AdditionalModule;
 let mandatoryFile = ["summary", "description", "functionLabel"];
@@ -57,6 +60,10 @@ class CreateRequirement extends Component {
                         defaultMessage='Create Requirement'
                     />
                 </Button>
+                <Link style={{border: '1px solid #1b1c1d'}} className="create-requirement-button"
+                      to={`/home/MVPDashboard`}>
+                    MVP Dashboard
+                </Link>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

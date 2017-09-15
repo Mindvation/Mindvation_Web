@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Menu from './Menu';
-import Test1 from '../projects/MVPPlan/Dashboard';
+import Test1 from '../test/Test1';
+import Dashboard from '../projects/MVPPlan/Dashboard';
 import Test2 from '../test/Test2';
 import ProjectDetail from '../../containers/projectDetail_container';
 import RequirementDetail from '../../containers/requirementDetail_container';
@@ -22,6 +23,10 @@ const routes = [
         path: '/home/projects',
         exact: true,
         main: () => <Projects/>
+    },
+    {
+        path: '/home/MVPDashboard',
+        main: () => <Dashboard/>
     },
     {
         path: '/home/Test2',
