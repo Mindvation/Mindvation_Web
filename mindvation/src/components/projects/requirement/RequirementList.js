@@ -22,7 +22,7 @@ class RequirementList extends Component {
 
     handleDisplayData(data, key) {
         if (key === "reqId") {
-            return <Link to={`requirement/${data[key]}`}>
+            return <Link to={`/home/requirement/${data[key]}`}>
                 {data[key]}
             </Link>
         }

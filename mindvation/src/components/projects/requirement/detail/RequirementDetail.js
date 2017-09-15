@@ -30,7 +30,7 @@ class RequirementDetail extends Component {
                                         />
                                     </span>{'>'}
                         <span className={"underLine header-id"}>
-                            <Link to={`/projects/${requirement.projectId}`}>
+                            <Link to={`/home/projects/${requirement.projectId}`}>
                                 {requirement.projectId}
                             </Link>
                         </span>

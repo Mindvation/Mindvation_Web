@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Menu from './Menu';
-import Test1 from '../test/RNRTest';
+import Test1 from '../projects/MVPPlan/Dashboard';
 import Test2 from '../test/Test2';
 import ProjectDetail from '../../containers/projectDetail_container';
 import RequirementDetail from '../../containers/requirementDetail_container';
@@ -10,7 +10,8 @@ import Projects from '../../containers/project_container';
 import {Layout, BackTop} from 'antd';
 import {
     BrowserRouter as Router,
-    Route
+    Route,
+    Redirect
 } from 'react-router-dom';
 import './HomePage.css';
 
@@ -18,28 +19,28 @@ const {Header, Content, Sider} = Layout;
 
 const routes = [
     {
-        path: '/projects',
+        path: '/home/projects',
         exact: true,
         main: () => <Projects/>
     },
     {
-        path: '/Test2',
+        path: '/home/Test2',
         main: () => <Test2/>
     },
     {
-        path: '/Test1',
+        path: '/home/Test1',
         main: () => <Test1/>
     },
     {
-        path: '/projects/:id',
+        path: '/home/projects/:id',
         main: ProjectDetail
     },
     {
-        path: '/projects/requirement/:id',
+        path: '/home/requirement/:id',
         main: RequirementDetail
     },
     {
-        path: '/projects/requirement/story/:id',
+        path: '/home/story/:id',
         main: StoryDetail
     }
 ];
@@ -89,6 +90,9 @@ class HomePage extends Component {
                         </Sider>
                         <Content style={{minHeight: this.state.minHeight, overflowY: 'hidden'}}>
                             <BackTop/>
+                            <Route exact path="/home" render={() => (
+                                <Redirect to="/home/projects"/>
+                            )}/>
                             {routes.map((route, index) => (
                                 // Render more <Route>s with the same paths as
                                 // above, but different components this time.

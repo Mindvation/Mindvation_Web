@@ -30,13 +30,13 @@ class StoryDetail extends Component {
                                         />
                                     </span>{'>'}
                         <span className={"underLine header-id"}>
-                            <Link to={`/projects/${story.projectId}`}>
+                            <Link to={`/home/projects/${story.projectId}`}>
                                 {story.projectId}
                             </Link>
                         </span>
                         {'>'}
                         <span className={"underLine header-id"}>
-                            <Link to={`/projects/requirement/${story.reqId}`}>
+                            <Link to={`/home/requirement/${story.reqId}`}>
                                 {story.reqId}
                             </Link>
                         </span>

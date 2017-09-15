@@ -4,16 +4,50 @@ import {
     Link
 } from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
+import createHistory from 'history/createBrowserHistory';
 
+const history = createHistory();
+const location = history.location;
 const SubMenu = Menu.SubMenu;
+const keyPathMapping = [
+    {
+        "key": '1',
+        "path": '/home/projects'
+    },
+    {
+        "key": '2',
+        "path": '/home/Test1'
+    },
+    {
+        "key": '3',
+        "path": '/home/Test2',
+        "hostKey": "sub1"
+    }];
+
+let defaultKey = '1', hostKey;
 
 class HomeMenu extends Component {
 
+    componentWillMount() {
+        if (!location.pathname) {
+            return;
+        }
+        keyPathMapping.some((keyPath) => {
+            if (location.pathname.indexOf(keyPath.path) > -1) {
+                defaultKey = keyPath.key;
+                hostKey = keyPath.hostKey;
+                return true;
+            }
+        });
+    }
+
     render() {
         return (
-            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+            <Menu theme="dark" defaultSelectedKeys={[defaultKey]}
+                  defaultOpenKeys={[hostKey]}
+                  mode="inline">
                 <Menu.Item key="1">
-                    <Link to="/projects"/>
+                    <Link to="/home/projects"/>
                     <Icon type="pie-chart"/>
                     <span>
                         <FormattedMessage
@@ -23,7 +57,7 @@ class HomeMenu extends Component {
                     </span>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Link to="/Test1"/>
+                    <Link to="/home/Test1"/>
                     <Icon type="desktop"/>
                     <span>Test1</span>
                 </Menu.Item>
@@ -31,7 +65,7 @@ class HomeMenu extends Component {
                     key="sub1"
                     title={<span><Icon type="user"/><span>User</span></span>}
                 >
-                    <Menu.Item key="3"><Link to="/Test2">Test2</Link></Menu.Item>
+                    <Menu.Item key="3"><Link to="/home/Test2">Test2</Link></Menu.Item>
                     <Menu.Item key="4">Bill</Menu.Item>
                     <Menu.Item key="5">Alex</Menu.Item>
                 </SubMenu>

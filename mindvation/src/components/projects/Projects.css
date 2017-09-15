@@ -342,3 +342,70 @@
     right: 0.5em;
     top: 0.5em;
 }
+
+.ui.grid.mvp-project-container {
+    padding: 1em;
+}
+
+.ui.divided.list .item.mvp-project-box {
+    padding: 0.5em 0.25em;
+}
+
+.ui.segment.mvp-sprint-container {
+    height: 100%;
+    padding: 0;
+}
+
+.mvp-sprint-title {
+    text-align: center;
+    width: 100%;
+    display: block;
+    height: 3.5em;
+    line-height: 3.5em;
+    border-bottom: 1px solid rgba(34, 36, 38, .15);
+}
+
+.mvp-sprint-title-text {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.drop-container {
+    height: calc(100% - 3.5em);
+}
+
+.component-container {
+    padding: 1.5em;
+}
+
+.mvp-story-info {
+    display: flex;
+    cursor: default;
+}
+
+.mvp-story-info > span {
+    line-height: 1.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.mvp-story-priority {
+    width: 4em;
+    text-align: center;
+}
+
+.mvp-story-point {
+    width: 3em;
+    text-align: center;
+}
+
+.mvp-story-id {
+    width: 4em;
+    text-align: center;
+}
+
+.mvp-story-desc {
+    flex: 1;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+}

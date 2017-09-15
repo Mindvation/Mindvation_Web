@@ -26,7 +26,7 @@ class StoryList extends Component {
 
     handleDisplayData(data, key) {
         if (key === "storyId") {
-            return <Link to={`story/${data[key]}`}>
+            return <Link to={`/home/story/${data[key]}`}>
                 {data[key]}
             </Link>
         }
