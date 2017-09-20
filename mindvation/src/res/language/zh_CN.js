@@ -119,6 +119,11 @@ const zh_CN = {
     noFile: '没有附件...',
     uploadAttachment: '上传附件',
     uploadSuccess: '上传成功',
-    uploadFail: '上传失败'
+    uploadFail: '上传失败',
+    Title: '标题',
+    "Module Name": "模块名称",
+    moduleNamePh: "请输入模块名称",
+    moduleType: "模块类型",
+    customModuleTypeSelection: "自定义模块类型选择"
 };
 export default zh_CN;

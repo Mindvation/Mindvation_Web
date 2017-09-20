@@ -380,7 +380,7 @@
 
 .mvp-story-info {
     display: flex;
-    cursor: default;
+    cursor: move;
 }
 
 .mvp-story-info > span {
@@ -408,4 +408,28 @@
     flex: 1;
     padding-left: 0.25em;
     padding-right: 0.25em;
+}
+
+.ui.grid.select-module {
+    margin-top: 1em;
+}
+
+.column.select-module-item {
+    height: 100%;
+}
+
+.ui.grid.select-module.error {
+    background-color: #fff6f6;
+    border-color: #e0b4b4;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.select-module-item .ui.segment.selected {
+    color: #2185d0;
+    border-color: #2185d0;
+    border-width: 2px;
+    webkit-box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
+    box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
 }

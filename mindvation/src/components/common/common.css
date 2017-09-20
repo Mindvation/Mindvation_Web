@@ -248,3 +248,68 @@
     -o-transition: all .3s;
     transition: all .3s;
 }
+
+.charts-progress-component {
+    height: calc(100% - 20px);
+    width: 100%;
+}
+
+.charts-progress-edit-icon {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+}
+
+.progress-component {
+    display: flex;
+}
+
+.progress-component .ui.progress {
+    flex: 1;
+    height: 2em;
+}
+
+.progress-component .ui.progress:first-child {
+    margin: 0;
+}
+
+.progress-component .ui.progress .bar {
+    height: 100%;
+}
+
+.progress-edit-icon {
+    margin-left: 1em;
+}
+
+.upload-progress-top {
+}
+
+.upload-progress-bar {
+    position: absolute;
+    left: 1em;
+    right: 1em;
+    bottom: 1em;
+}
+
+.upload-progress-top .upload-multi .ant-upload.ant-upload-select {
+    position: absolute;
+    bottom: 4.5em;
+    left: 0;
+    right: 0;
+}
+
+.upload-progress-top .upload-multi .ant-carousel .slick-slide img {
+    height: calc(20vw - 9.5em);
+}
+
+.upload-progress-top .upload-multi .ant-carousel .slick-slider .slick-list {
+    height: calc(20vw - 8.5em);
+}
+
+.mv-slider-container {
+    display: flex;
+}
+
+.slider-container {
+    flex: 1
+}

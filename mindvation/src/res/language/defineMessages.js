@@ -64,5 +64,9 @@ export const messages = defineMessages({
     uploadFail: {
         id: 'uploadFail',
         defaultMessage: 'Upload Fail'
+    },
+    moduleNamePhDesc: {
+        id: 'moduleNamePh',
+        defaultMessage: 'Please input module name'
     }
 });

@@ -119,6 +119,11 @@ const en_US = {
     noFile: 'No File...',
     uploadAttachment: 'Upload Attachment',
     uploadSuccess: 'Upload Success',
-    uploadFail: 'Upload Fail'
+    uploadFail: 'Upload Fail',
+    Title: 'Title',
+    "Module Name": "Module Name",
+    moduleNamePh: "Please input module name",
+    moduleType: "Module Type",
+    customModuleTypeSelection: "Custom Module Type Selection"
 };
 export default en_US;

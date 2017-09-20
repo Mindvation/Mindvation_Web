@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 class Echarts extends Component {
 
-    state = {};
-
     componentDidMount() {
         this.getECharts();
     }
@@ -14,26 +12,35 @@ class Echarts extends Component {
         window.removeEventListener('resize', this.eChartsResize);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.getECharts(nextProps);
+    }
+
     eChartsResize = () => {
         let interval = setInterval(() => {
-            this.state.myChart.resize();
+            this.myChart.resize();
             interval && clearInterval(interval);
         }, 250)
     };
 
-    getECharts() {
-        const {option, eChartId} = this.props;
+    getECharts(nextProps) {
+        let props = this.props;
+        if (nextProps) {
+            props = nextProps
+        }
+        const {option, eChartId} = props;
         if (!option) return;
+        if (this.myChart) {
+            this.myChart.setOption(option);
+            return;
+        }
         const myChart = echarts.init(document.getElementById(eChartId));
         myChart.setOption(option);
         myChart.on('click', (params) => {
             this.showClickParams(params);
         });
 
-        this.setState({
-            myChart: myChart
-        })
-
+        this.myChart = myChart;
         window.addEventListener('resize', this.eChartsResize, false);
     }
 
