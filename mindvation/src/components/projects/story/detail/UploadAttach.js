@@ -6,13 +6,13 @@ import Progress from '../../../common/Progress';
 import UploadMulti from '../../../common/UploadMulti';
 import UploadAndProgress from '../../../common/UploadAndProgress';
 import {getTimeAndRandom, checkCompleted} from '../../../../util/CommUtil';
-import SelectModule from './SelectModule';
+import SelectModel from './SelectModel';
 import EditProgress from './EditProgress';
 import {FormattedMessage} from 'react-intl';
 
-let mandatoryFile = ["title", "moduleType"];
+let mandatoryFile = ["title", "modelType"];
 
-const moduleMapping = [
+const modelMapping = [
     {
         key: "prototypeMap",
         text: "原型图",
@@ -61,8 +61,7 @@ const moduleMapping = [
 
 class UploadAttach extends Component {
     state = {
-        moduleArray: [],
-        moduleData: [],
+        modelData: [],
         modalOpen: false
     };
 
@@ -74,124 +73,124 @@ class UploadAttach extends Component {
     };
 
     addModule = () => {
-        let moduleInfo = this.selectModuleNode.getInfo();
-        let flag = checkCompleted(mandatoryFile, moduleInfo);
+        let modelInfo = this.SelectModelNode.getInfo();
+        let flag = checkCompleted(mandatoryFile, modelInfo);
         if (flag) {
             this.closeModal();
-            let tempData = this.state.moduleData;
+            let tempData = this.state.modelData;
             tempData.push({
                 key: getTimeAndRandom(),
-                type: moduleInfo.moduleType,
-                title: moduleInfo.title,
+                type: modelInfo.modelType,
+                title: modelInfo.title,
                 percent: 0,
                 custom: true,
                 images: []
             });
             this.setState({
-                moduleData: tempData
+                modelData: tempData
             })
         }
     };
 
-    editProgress = (module) => {
-        this.editProgressNode.openModal(module);
+    editProgress = (model) => {
+        this.editProgressNode.openModal(model);
     };
 
-    updateProgress = (module) => {
-        let tempData = this.state.moduleData;
-        tempData.some((tempModule) => {
-            if (tempModule.key === module.key) {
-                tempModule.percent = module.percent;
+    updateProgress = (model) => {
+        let tempData = this.state.modelData;
+        tempData.some((tempModel) => {
+            if (tempModel.key === model.key) {
+                tempModel.percent = model.percent;
                 return true;
             }
         });
         this.setState({
-            moduleData: tempData
+            modelData: tempData
         })
     };
 
-    selectModule = (module) => {
-        let tempArray = this.state.moduleData;
-        if (module.key === 'custom') {
+    SelectModel = (model) => {
+        let tempArray = this.state.modelData;
+        if (model.key === 'custom') {
             this.setState({
                 modalOpen: true
             })
         } else {
-            if (tempArray.indexOf(module.data) === -1) {
-                tempArray.push(module.data);
+            if (tempArray.indexOf(model.data) === -1) {
+                tempArray.push(model.data);
                 this.setState({
-                    moduleData: tempArray
+                    modelData: tempArray
                 })
             }
         }
     };
 
-    removeCustomModel = (module) => {
-        let tempArray = this.state.moduleData;
-        if (tempArray.indexOf(module) !== -1) {
-            tempArray.splice(tempArray.indexOf(module), 1);
+    removeCustomModel = (model) => {
+        let tempArray = this.state.modelData;
+        if (tempArray.indexOf(model) !== -1) {
+            tempArray.splice(tempArray.indexOf(model), 1);
             this.setState({
-                moduleData: tempArray
+                modelData: tempArray
             })
         }
     };
 
-    getComponent = (moduleItem) => {
-        if (moduleItem.type === 'progress') {
-            return <Progress percent={moduleItem.percent} mode="charts" domKey={moduleItem.key}
-                             editProgress={() => this.editProgress(moduleItem)}/>
+    getComponent = (modelItem) => {
+        if (modelItem.type === 'progress') {
+            return <Progress percent={modelItem.percent} mode="charts" domKey={modelItem.key}
+                             editProgress={() => this.editProgress(modelItem)}/>
         }
-        if (moduleItem.type === 'protoAndProgress') {
-            return <UploadAndProgress percent={moduleItem.percent} domKey={moduleItem.key}
-                                      editProgress={() => this.editProgress(moduleItem)}/>
+        if (modelItem.type === 'protoAndProgress') {
+            return <UploadAndProgress percent={modelItem.percent} domKey={modelItem.key}
+                                      editProgress={() => this.editProgress(modelItem)}/>
         }
-        if (moduleItem.type === 'proto') {
+        if (modelItem.type === 'proto') {
             return <UploadMulti/>
         }
-        if (moduleItem.type === 'prototypeMap') {
+        if (modelItem.type === 'prototypeMap') {
             return <UploadMulti/>
         }
-        if (moduleItem.type === 'UIMap') {
+        if (modelItem.type === 'UIMap') {
             return <EfficiencyDashboard/>
         }
-        if (moduleItem.type === 'logicMap') {
+        if (modelItem.type === 'logicMap') {
             return <BurnDownChart/>
         }
-        if (moduleItem.type === 'testCase') {
+        if (modelItem.type === 'testCase') {
             return <UploadAndProgress/>
         }
     };
 
     render() {
-        const {modalOpen, moduleData} = this.state;
+        const {modalOpen, modelData} = this.state;
         return (
             <div>
                 <div>
                     {
-                        moduleMapping.map((item, i) => {
+                        modelMapping.map((item, i) => {
                             return <Button key={i}
                                            basic
                                            className="upload-attach-button"
-                                           onClick={() => this.selectModule(item)}>{item.text}</Button>
+                                           onClick={() => this.SelectModel(item)}>{item.text}</Button>
                         })
                     }
                 </div>
-                {moduleData.length > 0 ? <Grid className="upload-attach-content" columns={3}>
+                {modelData.length > 0 ? <Grid className="upload-attach-content" columns={3}>
                     {
-                        moduleData.map((module, i) => {
+                        modelData.map((model, i) => {
                             return <Grid.Column key={i}>
                                 <Segment className="story-upload-file">
                                     <Header as='h4'>
                                         <Header.Content>
                                             <span className="underLine">
-                                                {module.title}
+                                                {model.title}
                                             </span>
                                         </Header.Content>
                                     </Header>
-                                    {this.getComponent(module)}
-                                    {module.custom ?
-                                        <Icon name="trash" size="big" className={"custom-module-delete pointer-cursor"}
-                                              onClick={() => this.removeCustomModel(module)}/> : null}
+                                    {this.getComponent(model)}
+                                    {model.custom ?
+                                        <Icon name="trash" size="big" className={"custom-model-delete pointer-cursor"}
+                                              onClick={() => this.removeCustomModel(model)}/> : null}
                                 </Segment>
                             </Grid.Column>
                         })
@@ -204,11 +203,11 @@ class UploadAttach extends Component {
                     size='large'>
                     <Modal.Header>
                         <FormattedMessage
-                            id='customModuleTypeSelection'
+                            id='customModelTypeSelection'
                             defaultMessage='Custom Module Type Selection'
                         />
                     </Modal.Header>
-                    <SelectModule ref={node => this.selectModuleNode = node}/>
+                    <SelectModel ref={node => this.SelectModelNode = node}/>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
                             <FormattedMessage

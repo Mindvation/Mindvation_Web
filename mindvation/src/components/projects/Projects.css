@@ -337,7 +337,7 @@
     margin-bottom: 1em;
 }
 
-.custom-module-delete {
+.custom-model-delete {
     position: absolute;
     right: 0.5em;
     top: 0.5em;
@@ -410,22 +410,22 @@
     padding-right: 0.25em;
 }
 
-.ui.grid.select-module {
+.ui.grid.select-model {
     margin-top: 1em;
 }
 
-.column.select-module-item {
+.column.select-model-item {
     height: 100%;
 }
 
-.ui.grid.select-module.error {
+.ui.grid.select-model.error {
     background-color: #fff6f6;
     border-color: #e0b4b4;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.select-module-item .ui.segment.selected {
+.select-model-item .ui.segment.selected {
     color: #2185d0;
     border-color: #2185d0;
     border-width: 2px;

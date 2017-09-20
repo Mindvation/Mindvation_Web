@@ -121,9 +121,11 @@ const en_US = {
     uploadSuccess: 'Upload Success',
     uploadFail: 'Upload Fail',
     Title: 'Title',
-    "Module Name": "Module Name",
-    moduleNamePh: "Please input module name",
-    moduleType: "Module Type",
-    customModuleTypeSelection: "Custom Module Type Selection"
+    "Model Name": "Model Name",
+    modelNamePh: "Please input model name",
+    modelType: "Module Type",
+    customModelTypeSelection: "Custom Model Type Selection",
+    editProgress: "Edit Progress",
+    "Comment": "Comment"
 };
 export default en_US;

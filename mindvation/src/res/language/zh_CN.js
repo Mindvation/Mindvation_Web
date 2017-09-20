@@ -121,9 +121,11 @@ const zh_CN = {
     uploadSuccess: '上传成功',
     uploadFail: '上传失败',
     Title: '标题',
-    "Module Name": "模块名称",
-    moduleNamePh: "请输入模块名称",
-    moduleType: "模块类型",
-    customModuleTypeSelection: "自定义模块类型选择"
+    "Model Name": "模块名称",
+    modelNamePh: "请输入模块名称",
+    modelType: "模块类型",
+    customModelTypeSelection: "自定义模块类型选择",
+    editProgress: "修改进度",
+    "Comment": "注释"
 };
 export default zh_CN;

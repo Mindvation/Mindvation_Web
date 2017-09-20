@@ -7,7 +7,7 @@ class MvProgress extends Component {
     getOption() {
         const {percent = 0} = this.props;
         const option = {
-            color: ["#1ebfae", "#e5e5e5"],
+            color: ["#21ba45", "#e5e5e5"],
             title: {
                 text: 'Progress',
                 x: 'center'
@@ -25,7 +25,7 @@ class MvProgress extends Component {
                             textStyle: {
                                 fontSize: '30',
                                 fontWeight: 'bold',
-                                color: '#1ebfae'
+                                color: '#21ba45'
                             }
                         },
                         emphasis: {
@@ -34,7 +34,7 @@ class MvProgress extends Component {
                             textStyle: {
                                 fontSize: '30',
                                 fontWeight: 'bold',
-                                color: '#1ebfae'
+                                color: '#21ba45'
                             }
                         }
                     },
