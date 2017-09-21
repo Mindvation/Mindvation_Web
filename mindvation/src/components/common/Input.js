@@ -71,14 +71,15 @@ class MVInput extends Component {
         };
         const {
             label, icon, required, checked, placeHolder, defaultValue, type = "text",
-            step = "0.1", style, fullWidth, action
+            step = "0.1", style, fullWidth, action, horizontal
         } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
         }
         return (
-            <div className="components-item" style={style}>
+            <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}
+                 style={style}>
                 {
                     label ? <Header as='h4'>
                         {icon ? <Icon name={icon}/> : null}
@@ -113,7 +114,8 @@ MVInput.propTypes = {
     step: PropTypes.string,
     style: PropTypes.object,
     fullWidth: PropTypes.bool,
-    action: PropTypes.object
+    action: PropTypes.object,
+    horizontal: PropTypes.bool
 };
 
 export default injectIntl(MVInput, {withRef: true});

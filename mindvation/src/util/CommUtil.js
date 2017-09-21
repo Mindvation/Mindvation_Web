@@ -101,3 +101,18 @@ function createHexRandom() {
 export const getTimeAndRandom = () => {
     return createHexRandom() + new Date().getTime();
 };
+
+export const getCoordinate = (parts) => {
+    if (parts < 1) return;
+    const angle = 360 / parts;
+    const radian = 2 * Math.PI / 360;
+    const radius = 1000;
+    let coordinates = [];
+    for (let i = 0; i < parts; i++) {
+        coordinates.push({
+            x: Math.round(radius * Math.cos(angle * i * radian)),
+            y: Math.round(radius * Math.sin(angle * i * radian))
+        })
+    }
+    return coordinates;
+};

@@ -126,6 +126,6 @@ const zh_CN = {
     modelType: "模块类型",
     customModelTypeSelection: "自定义模块类型选择",
     editProgress: "修改进度",
-    "Comment": "注释"
+    "Comment": "备注"
 };
 export default zh_CN;
