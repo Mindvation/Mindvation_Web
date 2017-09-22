@@ -72,7 +72,7 @@ class UploadAttach extends Component {
         }, 0);
     };
 
-    addModule = () => {
+    addModel = () => {
         let modelInfo = this.SelectModelNode.getInfo();
         let flag = checkCompleted(mandatoryFile, modelInfo);
         if (flag) {
@@ -204,7 +204,7 @@ class UploadAttach extends Component {
                     <Modal.Header>
                         <FormattedMessage
                             id='customModelTypeSelection'
-                            defaultMessage='Custom Module Type Selection'
+                            defaultMessage='Custom Model Type Selection'
                         />
                     </Modal.Header>
                     <SelectModel ref={node => this.SelectModelNode = node}/>
@@ -215,7 +215,7 @@ class UploadAttach extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.addModule()}>
+                        <Button primary onClick={() => this.addModel()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'
@@ -223,7 +223,7 @@ class UploadAttach extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
-                <EditProgress updateProgress={(module) => this.updateProgress(module)}
+                <EditProgress updateProgress={(model) => this.updateProgress(model)}
                               ref={node => this.editProgressNode = node}/>
             </div>
         );

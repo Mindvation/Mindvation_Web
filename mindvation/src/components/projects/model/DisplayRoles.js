@@ -2,34 +2,6 @@ import React, {Component} from 'react';
 import ECharts from '../../common/ECharts';
 import {getTimeAndRandom, getCoordinate} from '../../../util/CommUtil';
 
-/*const roles = [
-    {
-        key: "R0",
-        value: "Scrum Master"
-    }, {
-        key: "R1",
-        value: "BED"
-    }, {
-        key: "R2",
-        value: "Architecture"
-    }, {
-        key: "R3",
-        value: "QA"
-    }, {
-        key: "R4",
-        value: "BA"
-    }, {
-        key: "R5",
-        value: "UX"
-    }, {
-        key: "R6",
-        value: "FED"
-    }, {
-        key: "R7",
-        value: "PO"
-    }
-];*/
-
 class DisplayRoles extends Component {
     getOption() {
         const {roles} = this.props.modelInfo.basicInfo;

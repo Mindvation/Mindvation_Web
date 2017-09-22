@@ -3,6 +3,8 @@ import {Step, Button, Segment, Header, Icon} from 'semantic-ui-react';
 import BasicInfo from './BasicInfo';
 import DisplayRoles from './DisplayRoles';
 import IterationPlan from './IterationPlan';
+import Attachments from './Attachments';
+import _ from 'lodash';
 
 const steps = [
     {active: true, completed: false, title: 'Basic Info', description: 'Input model basic info'},
@@ -13,7 +15,7 @@ const steps = [
 
 class CreateModel extends Component {
     state = {
-        steps: steps,
+        steps: _.cloneDeep(steps),
         activeIndex: 0,
         modelInfo: {}
     };
@@ -39,6 +41,9 @@ class CreateModel extends Component {
         if (tempIndex === 0) {
             tempInfo.basicInfo = this.basicNode.getInfo();
         }
+        if (tempIndex === 2) {
+            tempInfo.iteration = this.iterationNode.getInfo();
+        }
         tempSteps[tempIndex].active = false;
         tempSteps[tempIndex].completed = true;
         tempSteps[tempIndex + 1].active = true;
@@ -52,6 +57,15 @@ class CreateModel extends Component {
     };
 
     createModel = () => {
+        let tempSteps = this.state.steps;
+        let tempIndex = this.state.activeIndex;
+        let tempInfo = this.state.modelInfo;
+        tempSteps[tempIndex].active = false;
+        tempSteps[tempIndex].completed = true;
+        tempInfo.attachments = this.attachNode.getInfo();
+        this.setState({
+            modelInfo: tempInfo
+        });
     };
 
     render() {
@@ -72,6 +86,9 @@ class CreateModel extends Component {
                 {activeIndex === 2 ? <Segment>
                     <IterationPlan modelInfo={modelInfo} ref={node => this.iterationNode = node}/>
                 </Segment> : null}
+                <Segment style={{display: activeIndex === 3 ? 'block' : 'none'}}>
+                    <Attachments ref={node => this.attachNode = node}/>
+                </Segment>
                 <div className="create-model-footer">
                     <Button className="previous-button"
                             style={{display: activeIndex > 0 ? 'block' : 'none'}}

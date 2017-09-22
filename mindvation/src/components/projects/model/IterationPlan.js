@@ -114,7 +114,7 @@ class IterationPlan extends Component {
 
     render() {
         const {planData, modalOpen, selectedLabels, leftLabels} = this.state;
-        return (<div className={"model-label-cont components-item"}>
+        return (<div className="model-label-cont">
             <Header as='h4'>
                 <Header.Content>
                     迭代计划模板

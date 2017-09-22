@@ -16,7 +16,7 @@ const keyPathMapping = [
     },
     {
         "key": '2',
-        "path": '/home/Test1'
+        "path": '/home/CreateModel'
     },
     {
         "key": '3',
@@ -57,9 +57,9 @@ class HomeMenu extends Component {
                     </span>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Link to="/home/Test1"/>
+                    <Link to="/home/CreateModel"/>
                     <Icon type="desktop"/>
-                    <span>Test1</span>
+                    <span>创建模板</span>
                 </Menu.Item>
                 <SubMenu
                     key="sub1"

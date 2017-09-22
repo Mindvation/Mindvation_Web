@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Menu from './Menu';
-import Test1 from '../projects/model/CreateModel';
+import CreateModel from '../projects/model/CreateModel';
 import Dashboard from '../projects/MVPPlan/Dashboard';
 import Test2 from '../test/Test2';
 import ProjectDetail from '../../containers/projectDetail_container';
@@ -33,8 +33,8 @@ const routes = [
         main: () => <Test2/>
     },
     {
-        path: '/home/Test1',
-        main: () => <Test1/>
+        path: '/home/CreateModel',
+        main: () => <CreateModel/>
     },
     {
         path: '/home/projects/:id',
