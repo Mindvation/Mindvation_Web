@@ -31,13 +31,26 @@ const businessOptions = [{
 }];
 
 class BasicInfo extends Component {
+
+    getInfo = () => {
+        return {
+            modelName: this.modeNameNode.getWrappedInstance().getValue(),
+            business: this.businessNode.getWrappedInstance().getValue(),
+            processLabel: this.processLabelNode.getInfo(),
+            roles: this.roleNode.getInfo()
+        }
+    };
+
     render() {
         return (
             <div className="model-basic">
-                <Input label="模型名称" horizontal={true} fullWidth={true}/>
-                <Select label="模型所属行业" options={businessOptions} horizontal={true}/>
-                <ProcessLabelInfo/>
-                <AddRole/>
+                <Input label="模型名称" horizontal={true} fullWidth={true}
+                       ref={node => this.modeNameNode = node}/>
+                <Select label="模型所属行业" options={businessOptions} horizontal={true}
+                        ref={node => this.businessNode = node}
+                />
+                <ProcessLabelInfo ref={node => this.processLabelNode = node}/>
+                <AddRole ref={node => this.roleNode = node}/>
             </div>
         );
     }

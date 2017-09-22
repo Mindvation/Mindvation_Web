@@ -435,7 +435,33 @@
 }
 
 .model-label {
-    margin-bottom: 2em;
+}
+
+.ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected,
+.ant-tree li .ant-tree-node-content-wrapper:hover {
+    background-color: #ffffff;
+    cursor: default;
+}
+
+.ant-tree li span.ant-tree-switcher, .ant-tree li span.ant-tree-iconEle {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+:root .ant-tree.ant-tree-show-line li span.ant-tree-switcher.ant-tree-switcher_open:after,
+:root .ant-tree.ant-tree-show-line li span.ant-tree-switcher.ant-tree-switcher-noop:after,
+:root .ant-tree.ant-tree-show-line li span.ant-tree-switcher.ant-tree-switcher_close:after {
+    font-size: 24px;
+}
+
+.ant-tree.ant-tree-show-line li:not(:last-child):before {
+    left: 20px;
+    margin: 32px 0;
+}
+
+.model-label-main .ant-tree li ul {
+    padding: 0 0 0 34px;
 }
 
 .sub-label-cont {
@@ -452,15 +478,11 @@
 }
 
 .sub-label > .ui.input {
-    min-width: 33em;
+    min-width: 32.5em;
 }
 
 .model-label-cont.item-horizontal h4.ui.header {
     padding: 5px 20px 0 0;
-}
-
-.model-add-label.ui.button {
-    margin-bottom: 1em;
 }
 
 .model-add-sub-label.ui.button {
@@ -468,7 +490,7 @@
 }
 
 .model-label-main {
-    min-width: 65em;
+
 }
 
 i.icon.mode-remove-label {
@@ -481,7 +503,7 @@ i.icon.mode-remove-label {
 
 .model-display-roles {
     width: 100%;
-    height: calc(100vh - 285px);
+    height: calc(100vh - 361px);
 }
 
 .create-model-footer {
@@ -499,4 +521,54 @@ i.icon.mode-remove-label {
 .next-button {
     position: absolute;
     right: 1em;
+}
+
+.role-label {
+    margin-top: 1em;
+}
+
+.iteration-item {
+    display: inline-table;
+    position: relative;
+    margin-right: 6em;
+    margin-top: 2em;
+}
+
+.iteration-action {
+    margin-bottom: 1em;
+}
+
+.iteration-container {
+    display: block;
+}
+
+.iteration-line {
+    position: absolute;
+    top: 60px;
+    width: 3em;
+    border-bottom: 4px solid #000000;
+    left: calc(100% + 3px);
+}
+
+.iteration-line:after {
+    content: "\2192";
+    position: absolute;
+    font-size: 4em;
+    top: -47px;
+    left: calc(100% - 8px);
+    color: #000000;
+}
+
+.iteration-item .ui.input {
+    width: 10em;
+}
+
+.iteration-item .input.ui input {
+    width: 10em;
+}
+
+.iteration-label.ui.label {
+    width: 10em;
+    font-size: 1em;
+    margin: 1em 0 0 0;
 }

@@ -5,8 +5,11 @@ let roleKey = 0;
 
 class AddRole extends Component {
     state = {
-        roleData: [],
-        modalOpen: false
+        roleData: []
+    };
+
+    getInfo = () => {
+        return this.state.roleData
     };
 
     addRole = () => {
@@ -36,13 +39,16 @@ class AddRole extends Component {
                 <Button className="model-add-label" onClick={() => this.addRole()}>新增角色</Button>
                 {
                     roleData.map((role, i) => {
-                        return <div key={i} className="model-label">
-                            <Input value={role.value} onChange={(event, data) => {
-                                role.value = data.value;
-                                this.setState({
-                                    roleData: roleData
-                                })
-                            }}/>
+                        return <div key={i} className="role-label model-label">
+                            <Input
+                                autoFocus={true}
+                                value={role.value}
+                                onChange={(event, data) => {
+                                    role.value = data.value;
+                                    this.setState({
+                                        roleData: roleData
+                                    })
+                                }}/>
                             <Icon name="trash" size="big" className={"mode-remove-label pointer-cursor"}
                                   onClick={() => this.removeRole(roleData, role)}/>
                         </div>

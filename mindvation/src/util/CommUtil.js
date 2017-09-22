@@ -103,7 +103,7 @@ export const getTimeAndRandom = () => {
 };
 
 export const getCoordinate = (parts) => {
-    if (parts < 1) return;
+    if (parts < 1) return [];
     const angle = 360 / parts;
     const radian = 2 * Math.PI / 360;
     const radius = 1000;
@@ -115,4 +115,11 @@ export const getCoordinate = (parts) => {
         })
     }
     return coordinates;
+};
+
+export const arrOrder = (arr, indicator = 'key') => {
+    arr.sort(function orderFunc(a, b) {
+        return a[indicator] > b[indicator];
+    });
+    return arr;
 };

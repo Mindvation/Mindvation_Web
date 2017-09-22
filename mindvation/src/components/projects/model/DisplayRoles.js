@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ECharts from '../../common/ECharts';
 import {getTimeAndRandom, getCoordinate} from '../../../util/CommUtil';
 
-const roles = [
+/*const roles = [
     {
         key: "R0",
         value: "Scrum Master"
@@ -28,10 +28,11 @@ const roles = [
         key: "R7",
         value: "PO"
     }
-];
+];*/
 
 class DisplayRoles extends Component {
     getOption() {
+        const {roles} = this.props.modelInfo.basicInfo;
         let data = getCoordinate(roles.length);
         data.map((item, i) => {
             item.name = roles[i].value
