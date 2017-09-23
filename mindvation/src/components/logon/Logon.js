@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {logon} from '../../actions/logon_action';
 import {Button, Form, Grid, Header, Image, Message, Segment, Input} from 'semantic-ui-react';
 import {
     Redirect
@@ -14,12 +13,13 @@ let passWord;
 class Logon extends Component {
 
     logonService() {
+        const {userLogon} = this.props;
         const user = {
-            "phoneNumber": userName.inputRef.value,
+            "userName": userName.inputRef.value,
             "password": passWord.inputRef.value
         };
         //TODO this.props.dispatch(logon(user,this.props.history));
-        this.props.dispatch(logon(user));
+        userLogon(user);
     }
 
     render() {

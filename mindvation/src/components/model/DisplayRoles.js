@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import ECharts from '../../common/ECharts';
-import {getTimeAndRandom, getCoordinate} from '../../../util/CommUtil';
+import ECharts from '../common/ECharts';
+import {getTimeAndRandom, getCoordinate} from '../../util/CommUtil';
 
 class DisplayRoles extends Component {
     getOption() {

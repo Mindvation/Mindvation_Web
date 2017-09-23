@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Button, List, Modal, Header, Icon} from 'semantic-ui-react';
-import {getTimeAndRandom, getRandomColor, checkCompleted} from '../../../util/CommUtil';
+import {getTimeAndRandom, getRandomColor, checkCompleted} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
-import SelectModel from '../story/detail/SelectModel';
+import SelectModel from '../projects/story/detail/SelectModel';
 
 let mandatoryFile = ["title", "modelType"];
 

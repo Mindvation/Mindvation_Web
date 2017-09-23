@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Menu from './Menu';
-import CreateModel from '../projects/model/CreateModel';
+import CreateModel from '../model/CreateModel';
 import Dashboard from '../projects/MVPPlan/Dashboard';
 import Test2 from '../test/Test2';
 import ProjectDetail from '../../containers/projectDetail_container';

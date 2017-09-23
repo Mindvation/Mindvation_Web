@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Input from '../../common/Input';
-import Select from '../../common/Select';
+import Input from '../common/Input';
+import Select from '../common/Select';
 import ProcessLabelInfo from './ProcessLabelInfo';
 import AddRole from './AddRole';
 
