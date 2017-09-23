@@ -583,6 +583,8 @@ i.icon.mode-remove-label {
     min-width: 4em;
     font-size: 2em;
     text-align: center;
+    webkit-box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
+    box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
 }
 
 .model-attach .list-content:hover .list-actions-content {
