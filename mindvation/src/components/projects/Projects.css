@@ -583,6 +583,9 @@ i.icon.mode-remove-label {
     min-width: 4em;
     font-size: 2em;
     text-align: center;
+}
+
+.model-attach .list-content:hover {
     webkit-box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
     box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
 }
@@ -635,7 +638,7 @@ i.icon.mode-remove-label {
 
 .model-attach .list-action-icon {
     font-size: 1em;
-    color: #000000;
+    color: #ffffff;
     opacity: 0.9;
     margin-left: 0;
     margin-right: 0.5em;
