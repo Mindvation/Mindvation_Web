@@ -71,7 +71,7 @@ class CreateModel extends Component {
     render() {
         const {activeIndex, steps, modelInfo} = this.state;
         return (
-            <div className="project-content components-length">
+            <div className="project-content">
                 <Header as='h3'>
                     <Icon name='window maximize'/>
                     <Header.Content className={"project-title underLine"}>
@@ -79,17 +79,18 @@ class CreateModel extends Component {
                     </Header.Content>
                 </Header>
                 <Step.Group ordered items={steps}/>
-                <Segment style={{display: activeIndex === 0 ? 'block' : 'none'}}>
+                <Segment className="components-length" style={{display: activeIndex === 0 ? 'block' : 'none'}}>
                     <BasicInfo ref={node => this.basicNode = node}/>
                 </Segment>
-                {activeIndex === 1 ? <Segment><DisplayRoles modelInfo={modelInfo}/></Segment> : null}
-                {activeIndex === 2 ? <Segment>
+                {activeIndex === 1 ?
+                    <Segment className="components-length"><DisplayRoles modelInfo={modelInfo}/></Segment> : null}
+                {activeIndex === 2 ? <Segment className="components-length">
                     <IterationPlan modelInfo={modelInfo} ref={node => this.iterationNode = node}/>
                 </Segment> : null}
-                <Segment style={{display: activeIndex === 3 ? 'block' : 'none'}}>
+                <Segment className="components-length" style={{display: activeIndex === 3 ? 'block' : 'none'}}>
                     <Attachments ref={node => this.attachNode = node}/>
                 </Segment>
-                <div className="create-model-footer">
+                <div className={"create-model-footer components-length"}>
                     <Button className="previous-button"
                             style={{display: activeIndex > 0 ? 'block' : 'none'}}
                             secondary onClick={() => this.previous()}>

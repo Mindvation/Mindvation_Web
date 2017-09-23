@@ -576,3 +576,69 @@ i.icon.mode-remove-label {
 .model-attach.ui.horizontal.list > .item {
     margin-top: 1em;
 }
+
+.model-attach .list-content {
+    position: relative;
+    padding: 0.5em 1em;
+    min-width: 4em;
+    font-size: 2em;
+    text-align: center;
+}
+
+.model-attach .list-content:hover .list-actions-content {
+    opacity: 1;
+}
+
+.model-attach .list-actions-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    white-space: nowrap;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+.model-attach .list-actions {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    white-space: nowrap;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+.model-attach .list-text {
+    line-height: 100%;
+    color: #CCCCCC;
+    font-size: 1.5em;
+}
+
+.model-attach i.icon:before {
+    vertical-align: middle;
+}
+
+.model-attach .list-action-icon {
+    font-size: 1em;
+    color: #000000;
+    opacity: 0.9;
+    margin-left: 0;
+    margin-right: 0.5em;
+}
+
+.model-attach .list-action-icon:last-child {
+    margin-right: 0;
+}

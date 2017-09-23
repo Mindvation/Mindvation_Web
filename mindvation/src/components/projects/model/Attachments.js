@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, List, Modal, Header} from 'semantic-ui-react';
+import {Button, List, Modal, Header, Icon} from 'semantic-ui-react';
 import {getTimeAndRandom, getRandomColor, checkCompleted} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import SelectModel from '../story/detail/SelectModel';
@@ -51,6 +51,13 @@ class Attachments extends Component {
         }
     };
 
+    removeModel = (attachments, attach) => {
+        attachments.splice(attachments.indexOf(attach), 1);
+        this.setState({
+            attachments: attachments
+        });
+    };
+
     render() {
         const {attachments, modalOpen} = this.state;
         return (
@@ -70,9 +77,21 @@ class Attachments extends Component {
                         <List horizontal className="model-attach">
                             {attachments.map((attach) => {
                                 return <List.Item key={attach.key}>
-                                    <Button size="big" style={{backgroundColor: attach.color}}>
-                                        {attach.title}
-                                    </Button>
+                                    <div className="list-content" style={{backgroundColor: attach.color}}>
+                                        <span className="list-text">{attach.title}</span>
+                                        <div className="list-actions-content">
+                                            <span className="list-actions">
+                                                {/*<Icon name="pencil"
+                                                      className={"list-action-icon pointer-cursor"}
+                                                      onClick={() => this.editModel(attachments, attach)}
+                                                />*/}
+                                                <Icon name="trash"
+                                                      className={"list-action-icon pointer-cursor"}
+                                                      onClick={() => this.removeModel(attachments, attach)}
+                                                />
+                                            </span>
+                                        </div>
+                                    </div>
                                 </List.Item>
                             })}
                         </List> : null
