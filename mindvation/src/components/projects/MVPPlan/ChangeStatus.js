@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import DropContainer from '../../common/DropContainer';
-import Box from '../../common/DragBox';
+import AcceptContainer from '../../common/AcceptContainer';
+import AcceptBox from '../../common/AcceptBox';
 import {Grid, List, Segment} from 'semantic-ui-react';
 import {priorityOptions} from '../../../res/data/dummyData';
 import {getDesc} from '../../../util/CommUtil';
+import _ from 'lodash';
 
 const testProjects = [{
     storyId: 'S0001',
@@ -42,17 +43,20 @@ const statuses = [
         key: 'new',
         text: 'To Do',
         stories: [],
-        points: 0
+        points: 0,
+        accepts: []
     }, {
         key: 'inProgress',
         text: 'In Progress',
         stories: [],
-        points: 0
+        points: 0,
+        accepts: ['new']
     }, {
         key: 'done',
         text: 'Done',
         stories: [],
-        points: 0
+        points: 0,
+        accepts: ['inProgress']
     },
 ];
 
@@ -62,8 +66,9 @@ class MoveProject extends Component {
     };
 
     componentWillMount() {
-        let tempStatus = statuses;
-        testProjects.map((testPro) => {
+        let tempStatus = _.cloneDeep(statuses);
+        let projects = _.cloneDeep(testProjects);
+        projects.map((testPro) => {
             if (testPro.status === "new") {
                 tempStatus[0].stories.push(testPro);
                 tempStatus[0].points += Number(testPro.storyPoints);
@@ -87,7 +92,8 @@ class MoveProject extends Component {
         if (story.lastStatus === status.key) return;
         let tempStatues = this.state.statuses;
         tempStatues.map((item) => {
-            if (item.key === status.key) {
+            if (item.key === status.name) {
+                story.story.status = item.key;
                 item.stories.push(story.story);
                 item.points += Number(story.story.storyPoints)
             }
@@ -112,16 +118,17 @@ class MoveProject extends Component {
                                 <div className="mvp-sprint-title">
                                     <span className="mvp-sprint-title-text">{status.text}({status.points})</span>
                                 </div>
-                                <DropContainer data={status.key}>
+                                <AcceptContainer data={status.key} accepts={status.accepts}>
                                     <List divided>
                                         {
                                             status.stories.map((story, i) => {
-                                                return <List.Item className="mvp-project-box" key={i}>
-                                                    <Box
+                                                return <List.Item className="mvp-project-AcceptBox" key={i}>
+                                                    <AcceptBox
                                                         data={{
                                                             'story': story,
                                                             'lastStatus': status.key
                                                         }}
+                                                        type={story.status}
                                                         action={(handleData, status) => this.moveProjectToNext(handleData, status)}>
                                                         <div className="mvp-story-info">
                                                             <span className="mvp-story-id">{story.storyId}</span>
@@ -131,12 +138,12 @@ class MoveProject extends Component {
                                                             </span>
                                                             <span className="mvp-story-point">{story.storyPoints}</span>
                                                         </div>
-                                                    </Box>
+                                                    </AcceptBox>
                                                 </List.Item>
                                             })
                                         }
                                     </List>
-                                </DropContainer>
+                                </AcceptContainer>
                             </Segment>
                         </Grid.Column>
                     })
