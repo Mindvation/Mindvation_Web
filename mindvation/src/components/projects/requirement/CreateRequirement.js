@@ -64,6 +64,10 @@ class CreateRequirement extends Component {
                       to={`/home/MVPDashboard`}>
                     MVP Dashboard
                 </Link>
+                <Link style={{border: '1px solid #1b1c1d', marginLeft: '2em'}} className="create-requirement-button"
+                      to={`/home/MyMVPDashboard`}>
+                    My MVP Dashboard
+                </Link>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

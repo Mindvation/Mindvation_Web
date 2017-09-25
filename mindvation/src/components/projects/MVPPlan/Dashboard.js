@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import DragDropContext from '../../common/DragDropContext';
 import MoveProject from './MoveProject';
 import {Header, Icon} from 'semantic-ui-react';
+import DemoCalendar from './DemoCalendar';
 
 class Dashboard extends Component {
 
@@ -15,8 +16,8 @@ class Dashboard extends Component {
                     </Header.Content>
                 </Header>
                 <MoveProject/>
+                <DemoCalendar/>
             </div>
-
         );
     }
 }

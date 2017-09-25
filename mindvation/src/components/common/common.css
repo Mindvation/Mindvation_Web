@@ -317,3 +317,8 @@
 .slider-container {
     flex: 1
 }
+
+.link {
+    color: blue;
+    cursor: pointer !important;
+}

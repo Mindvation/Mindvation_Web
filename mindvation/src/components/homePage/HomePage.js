@@ -3,6 +3,7 @@ import Menu from './Menu';
 import CreateModel from '../model/CreateModel';
 import Dashboard from '../projects/MVPPlan/Dashboard';
 import MyDashboard from '../projects/MVPPlan/MyDashboard';
+import Test2 from '../test/Test2';
 import ProjectDetail from '../../containers/projectDetail_container';
 import RequirementDetail from '../../containers/requirementDetail_container';
 import StoryDetail from '../../containers/storyDetail_container';
@@ -29,8 +30,12 @@ const routes = [
         main: () => <Dashboard/>
     },
     {
-        path: '/home/Test2',
+        path: '/home/MyMVPDashboard',
         main: () => <MyDashboard/>
+    },
+    {
+        path: '/home/Test2',
+        main: () => <Test2/>
     },
     {
         path: '/home/CreateModel',
