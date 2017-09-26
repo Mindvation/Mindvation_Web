@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Input, Header, Button, Icon} from 'semantic-ui-react';
 import {Tree} from 'antd';
+import {FormattedMessage} from 'react-intl';
 
 const TreeNode = Tree.TreeNode;
 let labelKey = 0;
@@ -85,11 +86,19 @@ class ProcessLabelInfo extends Component {
         return (<div className={"model-label-cont item-horizontal components-item"}>
                 <Header as='h4'>
                     <Header.Content>
-                        过程/方法/模块/功能点
+                        <FormattedMessage
+                            id='Process/Function Label'
+                            defaultMessage='Process/Function Label'
+                        />
                     </Header.Content>
                 </Header>
                 <div className="model-label-main">
-                    <Button className="model-add-label" onClick={() => this.addLabel()}>新增 过程/方法/模块/功能点</Button>
+                    <Button className="model-add-label" onClick={() => this.addLabel()}>
+                        <FormattedMessage
+                            id='addProcessLabel'
+                            defaultMessage='Add Process/Function Label'
+                        />
+                    </Button>
                     <Tree
                         showLine
                         expandedKeys={expandedKeys}
@@ -111,7 +120,11 @@ class ProcessLabelInfo extends Component {
                                                          }}/>
                                                      <Button className="model-add-sub-label"
                                                              onClick={() => this.addSubLabel(labelData, label)}>
-                                                         创建子过程/方法/模块/功能点</Button>
+                                                         <FormattedMessage
+                                                             id='addSubProcessLabel'
+                                                             defaultMessage='Add Sub Process/Function Label'
+                                                         />
+                                                     </Button>
                                                      <Icon name="trash" size="big"
                                                            className={"mode-remove-label pointer-cursor"}
                                                            onClick={() => this.removeLabel(label)}/>

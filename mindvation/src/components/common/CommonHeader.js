@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Header, Button} from 'semantic-ui-react';
 import {logOut} from '../../actions/logon_action';
 import {FormattedMessage} from 'react-intl';
+import {
+    withRouter
+} from 'react-router-dom';
 
 class CommonHeader extends Component {
 
@@ -34,4 +37,4 @@ class CommonHeader extends Component {
     }
 }
 
-export default CommonHeader;
+export default withRouter(CommonHeader);

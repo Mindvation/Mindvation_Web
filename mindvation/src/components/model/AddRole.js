@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Input, Header, Button, Icon} from 'semantic-ui-react';
+import {FormattedMessage} from 'react-intl';
 
 let roleKey = 0;
 
@@ -32,11 +33,19 @@ class AddRole extends Component {
         return (<div className={"model-label-cont item-horizontal components-item"}>
             <Header as='h4'>
                 <Header.Content>
-                    角色
+                    <FormattedMessage
+                        id='role'
+                        defaultMessage='Role'
+                    />
                 </Header.Content>
             </Header>
             <div className="model-label-main">
-                <Button className="model-add-label" onClick={() => this.addRole()}>新增角色</Button>
+                <Button className="model-add-label" onClick={() => this.addRole()}>
+                    <FormattedMessage
+                        id='addRole'
+                        defaultMessage='Add Role'
+                    />
+                </Button>
                 {
                     roleData.map((role, i) => {
                         return <div key={i} className="role-label model-label">

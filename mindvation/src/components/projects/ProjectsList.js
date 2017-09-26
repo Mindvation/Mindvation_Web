@@ -8,8 +8,8 @@ import {
     Link
 } from 'react-router-dom';
 
-const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Task Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
-const projectKey = ['projectId', 'projectName', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPoints', 'taskQty', 'CRQty', 'CRSPs', 'CRCost', 'SPsCost', 'CRRate'];
+const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Checklist Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
+const projectKey = ['projectId', 'projectName', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPoints', 'checklistQty', 'CRQty', 'CRSPs', 'CRCost', 'SPsCost', 'CRRate'];
 
 class ProjectsList extends Component {
     componentDidMount() {
@@ -29,9 +29,9 @@ class ProjectsList extends Component {
         if (key === "priority" && !isEmpty(data[key])) {
             return getDesc(global.dummyData.priorityOptions, data[key]);
         }
-        if (key === "taskQty") {
-            if (data.tasks) {
-                return data.tasks.length;
+        if (key === "checklistQty") {
+            if (data.checklists) {
+                return data.checklists.length;
             }
             return 0;
         }

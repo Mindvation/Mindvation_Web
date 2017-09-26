@@ -87,36 +87,35 @@ class HomePage extends Component {
 
     render() {
         return (
-            <Router>
+            <Layout>
+                <Header style={{paddingTop: '17px'}}><CommonHeader/></Header>
                 <Layout>
-                    <Header style={{paddingTop: '17px'}}><CommonHeader history={this.props.history}/></Header>
-                    <Layout>
-                        <Sider collapsible
-                               collapsed={this.state.collapsed}
-                               onCollapse={this.onCollapse}
-                               className="sider-menu"
-                        >
-                            <Menu/>
-                        </Sider>
-                        <Content style={{minHeight: this.state.minHeight, overflowY: 'hidden'}}>
-                            <BackTop/>
-                            <Route exact path="/home" render={() => (
-                                <Redirect to="/home/projects"/>
-                            )}/>
-                            {routes.map((route, index) => (
-                                // Render more <Route>s with the same paths as
-                                // above, but different components this time.
-                                <Route
-                                    key={index}
-                                    path={route.path}
-                                    exact={route.exact}
-                                    component={route.main}
-                                />
-                            ))}
-                        </Content>
-                    </Layout>
+                    <Sider collapsible
+                           collapsed={this.state.collapsed}
+                           onCollapse={this.onCollapse}
+                           className="sider-menu"
+                    >
+                        <Menu/>
+                    </Sider>
+                    <Content style={{minHeight: this.state.minHeight, overflowY: 'hidden'}}>
+                        <BackTop/>
+                        <Route exact path="/home" render={() => (
+                            <Redirect to="/home/projects"/>
+                        )}/>
+                        {routes.map((route, index) => (
+                            // Render more <Route>s with the same paths as
+                            // above, but different components this time.
+                            <Route
+                                key={index}
+                                path={route.path}
+                                exact={route.exact}
+                                component={route.main}
+                            />
+                        ))}
+                    </Content>
                 </Layout>
-            </Router>
+            </Layout>
+
         );
     }
 }

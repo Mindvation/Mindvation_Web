@@ -9,6 +9,7 @@ import requirements from './requirements_reducer';
 import role from './role_reducer';
 import stories from './stories_reducer';
 import story from './story_reducer';
+import checklist from './checklist_reducer';
 
 const mindvationApp = combineReducers({
     projects,
@@ -20,7 +21,8 @@ const mindvationApp = combineReducers({
     requirements,
     role,
     stories,
-    story
+    story,
+    checklist
 });
 
 export default mindvationApp;

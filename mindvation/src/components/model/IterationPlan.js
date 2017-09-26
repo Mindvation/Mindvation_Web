@@ -117,11 +117,19 @@ class IterationPlan extends Component {
         return (<div className="model-label-cont">
             <Header as='h4'>
                 <Header.Content>
-                    迭代计划模板
+                    <FormattedMessage
+                        id='iterationPlanModel'
+                        defaultMessage='Iteration Plan Model'
+                    />
                 </Header.Content>
             </Header>
             <div className="model-label-main">
-                <Button className="model-add-label" onClick={() => this.addIteration()}>新增迭代</Button>
+                <Button className="model-add-label" onClick={() => this.addIteration()}>
+                    <FormattedMessage
+                        id='addIteration'
+                        defaultMessage='Add Iteration'
+                    />
+                </Button>
                 <div>
                     {
                         planData.map((iteration, i) => {
@@ -141,8 +149,8 @@ class IterationPlan extends Component {
                                     {iteration.labels && iteration.labels.length > 0 ?
                                         iteration.labels.map((label) => {
                                             return <div key={label.key}>
-                                                <Label basic
-                                                       className="iteration-label">{label.value}</Label>
+                                                <Label
+                                                    className="iteration-label">{label.value}</Label>
                                             </div>
                                         }) : null
                                     }
@@ -157,7 +165,10 @@ class IterationPlan extends Component {
                 closeOnRootNodeClick={false}
                 open={modalOpen}>
                 <Modal.Header>
-                    分配过程/方法/模块/功能点
+                    <FormattedMessage
+                        id='assignLabel'
+                        defaultMessage='Assign Progress/Function Label'
+                    />
                 </Modal.Header>
                 <Modal.Content>
                     <Segment className="all-tags-segment">

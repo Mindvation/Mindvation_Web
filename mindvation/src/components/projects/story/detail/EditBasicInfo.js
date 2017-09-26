@@ -32,7 +32,7 @@ class EditBasicInfo extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {story} = this.props;
+        const {story, readOnly} = this.props;
         return (
             <div className="read-only-component">
                 <Header as="h3" className="underLine" style={{display: 'flex'}}>
@@ -40,10 +40,15 @@ class EditBasicInfo extends Component {
                         id='basicInfo'
                         defaultMessage='Basic info'
                     />
-                    <div className="edit-info-line"/>
-                    <div className="edit-info-icon" onClick={this.edit}>
-                        <Icon name='pencil'/>
-                    </div>
+                    {
+                        readOnly ? null :
+                            <div className="edit-line-cont">
+                                <div className="edit-info-line"/>
+                                <div className="edit-info-icon" onClick={this.edit}>
+                                    <Icon name='pencil'/>
+                                </div>
+                            </div>
+                    }
                 </Header>
                 <ReadOnly icon="product hunt" title="Summary" value={story.summary}/>
                 <ReadOnly icon="book" title="Description"

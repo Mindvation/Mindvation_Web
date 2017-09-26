@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
+import DatePicker from '../../common/DatePicker';
 import {addTask} from '../../../actions/task_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
-let taskDesc, assignTo;
+let taskDesc, assignTo, startEndDate;
 
 class AddTask extends Component {
     state = {modalOpen: false};
@@ -32,6 +33,8 @@ class AddTask extends Component {
         const task = {
             "description": taskDesc.getWrappedInstance().getValue(),
             "assignee": assignTo.getWrappedInstance().getValue(),
+            "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
+            "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
             "assigner": "Leaders",
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
@@ -71,6 +74,12 @@ class AddTask extends Component {
                                 ref={node => {
                                     assignTo = node
                                 }}/>
+                        <DatePicker icon="clock" label="Start / End Date"
+                                    range={true}
+                                    ref={node => {
+                                        startEndDate = node
+                                    }}
+                        />
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>

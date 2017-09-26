@@ -18,12 +18,14 @@ import {
     techniqueModelOptions,
     functionOptions
 } from "./res/data/dummyData";
-import {updateGobalData} from './util/CommUtil';
+import {updateGlobalData} from './util/CommUtil';
+
+const history = createHistory();
 
 class App extends Component {
     constructor() {
         super();
-        updateGobalData("dummyData", {
+        updateGlobalData("dummyData", {
             assignOptions: assignOptions,
             contingencyOptions: contingencyOptions,
             priorityOptions: priorityOptions,
@@ -33,12 +35,12 @@ class App extends Component {
             engineeringModelOptions: engineeringModelOptions,
             techniqueModelOptions: techniqueModelOptions,
             functionOptions: functionOptions
-        })
+        });
     }
 
     render() {
         return (
-            <Router history={createHistory()}>
+            <Router history={history}>
                 <div>
                     <Route exact path="/" render={() => (
                         <Redirect to="/login"/>

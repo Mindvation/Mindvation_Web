@@ -170,6 +170,12 @@ class DemoCalendar extends Component {
         return returnInd;
     }
 
+    checkDetail = (event, storyId) => {
+        event.stopPropagation();
+        const {storyDetail} = this.props;
+        storyDetail && storyDetail(storyId);
+    };
+
     render() {
         const {demoPlan} = this.state;
         const titleList = () => {
@@ -198,7 +204,7 @@ class DemoCalendar extends Component {
 
                 if (todayDemos.length > 0) {
                     dateRes.push(<Table.Cell textAlign="center" key={i}>{todayDemos.map((id, j) => {
-                        return <div key={j}>{id}</div>
+                        return <div key={j} className="link" onClick={(event) => this.checkDetail(event, id)}>{id}</div>
                     })}</Table.Cell>)
                 } else {
                     dateRes.push(<Table.Cell key={i}/>)

@@ -44,9 +44,9 @@ class BasicInfo extends Component {
     render() {
         return (
             <div className="model-basic">
-                <Input label="模型名称" horizontal={true} fullWidth={true}
+                <Input label="Model Name" horizontal={true} fullWidth={true}
                        ref={node => this.modeNameNode = node}/>
-                <Select label="模型所属行业" options={businessOptions} horizontal={true}
+                <Select label="Industry" options={businessOptions} horizontal={true}
                         ref={node => this.businessNode = node}
                 />
                 <ProcessLabelInfo ref={node => this.processLabelNode = node}/>

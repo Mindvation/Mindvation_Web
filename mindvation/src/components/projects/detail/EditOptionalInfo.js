@@ -4,7 +4,7 @@ import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import OptionalItem from '../create/OptionalItem';
 import {updateProject} from '../../../actions/project_action';
-import {clearTempTask} from '../../../actions/task_action';
+import {clearTempChecklist} from '../../../actions/checklist_action';
 import DisplayFile from '../../common/DisplayFile';
 
 let optionalModule;
@@ -17,7 +17,7 @@ class EditOptionalInfo extends Component {
 
     closeModal = () => {
         this.setState({modalOpen: false});
-        this.props.dispatch(clearTempTask());
+        this.props.dispatch(clearTempChecklist());
     };
 
     edit = () => {
@@ -27,15 +27,15 @@ class EditOptionalInfo extends Component {
     update = () => {
         let optionalInfo = optionalModule.getInfo();
         this.props.dispatch(updateProject(optionalInfo));
-        this.props.dispatch(clearTempTask());
+        this.props.dispatch(clearTempChecklist());
         this.closeModal();
     };
 
-    formatTasks = () => {
+    formatChecklists = () => {
         const {project} = this.props;
-        if (project.tasks && project.tasks.length) {
+        if (project.checklists && project.checklists.length) {
             return <List>
-                {project.tasks.map((result, i) => {
+                {project.checklists.map((result, i) => {
                     return <List.Item key={i} className={"task-list-" + result.status}>
                         <List.Icon name='circle'/>
                         <List.Content>
@@ -63,8 +63,8 @@ class EditOptionalInfo extends Component {
                         <Icon name='pencil'/>
                     </div>
                 </Header>
-                <ReadOnly icon="tasks" title="Tasks"
-                          value={this.formatTasks()}/>
+                <ReadOnly icon="tasks" title="Checklists"
+                          value={this.formatChecklists()}/>
                 <ReadOnly icon="attach" title="Attachments"
                           value={project.fileList && project.fileList.length > 0 ?
                               <DisplayFile fileList={project.fileList}/> : ""}/>

@@ -5,6 +5,7 @@ import DisplayRoles from './DisplayRoles';
 import IterationPlan from './IterationPlan';
 import Attachments from './Attachments';
 import _ from 'lodash';
+import {FormattedMessage} from 'react-intl';
 
 const steps = [
     {active: true, completed: false, title: 'Basic Info', description: 'Input model basic info'},
@@ -75,7 +76,10 @@ class CreateModel extends Component {
                 <Header as='h3'>
                     <Icon name='window maximize'/>
                     <Header.Content className={"project-title underLine"}>
-                        创建模板
+                        <FormattedMessage
+                            id='createModel'
+                            defaultMessage='Create Model'
+                        />
                     </Header.Content>
                 </Header>
                 <Step.Group ordered items={steps}/>
@@ -94,17 +98,26 @@ class CreateModel extends Component {
                     <Button className="previous-button"
                             style={{display: activeIndex > 0 ? 'block' : 'none'}}
                             secondary onClick={() => this.previous()}>
-                        Previous
+                        <FormattedMessage
+                            id='previous'
+                            defaultMessage='Previous'
+                        />
                     </Button>
                     <Button className="next-button"
                             style={{display: activeIndex < steps.length - 1 ? 'block' : 'none'}}
                             primary onClick={() => this.next()}>
-                        Next
+                        <FormattedMessage
+                            id='next'
+                            defaultMessage='Next'
+                        />
                     </Button>
                     <Button className="next-button"
                             style={{display: activeIndex === steps.length - 1 ? 'block' : 'none'}}
                             primary onClick={() => this.createModel()}>
-                        Done
+                        <FormattedMessage
+                            id='modelDone'
+                            defaultMessage='Done'
+                        />
                     </Button>
                 </div>
             </div>

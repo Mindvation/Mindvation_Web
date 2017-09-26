@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import {Header, Icon, Modal} from 'semantic-ui-react';
-import Checklists from '../../../containers/checklist_container';
-import AddChecklist from './AddChecklist';
+import Tasks from '../../../containers/task_container';
+import AddTask from './AddTask';
 import {FormattedMessage} from 'react-intl';
 import UploadFile from '../../common/UploadFile';
-import {addTempChecklists} from '../../../actions/checklist_action';
+import {addTempTasks} from '../../../actions/task_action';
 
-let checklistsNode;
+let tasksNode;
 
 class OptionalItem extends Component {
     componentDidMount() {
         const {info = {}, dispatch} = this.props;
-        if (info.checklists && info.checklists.length > 0) {
-            dispatch(addTempChecklists(info.checklists))
+        if (info.tasks && info.tasks.length > 0) {
+            dispatch(addTempTasks(info.tasks))
         }
     }
 
     getInfo = () => {
         return {
-            checklists: checklistsNode.store.getState().checklist
+            tasks: tasksNode.store.getState().task
         };
     };
 
@@ -38,19 +38,19 @@ class OptionalItem extends Component {
                     <Icon name='tasks'/>
                     <Header.Content>
                         <FormattedMessage
-                            id='Checklists'
-                            defaultMessage='Checklists'
+                            id='Tasks'
+                            defaultMessage='Tasks'
                         />
                     </Header.Content>
                 </Header>
-                <Checklists
+                <Tasks
                     ref={node => {
-                        checklistsNode = node
+                        tasksNode = node
                     }}
                     showAction={showAction}
                     dispatch={dispatch}
                 />
-                <AddChecklist dispatch={dispatch}/>
+                <AddTask dispatch={dispatch}/>
                 <UploadFile label="Attachments" icon="attach"/>
             </Modal.Content>
         );

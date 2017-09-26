@@ -11,7 +11,7 @@ class DisplayRoles extends Component {
         });
         const option = {
             title: {
-                text: '角色'
+                text: ''
             },
             tooltip: {},
             animationDurationUpdate: 1500,

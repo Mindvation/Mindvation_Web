@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import Tasks from '../components/projects/create/Tasks';
+import Tasks from '../components/projects/story/Tasks';
 
 const mapStateToProps = (state) => {
     return {

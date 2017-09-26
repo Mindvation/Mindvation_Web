@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Header, Icon, Modal, Button, List} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
-import OptionalItem from '../../create/OptionalItem';
+import OptionalItem from '../OptionalItem';
 import {updateStory} from '../../../../actions/story_action';
 import {clearTempTask} from '../../../../actions/task_action';
 import DisplayFile from '../../../common/DisplayFile';
@@ -50,7 +50,7 @@ class EditOptionalInfo extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {story, dispatch} = this.props;
+        const {story, dispatch, readOnly} = this.props;
         return (
             <div className="read-only-component">
                 <Header as="h3" className="underLine" style={{display: 'flex'}}>
@@ -58,10 +58,15 @@ class EditOptionalInfo extends Component {
                         id='optionalItems'
                         defaultMessage='Optional Items'
                     />
-                    <div className="edit-info-line"/>
-                    <div className="edit-info-icon" onClick={this.edit}>
-                        <Icon name='pencil'/>
-                    </div>
+                    {
+                        readOnly ? null :
+                            <div className="edit-line-cont">
+                                <div className="edit-info-line"/>
+                                <div className="edit-info-icon" onClick={this.edit}>
+                                    <Icon name='pencil'/>
+                                </div>
+                            </div>
+                    }
                 </Header>
                 <ReadOnly icon="tasks" title="Tasks"
                           value={this.formatTasks()}/>

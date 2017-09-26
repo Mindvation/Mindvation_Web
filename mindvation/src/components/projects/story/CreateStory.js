@@ -3,7 +3,7 @@ import {Button, Modal, Icon} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from './BasicInfo';
 import AdditionalInfo from './AdditionalInfo';
-import OptionalItem from '../create/OptionalItem';
+import OptionalItem from './OptionalItem';
 import {addStoryToList} from '../../../actions/stories_action';
 import {clearTempTask} from '../../../actions/task_action';
 import {checkCompleted} from '../../../util/CommUtil';

@@ -186,6 +186,11 @@
     margin: 5px;
 }
 
+.edit-line-cont {
+    flex: 1;
+    display: flex;
+}
+
 .read-only-component {
     margin-bottom: 30px;
 }
@@ -701,4 +706,18 @@ i.icon.mode-remove-label {
     background-color: rgba(255, 0, 0, 1) !important;
     -webkit-box-shadow: 0 5px 5px rgba(255, 0, 0, 0.35);
     box-shadow: 0 5px 5px rgba(255, 0, 0, 0.35);
+}
+
+.story-summary {
+    background-color: #ffffff;
+}
+
+.summary-id {
+    color: #6a9abe;
+}
+
+.summary-link {
+    position: absolute;
+    right: 1em;
+    top: 0.5em;
 }

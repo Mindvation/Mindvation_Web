@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import DropContainer from '../../common/DropContainer';
 import Box from '../../common/DragBox';
-import {Grid, List, Segment} from 'semantic-ui-react';
+import {Grid, List, Segment, Header, Icon} from 'semantic-ui-react';
 import {priorityOptions} from '../../../res/data/dummyData';
 import {getDesc} from '../../../util/CommUtil';
 
@@ -94,47 +94,65 @@ class MoveProject extends Component {
         })
     };
 
+    checkDetail = (event, storyId) => {
+        event.stopPropagation();
+        const {storyDetail} = this.props;
+        storyDetail && storyDetail(storyId);
+    };
+
     render() {
         const {sprints} = this.state;
         return (
-            <Grid columns={3} className="mvp-project-container">
-                {
-                    sprints.map((sprint, i) => {
-                        return <Grid.Column key={i}>
-                            <Segment className="mvp-sprint-container">
-                                <div className="mvp-sprint-title">
-                                    <span className="mvp-sprint-title-text">{sprint.text}({sprint.points})</span>
-                                </div>
-                                <DropContainer data={sprint.key}>
-                                    <List divided>
-                                        {
-                                            sprint.stories.map((story, i) => {
-                                                return <List.Item className="mvp-project-box" key={i}>
-                                                    <Box
-                                                        data={{
-                                                            'story': story,
-                                                            'lastSprint': sprint.key
-                                                        }}
-                                                        action={(handleData, sprint) => this.moveProjectToNext(handleData, sprint)}>
-                                                        <div className="mvp-story-info">
-                                                            <span className="mvp-story-id">{story.storyId}</span>
-                                                            <span className="mvp-story-desc">{story.description}</span>
-                                                            <span className="mvp-story-priority">
+            <div>
+                <Header as='h3'>
+                    <Icon name='dashboard'/>
+                    <Header.Content>
+                        Dashboard
+                    </Header.Content>
+                </Header>
+                <Grid columns={3} className="mvp-project-container">
+                    {
+                        sprints.map((sprint, i) => {
+                            return <Grid.Column key={i}>
+                                <Segment className="mvp-sprint-container">
+                                    <div className="mvp-sprint-title">
+                                        <span className="mvp-sprint-title-text">{sprint.text}({sprint.points})</span>
+                                    </div>
+                                    <DropContainer data={sprint.key}>
+                                        <List divided>
+                                            {
+                                                sprint.stories.map((story, i) => {
+                                                    return <List.Item className="mvp-project-box" key={i}>
+                                                        <Box
+                                                            data={{
+                                                                'story': story,
+                                                                'lastSprint': sprint.key
+                                                            }}
+                                                            action={(handleData, sprint) => this.moveProjectToNext(handleData, sprint)}>
+                                                            <div
+                                                                onClick={(event) => this.checkDetail(event, story.storyId)}
+                                                                className="mvp-story-info">
+                                                                <span className="mvp-story-id">{story.storyId}</span>
+                                                                <span
+                                                                    className="mvp-story-desc">{story.description}</span>
+                                                                <span className="mvp-story-priority">
                                                                 {getDesc(priorityOptions, story.priority)}
                                                             </span>
-                                                            <span className="mvp-story-point">{story.storyPoints}</span>
-                                                        </div>
-                                                    </Box>
-                                                </List.Item>
-                                            })
-                                        }
-                                    </List>
-                                </DropContainer>
-                            </Segment>
-                        </Grid.Column>
-                    })
-                }
-            </Grid>
+                                                                <span
+                                                                    className="mvp-story-point">{story.storyPoints}</span>
+                                                            </div>
+                                                        </Box>
+                                                    </List.Item>
+                                                })
+                                            }
+                                        </List>
+                                    </DropContainer>
+                                </Segment>
+                            </Grid.Column>
+                        })
+                    }
+                </Grid>
+            </div>
         );
     }
 }

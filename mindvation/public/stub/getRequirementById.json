@@ -232,7 +232,7 @@
       ]
     }
   ],
-  "tasks": [
+  "checklists": [
     {
       "idNumber": "C0",
       "description": "Need to assign our RnD team in this projects ASAP.",

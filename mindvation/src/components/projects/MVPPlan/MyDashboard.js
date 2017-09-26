@@ -3,6 +3,7 @@ import DragDropContext from '../../common/DragDropContext';
 import ChangeStatus from './ChangeStatus';
 import MyDemoCalendar from './MyDemoCalendar';
 import {Sidebar, Icon, Button} from 'semantic-ui-react';
+import StorySummary from '../../../containers/storySummary_container';
 
 class MyDashboard extends Component {
 
@@ -41,7 +42,7 @@ class MyDashboard extends Component {
                     visible={visible}
                     icon='labeled'
                 >
-                    <div style={{backgroundColor: 'green', height: '150em'}}>{storyId}</div>
+                    <StorySummary storyId={storyId}/>
                 </Sidebar>
                 <Sidebar.Pusher>
                     <div className="component-container" onClick={() => this.setState({visible: false})}>
@@ -62,7 +63,6 @@ class MyDashboard extends Component {
                     </div>
                 </Sidebar.Pusher>
             </Sidebar.Pushable>
-
         );
     }
 }

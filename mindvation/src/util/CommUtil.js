@@ -23,7 +23,7 @@ export const isEmpty = (text) => {
     return false;
 };
 
-export const updateGobalData = (key, options) => {
+export const updateGlobalData = (key, options) => {
     global[key] = global[key] || {};
     Object.assign(global[key], options);
 };

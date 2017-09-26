@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
-import {editTask} from '../../../actions/task_action';
+import {editChecklist} from '../../../actions/checklist_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
-let taskDesc, assignTo;
+let checklistDesc, assignTo;
 
-class EditTask extends Component {
-    state = {modalOpen: false, taskInfo: {}};
+class EditChecklist extends Component {
+    state = {modalOpen: false, checklistInfo: {}};
 
     componentWillUpdate() {
         this.fixBody();
@@ -24,18 +24,18 @@ class EditTask extends Component {
         if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
     };
 
-    openModal = (taskInfo) => this.setState({modalOpen: true, taskInfo: taskInfo});
+    openModal = (checklistInfo) => this.setState({modalOpen: true, checklistInfo: checklistInfo});
 
     closeModal = () => this.setState({modalOpen: false});
 
-    updateTask = () => {
-        const task = {
-            "description": taskDesc.getWrappedInstance().getValue(),
+    updateChecklist = () => {
+        const checklist = {
+            "description": checklistDesc.getWrappedInstance().getValue(),
             "assignee": assignTo.getWrappedInstance().getValue(),
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
         };
         this.setState({modalOpen: false});
-        this.props.dispatch(editTask(Object.assign(this.state.taskInfo, task)));
+        this.props.dispatch(editChecklist(Object.assign(this.state.checklistInfo, checklist)));
     };
 
     render() {
@@ -48,23 +48,23 @@ class EditTask extends Component {
                     open={modalOpen}>
                     <Modal.Header>
                         <FormattedMessage
-                            id='editTask'
-                            defaultMessage='Edit Task'
+                            id='editChecklist'
+                            defaultMessage='Edit Checklist'
                         />
                     </Modal.Header>
                     <Modal.Content>
                         <TextArea label="Description" icon="book"
                                   ref={node => {
-                                      taskDesc = node
+                                      checklistDesc = node
                                   }}
-                                  defaultValue={this.state.taskInfo.description}
+                                  defaultValue={this.state.checklistInfo.description}
                         />
                         <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node
                                 }}
-                                defaultValue={this.state.taskInfo.assignee}
+                                defaultValue={this.state.checklistInfo.assignee}
                         />
                     </Modal.Content>
                     <Modal.Actions>
@@ -74,7 +74,7 @@ class EditTask extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.updateTask()}>
+                        <Button primary onClick={() => this.updateChecklist()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'
@@ -87,4 +87,4 @@ class EditTask extends Component {
     }
 }
 
-export default EditTask;
+export default EditChecklist;

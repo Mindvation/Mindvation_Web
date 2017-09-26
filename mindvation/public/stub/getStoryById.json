@@ -141,6 +141,8 @@
       "assigner": "Leaders",
       "createDate": "2017-08-30 14:32",
       "lastUpdateDate": "2017-08-30 14:32",
+      "startDate": "2017-09-05",
+      "endDate": "2017-10-26",
       "status": "new"
     },
     {
@@ -150,6 +152,8 @@
       "assigner": "Leaders",
       "createDate": "2017-08-30 14:32",
       "lastUpdateDate": "2017-08-30 14:32",
+      "startDate": "2017-09-05",
+      "endDate": "2017-10-26",
       "status": "inProgress"
     },
     {
@@ -159,6 +163,8 @@
       "assigner": "Leaders",
       "createDate": "2017-08-30 14:32",
       "lastUpdateDate": "2017-08-30 14:32",
+      "startDate": "2017-09-05",
+      "endDate": "2017-10-26",
       "status": "done"
     }
   ],

@@ -64,12 +64,19 @@ class Attachments extends Component {
             <div className="model-label-cont">
                 <Header as='h4'>
                     <Header.Content>
-                        任务交付件
+                        <FormattedMessage
+                            id='taskAttachments'
+                            defaultMessage='Task Attachments'
+                        />
                     </Header.Content>
                 </Header>
                 <div>
                     <Button basic onClick={() => this.openModal()}>
-                        添加
+
+                        <FormattedMessage
+                            id='add'
+                            defaultMessage='Add'
+                        />
                     </Button>
                 </div>
                 {
