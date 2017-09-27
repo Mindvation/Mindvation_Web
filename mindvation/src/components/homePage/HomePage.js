@@ -11,7 +11,6 @@ import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
 import {Layout, BackTop} from 'antd';
 import {
-    BrowserRouter as Router,
     Route,
     Redirect
 } from 'react-router-dom';
