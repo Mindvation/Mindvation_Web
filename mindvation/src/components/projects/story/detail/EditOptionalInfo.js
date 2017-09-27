@@ -68,8 +68,8 @@ class EditOptionalInfo extends Component {
                             </div>
                     }
                 </Header>
-                <ReadOnly icon="tasks" title="Tasks"
-                          value={this.formatTasks()}/>
+                {/*<ReadOnly icon="tasks" title="Tasks"
+                          value={this.formatTasks()}/>*/}
                 <ReadOnly icon="attach" title="Attachments"
                           value={story.fileList && story.fileList.length > 0 ?
                               <DisplayFile fileList={story.fileList}/> : ""}/>

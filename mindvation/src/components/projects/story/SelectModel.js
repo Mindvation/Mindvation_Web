@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import {Header, Modal, Segment, Image, Grid, Icon} from 'semantic-ui-react';
-import Input from '../../../common/Input';
+import Input from '../../common/Input';
 import {FormattedMessage} from 'react-intl';
 
 const models = [{
     key: 'protoAndProgress',
-    image: require('../../../../res/image/model1.png'),
+    image: require('../../../res/image/model1.png'),
     desc: <span>
         <div>模块1 适用于上传 如 原型图、效果图、测试用例等可以预览的图片为主的附件。适合 产品，测试，UI等人员。</div>
         <div>工业方面，适合上传8D/6sigma 的如 鱼骨图，柏拉图等分析与数据图形化展示用。 适合 工程师，QA等人员。</div>
         </span>
 }, {
     key: 'progress',
-    image: require('../../../../res/image/model2.png'),
+    image: require('../../../res/image/model2.png'),
     desc: <span>
         模块2 适用于开发人员，一般公司代码托管在Github上，因此只有进度管理功能。
         </span>
 }, {
     key: 'proto',
-    image: require('../../../../res/image/model3.png'),
+    image: require('../../../res/image/model3.png'),
     desc: <span>
         模块3 适用于提供复印件，照片等可一次性提供及完成的工作内容。
     </span>

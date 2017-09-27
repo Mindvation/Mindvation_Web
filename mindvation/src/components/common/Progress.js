@@ -54,19 +54,20 @@ class MvProgress extends Component {
     }
 
     render() {
-        const {mode = 'charts', percent = 0, editProgress, domKey} = this.props;
+        const {mode = 'charts', percent = 0, editProgress, domKey, readOnly} = this.props;
         return (
             mode === "charts" ? <div className="charts-progress-component">
                     <ECharts eChartId={domKey} option={this.getOption()}/>
-                    {editProgress ? <div className={"charts-progress-edit-icon pointer-cursor"} onClick={() => {
-                        editProgress()
-                    }}>
-                        <Icon name='pencil' size="big"/>
-                    </div> : null}
+                    {!readOnly && editProgress ?
+                        <div className={"charts-progress-edit-icon pointer-cursor"} onClick={() => {
+                            editProgress()
+                        }}>
+                            <Icon name='pencil' size="big"/>
+                        </div> : null}
                 </div>
                 : <div className="progress-component">
                     <Progress percent={percent} color='green' progress/>
-                    {editProgress ? <div className={"progress-edit-icon pointer-cursor"} onClick={() => {
+                    {!readOnly && editProgress ? <div className={"progress-edit-icon pointer-cursor"} onClick={() => {
                         editProgress()
                     }}>
                         <Icon name='pencil' size="big"/>
@@ -80,7 +81,8 @@ MvProgress.propTypes = {
     mode: PropTypes.string,
     percent: PropTypes.number,
     editProgress: PropTypes.func,
-    domKey: PropTypes.string
+    domKey: PropTypes.string,
+    readOnly: PropTypes.bool
 };
 
 export default MvProgress;

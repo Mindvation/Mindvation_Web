@@ -3,6 +3,7 @@ import {Upload, Carousel} from 'antd';
 import {Image, Button, Icon} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Message from './Message';
+import PropTypes from 'prop-types';
 
 let messageNode;
 
@@ -61,8 +62,9 @@ class UploadMulti extends Component {
 
     render() {
         const {fileList, displayFileList, uploading} = this.state;
+        const {readOnly} = this.props;
         const uploadButton = (
-            <Button loading={uploading}>
+            <Button loading={uploading} disabled={readOnly}>
                 <Icon name="upload"/>
                 <FormattedMessage
                     id='uploadAttachment'
@@ -101,7 +103,7 @@ class UploadMulti extends Component {
                     onChange={this.handleChange}
                     listType='picture'
                     fileList={fileList}
-                    disabled={uploading}
+                    disabled={readOnly || uploading}
                 >
                     {uploadButton}
                 </Upload>
@@ -110,5 +112,9 @@ class UploadMulti extends Component {
         );
     }
 }
+
+UploadMulti.propTypes = {
+    readOnly: PropTypes.bool
+};
 
 export default UploadMulti;

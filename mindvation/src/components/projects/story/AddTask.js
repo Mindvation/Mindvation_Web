@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Button, Modal} from 'semantic-ui-react';
+import {Button, Modal, Header, Icon} from 'semantic-ui-react';
 import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
+import SelectAttach from './SelectAttach';
 import {addTask} from '../../../actions/task_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
-let taskDesc, assignTo, startEndDate;
+let taskDesc, assignTo, startEndDate, modelNode;
 
 class AddTask extends Component {
     state = {modalOpen: false};
@@ -35,6 +36,7 @@ class AddTask extends Component {
             "assignee": assignTo.getWrappedInstance().getValue(),
             "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
+            "model": modelNode.getInfo(),
             "assigner": "Leaders",
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
@@ -69,7 +71,8 @@ class AddTask extends Component {
                                   ref={node => {
                                       taskDesc = node
                                   }}/>
-                        <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
+                        <Select icon="user" multiple={true} options={global.dummyData.assignOptions} label="Assign To"
+                                search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node
@@ -80,6 +83,18 @@ class AddTask extends Component {
                                         startEndDate = node
                                     }}
                         />
+                        <div className="components-item">
+                            <Header as='h4'>
+                                <Icon name="cube"/>
+                                <Header.Content>
+                                    <FormattedMessage
+                                        id="taskAttachments"
+                                        defaultMessage='Task Attachments'
+                                    />
+                                </Header.Content>
+                            </Header>
+                            <SelectAttach ref={node => modelNode = node}/>
+                        </div>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>

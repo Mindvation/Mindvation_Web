@@ -9,17 +9,18 @@ import {addTempTasks} from '../../../actions/task_action';
 let tasksNode;
 
 class OptionalItem extends Component {
-    componentDidMount() {
+    /*componentDidMount() {
         const {info = {}, dispatch} = this.props;
         if (info.tasks && info.tasks.length > 0) {
             dispatch(addTempTasks(info.tasks))
         }
     }
-
+*/
     getInfo = () => {
-        return {
+        /*return {
             tasks: tasksNode.store.getState().task
-        };
+        };*/
+        return {};
     };
 
     render() {
@@ -34,7 +35,7 @@ class OptionalItem extends Component {
                         />
                     </Header>
                 </Modal.Description>
-                <Header as='h4'>
+                {/*<Header as='h4'>
                     <Icon name='tasks'/>
                     <Header.Content>
                         <FormattedMessage
@@ -50,7 +51,7 @@ class OptionalItem extends Component {
                     showAction={showAction}
                     dispatch={dispatch}
                 />
-                <AddTask dispatch={dispatch}/>
+                <AddTask dispatch={dispatch}/>*/}
                 <UploadFile label="Attachments" icon="attach"/>
             </Modal.Content>
         );

@@ -721,3 +721,30 @@ i.icon.mode-remove-label {
     right: 1em;
     top: 0.5em;
 }
+
+.add-task-attach {
+    width: 30%;
+}
+
+.task-upload-file {
+    height: 100%;
+}
+
+.task-id {
+    color: #000000;
+    font-size: 20px;
+}
+
+.task-model-name {
+    color: #000000;
+    font-size: 20px;
+    float: right;
+}
+
+.task-desc {
+    margin: 0.5em 0;
+}
+
+.task-member{
+    margin-bottom: 0.5em;
+}

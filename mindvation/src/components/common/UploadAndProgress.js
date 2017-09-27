@@ -6,13 +6,14 @@ import PropTypes from 'prop-types';
 class UploadAndProgress extends Component {
 
     render() {
-        const {mode = "progress", percent = 0, editProgress, domeKey} = this.props;
+        const {mode = "progress", percent = 0, editProgress, domeKey, readOnly} = this.props;
         return <div>
             <div className="upload-progress-top">
-                <UploadMulti/>
+                <UploadMulti readOnly={readOnly}/>
             </div>
             <div className="upload-progress-bar">
-                <Progress mode={mode} percent={percent} editProgress={editProgress} domeKey={domeKey}/>
+                <Progress readOnly={readOnly} mode={mode} percent={percent} editProgress={editProgress}
+                          domeKey={domeKey}/>
             </div>
         </div>
     }
@@ -23,7 +24,8 @@ UploadAndProgress.propTypes = {
     percent: PropTypes.number,
     editProgress: PropTypes.func,
     images: PropTypes.array,
-    domeKey: PropTypes.string
+    domeKey: PropTypes.string,
+    readOnly: PropTypes.bool
 };
 
 

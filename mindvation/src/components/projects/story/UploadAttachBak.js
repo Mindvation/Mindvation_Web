@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Grid, Segment, Button, Header, Icon, Modal} from 'semantic-ui-react';
-import BurnDownChart from '../../detail/BurnDownChart';
-import EfficiencyDashboard from '../../detail/EfficiencyDashboard';
-import Progress from '../../../common/Progress';
-import UploadMulti from '../../../common/UploadMulti';
-import UploadAndProgress from '../../../common/UploadAndProgress';
-import {getTimeAndRandom, checkCompleted} from '../../../../util/CommUtil';
+import BurnDownChart from '../detail/BurnDownChart';
+import EfficiencyDashboard from '../detail/EfficiencyDashboard';
+import Progress from '../../common/Progress';
+import UploadMulti from '../../common/UploadMulti';
+import UploadAndProgress from '../../common/UploadAndProgress';
+import {getTimeAndRandom, checkCompleted} from '../../../util/CommUtil';
 import SelectModel from './SelectModel';
-import EditProgress from './EditProgress';
+import EditProgress from './detail/EditProgress';
 import {FormattedMessage} from 'react-intl';
 
 let mandatoryFile = ["title", "modelType"];
