@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import HomePage from './containers/home_container';
 import LoginPage from './containers/logon_container';
 import {
-    BrowserRouter as Router,
+    Router,
     Route,
     Redirect
 } from 'react-router-dom';
