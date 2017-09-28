@@ -37,28 +37,62 @@ class EditStatus extends Component {
                 </Label>
                 <div className="components-item">
                     <Button className={status.status === "new" ? "status-indicator" : ""} compact
-                            disabled={true}>New</Button>
+                            disabled={true}>
+                        <FormattedMessage
+                            id='new'
+                            defaultMessage='New'
+                        />
+                    </Button>
                     <Button className={status.status === "inProgress" ? "status-indicator" : ""} compact
                             onClick={() => this.changeStatus('inProgress')}
-                            disabled={status.status === "done" || status.status === "close" || status.status === "hold"}
-                    >In Progress</Button>
+                            disabled={status.status === "done" || status.status === "close" || status.status === "hold"}>
+                        <FormattedMessage
+                            id='inProgress'
+                            defaultMessage='In Progress'
+                        />
+                    </Button>
                     <Button className={status.status === "done" ? "status-indicator" : ""} compact
-                            onClick={() => this.changeStatus('done')}>Done</Button>
+                            onClick={() => this.changeStatus('done')}>
+                        <FormattedMessage
+                            id='done'
+                            defaultMessage='Done'
+                        />
+                    </Button>
                     {isStory ? <span>
                         <Button className={status.status === "close" ? "status-indicator" : ""} compact
-                                onClick={() => this.changeStatus('close')}>Close</Button>
+                                onClick={() => this.changeStatus('close')}>
+                            <FormattedMessage
+                                id='close'
+                                defaultMessage='Close'
+                            />
+                        </Button>
                         <Button className={status.status === "hold" ? "status-indicator" : ""} compact
-                                onClick={() => this.changeStatus('hold')}>Hold</Button>
+                                onClick={() => this.changeStatus('hold')}>
+                            <FormattedMessage
+                                id='hold'
+                                defaultMessage='Hold'
+                            />
+                        </Button>
                     </span> : null}
                     <Button className={status.status === "reopen" ? "status-indicator" : ""} compact
-                            onClick={() => this.changeStatus('reopen')}>Reopen</Button>
+                            onClick={() => this.changeStatus('reopen')}>
+                        <FormattedMessage
+                            id='reopen'
+                            defaultMessage='Reopen'
+                        />
+                    </Button>
                 </div>
                 {status.status === "inProgress" ? <div className="components-item edit-status-progress">
                     <Slider className="edit-status-slider"
                             value={status.percent}
                             ref={node => this.progressNode = node}/>
                     <Button compact className="edit-status-confirm"
-                            onClick={() => this.changeStatus('inProgress', this.progressNode.getValue())}>Confirm</Button>
+                            onClick={() => this.changeStatus('inProgress', this.progressNode.getValue())}>
+                        <FormattedMessage
+                            id='confirm'
+                            defaultMessage='Confirm'
+                        />
+                    </Button>
                 </div> : null}
             </div>
         );
