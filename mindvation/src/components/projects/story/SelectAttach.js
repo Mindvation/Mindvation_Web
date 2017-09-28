@@ -62,9 +62,15 @@ class SelectAttach extends Component {
         modalOpen: false
     };
 
+    fixBody = () => {
+        const anotherModal = document.getElementsByClassName('ui page modals').length;
+        if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
+    };
+
     closeModal = () => {
         let timer = setTimeout(() => {
             this.setState({modalOpen: false});
+            this.fixBody();
             timer && clearTimeout(timer);
         }, 0);
     };
@@ -90,7 +96,8 @@ class SelectAttach extends Component {
         if (model.key === 'custom') {
             this.setState({
                 modalOpen: true
-            })
+            });
+            this.fixBody();
         } else {
             this.setState({
                 model: model.data

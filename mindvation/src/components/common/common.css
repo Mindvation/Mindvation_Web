@@ -160,16 +160,13 @@
 }
 
 .story-upload-file {
-    height: calc(22vw);
-    padding: 1em;
-    overflow: hidden;
+
 }
 
 .upload-multi .ant-upload.ant-upload-select {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    width: 100%;
+    margin-top: 2em;
 }
 
 .upload-multi .ui.button {
@@ -189,7 +186,7 @@
 }
 
 .upload-multi .ant-carousel .slick-dots {
-    bottom: 0;
+    bottom: -0.5em;
 }
 
 .upload-multi .ant-carousel .slick-dots li button {
@@ -289,17 +286,15 @@
 }
 
 .upload-progress-bar {
-    position: absolute;
-    left: 1em;
-    right: 1em;
-    bottom: 1em;
+    position: relative;
+    width: 100%;
+    margin-top: 1em;
 }
 
 .upload-progress-top .upload-multi .ant-upload.ant-upload-select {
-    position: absolute;
-    bottom: 4.5em;
-    left: 0;
-    right: 0;
+    position: relative;
+    width: 100%;
+    margin-top: 2em;
 }
 
 .upload-progress-top .upload-multi .ant-carousel .slick-slide img {

@@ -729,6 +729,9 @@ i.icon.mode-remove-label {
 .task-upload-file {
     height: 100%;
     min-height: calc(24vw);
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
 }
 
 .task-id {
@@ -776,4 +779,8 @@ i.icon.mode-remove-label {
 
 .status-indicator.ui.button {
     background-color: #00a854;
+}
+
+.task-model {
+
 }

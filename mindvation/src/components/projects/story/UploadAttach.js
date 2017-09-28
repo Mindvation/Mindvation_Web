@@ -66,7 +66,9 @@ class UploadAttach extends Component {
                                             </div>
                                         })}
                                     </div>
-                                    {this.getComponent(task.model)}
+                                    <div className="task-model">
+                                        {this.getComponent(task.model)}
+                                    </div>
                                 </Segment>
                             </Grid.Column>
                         })

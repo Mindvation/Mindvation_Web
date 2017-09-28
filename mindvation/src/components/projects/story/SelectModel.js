@@ -26,6 +26,20 @@ const models = [{
 
 class SelectModel extends Component {
     state = {checked: false, selectedKey: ''};
+
+    componentWillUpdate() {
+        this.fixBody();
+    }
+
+    componentDidUpdate() {
+        this.fixBody();
+    }
+
+    fixBody = () => {
+        const anotherModal = document.getElementsByClassName('ui page modals').length;
+        if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
+    };
+
     getInfo = () => {
         this.setState({
             checked: true
