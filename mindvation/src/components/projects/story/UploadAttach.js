@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Grid, Segment, Image, Header, Icon, Modal} from 'semantic-ui-react';
+import {Grid, Segment, Image} from 'semantic-ui-react';
 import Progress from '../../common/Progress';
 import UploadMulti from '../../common/UploadMulti';
 import UploadAndProgress from '../../common/UploadAndProgress';
 import EditProgress from './detail/EditProgress';
 import {FormattedMessage} from 'react-intl';
 import {updateStory} from '../../../actions/story_action';
+import AddTask from './AddTask';
 
 class UploadAttach extends Component {
     state = {
@@ -59,9 +60,9 @@ class UploadAttach extends Component {
                                         Members
                                         {task.assignee.map((member, i) => {
                                             return <div className="table-single-line" key={i}>
-                                                <Image verticalAlign="middle" src={member.name.image.src}
+                                                <Image verticalAlign="middle" src={member.image.src}
                                                        avatar/>
-                                                <span>{member.name.text}</span>
+                                                <span>{member.text}</span>
                                             </div>
                                         })}
                                     </div>

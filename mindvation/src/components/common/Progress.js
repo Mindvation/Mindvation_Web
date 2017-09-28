@@ -8,10 +8,7 @@ class MvProgress extends Component {
         const {percent = 0} = this.props;
         const option = {
             color: ["#21ba45", "#e5e5e5"],
-            title: {
-                text: 'Progress',
-                x: 'center'
-            },
+            title: {},
             series: [
                 {
                     name: 'Progress',

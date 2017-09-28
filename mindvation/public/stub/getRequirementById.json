@@ -290,5 +290,10 @@
       ]
     }
   ],
-  "stories": []
+  "stories": [],
+  "status": {
+    "status": "inProgress",
+    "percent": 15,
+    "ragStatus": "A"
+  }
 }

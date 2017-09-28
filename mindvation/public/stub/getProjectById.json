@@ -83,5 +83,10 @@
   "CRCost": "15",
   "SPsCost": "12M",
   "CRRate": "24.4%",
-  "requirement": []
+  "requirement": [],
+  "status": {
+    "status": "new",
+    "percent": 0,
+    "ragStatus": "R"
+  }
 }

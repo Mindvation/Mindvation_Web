@@ -254,7 +254,7 @@
 }
 
 .charts-progress-component {
-    height: calc(100% - 20px);
+    height: calc(19vw);
     width: 100%;
 }
 

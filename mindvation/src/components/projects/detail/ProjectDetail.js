@@ -4,18 +4,27 @@ import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
 import {FormattedMessage} from 'react-intl';
-import {getProjectById} from '../../../actions/project_action';
+import {getProjectById, updateProject} from '../../../actions/project_action';
 import EfficiencyDiagram from './EfficiencyDiagram';
 import BurnDownChart from './BurnDownChart';
 import EfficiencyDashboard from './EfficiencyDashboard';
 import ProgressDashboard from './ProgressDashboard';
 import Carousel from '../../common/Carousel';
 import Requirement from '../requirement/Requirement';
+import EditStatus from "../EditStatus";
 
 class ProjectDetail extends Component {
     componentDidMount() {
         const {id} = this.props.match.params;
         this.props.dispatch(getProjectById(id));
+    };
+
+    changeStatus = (project, status, percent = 0) => {
+        Object.assign(project.status, {
+            status,
+            percent
+        });
+        this.props.dispatch(updateProject(project));
     };
 
     render() {
@@ -36,6 +45,8 @@ class ProjectDetail extends Component {
                 <Grid columns={2}>
                     <Grid.Column width={5}>
                         <Segment padded>
+                            <EditStatus status={project.status} isStory={true}
+                                        changeStatus={(status, percent) => this.changeStatus(project, status, percent)}/>
                             <EditBasicInfo project={project} dispatch={dispatch}/>
                             <EditAdditionalInfo project={project} dispatch={dispatch}/>
                             <EditOptionalInfo project={project} dispatch={dispatch}/>

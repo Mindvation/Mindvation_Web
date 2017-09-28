@@ -192,7 +192,7 @@
 }
 
 .read-only-component {
-    margin-bottom: 30px;
+    margin-bottom: 2em;
 }
 
 .read-only-component:last-child {
@@ -728,6 +728,7 @@ i.icon.mode-remove-label {
 
 .task-upload-file {
     height: 100%;
+    min-height: calc(24vw);
 }
 
 .task-id {
@@ -745,6 +746,34 @@ i.icon.mode-remove-label {
     margin: 0.5em 0;
 }
 
-.task-member{
+.task-member {
     margin-bottom: 0.5em;
+}
+
+.edit-status-progress {
+    display: flex;
+}
+
+.edit-status-slider {
+    flex: 1;
+    margin-top: 0;
+}
+
+.edit-status-confirm.ui.button {
+    margin-left: 1em;
+}
+
+.edit-status-component {
+    margin-bottom: 2em;
+    position: relative;
+}
+
+.edit-status-rag {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.status-indicator.ui.button {
+    background-color: #00a854;
 }

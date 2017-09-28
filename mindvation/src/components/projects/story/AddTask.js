@@ -4,11 +4,12 @@ import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
 import SelectAttach from './SelectAttach';
-import {addTask} from '../../../actions/task_action';
+import {updateStory} from '../../../actions/story_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
 let taskDesc, assignTo, startEndDate, modelNode;
+let id = 3;
 
 class AddTask extends Component {
     state = {modalOpen: false};
@@ -32,8 +33,9 @@ class AddTask extends Component {
 
     createTask = () => {
         const task = {
+            "idNumber": "T" + id++,
             "description": taskDesc.getWrappedInstance().getValue(),
-            "assignee": assignTo.getWrappedInstance().getValue(),
+            "assignee": assignTo.getWrappedInstance().getFullValue(),
             "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
             "model": modelNode.getInfo(),
@@ -42,8 +44,11 @@ class AddTask extends Component {
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
             "status": "new"
         };
+
+        let tempStory = this.props.story;
+        tempStory.tasks.push(task);
         this.setState({modalOpen: false});
-        this.props.dispatch(addTask(task));
+        this.props.dispatch(updateStory(tempStory));
     };
 
     render() {

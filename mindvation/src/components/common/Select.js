@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Dropdown, Icon} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import {isEmpty} from '../../util/CommUtil';
+import {isEmpty, getOption} from '../../util/CommUtil';
 import {injectIntl, FormattedMessage} from 'react-intl';
 import {messages} from '../../res/language/defineMessages';
 
@@ -63,6 +63,19 @@ class MVSelect extends Component {
 
     getValue = () => {
         return this.state.returnValue;
+    };
+
+    getFullValue = () => {
+        const {options, multiple} = this.props;
+        let returnOption = [];
+        if (multiple) {
+            this.state.returnValue.map((value) => {
+                returnOption.push(getOption(options, value))
+            })
+        } else {
+            returnOption = getOption(options, this.state.returnValue);
+        }
+        return returnOption;
     };
 
     render() {
