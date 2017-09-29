@@ -12,7 +12,8 @@ import Projects from '../../containers/project_container';
 import {Layout, BackTop} from 'antd';
 import {
     Route,
-    Redirect
+    Redirect,
+    Switch
 } from 'react-router-dom';
 import './HomePage.css';
 
@@ -98,19 +99,21 @@ class HomePage extends Component {
                     </Sider>
                     <Content style={{minHeight: this.state.minHeight, overflowY: 'hidden'}}>
                         <BackTop/>
-                        <Route exact path="/home" render={() => (
-                            <Redirect to="/home/projects"/>
-                        )}/>
-                        {routes.map((route, index) => (
-                            // Render more <Route>s with the same paths as
-                            // above, but different components this time.
-                            <Route
-                                key={index}
-                                path={route.path}
-                                exact={route.exact}
-                                component={route.main}
-                            />
-                        ))}
+                        <Switch>
+                            <Route exact path="/home" render={() => (
+                                <Redirect to="/home/projects"/>
+                            )}/>
+                            {routes.map((route, index) => (
+                                // Render more <Route>s with the same paths as
+                                // above, but different components this time.
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    exact={route.exact}
+                                    component={route.main}
+                                />
+                            ))}
+                        </Switch>
                     </Content>
                 </Layout>
             </Layout>

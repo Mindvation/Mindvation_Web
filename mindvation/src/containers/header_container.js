@@ -1,5 +1,8 @@
 import {connect} from 'react-redux';
 import header from '../components/common/CommonHeader';
+import {
+    withRouter
+} from 'react-router-dom';
 
 const mapStateToProps = (state) => {
     return {
@@ -7,4 +10,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(header)
+export default withRouter(connect(mapStateToProps)(header));

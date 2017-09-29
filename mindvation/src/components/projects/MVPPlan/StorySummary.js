@@ -5,9 +5,6 @@ import {getStoryById} from '../../../actions/story_action';
 import EditBasicInfo from '../story/detail/EditBasicInfo';
 import EditAdditionalInfo from '../story/detail/EditAdditionalInfo';
 import EditOptionalInfo from '../story/detail/EditOptionalInfo';
-import {
-    withRouter
-} from 'react-router-dom';
 
 class StorySummary extends Component {
 
@@ -37,7 +34,11 @@ class StorySummary extends Component {
                     </Header.Content>
                 </Header>
                 {linkToStory ? <Button className="summary-link" onClick={(() => this.goToStoryDetail(story.storyId))}>
-                    Go to Workflow</Button> : null}
+                    <FormattedMessage
+                        id='goToWorkflow'
+                        defaultMessage='Go to Workflow'
+                    />
+                </Button> : null}
                 <EditBasicInfo readOnly={true} story={story} dispatch={dispatch}/>
                 <EditAdditionalInfo readOnly={true} story={story} dispatch={dispatch}/>
                 <EditOptionalInfo readOnly={true} story={story} dispatch={dispatch}/>
@@ -46,4 +47,4 @@ class StorySummary extends Component {
     }
 }
 
-export default withRouter(StorySummary);
+export default StorySummary;

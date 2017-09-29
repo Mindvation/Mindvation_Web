@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import HomePage from './containers/home_container';
 import LoginPage from './containers/logon_container';
+import NoMatch from './components/common/NoMatch';
 import {
     Router,
     Route,
-    Redirect
+    Redirect,
+    Switch
 } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import {
@@ -42,11 +44,14 @@ class App extends Component {
         return (
             <Router history={history}>
                 <div>
-                    <Route exact path="/" render={() => (
-                        <Redirect to="/login"/>
-                    )}/>
-                    <Route path="/home" component={HomePage}/>
-                    <Route path="/login" component={LoginPage}/>
+                    <Switch>
+                        <Route exact path="/" render={() => (
+                            <Redirect to="/login"/>
+                        )}/>
+                        <Route path="/login" component={LoginPage}/>
+                        <Route path="/home" component={HomePage}/>
+                        <Route component={NoMatch}/>
+                    </Switch>
                 </div>
             </Router>
         );
