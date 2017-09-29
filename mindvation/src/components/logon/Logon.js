@@ -13,20 +13,23 @@ let passWord;
 class Logon extends Component {
 
     logonService() {
-        const {userLogon} = this.props;
+        const {userLogon, history} = this.props;
         const user = {
             "userName": userName.inputRef.value,
             "password": passWord.inputRef.value
         };
+        const callback = () => {
+            history.push('/home')
+        };
         //TODO this.props.dispatch(logon(user,this.props.history));
-        userLogon(user);
+        userLogon(user, callback);
     }
 
     render() {
         const {userInfo} = this.props;
         const {formatMessage} = this.props.intl;
 
-        if (userInfo.responseCode === "000") {
+        /*if (userInfo.responseCode === "000") {
             let redirect = this.props.location.pathname + this.props.location.search;
             let urlParams = new URLSearchParams(decodeURIComponent(redirect));
             let newUrl = urlParams.get("redirect_uri");
@@ -35,7 +38,7 @@ class Logon extends Component {
                     pathname: newUrl ? newUrl : '/home'
                 }}/>
             )
-        }
+        }*/
 
         return (
 

@@ -19,7 +19,7 @@ export function logOut() {
     return {type: LOG_OUT}
 }
 
-export function logon(user) {
+export function logon(user, callback) {
     return dispatch => {
         StaticLoad.show("d");
         let timer = setTimeout(() => {
@@ -28,6 +28,7 @@ export function logon(user) {
             };
             dispatch(logonSuccess(res));
             StaticLoad.remove("d");
+            callback();
             timer && clearTimeout(timer);
         }, 2000);
         /*post('http://192.168.0.103:8081/sports-meetup-papi/users/login', user)

@@ -4,8 +4,8 @@ import {logon as logonAction} from '../actions/logon_action';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        userLogon: (user) => {
-            dispatch(logonAction(user))
+        userLogon: (user, callback) => {
+            dispatch(logonAction(user, callback))
         }
     }
 };
