@@ -12,6 +12,7 @@ let StaticLoad = {
     default: (id, message) => {
         let div = document.createElement('div');
         div.id = idDispose(id) || defaultLoad;
+        div.className = "modal-component";
         document.body.appendChild(div);
         ReactDOM.render((
             <Dimmer active>

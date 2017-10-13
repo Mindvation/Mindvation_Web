@@ -15,7 +15,10 @@ class Checklist extends Component {
 
     getChecklistDesc = (result, key) => {
         if (key === "assignee" && !isEmpty(result[key])) {
-            return getDesc(global.dummyData.assignOptions, result[key])
+            return result[key].text || 'N/A';
+        }
+        if (key === "assigner" && !isEmpty(result[key])) {
+            return result[key].text;
         }
         if (key === "status" && !isEmpty(result[key])) {
             return getDesc(global.dummyData.statusOptions, result[key])

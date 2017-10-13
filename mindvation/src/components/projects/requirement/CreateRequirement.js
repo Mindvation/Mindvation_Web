@@ -49,7 +49,7 @@ class CreateRequirement extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {requirement, dispatch} = this.props;
+        const {requirement, dispatch, project} = this.props;
         return (
             <div>
                 <Button className="create-requirement-button" compact basic
@@ -79,12 +79,17 @@ class CreateRequirement extends Component {
                             defaultMessage='Create Requirement'
                         />
                     </Modal.Header>
-                    <BasicInfo ref={node => {
-                        basicModule = node
-                    }}/>
-                    <AdditionalInfo requirement={requirement} ref={node => {
-                        AdditionalModule = node
-                    }}/>
+                    <BasicInfo
+                        ref={node => {
+                            basicModule = node
+                        }}
+                    />
+                    <AdditionalInfo
+                        requirement={requirement}
+                        ref={node => {
+                            AdditionalModule = node
+                        }}
+                        project={project}/>
                     <OptionalItem
                         dispatch={dispatch}
                         ref={node => {

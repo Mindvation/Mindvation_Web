@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {Table, Popup} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {retrieveProjects} from '../../actions/projects_action';
-import {getDesc, isEmpty} from '../../util/CommUtil';
+import {getDesc, isEmpty, dateFormat} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {
     Link
 } from 'react-router-dom';
 
 const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Checklist Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
-const projectKey = ['projectId', 'projectName', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPoints', 'checklistQty', 'CRQty', 'CRSPs', 'CRCost', 'SPsCost', 'CRRate'];
+const projectKey = ['projId', 'name', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPointQty', 'checklistQty', 'crStoryQty', 'crStoryPointQty', 'crCost', 'cost', 'crRate'];
 
 class ProjectsList extends Component {
     componentDidMount() {
@@ -21,7 +21,7 @@ class ProjectsList extends Component {
     }
 
     handleDisplayData(data, key) {
-        if (key === "projectId") {
+        if (key === "projId") {
             return <Link to={`projects/${data[key]}`}>
                 {data[key]}
             </Link>
@@ -43,6 +43,9 @@ class ProjectsList extends Component {
                 position="bottom left"
                 style={{maxWidth: '50%'}}
             />
+        }
+        if ((key === "startDate" || key === "endDate") && !isEmpty(data[key])) {
+            return dateFormat(new Date(data[key]), "yyyy-MM-dd");
         }
         if (isEmpty(data[key])) {
             return 'N/A';
@@ -70,7 +73,7 @@ class ProjectsList extends Component {
 
                 <Table.Body>
                     {
-                        projectList.map((result, i) => {
+                        projectList.projects.map((result, i) => {
                             return <Table.Row key={i}>
                                 {
                                     projectKey.map((key, j) => {
@@ -89,7 +92,7 @@ class ProjectsList extends Component {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan={header.length}>
-                            <Pagination defaultCurrent={1} total={96}
+                            <Pagination defaultCurrent={1} total={projectList.totalElements}
                                         showQuickJumper
                                         onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                         </Table.HeaderCell>

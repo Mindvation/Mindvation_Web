@@ -4,7 +4,7 @@ import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
 import {FormattedMessage} from 'react-intl';
-import {getProjectById, updateProject} from '../../../actions/project_action';
+import {getProjectById, updateProjectStatus} from '../../../actions/project_action';
 import EfficiencyDiagram from './EfficiencyDiagram';
 import BurnDownChart from './BurnDownChart';
 import EfficiencyDashboard from './EfficiencyDashboard';
@@ -20,11 +20,16 @@ class ProjectDetail extends Component {
     };
 
     changeStatus = (project, status, percent = 0) => {
-        Object.assign(project.status, {
+        /*Object.assign(project.status, {
             status,
             percent
-        });
-        this.props.dispatch(updateProject(project));
+        });*/
+        const statusInfo = {
+            projectId: project.projectId,
+            status,
+            percent
+        };
+        this.props.dispatch(updateProjectStatus(statusInfo));
     };
 
     render() {
@@ -33,12 +38,12 @@ class ProjectDetail extends Component {
             <div className="project-detail">
                 <Header as='h4'>
                     <Header.Content>
-                                    <span className={"underLine header-project"}>
-                                        <FormattedMessage
-                                            id='projectsUpper'
-                                            defaultMessage='PROJECTS'
-                                        />
-                                    </span>{'>'}
+                        <span className={"underLine header-project"}>
+                            <FormattedMessage
+                                id='projectsUpper'
+                                defaultMessage='PROJECTS'
+                            />
+                        </span>{'>'}
                         <span className={"underLine header-id"}>{project.projectId}</span>
                     </Header.Content>
                 </Header>

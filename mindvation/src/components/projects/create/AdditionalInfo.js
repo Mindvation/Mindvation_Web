@@ -2,13 +2,37 @@ import React, {Component} from 'react';
 import {Header, Icon, Modal} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
-import AddTags from "./AddTags";
+import AddTags from "../../../containers/tag_container";
 import {FormattedMessage} from 'react-intl';
+import {retrieveModels, retrieveStaff} from '../../../util/Service';
 
 let priority, leaders, startEndDate, softwareModel, engineeringModel, businessModel, techniqueModel, contingency,
     addTagsNode;
 
 class OtherInfo extends Component {
+
+    state = {
+        modelOption: {
+            softwareOption: [],
+            engineeringOption: [],
+            businessOption: [],
+            techniqueOption: []
+        },
+        assignOption: []
+    };
+
+    componentWillMount() {
+        retrieveModels(function (option) {
+            this.setState({
+                modelOption: option
+            })
+        }.bind(this));
+        retrieveStaff(function (option) {
+            this.setState({
+                assignOption: option
+            })
+        }.bind(this))
+    }
 
     getInfo = () => {
         return {
@@ -21,12 +45,13 @@ class OtherInfo extends Component {
             "businessModel": businessModel.getWrappedInstance().getValue(),
             "techniqueModel": techniqueModel.getWrappedInstance().getValue(),
             "contingency": contingency.getWrappedInstance().getValue(),
-            "tags": addTagsNode.getValue()
+            "tags": addTagsNode.getWrappedInstance().getValue()
         }
     };
 
     render() {
         const {info = {}} = this.props;
+        const {modelOption, assignOption} = this.state;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -58,13 +83,13 @@ class OtherInfo extends Component {
                         }}
                         defaultValue={info.priority}
                 />
-                <Select icon="user" options={global.dummyData.assignOptions} multiple={true} label="Leaders"
+                <Select icon="user" options={assignOption} multiple={true} label="Leaders"
                         search={true}
                         placeHolder="leadersPlaceHolderDesc"
                         ref={node => {
                             leaders = node
                         }}
-                        defaultValue={info.leaders}
+                        defaultValue={info.displayLeaders}
                 />
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}
@@ -82,7 +107,7 @@ class OtherInfo extends Component {
                         />
                     </Header.Content>
                 </Header>
-                <Select options={global.dummyData.softModelOptions} label="Software Model"
+                <Select options={modelOption.softwareOption} label="Software Model"
                         placeHolder="softwareModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {
@@ -90,7 +115,7 @@ class OtherInfo extends Component {
                         }}
                         defaultValue={info.softwareModel}
                 />
-                <Select options={global.dummyData.engineeringModelOptions} label="Engineering Model"
+                <Select options={modelOption.engineeringOption} label="Engineering Model"
                         placeHolder="engineeringModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {
@@ -98,7 +123,7 @@ class OtherInfo extends Component {
                         }}
                         defaultValue={info.engineeringModel}
                 />
-                <Select options={global.dummyData.businessModelOptions} label="Business Requirement Model"
+                <Select options={modelOption.businessOption} label="Business Requirement Model"
                         placeHolder="businessRequirementModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {
@@ -106,7 +131,7 @@ class OtherInfo extends Component {
                         }}
                         defaultValue={info.businessModel}
                 />
-                <Select options={global.dummyData.techniqueModelOptions} label="Technique Model"
+                <Select options={modelOption.techniqueOption} label="Technique Model"
                         placeHolder="techniqueModelPlaceHolderDesc"
                         horizontal={true}
                         ref={node => {

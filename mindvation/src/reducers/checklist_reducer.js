@@ -11,7 +11,6 @@ let idNumber = 0;
 function checklist(state = [], action) {
     switch (action.type) {
         case ADD_CHECKLIST:
-            action.checklist.idNumber = "C" + idNumber++;
             return [...state,
                 action.checklist];
         case CLEAR_TEMP_CHECKLIST:

@@ -58,7 +58,11 @@ class MVSelect extends Component {
 
         this.setState({
             returnValue: inputValue
-        })
+        });
+
+        if (this.props.onChange) {
+            this.props.onChange(inputValue)
+        }
     };
 
     getValue = () => {
@@ -122,7 +126,8 @@ MVSelect.propTypes = {
     placeHolder: PropTypes.string,
     search: PropTypes.bool,
     multiple: PropTypes.bool,
-    horizontal: PropTypes.bool
+    horizontal: PropTypes.bool,
+    onChange: PropTypes.func
 };
 
 export default injectIntl(MVSelect, {withRef: true});

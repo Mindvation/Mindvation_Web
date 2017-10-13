@@ -3,7 +3,7 @@ import {Header, Icon, Modal, Button, List} from 'semantic-ui-react';
 import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import OptionalItem from '../create/OptionalItem';
-import {updateProject} from '../../../actions/project_action';
+import {updateProjectOptional} from '../../../actions/project_action';
 import {clearTempChecklist} from '../../../actions/checklist_action';
 import DisplayFile from '../../common/DisplayFile';
 
@@ -26,9 +26,14 @@ class EditOptionalInfo extends Component {
 
     update = () => {
         let optionalInfo = optionalModule.getInfo();
-        this.props.dispatch(updateProject(optionalInfo));
+        /*this.props.dispatch(updateProject(optionalInfo));
         this.props.dispatch(clearTempChecklist());
-        this.closeModal();
+        this.closeModal();*/
+        optionalInfo.projectId = this.props.project.projectId;
+        this.props.dispatch(updateProjectOptional(optionalInfo, function () {
+            this.props.dispatch(clearTempChecklist());
+            this.closeModal();
+        }.bind(this)));
     };
 
     formatChecklists = () => {

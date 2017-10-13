@@ -31,7 +31,11 @@ class EditChecklist extends Component {
     updateChecklist = () => {
         const checklist = {
             "description": checklistDesc.getWrappedInstance().getValue(),
-            "assignee": assignTo.getWrappedInstance().getValue(),
+            "assignee": assignTo.getWrappedInstance().getFullValue(),
+            "assigner": {
+                text: "李四",
+                value: "m2"
+            },
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
         };
         this.setState({modalOpen: false});

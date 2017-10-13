@@ -317,3 +317,39 @@
     color: blue;
     cursor: pointer !important;
 }
+
+.dialog {
+    width: 50%;
+    left: 25%;
+}
+
+.ui.segment.dialog {
+    padding: 1rem 0 0 0;
+}
+
+.ui.header.dialog-header {
+    text-align: left;
+    padding-left: 1rem;
+}
+
+.dialog-content {
+    padding: 1rem 1rem 2rem 1rem;
+    color: #000000;
+    text-align: left;
+}
+
+.dialog-footer {
+    background: #f9fafb;
+    padding: 1rem;
+    border-top: 1px solid rgba(34, 36, 38, .15);
+    text-align: right;
+}
+
+.modal-component {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1001;
+}

@@ -2,26 +2,54 @@ import React, {Component} from 'react';
 import {Header, Modal, Icon} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
-import AddTags from "../create/AddTags";
+import AddTags from "../../../containers/tag_container";
 import ProjectRoles from '../../../containers/role_container';
 import {FormattedMessage} from 'react-intl';
 
-let priority, startEndDate, addTagsNode, rolesNode;
-
 class AdditionalInfo extends Component {
+    state = {model: null};
 
     getInfo = () => {
-        return {
-            "priority": priority.getWrappedInstance().getValue(),
-            "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
-            "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            "tags": addTagsNode.getValue(),
-            "roles": rolesNode.store.getState().requirement.roles
+        let addInfo = {
+            "priority": this.priority.getWrappedInstance().getValue(),
+            "startDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
+            "endDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
+            "tags": this.addTagsNode.getValue()
+        };
+
+        if (this.rolesNode) {
+            addInfo.roles = this.rolesNode.store.getState().requirement.roles
         }
+
+        if (this.functionLabelNode) {
+            this.functionLabel = this.functionLabelNode.getWrappedInstance().getValue()
+        }
+
+        return addInfo;
+    };
+
+    handelModelChange = (model) => {
+        this.setState({
+            model: model
+        });
     };
 
     render() {
-        const {requirement = {}} = this.props;
+        const {requirement = {}, project} = this.props;
+        const {model} = this.state;
+        const modelOptions = [];
+        if (project.softwareModel) {
+            modelOptions.push(project.softwareModel)
+        }
+        if (project.engineeringModel) {
+            modelOptions.push(project.engineeringModel)
+        }
+        if (project.businessModel) {
+            modelOptions.push(project.businessModel)
+        }
+        if (project.techniqueModel) {
+            modelOptions.push(project.techniqueModel)
+        }
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -43,27 +71,43 @@ class AdditionalInfo extends Component {
                 </Header>
                 <AddTags
                     ref={node => {
-                        addTagsNode = node
+                        this.addTagsNode = node
                     }}
                     defaultValue={requirement.tags}
                 />
                 <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
-                            priority = node
+                            this.priority = node
                         }}
                         defaultValue={requirement.priority}
                 />
-                <ProjectRoles
+                <Select icon="file" options={modelOptions}
+                        label="Requirement Model"
+                        ref={node => {
+                            this.requirementModelNode = node
+                        }}
+                        defaultValue={requirement.Model}
+                        onChange={(value) => this.handelModelChange(value)}
+                />
+                {model ? <Select icon="sitemap" options={global.dummyData.functionOptions}
+                                 label="Process/Function Label"
+                                 placeHolder="functionLabelPlaceHolderDesc"
+                                 ref={node => {
+                                     this.functionLabelNode = node
+                                 }}
+                                 defaultValue={requirement.functionLabel}
+                /> : null}
+                {model ? <ProjectRoles
                     ref={node => {
-                        rolesNode = node
+                        this.rolesNode = node
                     }}
-                    requirement={requirement}/>
+                    requirement={requirement}/> : null}
 
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}
                             ref={node => {
-                                startEndDate = node
+                                this.startEndDate = node
                             }}
                             defaultValue={[requirement.startDate, requirement.endDate]}
                 />

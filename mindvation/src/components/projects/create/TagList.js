@@ -36,7 +36,7 @@ class TagList extends Component {
     checkTagStatus(tags, tag) {
         let flag = false;
         tags.some((item) => {
-            if (item.key === tag.key) {
+            if (item.tagId === tag.tagId) {
                 flag = true;
                 return true;
             }
@@ -49,8 +49,8 @@ class TagList extends Component {
         const {selectedTags} = this.state;
         return (
             tagList.length === 0 ? null : <List horizontal>
-                {tagList.map((tag) => {
-                    return <List.Item key={tag.key} style={{position: 'relative'}}>
+                {tagList.map((tag, i) => {
+                    return <List.Item key={i} style={{position: 'relative'}}>
                         {toggle && this.checkTagStatus(selectedTags, tag) ?
                             <Icon name="check circle outline" color="green" size="large"
                                   className="tags-icon"
@@ -59,7 +59,7 @@ class TagList extends Component {
                             toggle ? this.toggleTag(tag) : (handleClick ? handleClick(tag) : () => {
                             })
                         }}>
-                            {tag.text}
+                            {tag.name}
                         </Button>
                     </List.Item>
                 })}

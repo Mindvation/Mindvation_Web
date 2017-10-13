@@ -32,17 +32,17 @@ class CreateProject extends Component {
     };
 
     newProject = () => {
-
         let basicInfo = basicModule.getInfo();
         let optionalInfo = optionalModule.getInfo();
         let additionalInfo = AdditionalModule.getInfo();
         let projectInfo = Object.assign(basicInfo, additionalInfo, optionalInfo);
         let flag = checkCompleted(mandatoryFile, projectInfo);
         if (flag) {
-            this.handleProjectInfo(projectInfo);
-            this.props.dispatch(createProject(projectInfo));
-            this.props.dispatch(clearTempChecklist());
-            this.setState({modalOpen: false});
+            //this.handleProjectInfo(projectInfo);
+            this.props.dispatch(createProject(projectInfo, function () {
+                this.props.dispatch(clearTempChecklist());
+                this.setState({modalOpen: false});
+            }.bind(this)));
         }
     };
 

@@ -4,22 +4,22 @@ import {FormattedMessage} from 'react-intl';
 export const assignOptions = [
     {
         text: 'Bob',
-        value: '43845076',
+        value: 'm1',
         image: {avatar: true, src: require('../image/photo.jpg')}
     },
     {
         text: 'Frank',
-        value: '43845077',
+        value: 'm2',
         image: {avatar: true, src: require('../image/photo.jpg')}
     },
     {
         text: 'Darcy',
-        value: '43547206',
+        value: 'm3',
         image: {avatar: true, src: require('../image/photo.jpg')}
     },
     {
         text: 'Migun',
-        value: '43798834',
+        value: 'm4',
         image: {avatar: true, src: require('../image/photo.jpg')}
     }
 ];
@@ -30,63 +30,67 @@ export const priorityOptions = [
             id='high'
             defaultMessage='High'
         />,
-        value: 'H'
+        value: 3
     },
     {
         text: <FormattedMessage
             id='medium'
             defaultMessage='Medium'
         />,
-        value: 'M'
+        value: 2
     },
     {
         text: <FormattedMessage
             id='low'
             defaultMessage='Low'
         />,
-        value: 'L'
+        value: 1
     }
 ];
 
 export const contingencyOptions = [
     {
+        text: '0%',
+        value: 0
+    },
+    {
         text: '10%',
-        value: '10'
+        value: 10
     },
     {
         text: '20%',
-        value: '20'
+        value: 20
     },
     {
         text: '30%',
-        value: '30'
+        value: 30
     },
     {
         text: '50%',
-        value: '50'
+        value: 50
     },
     {
         text: '75%',
-        value: '75'
+        value: 75
     },
     {
         text: '100%',
-        value: '100'
+        value: 100
     },
     {
         text: '150%',
-        value: '150'
+        value: 150
     },
     {
         text: '200%',
-        value: '200'
+        value: 200
     },
 ];
 
 export const softModelOptions = [
     {
         text: 'Agile',
-        value: 'agile'
+        value: 'model01'
     },
     {
         text: 'Waterfall',
@@ -96,7 +100,7 @@ export const softModelOptions = [
 export const businessModelOptions = [
     {
         text: 'Business Canvas',
-        value: 'bc'
+        value: 'model03'
     },
     {
         text: 'EPICs',
@@ -110,7 +114,7 @@ export const businessModelOptions = [
 export const engineeringModelOptions = [
     {
         text: '8D',
-        value: 'd8'
+        value: 'model02'
     },
     {
         text: '6 Sigma',
@@ -121,7 +125,7 @@ export const engineeringModelOptions = [
 export const techniqueModelOptions = [
     {
         text: 'DevOps',
-        value: 'devOps'
+        value: 'model04'
     },
     {
         text: 'Technique Platform',

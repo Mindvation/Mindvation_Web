@@ -149,6 +149,7 @@ const zh_CN = {
     taskAttachments: "任务交付件",
     add: "添加",
     loading: "加载中...",
-    goToWorkflow: "进入工作流"
+    goToWorkflow: "进入工作流",
+    "Requirement Model": "需求模型"
 };
 export default zh_CN;

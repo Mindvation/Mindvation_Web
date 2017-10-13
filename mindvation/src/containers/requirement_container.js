@@ -3,7 +3,8 @@ import CreateRequirement from '../components/projects/requirement/CreateRequirem
 
 const mapStateToProps = (state) => {
     return {
-        requirement: state.requirement
+        requirement: state.requirement,
+        project: state.project
     }
 };
 

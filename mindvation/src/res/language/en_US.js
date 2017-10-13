@@ -149,6 +149,7 @@ const en_US = {
     taskAttachments: "Task Attachments",
     add: "Add",
     loading: "Loading...",
-    goToWorkflow: "Go To Workflow"
+    goToWorkflow: "Go To Workflow",
+    "Requirement Model": "Requirement Model"
 };
 export default en_US;

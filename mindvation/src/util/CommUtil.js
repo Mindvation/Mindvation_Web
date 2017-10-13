@@ -17,10 +17,7 @@ export const dateFormat = (date, fmt) => {
 };
 
 export const isEmpty = (text) => {
-    if (text === null || text === undefined || text === "") {
-        return true;
-    }
-    return false;
+    return text === null || text === undefined || text === "";
 };
 
 export const updateGlobalData = (key, options) => {

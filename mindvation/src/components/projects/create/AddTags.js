@@ -3,53 +3,58 @@ import {Button, Modal, Segment, Header, Input} from 'semantic-ui-react';
 import {isEmpty, getRandomColor} from '../../../util/CommUtil';
 import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
+import {retrieveTags, createTag as createTagAction} from '../../../actions/tags_action';
 
 let createTagNode, allTagsNode, existOption;
 
 const allTags = [{
-    key: "T1",
-    text: "React Native",
+    tagId: "T1",
+    name: "React Native",
     color: "#7efefe"
 }, {
-    key: "T2",
-    text: "PHP",
+    tagId: "T2",
+    name: "PHP",
     color: "#ff9900"
 }, {
-    key: "T3",
-    text: "Business Canvas",
+    tagId: "T3",
+    name: "Business Canvas",
     color: "#66cc33"
 }, {
-    key: "T4",
-    text: "EPICs",
+    tagId: "T4",
+    name: "EPICs",
     color: "#0099cc"
 }, {
-    key: "T5",
-    text: "BI",
+    tagId: "T5",
+    name: "BI",
     color: "#ffcc00"
 }, {
-    key: "T6",
-    text: "Reactjs",
+    tagId: "T6",
+    name: "Reactjs",
     color: "#7efefe"
 }, {
-    key: "T7",
-    text: "Java",
+    tagId: "T7",
+    name: "Java",
     color: "#ff9900"
 }, {
-    key: "T8",
-    text: "AngularJs",
+    tagId: "T8",
+    name: "AngularJs",
     color: "#0099cc"
 }, {
-    key: "T9",
-    text: "Oracle",
+    tagId: "T9",
+    name: "Oracle",
     color: "#ffcc00"
 }, {
-    key: "T10",
-    text: "PM",
+    tagId: "T10",
+    name: "PM",
     color: "#7efefe"
 }];
 
 class AddTags extends Component {
-    state = {modalOpen: false, popupOpen: false, allTags: allTags, projectTags: this.props.defaultValue || []};
+    state = {modalOpen: false, popupOpen: false, projectTags: this.props.defaultValue || []};
+
+    componentWillMount() {
+        this.props.dispatch(retrieveTags())
+    }
 
     componentWillUpdate() {
         this.fixBody();
@@ -62,6 +67,16 @@ class AddTags extends Component {
     fixBody = () => {
         const anotherModal = document.getElementsByClassName('ui page modals').length;
         if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
+    };
+
+    getWrappedInstance = () => {
+        if (this.props.widthRef) {
+            return this.wrappedInstance;
+        }
+    };
+
+    setWrappedInstance = (ref) => {
+        this.wrappedInstance = ref;
     };
 
     getValue = () => {
@@ -89,33 +104,39 @@ class AddTags extends Component {
     };
 
     createTag = () => {
-        let tempTags = this.state.allTags;
+        let tempTags = this.props.allTags;
         let tag = createTagNode.inputRef.value.trim();
         if (!isEmpty(tag)) {
             existOption = this.checkTagExist(tempTags, tag);
             if (existOption) {
                 this.openPopup();
             } else {
-                let willAddTag = {
-                    key: "T" + (tempTags.length + 1),
-                    text: tag,
+                /*let willAddTag = {
+                    tagId: "T" + (tempTags.length + 1),
+                    name: tag,
                     color: getRandomColor()
                 };
                 tempTags.push(willAddTag);
-                this.setState({
+                /!*this.setState({
                     allTags: tempTags
-                });
-                createTagNode.inputRef.value = "";
-                allTagsNode.selectTag(willAddTag);
-            }
+                });*!/*/
 
+                this.props.dispatch(createTagAction({
+                    name: tag,
+                    color: getRandomColor(),
+                    "creatorId": "m2"
+                }, function (res) {
+                    createTagNode.inputRef.value = "";
+                    allTagsNode.selectTag(res);
+                }.bind(this)));
+            }
         }
     };
 
-    checkTagExist(options, text) {
+    checkTagExist(options, name) {
         let tempOption = null;
         options.some((option) => {
-            if (option.text.toUpperCase() === text.toUpperCase()) {
+            if (option.name.toUpperCase() === name.toUpperCase()) {
                 tempOption = option;
                 return true;
             }
@@ -142,7 +163,14 @@ class AddTags extends Component {
     };
 
     render() {
+        let props = {
+            ...this.props
+        };
         const {modalOpen} = this.state;
+        const {allTags} = this.props;
+        if (this.props.withRef) {
+            props.ref = this.setWrappedInstance;
+        }
         return (
             <div style={{marginBottom: '10px'}} className="components-length">
                 <TagList tagList={this.state.projectTags} handleClick={(tag) => {
@@ -156,7 +184,7 @@ class AddTags extends Component {
                         />
                     </Header>
                     <TagList
-                        tagList={allTags.slice(0, 5)}
+                        tagList={allTags.slice(0, 6)}
                         handleClick={(tag) => {
                             this.updateProjectTags(tag)
                         }}/>
@@ -186,7 +214,7 @@ class AddTags extends Component {
                     </Modal.Header>
                     <Modal.Content>
                         <Segment className="all-tags-segment">
-                            <TagList tagList={this.state.allTags}
+                            <TagList tagList={this.props.allTags}
                                      toggle={true}
                                      selected={this.state.projectTags}
                                      ref={node => {

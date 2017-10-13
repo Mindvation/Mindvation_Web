@@ -5,6 +5,7 @@ const history = createHistory();
 
 // Get the current location.
 const location = history.location;
+const gateWay = "http://192.168.0.107:";
 
 export default function request(method, url, body) {
     method = method.toUpperCase();
@@ -19,7 +20,7 @@ export default function request(method, url, body) {
         body = body && JSON.stringify(body);
     }
 
-    return fetch(url, {
+    return fetch(gateWay + url, {
         method,
         headers: {
             'Content-Type': 'application/json',
@@ -50,11 +51,11 @@ export default function request(method, url, body) {
         })
         .then(res => {
             let errorInfo = _respHandle(res);
-            return errorInfo ? Promise.resolve(errorInfo) : Promise.resolve(res);
+            return errorInfo ? Promise.reject(errorInfo) : Promise.resolve(res);
         })
         .catch(error => {
             let errorInfo = _errorHandle(error);
-            return Promise.resolve(errorInfo);
+            return Promise.reject(errorInfo);
         });
 }
 
@@ -65,7 +66,7 @@ function _respHandle(res) {
             'message': errorMsg[res.responseCode] ? errorMsg[res.responseCode] : errorMsg.default
         };
     }
-    return;
+    return null;
 }
 
 function _errorHandle(error) {

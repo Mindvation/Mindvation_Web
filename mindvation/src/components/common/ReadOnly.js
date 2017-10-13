@@ -14,6 +14,9 @@ class ReadOnly extends Component {
         } else {
             if (options) {
                 if (Array.isArray(value)) {
+                    if (value.length === 0) {
+                        return "N/A";
+                    }
                     return value.map((result, i) => {
                         let option = getOption(options, result);
                         return <div key={i}>

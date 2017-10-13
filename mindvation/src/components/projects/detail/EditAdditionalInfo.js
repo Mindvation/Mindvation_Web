@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button} from 'semantic-ui-react';
+import {Header, Icon, Modal, Button, Image} from 'semantic-ui-react';
 import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../create/AdditionalInfo';
-import {updateProject} from '../../../actions/project_action';
+import {updateProjectAdditional} from '../../../actions/project_action';
 import TagList from '../create/TagList';
 
 let AdditionalModule;
@@ -22,8 +22,8 @@ class EditAdditionalInfo extends Component {
 
     update = () => {
         let additionalInfo = AdditionalModule.getInfo();
-        this.props.dispatch(updateProject(additionalInfo));
-        this.closeModal();
+        additionalInfo.projectId = this.props.project.projectId;
+        this.props.dispatch(updateProjectAdditional(additionalInfo, () => this.closeModal()));
     };
 
     render() {
@@ -42,8 +42,13 @@ class EditAdditionalInfo extends Component {
         }, {
             icon: "user",
             title: "Leaders",
-            value: project.leaders,
-            options: global.dummyData.assignOptions
+            value: project.leaders && project.leaders.length > 0 ? project.leaders.map((member, i) => {
+                return <div className="read-only-text-item" key={i}>
+                    <Image verticalAlign="middle" src={member.avatar}
+                           avatar/>
+                    <span>{member.name}</span>
+                </div>
+            }) : ""
         }, {
             icon: "clock",
             title: "Start / End Date",
@@ -54,24 +59,20 @@ class EditAdditionalInfo extends Component {
             hasSubItem: true
         }, {
             title: "Software Model",
-            value: project.softwareModel,
-            isSubItem: true,
-            options: global.dummyData.softModelOptions
+            value: project.softwareModel ? project.softwareModel.text : '',
+            isSubItem: true
         }, {
             title: "Engineering Model",
-            value: project.engineeringModel,
-            isSubItem: true,
-            options: global.dummyData.engineeringModelOptions
+            value: project.engineeringModel ? project.engineeringModel.text : '',
+            isSubItem: true
         }, {
             title: "Business Requirement Model",
-            value: project.businessModel,
-            isSubItem: true,
-            options: global.dummyData.businessModelOptions
+            value: project.businessModel ? project.businessModel.text : '',
+            isSubItem: true
         }, {
             title: "Technique Model",
-            value: project.techniqueModel,
-            isSubItem: true,
-            options: global.dummyData.techniqueModelOptions
+            value: project.techniqueModel ? project.techniqueModel.text : '',
+            isSubItem: true
         }, {
             icon: "percent",
             title: "Contingency",
