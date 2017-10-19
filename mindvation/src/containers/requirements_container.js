@@ -3,7 +3,8 @@ import RequirementList from '../components/projects/requirement/RequirementList'
 
 const mapStateToProps = (state) => {
     return {
-        requirements: state.requirements
+        requirements: state.requirements,
+        project: state.project
     }
 };
 

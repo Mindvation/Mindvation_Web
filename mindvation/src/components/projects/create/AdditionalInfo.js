@@ -113,7 +113,7 @@ class OtherInfo extends Component {
                         ref={node => {
                             softwareModel = node
                         }}
-                        defaultValue={info.softwareModel}
+                        defaultValue={info.softwareModel?info.softwareModel.value:''}
                 />
                 <Select options={modelOption.engineeringOption} label="Engineering Model"
                         placeHolder="engineeringModelPlaceHolderDesc"
@@ -121,7 +121,7 @@ class OtherInfo extends Component {
                         ref={node => {
                             engineeringModel = node
                         }}
-                        defaultValue={info.engineeringModel}
+                        defaultValue={info.engineeringModel?info.engineeringModel.value:''}
                 />
                 <Select options={modelOption.businessOption} label="Business Requirement Model"
                         placeHolder="businessRequirementModelPlaceHolderDesc"
@@ -129,7 +129,7 @@ class OtherInfo extends Component {
                         ref={node => {
                             businessModel = node
                         }}
-                        defaultValue={info.businessModel}
+                        defaultValue={info.businessModel?info.businessModel.value:''}
                 />
                 <Select options={modelOption.techniqueOption} label="Technique Model"
                         placeHolder="techniqueModelPlaceHolderDesc"
@@ -137,7 +137,7 @@ class OtherInfo extends Component {
                         ref={node => {
                             techniqueModel = node
                         }}
-                        defaultValue={info.techniqueModel}
+                        defaultValue={info.techniqueModel?info.techniqueModel.value:''}
                 />
                 <Select icon="percent" options={global.dummyData.contingencyOptions} label="Contingency"
                         placeHolder="ContingencyPlaceHolderDesc"

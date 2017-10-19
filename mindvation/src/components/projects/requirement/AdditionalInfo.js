@@ -5,24 +5,27 @@ import DatePicker from '../../common/DatePicker';
 import AddTags from "../../../containers/tag_container";
 import ProjectRoles from '../../../containers/role_container';
 import {FormattedMessage} from 'react-intl';
+import {getModelById} from '../../../util/Service';
+import {setRoles} from '../../../actions/role_action';
 
 class AdditionalInfo extends Component {
-    state = {model: null};
+    state = {model: null, functionOptions: [], roles: []};
 
     getInfo = () => {
         let addInfo = {
             "priority": this.priority.getWrappedInstance().getValue(),
             "startDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
             "endDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
-            "tags": this.addTagsNode.getValue()
+            "tags": this.addTagsNode.getWrappedInstance().getValue(),
+            "model": this.state.model
         };
 
         if (this.rolesNode) {
-            addInfo.roles = this.rolesNode.store.getState().requirement.roles
+            addInfo.roles = this.rolesNode.store.getState().role
         }
 
         if (this.functionLabelNode) {
-            this.functionLabel = this.functionLabelNode.getWrappedInstance().getValue()
+            addInfo.functionLabel = this.functionLabelNode.getWrappedInstance().getValue()
         }
 
         return addInfo;
@@ -32,24 +35,33 @@ class AdditionalInfo extends Component {
         this.setState({
             model: model
         });
+        getModelById(model, function (option) {
+            this.setState({
+                functionOptions: option.functionOptions,
+            });
+            this.props.dispatch(setRoles(option.roles));
+        }.bind(this));
     };
 
     render() {
-        const {requirement = {}, project} = this.props;
-        const {model} = this.state;
+        const {requirement = {}, project, isEdit} = this.props;
+        const {model, functionOptions} = this.state;
         const modelOptions = [];
-        if (project.softwareModel) {
-            modelOptions.push(project.softwareModel)
+        if (!isEdit) {
+            if (project.softwareModel) {
+                modelOptions.push(project.softwareModel)
+            }
+            if (project.engineeringModel) {
+                modelOptions.push(project.engineeringModel)
+            }
+            if (project.businessModel) {
+                modelOptions.push(project.businessModel)
+            }
+            if (project.techniqueModel) {
+                modelOptions.push(project.techniqueModel)
+            }
         }
-        if (project.engineeringModel) {
-            modelOptions.push(project.engineeringModel)
-        }
-        if (project.businessModel) {
-            modelOptions.push(project.businessModel)
-        }
-        if (project.techniqueModel) {
-            modelOptions.push(project.techniqueModel)
-        }
+
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -82,27 +94,24 @@ class AdditionalInfo extends Component {
                         }}
                         defaultValue={requirement.priority}
                 />
-                <Select icon="file" options={modelOptions}
-                        label="Requirement Model"
-                        ref={node => {
-                            this.requirementModelNode = node
-                        }}
-                        defaultValue={requirement.Model}
-                        onChange={(value) => this.handelModelChange(value)}
-                />
-                {model ? <Select icon="sitemap" options={global.dummyData.functionOptions}
-                                 label="Process/Function Label"
-                                 placeHolder="functionLabelPlaceHolderDesc"
-                                 ref={node => {
-                                     this.functionLabelNode = node
-                                 }}
-                                 defaultValue={requirement.functionLabel}
+                {isEdit ? null : <Select icon="file" options={modelOptions}
+                                         label="Requirement Model"
+                                         defaultValue={requirement.Model}
+                                         onChange={(value) => this.handelModelChange(value)}
+                />}
+                {!isEdit && model ? <Select icon="sitemap" options={functionOptions}
+                                            label="Process/Function Label"
+                                            placeHolder="functionLabelPlaceHolderDesc"
+                                            ref={node => {
+                                                this.functionLabelNode = node
+                                            }}
+                                            defaultValue={requirement.functionLabel}
                 /> : null}
-                {model ? <ProjectRoles
+                {isEdit || model ? <ProjectRoles
                     ref={node => {
                         this.rolesNode = node
                     }}
-                    requirement={requirement}/> : null}
+                /> : null}
 
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}

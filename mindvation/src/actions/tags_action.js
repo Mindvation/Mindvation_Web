@@ -21,7 +21,7 @@ function retrievedTags(tags) {
 
 export function createTag(tag, callback) {
     return dispatch => {
-        post('10001/mdvn-tag-p/tag/createTag', tag)
+        post('8080/mdvn-tag-papi/tag/createTag', tag)
             .then((res) => {
                 dispatch(createdTag(res.responseBody));
                 callback && callback(res.responseBody);
@@ -39,7 +39,7 @@ export function retrieveTags(page, pageSize) {
             "pageSize": pageSize
         };
 
-        post('10001/mdvn-tag-p/tag/rtrvTagList', {})
+        post('8080/mdvn-tag-papi/tag/rtrvTagList', {})
             .then((res) => {
                 dispatch(retrievedTags(res.responseBody.tags))
             })

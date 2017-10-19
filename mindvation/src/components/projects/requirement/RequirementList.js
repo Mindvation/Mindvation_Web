@@ -1,27 +1,24 @@
 import React, {Component} from 'react';
 import {Table} from 'semantic-ui-react';
 import {Pagination} from 'antd';
-import {getDesc, isEmpty} from '../../../util/CommUtil';
+import {getDesc, isEmpty, dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import Discussion from './Discussion';
+import {retrieveRequirements} from '../../../actions/requirements_action';
 import {
     Link
 } from 'react-router-dom';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
-const rmKey = ["reqId", "summary", "priority", "startDate", "endDate", "leader", "members"];
+const rmKey = ["reqmntId", "summary", "priority", "startDate", "endDate", "leader", "members"];
 
 class RequirementList extends Component {
-    componentDidMount() {
-        //this.props.dispatch(retrieveProjects(1, 10));
-    };
-
     pageChange(page, pageSize) {
-        //this.props.dispatch(retrieveProjects(page, pageSize));
+        this.props.dispatch(retrieveRequirements(page, pageSize, this.props.project.projectId));
     }
 
     handleDisplayData(data, key) {
-        if (key === "reqId") {
+        if (key === "reqmntId") {
             return <Link to={`/home/requirement/${data[key]}`}>
                 {data[key]}
             </Link>
@@ -49,6 +46,9 @@ class RequirementList extends Component {
                 })
             }
             return members.length;
+        }
+        if ((key === "startDate" || key === "endDate") && !isEmpty(data[key])) {
+            return dateFormat(new Date(data[key]), "yyyy-MM-dd");
         }
         if (isEmpty(data[key])) {
             return 'N/A';
@@ -88,7 +88,7 @@ class RequirementList extends Component {
                     </Table.Row>
                 </Table.Header>
                 {
-                    requirements.map((result, i) => {
+                    requirements.requirementInfos.map((result, i) => {
                         return <Table.Body key={i}>
                             <Table.Row>
                                 {
@@ -114,7 +114,7 @@ class RequirementList extends Component {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan={header.length}>
-                            <Pagination defaultCurrent={1} total={10}
+                            <Pagination defaultCurrent={1} total={requirements.totalElements}
                                         showQuickJumper
                                         onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                         </Table.HeaderCell>

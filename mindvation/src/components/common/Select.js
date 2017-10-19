@@ -44,6 +44,9 @@ class MVSelect extends Component {
 
     checkValue = (event, data) => {
         let inputValue = data.value;
+
+        if (this.state.returnValue === inputValue) return;
+
         if (isEmpty(inputValue)) {
             this.setState({
                 isEmpty: true,

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Grid, Header, Segment} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
-import {getRequirementById, updateRequirement} from '../../../../actions/requirement_action';
+import {getRequirementById, updateRequirementStatus} from '../../../../actions/requirement_action';
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
@@ -19,11 +19,18 @@ class RequirementDetail extends Component {
     };
 
     changeStatus = (requirement, status, percent = 0) => {
-        Object.assign(requirement.status, {
+        /* Object.assign(requirement.status, {
+             status,
+             percent
+         });
+         this.props.dispatch(updateRequirement(requirement));*/
+        const statusInfo = {
+            reqId: requirement.reqId,
+            projectId: requirement.projectId,
             status,
             percent
-        });
-        this.props.dispatch(updateRequirement(requirement));
+        };
+        this.props.dispatch(updateRequirementStatus(statusInfo));
     };
 
     render() {

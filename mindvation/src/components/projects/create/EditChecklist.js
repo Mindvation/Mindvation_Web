@@ -33,7 +33,7 @@ class EditChecklist extends Component {
             "description": checklistDesc.getWrappedInstance().getValue(),
             "assignee": assignTo.getWrappedInstance().getFullValue(),
             "assigner": {
-                text: "李四",
+                text: "Frank",
                 value: "m2"
             },
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
@@ -43,6 +43,7 @@ class EditChecklist extends Component {
     };
 
     render() {
+        const {assignOption} = this.props;
         const {modalOpen} = this.state;
         return (
             <div>
@@ -63,12 +64,12 @@ class EditChecklist extends Component {
                                   }}
                                   defaultValue={this.state.checklistInfo.description}
                         />
-                        <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
+                        <Select icon="user" options={assignOption} label="Assign To" search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node
                                 }}
-                                defaultValue={this.state.checklistInfo.assignee}
+                                defaultValue={this.state.checklistInfo.assignee ? this.state.checklistInfo.assignee.value : ''}
                         />
                     </Modal.Content>
                     <Modal.Actions>

@@ -2,21 +2,11 @@ import React, {Component} from 'react';
 import {Button, Modal, Popup, Header, Icon, Image, Table} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import ChooseMembers from '../../../containers/member_container';
-import {getRolesByModel, setRoles} from '../../../actions/role_action';
-import {updateRequirement} from '../../../actions/requirement_action';
 
 let chooseMembersNode;
 
 class SelectMembers extends Component {
     state = {modalOpen: false};
-
-    componentWillMount() {
-        if (this.props.requirement.roles) {
-            this.props.dispatch(setRoles(this.props.requirement.roles));
-        } else {
-            this.props.dispatch(getRolesByModel('agile'));
-        }
-    }
 
     componentWillUpdate() {
         this.fixBody();
@@ -40,15 +30,15 @@ class SelectMembers extends Component {
     };
 
     update = () => {
-        const {requirement, roles} = this.props;
+        /*const {requirement, roles} = this.props;
         requirement.roles = roles;
-        this.props.dispatch(updateRequirement(requirement));
+        this.props.dispatch(updateRequirement(requirement));*/
         this.closeModal();
     };
 
     render() {
         const {modalOpen} = this.state;
-        const {requirement, roles} = this.props;
+        const {roles} = this.props;
         return (
             <div style={{marginBottom: '10px'}} className={"components-length components-item"}>
                 <div className="single-line">
@@ -83,13 +73,13 @@ class SelectMembers extends Component {
                     />
                 </div>
 
-                {requirement.roles && requirement.roles.length > 0 ?
+                {roles && roles.length > 0 ?
                     <Table basic='very' collapsing>
                         <Table.Body>
-                            {requirement.roles.map((role, i) => {
+                            {roles.map((role, i) => {
                                 return role.members && role.members.length > 0 ?
                                     <Table.Row key={i}>
-                                        <Table.Cell>{role.key}</Table.Cell>
+                                        <Table.Cell>{role.name}</Table.Cell>
                                         <Table.Cell>
                                             {
                                                 role.members.map((member, j) => {
@@ -100,7 +90,6 @@ class SelectMembers extends Component {
                                                     </div>
                                                 })
                                             }
-
                                         </Table.Cell>
                                     </Table.Row> :
                                     null
@@ -129,7 +118,7 @@ class SelectMembers extends Component {
                                         <Icon size='big' name='add user' color='black'/>
                                     }
                                     <div className="select-member-role-button-text">
-                                        {role.key}
+                                        {role.name}
                                     </div>
                                     <div>
                                         {role.members && role.members.length > 0 ?

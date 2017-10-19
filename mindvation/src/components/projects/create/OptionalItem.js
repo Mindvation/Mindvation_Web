@@ -5,10 +5,24 @@ import AddChecklist from './AddChecklist';
 import {FormattedMessage} from 'react-intl';
 import UploadFile from '../../common/UploadFile';
 import {addTempChecklists} from '../../../actions/checklist_action';
+import {retrieveStaff} from '../../../util/Service';
 
 let checklistsNode;
 
 class OptionalItem extends Component {
+
+    state = {
+        assignOption: []
+    };
+
+    componentWillMount() {
+        retrieveStaff(function (option) {
+            this.setState({
+                assignOption: option
+            })
+        }.bind(this))
+    }
+
     componentDidMount() {
         const {info = {}, dispatch} = this.props;
         if (info.checklists && info.checklists.length > 0) {
@@ -24,6 +38,7 @@ class OptionalItem extends Component {
 
     render() {
         const {dispatch, showAction} = this.props;
+        const {assignOption} = this.state;
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -49,8 +64,11 @@ class OptionalItem extends Component {
                     }}
                     showAction={showAction}
                     dispatch={dispatch}
+                    assignOption={assignOption}
                 />
-                <AddChecklist dispatch={dispatch}/>
+                <AddChecklist dispatch={dispatch}
+                              assignOption={assignOption}
+                />
                 <UploadFile label="Attachments" icon="attach"/>
             </Modal.Content>
         );

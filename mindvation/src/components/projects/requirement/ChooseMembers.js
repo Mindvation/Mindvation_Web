@@ -50,7 +50,9 @@ class ChooseMembers extends Component {
         if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
     };
 
-    openModal = (role) => this.setState({modalOpen: true, role: role, originMembers: Object.assign([], role.members)});
+    openModal = (role) => {
+        this.setState({modalOpen: true, role: role, originMembers: Object.assign([], role.members)})
+    };
 
     closeModal = () => {
         this.setState({modalOpen: false});
@@ -99,7 +101,7 @@ class ChooseMembers extends Component {
                                 onClick: () => this.searchMembers()
                             }}
                             ref={node => searchNode = node}
-                            defaultValue={this.state.role.key}
+                            defaultValue={this.state.role.name}
                         />
                         <Members
                             ref={node => membersNode = node}

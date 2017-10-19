@@ -3,7 +3,7 @@ import {Header, Icon, Modal, Button, Table, Image} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../AdditionalInfo';
-import {updateRequirement} from '../../../../actions/requirement_action';
+import {updateRequirementAdditional} from '../../../../actions/requirement_action';
 import TagList from '../../create/TagList';
 
 let AdditionalModule;
@@ -22,8 +22,9 @@ class EditAdditionalInfo extends Component {
 
     update = () => {
         let additionalInfo = AdditionalModule.getInfo();
-        this.props.dispatch(updateRequirement(additionalInfo));
-        this.closeModal();
+        additionalInfo.projectId = this.props.requirement.projectId;
+        additionalInfo.reqId = this.props.requirement.reqId;
+        this.props.dispatch(updateRequirementAdditional(additionalInfo, this.closeModal));
     };
 
     render() {
@@ -40,6 +41,10 @@ class EditAdditionalInfo extends Component {
             value: requirement.priority,
             options: global.dummyData.priorityOptions
         }, {
+            icon: "sitemap",
+            title: "Process/Function Label",
+            value: requirement.functionLabel ? requirement.functionLabel.name : '',
+        }, {
             icon: "group",
             title: "Members",
             value: requirement.roles && requirement.roles.length > 0 ?
@@ -48,7 +53,7 @@ class EditAdditionalInfo extends Component {
                         {requirement.roles.map((role, i) => {
                             return role.members && role.members.length > 0 ?
                                 <Table.Row key={i}>
-                                    <Table.Cell>{role.key}</Table.Cell>
+                                    <Table.Cell>{role.name}</Table.Cell>
                                     <Table.Cell>
                                         {
                                             role.members.map((member, j) => {
@@ -108,6 +113,7 @@ class EditAdditionalInfo extends Component {
                         ref={node => {
                             AdditionalModule = node
                         }}
+                        isEdit={true}
                     />
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>

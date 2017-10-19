@@ -4,6 +4,7 @@ import {isEmpty, getRandomColor} from '../../../util/CommUtil';
 import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
 import {retrieveTags, createTag as createTagAction} from '../../../actions/tags_action';
+import _ from 'lodash';
 
 let createTagNode, allTagsNode, existOption;
 
@@ -50,7 +51,11 @@ const allTags = [{
 }];
 
 class AddTags extends Component {
-    state = {modalOpen: false, popupOpen: false, projectTags: this.props.defaultValue || []};
+    state = {
+        modalOpen: false,
+        popupOpen: false,
+        projectTags: this.props.defaultValue ? _.cloneDeep(this.props.defaultValue) : []
+    };
 
     componentWillMount() {
         this.props.dispatch(retrieveTags())

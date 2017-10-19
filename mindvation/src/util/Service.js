@@ -1,10 +1,8 @@
-import StaticLoad from '../components/common/Loading';
-import StaticDialog from '../components/common/Dialog';
 import {post} from './request';
-import {convertModelOptionToLocal, convertStaffOptionToLocal} from '../util/Convert';
+import {convertModelOptionToLocal, convertStaffOptionToLocal, convertModelInfoToLocal} from '../util/Convert';
 
 export function retrieveModels(callback) {
-    post('10010/mdvn-model-p/model/rtrvModelList', {})
+    post('8080/mdvn-model-papi/model/rtrvModelList', {})
         .then((res) => {
             callback(convertModelOptionToLocal(res.responseBody));
         })
@@ -14,9 +12,19 @@ export function retrieveModels(callback) {
 }
 
 export function retrieveStaff(callback) {
-    post('10014/mdvn-staff-p/staff/rtrvStaffList', {})
+    post('8080/mdvn-staff-papi/staff/rtrvStaffList', {})
         .then((res) => {
             callback(convertStaffOptionToLocal(res.responseBody));
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function getModelById(id, callback) {
+    post('8080/mdvn-model-papi/model/findById', {modelId: id})
+        .then((res) => {
+            callback(convertModelInfoToLocal(res.responseBody));
         })
         .catch((error) => {
             console.info(error);

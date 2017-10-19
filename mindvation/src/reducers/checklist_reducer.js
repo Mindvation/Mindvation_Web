@@ -6,8 +6,6 @@ import {
     EDIT_CHECKLIST
 } from '../actions/checklist_action';
 
-let idNumber = 0;
-
 function checklist(state = [], action) {
     switch (action.type) {
         case ADD_CHECKLIST:

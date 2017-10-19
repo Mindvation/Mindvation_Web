@@ -16,6 +16,10 @@ export const convertProjectToLocal = (res) => {
             status: res.project.status,
             percent: res.project.progress || 0,
             ragStatus: res.project.ragStatus
+        },
+        requirementInfo: {
+            requirementInfos: res.reqmntListResponse.requirementInfos,
+            totalElements: res.reqmntListResponse.totalElements
         }
     };
 
@@ -85,6 +89,10 @@ export const convertProjectToLocal = (res) => {
         res.leaders.map((leader) => {
             project.displayLeaders.push(leader.staffId);
         })
+    }
+
+    if (res.requirementInfos && res.requirementInfos.length > 0) {
+        project.requirements = res.requirementInfos;
     }
 
     return project;
@@ -415,3 +423,352 @@ export const convertStaffOptionToLocal = (res) => {
 
     return staffOption;
 };
+
+export const convertModelInfoToLocal = (res) => {
+    let functionOptions = [];
+    let roles = [];
+
+    if (res.modelRoles && res.modelRoles.length > 0) {
+        res.modelRoles.map((role) => {
+            roles.push({
+                key: role.roleId,
+                name: role.name
+            })
+        })
+    }
+
+    if (res.functionLabels && res.functionLabels.length > 0) {
+        res.functionLabels.map((label) => {
+            functionOptions.push({
+                text: label.name,
+                value: label.labelId
+            })
+        })
+    }
+    return {functionOptions, roles};
+};
+
+export const convertRequirementToServer = (requirement) => {
+    let params = {
+        projId: requirement.projectId,
+        creatorId: "m2",
+        summary: requirement.summary,
+        description: requirement.description,
+        priority: requirement.priority,
+        functionLabelId: requirement.functionLabel,
+        modelId: requirement.model,
+        members: [],
+        tags: requirement.tags,
+        rCheckLists: []
+    };
+
+    if (requirement.startDate) {
+        params.startDate = new Date(requirement.startDate).getTime()
+    }
+
+    if (requirement.endDate) {
+        params.endDate = new Date(requirement.endDate).getTime()
+    }
+
+    /*if (requirement.tags && requirement.tags.length > 0) {
+        requirement.tags.map((tag) => {
+            params.tagIds.push(tag.tagId)
+        })
+    }*/
+
+    if (requirement.checklists && requirement.checklists.length > 0) {
+        requirement.checklists.map((checklist) => {
+            params.rCheckLists.push({
+                description: checklist.description,
+                assigneeId: checklist.assignee ? checklist.assignee.value : '',
+                assignerId: "m2"
+            })
+        })
+    }
+
+    if (requirement.roles && requirement.roles.length > 0) {
+        requirement.roles.map((role) => {
+            let tempRole = {
+                roleId: role.key,
+                memberIds: []
+            };
+            if (role.members && role.members.length > 0) {
+                role.members.map((member) => {
+                    tempRole.memberIds.push(member.name.value)
+                })
+            }
+            params.members.push(tempRole);
+        })
+    }
+
+    return params;
+};
+
+export function convertRequirementToLocal(res) {
+    let requirement = {
+        projectId: res.reqmntInfo.projId,
+        reqId: res.reqmntInfo.reqmntId,
+        summary: res.reqmntInfo.summary,
+        description: res.reqmntInfo.description,
+        functionLabel: res.labelDetail, //update
+        priority: res.reqmntInfo.priority,
+        storyPoints: res.reqmntInfo.totalStoryPoint,
+        tags: res.tagList,
+        roles: [],
+        checklists: [],
+        comments: [],
+        stories: [],
+        status: {
+            status: res.reqmntInfo.status,
+            percent: res.reqmntInfo.progress,
+            ragStatus: res.reqmntInfo.ragStatus
+        }
+    };
+
+    if (!isEmpty(res.reqmntInfo.startDate)) {
+        requirement.startDate = dateFormat(new Date(res.reqmntInfo.startDate), "yyyy-MM-dd");
+    }
+
+    if (!isEmpty(res.reqmntInfo.endDate)) {
+        requirement.endDate = dateFormat(new Date(res.reqmntInfo.endDate), "yyyy-MM-dd");
+    }
+
+    if (res.checkLists && res.checkLists.length > 0) {
+        res.checkLists.map((item) => {
+            requirement.checklists.push(
+                {
+                    idNumber: item.checkListId,
+                    description: item.description,
+                    assignee: {
+                        value: item.assignee ? item.assignee.staffId : '',
+                        text: item.assignee ? item.assignee.name : ''
+                    },
+                    assigner: {
+                        value: item.assigner.staffId,
+                        text: item.assigner.name
+                    },
+                    createDate: dateFormat(new Date(item.createTime), "yyyy-MM-dd hh:mm"),
+                    lastUpdateDate: dateFormat(new Date(item.lastUpdateTime), "yyyy-MM-dd hh:mm"),
+                    status: item.status
+                }
+            );
+        })
+    }
+
+    if (res.members && res.members.length > 0) {
+        res.members.map((member) => {
+            let tempRole = {
+                key: member.roleDetail.roleId,
+                name: member.roleDetail.name,
+                members: []
+            };
+
+            if (member.memberDetails && member.memberDetails.length > 0) {
+                member.memberDetails.map((roleMember) => {
+                    tempRole.members.push({
+                        name: {
+                            text: roleMember.name,
+                            value: roleMember.staffId,
+                            image: {
+                                avatar: true,
+                                src: roleMember.avatar
+                            }
+                        },
+                        tags: []
+                    })
+                })
+            }
+            requirement.roles.push(tempRole)
+        })
+    }
+
+    return requirement;
+}
+
+export const convertReqBasicToServer = (basicInfo) => {
+    return {
+        staffId: "m2",
+        reqmntInfo: {
+            projId: basicInfo.projectId,
+            reqmntId: basicInfo.reqId,
+            summary: basicInfo.summary,
+            description: basicInfo.description
+        }
+    }
+};
+
+export const convertReqBasicToLocal = (res) => {
+    return {
+        projectId: res.reqmntInfo.projId,
+        reqId: res.reqmntInfo.reqmntId,
+        summary: res.reqmntInfo.summary,
+        description: res.reqmntInfo.description,
+    };
+};
+
+export const convertReqOptionalToServer = (optionalInfo) => {
+    let params = {
+        staffId: "m2",
+        reqmntInfo: {
+            projId: optionalInfo.projectId,
+            reqmntId: optionalInfo.reqId
+        },
+        checkLists: []
+    };
+
+    if (optionalInfo.checklists && optionalInfo.checklists.length > 0) {
+        optionalInfo.checklists.map((checklist) => {
+            params.checkLists.push({
+                checkListId: checklist.idNumber,
+                description: checklist.description,
+                assigneeId: checklist.assignee ? checklist.assignee.value : '',
+                assignerId: "m2"
+            })
+        })
+    }
+
+    return params;
+};
+
+export const convertReqOptionalToLocal = (res) => {
+    let requirement = {
+        projectId: res.reqmntInfo.projId,
+        reqId: res.reqmntInfo.reqmntId,
+        checklists: []
+    };
+
+    if (res.checkLists && res.checkLists.length > 0) {
+        res.checkLists.map((item) => {
+            requirement.checklists.push(
+                {
+                    idNumber: item.checkListId,
+                    description: item.description,
+                    assignee: {
+                        value: item.assignee ? item.assignee.staffId : '',
+                        text: item.assignee ? item.assignee.name : ''
+                    },
+                    assigner: {
+                        value: item.assigner.staffId,
+                        text: item.assigner.name
+                    },
+                    createDate: dateFormat(new Date(item.createTime), "yyyy-MM-dd hh:mm"),
+                    lastUpdateDate: dateFormat(new Date(item.lastUpdateTime), "yyyy-MM-dd hh:mm"),
+                    status: item.status
+                }
+            );
+        })
+    }
+
+    return requirement;
+};
+
+export const convertReqAdditionalToServer = (optionalInfo) => {
+    let params = {
+        staffId: "m3",
+        reqmntInfo: {
+            projId: optionalInfo.projectId,
+            reqmntId: optionalInfo.reqId,
+            priority: optionalInfo.priority,
+        },
+        tags: optionalInfo.tags,
+        members: []
+    };
+
+    if (optionalInfo.startDate) {
+        params.startDate = new Date(optionalInfo.startDate).getTime()
+    }
+
+    if (optionalInfo.endDate) {
+        params.endDate = new Date(optionalInfo.endDate).getTime()
+    }
+
+    if (optionalInfo.roles && optionalInfo.roles.length > 0) {
+        optionalInfo.roles.map((role) => {
+            let tempRole = {
+                roleId: role.key,
+                memberIds: []
+            };
+            if (role.members && role.members.length > 0) {
+                role.members.map((member) => {
+                    tempRole.memberIds.push(member.name.value)
+                })
+            }
+            params.members.push(tempRole);
+        })
+    }
+
+    return params;
+};
+
+export function convertReqAdditionalToLocal(res) {
+    let requirement = {
+        projectId: res.reqmntInfo.projId,
+        reqId: res.reqmntInfo.reqmntId,
+        priority: res.reqmntInfo.priority,
+        storyPoints: res.reqmntInfo.totalStoryPoint,
+        tags: res.tagList,
+        roles: []
+    };
+
+    if (!isEmpty(res.reqmntInfo.startDate)) {
+        requirement.startDate = dateFormat(new Date(res.reqmntInfo.startDate), "yyyy-MM-dd");
+    }
+
+    if (!isEmpty(res.reqmntInfo.endDate)) {
+        requirement.endDate = dateFormat(new Date(res.reqmntInfo.endDate), "yyyy-MM-dd");
+    }
+
+    if (res.members && res.members.length > 0) {
+        res.members.map((member) => {
+            let tempRole = {
+                key: member.roleDetail.roleId,
+                name: member.roleDetail.name,
+                members: []
+            };
+
+            if (member.memberDetails && member.memberDetails.length > 0) {
+                member.memberDetails.map((roleMember) => {
+                    tempRole.members.push({
+                        name: {
+                            text: roleMember.name,
+                            value: roleMember.staffId,
+                            image: {
+                                avatar: true,
+                                src: roleMember.avatar
+                            }
+                        },
+                        tags: []
+                    })
+                })
+            }
+            requirement.roles.push(tempRole)
+        })
+    }
+
+    return requirement;
+}
+
+
+export function convertReqStatusToServer(statusInfo) {
+    return {
+        staffId: "m3",
+        reqmntInfo: {
+            projId: statusInfo.projectId,
+            reqmntId: statusInfo.reqId,
+            status: statusInfo.status,
+            progress: statusInfo.progress
+        }
+    };
+}
+
+export function convertReqStatusToLocal(res) {
+    return {
+        projectId: res.reqmntInfo.projId,
+        reqId: res.reqmntInfo.reqmntId,
+        status: {
+            status: res.reqmntInfo.status,
+            percent: res.reqmntInfo.progress,
+            ragStatus: res.reqmntInfo.ragStatus
+        }
+    };
+}

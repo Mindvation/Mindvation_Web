@@ -12,7 +12,6 @@ const checklistKey = ["idNumber", "description", "assignee", "assigner", "create
 let editChecklistNode;
 
 class Checklist extends Component {
-
     getChecklistDesc = (result, key) => {
         if (key === "assignee" && !isEmpty(result[key])) {
             return result[key].text || 'N/A';
@@ -38,7 +37,7 @@ class Checklist extends Component {
     };
 
     render() {
-        const {checklists, showAction, dispatch} = this.props;
+        const {checklists, showAction, dispatch, assignOption} = this.props;
         let displayHeader = showAction ? headerWithAction : header;
         return (
             <div>
@@ -89,7 +88,9 @@ class Checklist extends Component {
                         }
                     </Table.Body>
                 </Table>
-                <EditChecklist ref={node => editChecklistNode = node} dispatch={dispatch}/>
+                <EditChecklist ref={node => editChecklistNode = node} dispatch={dispatch}
+                               assignOption={assignOption}
+                />
             </div>
         );
     }

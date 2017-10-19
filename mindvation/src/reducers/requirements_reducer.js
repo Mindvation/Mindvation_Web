@@ -1,18 +1,25 @@
-import {CREATE_REQUIREMENTS, UPDATE_REQUIREMENTS} from '../actions/requirements_action';
+import {CREATED_REQUIREMENT, RETRIEVED_REQUIREMENTS} from '../actions/requirements_action';
 import {SET_REQUIREMENT} from '../actions/project_action';
 
-let reqId = 0;
-
-function requirements(state = [], action) {
+function requirements(state = {
+    requirementInfos: [],
+    totalElements: 0
+}, action) {
     switch (action.type) {
-        case CREATE_REQUIREMENTS:
-            action.requirement.reqId = "R" + reqId++;
-            return [...state,
-                action.requirement];
-        case UPDATE_REQUIREMENTS:
-            return Object.assign([], state, action.requirement);
+        case CREATED_REQUIREMENT:
+            let temp = {...state};
+            temp.requirementInfos.push(action.requirement);
+            return temp;
         case SET_REQUIREMENT:
-            return action.requirements || [];
+            return action.requirements || {
+                requirementInfos: [],
+                totalElements: 0
+            };
+        case RETRIEVED_REQUIREMENTS:
+            return action.requirements || {
+                requirementInfos: [],
+                totalElements: 0
+            };
         default:
             return state
     }

@@ -4,7 +4,7 @@ import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../BasicInfo';
 import {checkCompleted} from '../../../../util/CommUtil';
-import {updateRequirement} from '../../../../actions/requirement_action';
+import {updateRequirementBasic} from '../../../../actions/requirement_action';
 
 let basicModule;
 let mandatoryFile = ["summary", "description"];
@@ -25,8 +25,9 @@ class EditBasicInfo extends Component {
         let basicInfo = basicModule.getInfo();
         let flag = checkCompleted(mandatoryFile, basicInfo);
         if (flag) {
-            this.props.dispatch(updateRequirement(basicInfo));
-            this.closeModal();
+            basicInfo.projectId = this.props.requirement.projectId;
+            basicInfo.reqId = this.props.requirement.reqId;
+            this.props.dispatch(updateRequirementBasic(basicInfo, this.closeModal));
         }
     };
 
@@ -48,9 +49,6 @@ class EditBasicInfo extends Component {
                 <ReadOnly icon="product hunt" title="Summary" value={requirement.summary}/>
                 <ReadOnly icon="book" title="Description"
                           value={requirement.description}/>
-                <ReadOnly icon="sitemap" title="Process/Function Label"
-                          value={requirement.functionLabel}
-                          options={global.dummyData.functionOptions}/>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

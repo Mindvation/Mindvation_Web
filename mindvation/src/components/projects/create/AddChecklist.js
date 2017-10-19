@@ -33,7 +33,7 @@ class AddChecklist extends Component {
             "description": checklistDesc.getWrappedInstance().getValue(),
             "assignee": assignTo.getWrappedInstance().getFullValue(),
             "assigner": {
-                text: "李四",
+                text: "Frank",
                 value: "m2"
             },
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
@@ -46,6 +46,7 @@ class AddChecklist extends Component {
 
     render() {
         const {modalOpen} = this.state;
+        const {assignOption} = this.props;
         return (
             <div>
                 <Button color='blue' onClick={() => this.openModal()}>
@@ -69,7 +70,7 @@ class AddChecklist extends Component {
                                   ref={node => {
                                       checklistDesc = node
                                   }}/>
-                        <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
+                        <Select icon="user" options={assignOption} label="Assign To" search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node

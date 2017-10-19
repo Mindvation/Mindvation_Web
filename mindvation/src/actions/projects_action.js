@@ -26,7 +26,7 @@ export function createProject(project, callback) {
     return dispatch => {
         const params = convertProjectToServer(project);
         StaticLoad.show("createProject");
-        post('10006/mdvn-project-papi/project/createProject', params)
+        post('8080/mdvn-project-papi/project/createProject', params)
             .then((res) => {
                 StaticLoad.remove("createProject");
                 dispatch(createdProject(res.responseBody));
@@ -48,7 +48,7 @@ export function retrieveProjects(page, pageSize) {
             "pageSize": pageSize
         };
 
-        post('10006/mdvn-project-papi/project/rtrvProjInfoList', params)
+        post('8080/mdvn-project-papi/project/rtrvProjInfoList', params)
             .then((res) => {
                 dispatch(retrievedProjects(res.responseBody))
             })

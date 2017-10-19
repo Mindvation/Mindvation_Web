@@ -5,15 +5,15 @@ import BasicInfo from './BasicInfo';
 import AdditionalInfo from './AdditionalInfo';
 import OptionalItem from '../create/OptionalItem';
 import {clearTempRequirement} from '../../../actions/requirement_action';
-import {createRequirements} from '../../../actions/requirements_action';
-import {clearTempTask} from '../../../actions/task_action';
+import {createRequirement} from '../../../actions/requirements_action';
+import {clearTempChecklist} from '../../../actions/checklist_action';
 import {checkCompleted} from '../../../util/CommUtil';
 import {
     Link
 } from 'react-router-dom';
 
 let basicModule, optionalModule, AdditionalModule;
-let mandatoryFile = ["summary", "description", "functionLabel"];
+let mandatoryFile = ["summary", "description"];
 
 class CreateRequirement extends Component {
     state = {modalOpen: false};
@@ -26,7 +26,7 @@ class CreateRequirement extends Component {
     };
 
     createTempRequirement = () => {
-        this.props.dispatch(clearTempTask());
+        this.props.dispatch(clearTempChecklist());
         this.props.dispatch(clearTempRequirement());
         this.openModal();
     };
@@ -39,11 +39,13 @@ class CreateRequirement extends Component {
         requirementInfo.comments = [];
         let flag = checkCompleted(mandatoryFile, requirementInfo);
         if (flag) {
-            this.props.dispatch(createRequirements(requirementInfo));
+            /*this.props.dispatch(createRequirements(requirementInfo));
             let timer = setTimeout(() => {
                 this.closeModal();
                 timer && clearTimeout(timer);
-            }, 0);
+            }, 0);*/
+            requirementInfo.projectId = this.props.project.projectId;
+            this.props.dispatch(createRequirement(requirementInfo, this.closeModal));
         }
     };
 
@@ -85,6 +87,7 @@ class CreateRequirement extends Component {
                         }}
                     />
                     <AdditionalInfo
+                        dispatch={dispatch}
                         requirement={requirement}
                         ref={node => {
                             AdditionalModule = node
