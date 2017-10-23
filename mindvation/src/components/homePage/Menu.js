@@ -20,7 +20,12 @@ const keyPathMapping = [
     },
     {
         "key": '3',
-        "path": '/home/Test2',
+        "path": '/home/Employee',
+        "hostKey": "sub1"
+    },
+    {
+        "key": '4',
+        "path": '/home/Department',
         "hostKey": "sub1"
     }];
 
@@ -63,13 +68,12 @@ class HomeMenu extends Component {
                 </Menu.Item>
                 <SubMenu
                     key="sub1"
-                    title={<span><Icon type="user"/><span>User</span></span>}
+                    title={<span><Icon type="user"/><span>HR</span></span>}
                 >
-                    <Menu.Item key="3"><Link to="/home/Test2">Test2</Link></Menu.Item>
-                    <Menu.Item key="4">Bill</Menu.Item>
-                    <Menu.Item key="5">Alex</Menu.Item>
+                    <Menu.Item key="3"><Link to="/home/Employee">Employee</Link></Menu.Item>
+                    <Menu.Item key="4"><Link to="/home/Department">Department</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu
+                {/*<SubMenu
                     key="sub2"
                     title={<span><Icon type="team"/><span>Team</span></span>}
                 >
@@ -79,7 +83,7 @@ class HomeMenu extends Component {
                 <Menu.Item key="9">
                     <Icon type="file"/>
                     <span>File</span>
-                </Menu.Item>
+                </Menu.Item>*/}
             </Menu>
         );
     }

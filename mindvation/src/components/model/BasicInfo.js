@@ -4,7 +4,7 @@ import Select from '../common/Select';
 import ProcessLabelInfo from './ProcessLabelInfo';
 import AddRole from './AddRole';
 
-const businessOptions = [{
+/*const businessOptions = [{
     text: "软件",
     value: "softWare"
 }, {
@@ -28,7 +28,26 @@ const businessOptions = [{
 }, {
     text: "服务",
     value: "service"
-}];
+}];*/
+
+const businessOptions = [
+    {
+        text: '软件',
+        value: 'software'
+    },
+    {
+        text: '工程',
+        value: 'engineering'
+    },
+    {
+        text: '业务需求',
+        value: 'business requirements'
+    },
+    {
+        text: '技术',
+        value: 'technology'
+    }
+];
 
 class BasicInfo extends Component {
 

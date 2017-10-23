@@ -11,7 +11,7 @@ class MvSlider extends Component {
 
     componentWillReceiveProps(nextProps) {
         const {value} = nextProps;
-        if (value === this.props.value) return;
+        if (value === this.state.inputValue) return;
         this.setState({
             inputValue: value,
         });
@@ -43,7 +43,7 @@ class MvSlider extends Component {
                 }
                 <div className="mv-slider-container">
                     <div className="slider-container">
-                        <Slider min={1} max={100} onChange={this.onChange} value={this.state.inputValue}
+                        <Slider min={0} max={100} onChange={this.onChange} value={this.state.inputValue}
                                 defaultValue={value}/>
                     </div>
                     <InputNumber

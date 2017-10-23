@@ -1,0 +1,47 @@
+{
+  "employees": [
+    {
+      "id": "S0001",
+      "name": "Frank",
+      "logonName": "frank",
+      "initialPassword": "123123",
+      "gender": "M",
+      "position": "M",
+      "department": "F",
+      "positionLevel": "F",
+      "mail": "Frank@qq.com",
+      "phone": "12345678910",
+      "skillTags": 12,
+      "status": "active"
+    },
+    {
+      "id": "S0002",
+      "name": "Bob",
+      "logonName": "bob",
+      "initialPassword": "123123",
+      "gender": "M",
+      "position": "F",
+      "department": "M",
+      "positionLevel": "F",
+      "mail": "Bob@qq.com",
+      "phone": "12345111111",
+      "skillTags": 5,
+      "status": "deactivated"
+    },
+    {
+      "id": "S0003",
+      "name": "Darcy",
+      "logonName": "darcy",
+      "initialPassword": "123123",
+      "gender": "F",
+      "position": "F",
+      "department": "O",
+      "positionLevel": "F",
+      "mail": "Darcy@qq.com",
+      "phone": "12345622222",
+      "skillTags": 8,
+      "status": "inactivated"
+    }
+  ],
+  "totalElements": 12
+}

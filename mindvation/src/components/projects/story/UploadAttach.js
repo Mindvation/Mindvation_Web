@@ -4,9 +4,7 @@ import Progress from '../../common/Progress';
 import UploadMulti from '../../common/UploadMulti';
 import UploadAndProgress from '../../common/UploadAndProgress';
 import EditProgress from './detail/EditProgress';
-import {FormattedMessage} from 'react-intl';
-import {updateStory} from '../../../actions/story_action';
-import AddTask from './AddTask';
+import {updateTaskStatus} from '../../../actions/story_action';
 
 class UploadAttach extends Component {
     state = {
@@ -14,22 +12,26 @@ class UploadAttach extends Component {
         modalOpen: false
     };
 
-    editProgress = (model) => {
-        this.editProgressNode.openModal(model);
+    editProgress = (task) => {
+        this.editProgressNode.openModal(task);
     };
 
-    updateProgress = () => {
-        this.props.dispatch(updateStory(this.props.story))
+    updateProgress = (task) => {
+        console.info(task);
+        this.props.dispatch(updateTaskStatus(task, () => {
+            this.editProgressNode.closeModal();
+        }));
     };
 
-    getComponent = (modelItem) => {
+    getComponent = (task) => {
+        const modelItem = task.model;
         if (modelItem.type === 'progress') {
             return <Progress percent={modelItem.percent} mode="charts" domKey={modelItem.key}
-                             editProgress={() => this.editProgress(modelItem)}/>
+                             editProgress={() => this.editProgress(task)}/>
         }
         if (modelItem.type === 'protoAndProgress') {
             return <UploadAndProgress percent={modelItem.percent} domKey={modelItem.key}
-                                      editProgress={() => this.editProgress(modelItem)}/>
+                                      editProgress={() => this.editProgress(task)}/>
         }
         if (modelItem.type === 'proto') {
             return <UploadMulti/>
@@ -57,17 +59,17 @@ class UploadAttach extends Component {
                                         {task.description}
                                     </div>
                                     <div className="task-member">
-                                        Members
-                                        {task.assignee.map((member, i) => {
-                                            return <div className="table-single-line" key={i}>
-                                                <Image verticalAlign="middle" src={member.image.src}
+                                        Member
+                                        {task.assignee ?
+                                            <div className="table-single-line" key={i}>
+                                                <Image verticalAlign="middle" src={task.assignee.avatar}
                                                        avatar/>
-                                                <span>{member.text}</span>
-                                            </div>
-                                        })}
+                                                <span>{task.assignee.name}</span>
+                                            </div> : null
+                                        }
                                     </div>
                                     <div className="task-model">
-                                        {this.getComponent(task.model)}
+                                        {this.getComponent(task)}
                                     </div>
                                 </Segment>
                             </Grid.Column>

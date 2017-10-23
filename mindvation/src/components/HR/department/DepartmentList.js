@@ -1,27 +1,29 @@
 import React, {Component} from 'react';
 import {Table, Button} from 'semantic-ui-react';
+import {Pagination} from 'antd';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
-import {deleteChecklist} from '../../../actions/checklist_action';
-import EditChecklist from './EditChecklist';
+import {deleteEmployee, getEmployeeList} from '../../../actions/employee_action';
+import {genderOptions} from '../../../res/data/dataOptions';
+import EditEmployee from './EditDepartment';
 
-const headerWithAction = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status", ""];
-const header = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status"];
-const checklistKey = ["idNumber", "description", "assignee", "assigner", "createDate", "lastUpdateDate", "status"];
+const header = ["Employee ID", "Employee Name", "Gender", "Position", "Department", "Mail", "Phone", "Skill Tags", "Status", "Action"];
+const checklistKey = ["id", "name", "gender", "position", "department", "mail", "phone", "skillTags", "status"];
 
-let editChecklistNode;
+class DepartmentList extends Component {
+    componentDidMount() {
+        this.props.dispatch(getEmployeeList());
+    };
 
-class Checklist extends Component {
+    pageChange(page, pageSize) {
+        this.props.dispatch(getEmployeeList(page, pageSize));
+    }
+
     getChecklistDesc = (result, key) => {
-        if (key === "assignee" && !isEmpty(result[key])) {
-            return result[key].text || 'N/A';
+        if (key === "gender" && !isEmpty(result[key])) {
+            return getDesc(genderOptions, result[key]);
         }
-        if (key === "assigner" && !isEmpty(result[key])) {
-            return result[key].text;
-        }
-        if (key === "status" && !isEmpty(result[key])) {
-            return getDesc(global.dummyData.statusOptions, result[key])
-        }
+
         if (isEmpty(result[key])) {
             return 'N/A';
         }
@@ -29,23 +31,22 @@ class Checklist extends Component {
     };
 
     remove = (result) => {
-        this.props.dispatch(deleteChecklist(result))
+        this.props.dispatch(deleteEmployee(result))
     };
 
     edit = (result) => {
-        editChecklistNode.openModal(result);
+        this.editEmployeeNode.openModal(result)
     };
 
     render() {
-        const {checklists, showAction, dispatch, assignOption} = this.props;
-        let displayHeader = showAction ? headerWithAction : header;
+        const {employee, dispatch} = this.props;
         return (
             <div>
                 <Table striped>
                     <Table.Header>
                         <Table.Row>
                             {
-                                displayHeader.map((result, i) => {
+                                header.map((result, i) => {
                                     return <Table.HeaderCell className="checklist-table-cell-length" key={i}>
                                         {result ? <FormattedMessage
                                             id={result}
@@ -58,7 +59,7 @@ class Checklist extends Component {
 
                     <Table.Body>
                         {
-                            checklists.map((result, i) => {
+                            employee.employees.map((result, i) => {
                                 return <Table.Row key={i}>
                                     {
                                         checklistKey.map((key, j) => {
@@ -69,7 +70,7 @@ class Checklist extends Component {
                                             </Table.Cell>
                                         })
                                     }
-                                    {showAction ? <Table.Cell className="checklist-action-cell">
+                                    <Table.Cell className="checklist-action-cell">
                                         <Button primary size="small" onClick={() => this.edit(result)}>
                                             <FormattedMessage
                                                 id='edit'
@@ -82,18 +83,25 @@ class Checklist extends Component {
                                                 defaultMessage='Delete'
                                             />
                                         </Button>
-                                    </Table.Cell> : null}
+                                    </Table.Cell>
                                 </Table.Row>
                             })
                         }
                     </Table.Body>
+                    <Table.Footer>
+                        <Table.Row>
+                            <Table.HeaderCell colSpan={header.length}>
+                                <Pagination defaultCurrent={1} total={employee.totalElements}
+                                            showQuickJumper
+                                            onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Footer>
                 </Table>
-                <EditChecklist ref={node => editChecklistNode = node} dispatch={dispatch}
-                               assignOption={assignOption}
-                />
+                <EditEmployee dispatch={dispatch} ref={node => this.editEmployeeNode = node}/>
             </div>
         );
     }
 }
 
-export default Checklist;
+export default DepartmentList;

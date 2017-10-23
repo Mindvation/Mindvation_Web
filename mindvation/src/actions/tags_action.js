@@ -2,6 +2,7 @@
  * action 类型
  */
 import {post} from '../util/request';
+import {url} from '../util/ServiceUrl';
 
 export const CREATED_TAG = 'CREATE_TAGS';
 export const RETRIEVED_TAGS = 'RETRIEVE_TAGS';
@@ -21,7 +22,7 @@ function retrievedTags(tags) {
 
 export function createTag(tag, callback) {
     return dispatch => {
-        post('8080/mdvn-tag-papi/tag/createTag', tag)
+        post(url.createTag, tag)
             .then((res) => {
                 dispatch(createdTag(res.responseBody));
                 callback && callback(res.responseBody);
@@ -39,7 +40,7 @@ export function retrieveTags(page, pageSize) {
             "pageSize": pageSize
         };
 
-        post('8080/mdvn-tag-papi/tag/rtrvTagList', {})
+        post(url.retrieveTags, {})
             .then((res) => {
                 dispatch(retrievedTags(res.responseBody.tags))
             })

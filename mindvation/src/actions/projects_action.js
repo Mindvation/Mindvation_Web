@@ -5,6 +5,7 @@ import {post} from '../util/request';
 import {convertProjectToServer} from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
+import {url} from '../util/ServiceUrl';
 
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const RETRIEVED_PROJECTS = 'RETRIEVE_PROJECTS';
@@ -26,7 +27,7 @@ export function createProject(project, callback) {
     return dispatch => {
         const params = convertProjectToServer(project);
         StaticLoad.show("createProject");
-        post('8080/mdvn-project-papi/project/createProject', params)
+        post(url.createProject, params)
             .then((res) => {
                 StaticLoad.remove("createProject");
                 dispatch(createdProject(res.responseBody));
@@ -48,7 +49,7 @@ export function retrieveProjects(page, pageSize) {
             "pageSize": pageSize
         };
 
-        post('8080/mdvn-project-papi/project/rtrvProjInfoList', params)
+        post(url.retrieveProjects, params)
             .then((res) => {
                 dispatch(retrievedProjects(res.responseBody))
             })

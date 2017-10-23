@@ -34,9 +34,11 @@ class CreateRequirement extends Component {
         storyInfo.comments = [];
         let flag = checkCompleted(mandatoryFile, storyInfo);
         if (flag) {
-            this.formatStory(storyInfo);
-            this.props.dispatch(addStoryToList(storyInfo, this.state.storyType));
-            this.closeModal();
+            //this.formatStory(storyInfo);
+            storyInfo.projectId = this.props.requirement.projectId;
+            storyInfo.reqId = this.props.requirement.reqId;
+            storyInfo.type = this.state.storyType;
+            this.props.dispatch(addStoryToList(storyInfo, this.closeModal));
         }
     };
 

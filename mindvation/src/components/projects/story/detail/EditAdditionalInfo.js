@@ -3,7 +3,7 @@ import {Header, Icon, Modal, Button, Table, Image} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../AdditionalInfo';
-import {updateStory} from '../../../../actions/story_action';
+import {updateStoryAdditional} from '../../../../actions/story_action';
 import TagList from '../../create/TagList';
 import Display from '../../../common/Display';
 
@@ -23,8 +23,8 @@ class EditAdditionalInfo extends Component {
 
     update = () => {
         let additionalInfo = AdditionalModule.getInfo();
-        this.props.dispatch(updateStory(additionalInfo));
-        this.closeModal();
+        additionalInfo.storyId = this.props.story.storyId;
+        this.props.dispatch(updateStoryAdditional(additionalInfo, this.closeModal));
     };
 
     render() {
@@ -40,11 +40,11 @@ class EditAdditionalInfo extends Component {
             title: "Process/Function Label",
             value: <div style={{display: "flex"}} className="components-length">
                 <Display
-                    value={story.requirementFunctionLabel}
-                    options={global.dummyData.functionOptions}
+                    value={story.requirementFunctionLabel ? story.requirementFunctionLabel.name : ''}
                 />
                 <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
-                <span style={{flex: 1, marginTop: '1em'}}>{story.functionLabel || 'N/A'}</span>
+                <span
+                    style={{flex: 1, marginTop: '1em'}}>{story.functionLabel ? story.functionLabel.name : 'N/A'}</span>
             </div>
         }, {
             icon: "flag",
@@ -60,7 +60,7 @@ class EditAdditionalInfo extends Component {
                         {story.roles.map((role, i) => {
                             return role.members && role.members.length > 0 ?
                                 <Table.Row key={i}>
-                                    <Table.Cell>{role.key}</Table.Cell>
+                                    <Table.Cell>{role.name}</Table.Cell>
                                     <Table.Cell>
                                         {
                                             role.members.map((member, j) => {

@@ -4,7 +4,7 @@ import Select from '../../common/Select';
 import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';
 import Display from '../../common/Display';
-import AddTags from "../create/AddTags";
+import AddTags from "../../../containers/tag_container";
 import ChooseMembers from './ChooseMembers';
 import {FormattedMessage} from 'react-intl';
 
@@ -17,7 +17,7 @@ class AdditionalInfo extends Component {
             "priority": priority.getWrappedInstance().getValue(),
             "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            "tags": addTagsNode.getValue(),
+            "tags": addTagsNode.getWrappedInstance().getValue(),
             "storyPoints": storyPointsNode.getWrappedInstance().getValue(),
             "functionLabel": subFunctionLabel.getWrappedInstance().getValue(),
             "roles": chooseMembersNode.getValue()
@@ -62,8 +62,7 @@ class AdditionalInfo extends Component {
                 </Header>
                 <div style={{display: "flex"}} className="components-length">
                     <Display
-                        value={requirement.functionLabel || info.requirementFunctionLabel}
-                        options={global.dummyData.functionOptions}
+                        value={requirement.functionLabel ? requirement.functionLabel.name : info.requirementFunctionLabel ? info.requirementFunctionLabel.name : ''}
                     />
                     <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
                     <Input
@@ -73,7 +72,7 @@ class AdditionalInfo extends Component {
                         style={{flex: 1, marginTop: '1em'}}
                         fullWidth={true}
                         placeHolder="subFunctionLabelPHDesc"
-                        defaultValue={info.functionLabel}
+                        defaultValue={info.functionLabel ? info.functionLabel.name : ''}
                     />
                 </div>
                 <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"

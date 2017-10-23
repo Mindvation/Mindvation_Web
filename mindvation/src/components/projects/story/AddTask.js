@@ -4,15 +4,14 @@ import TextArea from '../../common/TextArea';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
 import SelectAttach from './SelectAttach';
-import {updateStory} from '../../../actions/story_action';
-import {dateFormat} from '../../../util/CommUtil';
+import {addTask} from '../../../actions/story_action';
 import {FormattedMessage} from 'react-intl';
+import {retrieveStaff} from '../../../util/Service';
 
 let taskDesc, assignTo, startEndDate, modelNode;
-let id = 3;
 
 class AddTask extends Component {
-    state = {modalOpen: false};
+    state = {modalOpen: false, assignOption: []};
 
     componentWillUpdate() {
         this.fixBody();
@@ -20,6 +19,14 @@ class AddTask extends Component {
 
     componentDidUpdate() {
         this.fixBody();
+    }
+
+    componentWillMount() {
+        retrieveStaff(function (option) {
+            this.setState({
+                assignOption: option
+            })
+        }.bind(this))
     }
 
     fixBody = () => {
@@ -33,26 +40,24 @@ class AddTask extends Component {
 
     createTask = () => {
         const task = {
-            "idNumber": "T" + id++,
-            "description": taskDesc.getWrappedInstance().getValue(),
-            "assignee": assignTo.getWrappedInstance().getFullValue(),
-            "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
-            "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            "model": modelNode.getInfo(),
-            "assigner": "Leaders",
-            "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-            "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-            "status": "new"
+            storyId: this.props.story.storyId,
+            description: taskDesc.getWrappedInstance().getValue(),
+            assignee: assignTo.getWrappedInstance().getValue(),
+            startDate: startEndDate.getValue() ? startEndDate.getValue()[0] : "",
+            endDate: startEndDate.getValue() ? startEndDate.getValue()[1] : "",
+            assigner: "m2",
+            model: modelNode.getInfo(),
         };
-
-        let tempStory = this.props.story;
-        tempStory.tasks.push(task);
-        this.setState({modalOpen: false});
-        this.props.dispatch(updateStory(tempStory));
+        this.props.dispatch(addTask(task, this.closeModal))
+        /*
+                let tempStory = this.props.story;
+                tempStory.tasks.push(task);
+                this.setState({modalOpen: false});
+                this.props.dispatch(updateStory(tempStory));*/
     };
 
     render() {
-        const {modalOpen} = this.state;
+        const {modalOpen, assignOption} = this.state;
         return (
             <div>
                 <Button color='blue' onClick={() => this.openModal()}>
@@ -76,7 +81,7 @@ class AddTask extends Component {
                                   ref={node => {
                                       taskDesc = node
                                   }}/>
-                        <Select icon="user" multiple={true} options={global.dummyData.assignOptions} label="Assign To"
+                        <Select icon="user" options={assignOption} label="Assign To"
                                 search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {

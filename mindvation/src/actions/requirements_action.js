@@ -5,6 +5,7 @@ import {post} from '../util/request';
 import {convertRequirementToServer} from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
+import {url} from '../util/ServiceUrl';
 
 export const CREATED_REQUIREMENT = 'CREATED_REQUIREMENT';
 export const UPDATE_REQUIREMENTS = 'UPDATE_REQUIREMENTS';
@@ -22,7 +23,7 @@ export function createRequirement(requirement, callback) {
     return dispatch => {
         const params = convertRequirementToServer(requirement);
         StaticLoad.show("createRequirement");
-        post('8080/mdvn-reqmnt-papi/reqmnts/createReqmnt', params)
+        post(url.createRequirement, params)
             .then((res) => {
                 StaticLoad.remove("createRequirement");
                 dispatch(createdRequirement(res.responseBody));
@@ -48,7 +49,7 @@ export function retrieveRequirements(page, pageSize, projectId) {
             "pageSize": pageSize
         };
 
-        post('8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntList', params)
+        post(url.retrieveRequirements, params)
             .then((res) => {
                 dispatch(retrievedRequirements(res.responseBody))
             })

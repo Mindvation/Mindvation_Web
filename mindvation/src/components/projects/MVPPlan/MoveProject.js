@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import DropContainer from '../../common/DropContainer';
 import Box from '../../common/DragBox';
 import {Grid, List, Segment, Header, Icon} from 'semantic-ui-react';
-import {priorityOptions} from '../../../res/data/dummyData';
+import {priorityOptions} from '../../../res/data/dataOptions';
 import {getDesc} from '../../../util/CommUtil';
 
 const testProjects = [{

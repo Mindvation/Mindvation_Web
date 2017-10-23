@@ -172,6 +172,11 @@
 
 .read-only-text {
     padding-left: 2.65em;
+    white-space: pre-line;
+}
+
+.pre-line {
+    white-space: pre-line;
 }
 
 .edit-info-icon {
@@ -734,15 +739,24 @@ i.icon.mode-remove-label {
     justify-content: space-between;
 }
 
+.task-header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .task-id {
     color: #000000;
     font-size: 20px;
+    margin-right: 1em;
 }
 
 .task-model-name {
     color: #000000;
     font-size: 20px;
     float: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .task-desc {

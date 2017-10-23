@@ -3,7 +3,8 @@ import StoryList from '../components/projects/story/StoryList';
 
 const mapStateToProps = (state) => {
     return {
-        stories: state.stories
+        stories: state.stories,
+        requirement: state.requirement
     }
 };
 

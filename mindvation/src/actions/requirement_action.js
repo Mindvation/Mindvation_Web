@@ -16,6 +16,7 @@ import {
 } from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
+import {url} from '../util/ServiceUrl';
 
 export const UPDATE_REQUIREMENT = 'UPDATE_REQUIREMENT';
 export const CLEAR_TEMP_REQUIREMENT = 'CLEAR_TEMP_REQUIREMENT';
@@ -44,17 +45,19 @@ function setStories(stories) {
 
 export function getRequirementById(id) {
     return dispatch => {
-        post('8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo', {
+        post(url.getRequirementById, {
             "reqmntId": id
         })
             .then((res) => {
                 const requirement = convertRequirementToLocal(res.responseBody);
                 dispatch(retrievedRequirement(requirement));
                 dispatch(setRoles(requirement.roles));
-                //dispatch(setStories(data.stories));
+                dispatch(setStories(requirement.stories));
             })
             .catch((error) => {
                 dispatch(retrievedRequirement({}));
+                dispatch(setRoles([]));
+                dispatch(setStories());
             });
     }
 }
@@ -63,7 +66,7 @@ export function updateRequirementBasic(basicInfo, callback) {
     return dispatch => {
         const params = convertReqBasicToServer(basicInfo);
         StaticLoad.show("updateReqBasic");
-        post('8080/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo', params)
+        post(url.updateReqmntInfo, params)
             .then((res) => {
                 StaticLoad.remove("updateReqBasic");
                 const requirement = convertReqBasicToLocal(res.responseBody);
@@ -82,7 +85,7 @@ export function updateRequirementAdditional(additionalInfo, callback) {
     return dispatch => {
         const params = convertReqAdditionalToServer(additionalInfo);
         StaticLoad.show("updateReqAdditional");
-        post('8080/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo', params)
+        post(url.updateReqmntInfo, params)
             .then((res) => {
                 StaticLoad.remove("updateReqAdditional");
                 const requirement = convertReqAdditionalToLocal(res.responseBody);
@@ -101,7 +104,7 @@ export function updateRequirementOptional(optionalInfo, callback) {
     return dispatch => {
         const params = convertReqOptionalToServer(optionalInfo);
         StaticLoad.show("updateReqOptional");
-        post('8080/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo', params)
+        post(url.updateReqmntInfo, params)
             .then((res) => {
                 StaticLoad.remove("updateReqOptional");
                 const requirement = convertReqOptionalToLocal(res.responseBody);
@@ -116,12 +119,11 @@ export function updateRequirementOptional(optionalInfo, callback) {
     }
 }
 
-
 export function updateRequirementStatus(statusInfo) {
     return dispatch => {
         const params = convertReqStatusToServer(statusInfo);
         StaticLoad.show("updateReqStatus");
-        post('8080/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo', params)
+        post(url.updateReqmntInfo, params)
             .then((res) => {
                 StaticLoad.remove("updateReqStatus");
                 const requirement = convertReqStatusToLocal(res.responseBody);

@@ -78,7 +78,7 @@ class MVComment extends Component {
                                     <div>{item.time}</div>
                                 </Comment.Metadata>
                                 <Comment.Text>
-                                    <pre>{item.text}</pre>
+                                    <div className="pre-line">{item.text}</div>
                                 </Comment.Text>
                                 <Comment.Actions>
                                     <Comment.Action onClick={() => this.approve(item)}>

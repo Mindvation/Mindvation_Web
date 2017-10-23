@@ -5,9 +5,9 @@ const history = createHistory();
 
 // Get the current location.
 const location = history.location;
-const gateWay = "http://192.168.0.254:";
+const gateWay = "http://192.168.0.104:";
 
-export default function request(method, url, body) {
+function request(method, url, body) {
     method = method.toUpperCase();
     if (method === 'GET') {
         if (body) {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Grid, Header, Segment} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
-import {getStoryById, updateStory} from '../../../../actions/story_action';
+import {getStoryById, updateStoryStatus} from '../../../../actions/story_action';
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
@@ -20,11 +20,17 @@ class StoryDetail extends Component {
     };
 
     changeStatus = (story, status, percent = 0) => {
-        Object.assign(story.status, {
+        /*Object.assign(story.status, {
             status,
             percent
         });
-        this.props.dispatch(updateStory(story));
+        this.props.dispatch(updateStory(story));*/
+        const statusInfo = {
+            storyId: this.props.story.storyId,
+            status,
+            percent
+        };
+        this.props.dispatch(updateStoryStatus(statusInfo));
     };
 
     render() {

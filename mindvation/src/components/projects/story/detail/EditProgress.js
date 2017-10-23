@@ -6,23 +6,23 @@ import {FormattedMessage} from 'react-intl';
 
 class EditProgress extends Component {
 
-    state = {modalOpen: false, module: ''};
+    state = {modalOpen: false, task: {}};
 
-    openModal = (module) => this.setState({modalOpen: true, module: module});
+    openModal = (task) => this.setState({modalOpen: true, task: task});
 
     closeModal = () => this.setState({modalOpen: false});
 
     confirm = () => {
-        let tempModule = this.state.module;
-        tempModule.percent = this.percentNode.getValue();
+        let tempTask = this.state.task;
+        tempTask.model.percent = this.percentNode.getValue();
+        tempTask.remark = this.comment.getWrappedInstance().getValue();
         if (this.props.updateProgress) {
-            this.props.updateProgress(tempModule);
+            this.props.updateProgress(tempTask);
         }
-        this.closeModal();
     };
 
     render() {
-        const {module, modalOpen} = this.state;
+        const {task, modalOpen} = this.state;
         return (
             <Modal
                 closeOnEscape={false}
@@ -36,7 +36,7 @@ class EditProgress extends Component {
                     />
                 </Modal.Header>
                 <Modal.Content>
-                    <Slider label="Progress" icon="percent" value={module.percent}
+                    <Slider label="Progress" icon="percent" value={task.model ? task.model.percent : 0}
                             ref={node => this.percentNode = node}/>
                     <TextArea label="Comment" icon="commenting"
                               ref={node => {

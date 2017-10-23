@@ -28,7 +28,7 @@ class Discussion extends Component {
 
     render() {
         const {visible} = this.state;
-        const {comments, dispatch} = this.props.story;
+        const {comments = [], dispatch} = this.props.story;
         return (
             <div>
                 <div className={"discussion-comment-link pointer-cursor"} onClick={this.toggleVisibility}>

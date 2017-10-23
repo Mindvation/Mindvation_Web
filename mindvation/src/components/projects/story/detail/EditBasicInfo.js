@@ -4,7 +4,7 @@ import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../BasicInfo';
 import {checkCompleted} from '../../../../util/CommUtil';
-import {updateStory} from '../../../../actions/story_action';
+import {updateStoryBasic} from '../../../../actions/story_action';
 
 let basicModule;
 let mandatoryFile = ["summary", "description"];
@@ -25,8 +25,8 @@ class EditBasicInfo extends Component {
         let basicInfo = basicModule.getInfo();
         let flag = checkCompleted(mandatoryFile, basicInfo);
         if (flag) {
-            this.props.dispatch(updateStory(basicInfo));
-            this.closeModal();
+            basicInfo.storyId = this.props.story.storyId;
+            this.props.dispatch(updateStoryBasic(basicInfo, this.closeModal));
         }
     };
 

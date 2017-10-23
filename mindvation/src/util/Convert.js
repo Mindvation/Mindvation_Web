@@ -1,4 +1,4 @@
-import {isEmpty, dateFormat} from './CommUtil';
+import {isEmpty, dateFormat, getTimeAndRandom} from './CommUtil';
 
 export const convertProjectToLocal = (res) => {
     let project = {
@@ -517,7 +517,7 @@ export function convertRequirementToLocal(res) {
         roles: [],
         checklists: [],
         comments: [],
-        stories: [],
+        stories: res.rtrvStoryListResponse,
         status: {
             status: res.reqmntInfo.status,
             percent: res.reqmntInfo.progress,
@@ -756,7 +756,7 @@ export function convertReqStatusToServer(statusInfo) {
             projId: statusInfo.projectId,
             reqmntId: statusInfo.reqId,
             status: statusInfo.status,
-            progress: statusInfo.progress
+            progress: statusInfo.percent
         }
     };
 }
@@ -771,4 +771,405 @@ export function convertReqStatusToLocal(res) {
             ragStatus: res.reqmntInfo.ragStatus
         }
     };
+}
+
+export function convertStoryToServer(story) {
+    let params = {
+        creatorId: "m2",
+        storyInfo: {
+            projId: story.projectId,
+            reqmntId: story.reqId,
+            summary: story.summary,
+            description: story.description,
+            priority: story.priority,
+            storyPoint: story.storyPoints
+        },
+        subFunctionLabel: {
+            name: story.functionLabel
+        },
+        members: [],
+        sTags: story.tags
+    };
+
+    if (story.startDate) {
+        params.storyInfo.startDate = new Date(story.startDate).getTime()
+    }
+
+    if (story.endDate) {
+        params.storyInfo.endDate = new Date(story.endDate).getTime()
+    }
+
+    if (story.roles && story.roles.length > 0) {
+        story.roles.map((role) => {
+            let tempRole = {
+                roleId: role.key,
+                memberIds: []
+            };
+            if (role.members && role.members.length > 0) {
+                role.members.map((member) => {
+                    tempRole.memberIds.push(member.name.value)
+                })
+            }
+            params.members.push(tempRole);
+        })
+    }
+
+    return params;
+}
+
+export function convertStoryToLocal(res) {
+    let story = {
+        projectId: res.storyInfo.projId,
+        reqId: res.storyInfo.reqmntId,
+        storyId: res.storyInfo.storyId,
+        summary: res.storyInfo.summary,
+        description: res.storyInfo.description,
+        functionLabel: res.subFunctionLabel,
+        priority: res.storyInfo.priority,
+        storyPoints: res.storyInfo.storyPoint + '',
+        tags: res.tags,
+        roles: [],
+        tasks: [],
+        fileList: [],
+        comments: [],
+        requirementRoles: [],
+        requirementFunctionLabel: res.labelDetail,
+        status: {
+            status: res.storyInfo.status,
+            percent: res.storyInfo.progress,
+            ragStatus: res.storyInfo.ragStatus
+        }
+    };
+
+    if (!isEmpty(res.storyInfo.startDate)) {
+        story.startDate = dateFormat(new Date(res.storyInfo.startDate), "yyyy-MM-dd");
+    }
+
+    if (!isEmpty(res.storyInfo.endDate)) {
+        story.endDate = dateFormat(new Date(res.storyInfo.endDate), "yyyy-MM-dd");
+    }
+
+    if (res.members && res.members.length > 0) {
+        res.members.map((member) => {
+            let tempRole = {
+                key: member.roleDetail.roleId,
+                name: member.roleDetail.name,
+                members: []
+            };
+
+            if (member.memberDetails && member.memberDetails.length > 0) {
+                member.memberDetails.map((roleMember) => {
+                    tempRole.members.push({
+                        name: {
+                            text: roleMember.name,
+                            value: roleMember.staffId,
+                            image: {
+                                avatar: true,
+                                src: roleMember.avatar
+                            }
+                        },
+                        tags: []
+                    })
+                })
+            }
+            story.roles.push(tempRole)
+        })
+    }
+
+    if (res.rMembers && res.rMembers.length > 0) {
+        res.rMembers.map((member) => {
+            let tempRole = {
+                key: member.roleDetail.roleId,
+                name: member.roleDetail.name,
+                members: []
+            };
+
+            if (member.memberDetails && member.memberDetails.length > 0) {
+                member.memberDetails.map((roleMember) => {
+                    tempRole.members.push({
+                        name: {
+                            text: roleMember.name,
+                            value: roleMember.staffId,
+                            image: {
+                                avatar: true,
+                                src: roleMember.avatar
+                            }
+                        },
+                        tags: []
+                    })
+                })
+            }
+            story.requirementRoles.push(tempRole)
+        })
+    }
+
+    if (res.sTasks && res.sTasks.length > 0) {
+        res.sTasks.map((task) => {
+            story.tasks.push(convertTaskToLocal(task))
+        })
+    }
+
+    return story;
+}
+
+export function convertStoryBasicToServer(basicInfo) {
+    return {
+        creatorId: "m2",
+        storyInfo: {
+            storyId: basicInfo.storyId,
+            summary: basicInfo.summary,
+            description: basicInfo.description
+        }
+    }
+}
+
+export function convertStoryBasicToLocal(res) {
+    return {
+        storyId: res.storyInfo.storyId,
+        summary: res.storyInfo.summary,
+        description: res.storyInfo.description,
+    }
+}
+
+export function convertStoryStatusToServer(statusInfo) {
+    return {
+        creatorId: "m2",
+        storyInfo: {
+            storyId: statusInfo.storyId,
+            status: statusInfo.status,
+            progress: statusInfo.percent
+        }
+    }
+}
+
+export function convertStoryStatusToLocal(res) {
+    return {
+        projectId: res.storyInfo.projId,
+        reqId: res.storyInfo.reqmntId,
+        storyId: res.storyInfo.storyId,
+        status: {
+            status: res.storyInfo.status,
+            percent: res.storyInfo.progress,
+            ragStatus: res.storyInfo.ragStatus
+        }
+    }
+}
+
+export function convertStoryAdditionalToServer(additionalInfo) {
+    let params = {
+        creatorId: "m2",
+        storyInfo: {
+            storyId: additionalInfo.storyId,
+            priority: additionalInfo.priority,
+            storyPoint: additionalInfo.storyPoints
+        },
+        subFunctionLabel: {
+            name: additionalInfo.functionLabel
+        },
+        members: [],
+        sTags: additionalInfo.tags
+    };
+
+    if (additionalInfo.startDate) {
+        params.storyInfo.startDate = new Date(additionalInfo.startDate).getTime()
+    }
+
+    if (additionalInfo.endDate) {
+        params.storyInfo.endDate = new Date(additionalInfo.endDate).getTime()
+    }
+
+    if (additionalInfo.roles && additionalInfo.roles.length > 0) {
+        additionalInfo.roles.map((role) => {
+            let tempRole = {
+                roleId: role.key,
+                memberIds: []
+            };
+            if (role.members && role.members.length > 0) {
+                role.members.map((member) => {
+                    tempRole.memberIds.push(member.name.value)
+                })
+            }
+            params.members.push(tempRole);
+        })
+    }
+
+    return params;
+}
+
+export function convertStoryAdditionalToLocal(res) {
+    let story = {
+        projectId: res.storyInfo.projId,
+        reqId: res.storyInfo.reqmntId,
+        storyId: res.storyInfo.storyId,
+        functionLabel: res.subFunctionLabel,
+        priority: res.storyInfo.priority,
+        storyPoints: res.storyInfo.storyPoint + '',
+        tags: res.tags,
+        roles: []
+    };
+
+    if (!isEmpty(res.storyInfo.startDate)) {
+        story.startDate = dateFormat(new Date(res.storyInfo.startDate), "yyyy-MM-dd");
+    }
+
+    if (!isEmpty(res.storyInfo.endDate)) {
+        story.endDate = dateFormat(new Date(res.storyInfo.endDate), "yyyy-MM-dd");
+    }
+
+    if (res.members && res.members.length > 0) {
+        res.members.map((member) => {
+            let tempRole = {
+                key: member.roleDetail.roleId,
+                name: member.roleDetail.name,
+                members: []
+            };
+
+            if (member.memberDetails && member.memberDetails.length > 0) {
+                member.memberDetails.map((roleMember) => {
+                    tempRole.members.push({
+                        name: {
+                            text: roleMember.name,
+                            value: roleMember.staffId,
+                            image: {
+                                avatar: true,
+                                src: roleMember.avatar
+                            }
+                        },
+                        tags: []
+                    })
+                })
+            }
+            story.roles.push(tempRole)
+        })
+    }
+    return story;
+}
+
+export function convertTaskToServer(taskInfo) {
+    let params = {
+        description: taskInfo.description,
+        assigneeId: taskInfo.assignee,
+        creatorId: "m2",
+        storyId: taskInfo.storyId,
+        deliver: {}
+    };
+
+    if (taskInfo.startDate) {
+        params.startTime = new Date(taskInfo.startDate).getTime()
+    }
+
+    if (taskInfo.endDate) {
+        params.endTime = new Date(taskInfo.endDate).getTime()
+    }
+
+    if (taskInfo.model) {
+        params.deliver = {
+            name: taskInfo.model.title,
+            modelId: taskInfo.model.type
+        }
+    }
+
+    return params;
+}
+
+export function convertTaskToLocal(res) {
+    let task = {
+        idNumber: res.taskId,
+        description: res.description,
+        assignee: res.assignee,
+        assigner: res.creator,
+        model: {}
+    };
+
+    if (!isEmpty(res.startTime)) {
+        task.startDate = dateFormat(new Date(res.startTime), "yyyy-MM-dd");
+    }
+
+    if (!isEmpty(res.endTime)) {
+        task.endDate = dateFormat(new Date(res.endTime), "yyyy-MM-dd");
+    }
+
+    if (res.deliver) {
+        task.model = {
+            key: getTimeAndRandom(),
+            type: res.deliver.modelId,
+            title: res.deliver.name,
+            percent: res.progress,
+            images: []
+        }
+    }
+
+    return task;
+}
+
+export function convertTaskStatusToServer(statusInfo) {
+    return {
+        assigneeId: "m2",
+        taskId: statusInfo.idNumber,
+        progress: statusInfo.model.percent,
+        remarks: statusInfo.remark
+    }
+}
+
+export function convertModelToServer(modelInfo) {
+    let params = {
+        creatorId: "m2",
+        name: modelInfo.basicInfo.modelName,
+        modelType: modelInfo.basicInfo.business,
+        functionLabels: [],
+        roles: [],
+        iterationModels: [],
+        taskDeliveries: []
+    };
+
+    if (modelInfo.basicInfo.processLabel && modelInfo.basicInfo.processLabel.length > 0) {
+        modelInfo.basicInfo.processLabel.map((process) => {
+            let tempProcess = {
+                name: process.value,
+                subFunctionLabels: []
+            };
+            if (process.subData && process.subData.length > 0) {
+                process.subData.map((subProcess) => {
+                    tempProcess.subFunctionLabels.push(
+                        {
+                            name: subProcess.value
+                        })
+                })
+            }
+            params.functionLabels.push(tempProcess);
+        });
+    }
+
+    if (modelInfo.basicInfo.roles && modelInfo.basicInfo.roles.length > 0) {
+        modelInfo.basicInfo.roles.map((role) => {
+            params.roles.push({
+                name: role.value
+            });
+        });
+    }
+
+    if (modelInfo.iteration && modelInfo.iteration.length > 0) {
+        modelInfo.iteration.map((iteration) => {
+            let tempIter = {
+                name: iteration.value,
+                labels: []
+            };
+            if (iteration.labels && iteration.labels.length > 0) {
+                iteration.labels.map((label) => {
+                    tempIter.labels.push(label.value)
+                })
+            }
+            params.iterationModels.push(tempIter)
+        })
+    }
+    if (modelInfo.attachments && modelInfo.attachments.length > 0) {
+        modelInfo.attachments.map((attach) => {
+            params.taskDeliveries.push({
+                type: attach.type,
+                name: attach.title,
+                color: attach.color
+            })
+        })
+    }
+    return params;
 }

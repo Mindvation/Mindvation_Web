@@ -144,7 +144,9 @@ class IterationPlan extends Component {
                                 </div>
                                 <div className="iteration-container">
                                     <div>
-                                        <Input autoFocus={true}/>
+                                        <Input autoFocus={true} onChange={(event, data) => {
+                                            iteration.value = data.value;
+                                        }}/>
                                     </div>
                                     {iteration.labels && iteration.labels.length > 0 ?
                                         iteration.labels.map((label) => {

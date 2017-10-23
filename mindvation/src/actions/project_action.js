@@ -15,6 +15,7 @@ import {
 } from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
+import {url} from '../util/ServiceUrl';
 
 export const GET_PROJECT_BY_ID = 'GET_PROJECT_BY_ID';
 export const UPDATE_PROJECT = 'UPDATE_PROJECT';
@@ -33,7 +34,7 @@ function setRequirement(requirements) {
 
 export function getProjectById(id) {
     return dispatch => {
-        post('8080/mdvn-project-papi/project/rtrvProjectInfo', {
+        post(url.getProjectById, {
             "projId": id
         })
             .then((res) => {
@@ -56,7 +57,7 @@ export function updateProjectBasic(basicInfo, callback) {
     return dispatch => {
         const params = convertProjectBasicToServer(basicInfo);
         StaticLoad.show("updateProBasic");
-        post('8080/mdvn-project-papi/project/updateProject', params)
+        post(url.updateProject, params)
             .then((res) => {
                 StaticLoad.remove("updateProBasic");
                 const project = convertProjectBasicToLocal(res.responseBody.projectDetail);
@@ -75,7 +76,7 @@ export function updateProjectAdditional(additionalInfo, callback) {
     return dispatch => {
         const params = convertProjectAdditionalToServer(additionalInfo);
         StaticLoad.show("updateProAdditional");
-        post('8080/mdvn-project-papi/project/updateProject', params)
+        post(url.updateProject, params)
             .then((res) => {
                 StaticLoad.remove("updateProAdditional");
                 const project = convertProjectAdditionalToLocal(res.responseBody.projectDetail);
@@ -94,7 +95,7 @@ export function updateProjectOptional(optionalInfo, callback) {
     return dispatch => {
         const params = convertProjectOptionalToServer(optionalInfo);
         StaticLoad.show("updateProOptional");
-        post('8080/mdvn-project-papi/project/updateProject', params)
+        post(url.updateProject, params)
             .then((res) => {
                 StaticLoad.remove("updateProOptional");
                 const project = convertProjectOptionalToLocal(res.responseBody.projectDetail);
@@ -113,7 +114,7 @@ export function updateProjectStatus(statusInfo) {
     return dispatch => {
         const params = convertProjectStatusToServer(statusInfo);
         StaticLoad.show("updateProStatus");
-        post('8080/mdvn-project-papi/project/updateProject', params)
+        post(url.updateProject, params)
             .then((res) => {
                 StaticLoad.remove("updateProStatus");
                 const project = convertProjectStatusToLocal(res.responseBody.projectDetail);

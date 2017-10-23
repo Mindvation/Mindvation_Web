@@ -179,3 +179,25 @@ export const functionOptions = [
         text: 'Defect Fixing',
         value: 'defectFixing'
     }];
+
+export const genderOptions = [
+    {
+        text: <FormattedMessage
+            id='female'
+            defaultMessage='Female'
+        />,
+        value: "F"
+    }, {
+        text: <FormattedMessage
+            id='male'
+            defaultMessage='Male'
+        />,
+        value: "M"
+    }, {
+        text: <FormattedMessage
+            id='other'
+            defaultMessage='Other'
+        />,
+        value: "O"
+    }
+];

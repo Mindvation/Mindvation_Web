@@ -6,6 +6,7 @@ import IterationPlan from './IterationPlan';
 import Attachments from './Attachments';
 import _ from 'lodash';
 import {FormattedMessage} from 'react-intl';
+import {createModel} from '../../util/Service';
 
 const steps = [
     {active: true, completed: false, title: 'Basic Info', description: 'Input model basic info'},
@@ -57,7 +58,7 @@ class CreateModel extends Component {
         });
     };
 
-    createModel = () => {
+    newModel = () => {
         let tempSteps = this.state.steps;
         let tempIndex = this.state.activeIndex;
         let tempInfo = this.state.modelInfo;
@@ -67,6 +68,7 @@ class CreateModel extends Component {
         this.setState({
             modelInfo: tempInfo
         });
+        createModel(tempInfo);
     };
 
     render() {
@@ -113,7 +115,7 @@ class CreateModel extends Component {
                     </Button>
                     <Button className="next-button"
                             style={{display: activeIndex === steps.length - 1 ? 'block' : 'none'}}
-                            primary onClick={() => this.createModel()}>
+                            primary onClick={() => this.newModel()}>
                         <FormattedMessage
                             id='modelDone'
                             defaultMessage='Done'

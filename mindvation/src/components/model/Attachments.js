@@ -71,8 +71,7 @@ class Attachments extends Component {
                     </Header.Content>
                 </Header>
                 <div>
-                    <Button basic onClick={() => this.openModal()}>
-
+                    <Button primary onClick={() => this.openModal()}>
                         <FormattedMessage
                             id='add'
                             defaultMessage='Add'

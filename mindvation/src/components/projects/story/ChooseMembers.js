@@ -10,10 +10,10 @@ class ChooseMembers extends Component {
 
     toggleChooseMember(role, member) {
         let tempRoleMembers = this.state.chooseRoleMembers;
-        if (this.isExist(tempRoleMembers, role)) {
+        if (this.isExistRole(tempRoleMembers, role)) {
             tempRoleMembers.some((tempMember) => {
                 if (tempMember.key === role.key) {
-                    if (tempMember.members.indexOf(member) > -1) {
+                    if (this.isChooseMember(tempMember.members, member)) {
                         tempMember.members.splice(tempMember.members.indexOf(member), 1);
                     } else {
                         tempMember.members.push(member);
@@ -33,7 +33,7 @@ class ChooseMembers extends Component {
         })
     }
 
-    isExist(roles, role) {
+    isExistRole(roles, role) {
         let flag = false;
         roles.some((item) => {
             if (item.key === role.key) {
@@ -85,10 +85,10 @@ class ChooseMembers extends Component {
                 </Header>
                 <Table basic='very' collapsing>
                     <Table.Body>
-                        {(requirement.roles || info.requirementRoles).map((role, i) => {
+                        {(requirement.roles || info.requirementRoles || []).map((role, i) => {
                             return role.members && role.members.length > 0 ?
                                 <Table.Row key={i}>
-                                    <Table.Cell>{role.key}</Table.Cell>
+                                    <Table.Cell>{role.name}</Table.Cell>
                                     <Table.Cell>
                                         {
                                             role.members.map((member, j) => {

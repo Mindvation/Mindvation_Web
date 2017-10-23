@@ -150,6 +150,24 @@ const zh_CN = {
     add: "添加",
     loading: "加载中...",
     goToWorkflow: "进入工作流",
-    "Requirement Model": "需求模型"
+    "Requirement Model": "需求模型",
+    female: '女',
+    male: '男',
+    other: '其他',
+    "Employee ID": "员工ID/工号",
+    "Employee Name": "员工姓名",
+    "Gender": "性别",
+    "Position": "职位",
+    "Department": "部门",
+    "Mail": "邮箱",
+    "Phone": "电话",
+    "Skill Tags": "技能标签",
+    "Action": "操作",
+    employeeTitle: "员工",
+    createEmployee: "新建员工",
+    "Logon Name": "登录名",
+    "Initial Password": "初始密码",
+    "Position Level": "职级",
+    editEmployee: "修改员工信息"
 };
 export default zh_CN;

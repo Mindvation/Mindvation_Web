@@ -8,48 +8,6 @@ import _ from 'lodash';
 
 let createTagNode, allTagsNode, existOption;
 
-const allTags = [{
-    tagId: "T1",
-    name: "React Native",
-    color: "#7efefe"
-}, {
-    tagId: "T2",
-    name: "PHP",
-    color: "#ff9900"
-}, {
-    tagId: "T3",
-    name: "Business Canvas",
-    color: "#66cc33"
-}, {
-    tagId: "T4",
-    name: "EPICs",
-    color: "#0099cc"
-}, {
-    tagId: "T5",
-    name: "BI",
-    color: "#ffcc00"
-}, {
-    tagId: "T6",
-    name: "Reactjs",
-    color: "#7efefe"
-}, {
-    tagId: "T7",
-    name: "Java",
-    color: "#ff9900"
-}, {
-    tagId: "T8",
-    name: "AngularJs",
-    color: "#0099cc"
-}, {
-    tagId: "T9",
-    name: "Oracle",
-    color: "#ffcc00"
-}, {
-    tagId: "T10",
-    name: "PM",
-    color: "#7efefe"
-}];
-
 class AddTags extends Component {
     state = {
         modalOpen: false,

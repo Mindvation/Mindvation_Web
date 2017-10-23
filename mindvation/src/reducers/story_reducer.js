@@ -1,6 +1,8 @@
 import {
     GET_STORY_BY_ID,
-    UPDATE_STORY
+    UPDATE_STORY,
+    ADD_TASK_TO_STORY,
+    UPDATE_STORY_TASK
 } from '../actions/story_action';
 
 function story(state = {}, action) {
@@ -9,6 +11,14 @@ function story(state = {}, action) {
             return action.story;
         case UPDATE_STORY:
             return Object.assign({}, state, action.story);
+        case ADD_TASK_TO_STORY:
+            let temp = {...state};
+            temp.tasks.push(action.task);
+            return temp;
+        case UPDATE_STORY_TASK:
+            let temp1 = {...state};
+            Object.assign(temp1.tasks, action.task)
+            return temp1;
         default:
             return state
     }

@@ -150,6 +150,24 @@ const en_US = {
     add: "Add",
     loading: "Loading...",
     goToWorkflow: "Go To Workflow",
-    "Requirement Model": "Requirement Model"
+    "Requirement Model": "Requirement Model",
+    female: 'Female',
+    male: 'Male',
+    other: 'Other',
+    "Employee ID": "Employee ID",
+    "Employee Name": "Employee Name",
+    "Gender": "Gender",
+    "Position": "Position",
+    "Department": "Department",
+    "Mail": "Mail",
+    "Phone": "Phone",
+    "Skill Tags": "Skill Tags",
+    "Action": "Action",
+    employeeTitle: "Employee",
+    createEmployee: "Create Employee",
+    "Logon Name": "Logon Name",
+    "Initial Password": "Initial Password",
+    "Position Level": "Position Level",
+    editEmployee: "Edit Employee"
 };
 export default en_US;

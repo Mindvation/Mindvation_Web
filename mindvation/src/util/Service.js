@@ -1,8 +1,14 @@
 import {post} from './request';
-import {convertModelOptionToLocal, convertStaffOptionToLocal, convertModelInfoToLocal} from '../util/Convert';
+import {
+    convertModelOptionToLocal,
+    convertStaffOptionToLocal,
+    convertModelInfoToLocal,
+    convertModelToServer
+} from '../util/Convert';
+import {url} from './ServiceUrl';
 
 export function retrieveModels(callback) {
-    post('8080/mdvn-model-papi/model/rtrvModelList', {})
+    post(url.retrieveModels, {})
         .then((res) => {
             callback(convertModelOptionToLocal(res.responseBody));
         })
@@ -12,7 +18,7 @@ export function retrieveModels(callback) {
 }
 
 export function retrieveStaff(callback) {
-    post('8080/mdvn-staff-papi/staff/rtrvStaffList', {})
+    post(url.retrieveStaff, {})
         .then((res) => {
             callback(convertStaffOptionToLocal(res.responseBody));
         })
@@ -22,9 +28,20 @@ export function retrieveStaff(callback) {
 }
 
 export function getModelById(id, callback) {
-    post('8080/mdvn-model-papi/model/findById', {modelId: id})
+    post(url.getModelById, {modelId: id})
         .then((res) => {
             callback(convertModelInfoToLocal(res.responseBody));
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function createModel(model, callback) {
+    const params = convertModelToServer(model);
+    post(url.createModel, params)
+        .then((res) => {
+            callback && callback();
         })
         .catch((error) => {
             console.info(error);

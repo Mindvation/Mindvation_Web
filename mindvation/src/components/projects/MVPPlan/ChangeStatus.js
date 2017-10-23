@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import AcceptContainer from '../../common/AcceptContainer';
 import AcceptBox from '../../common/AcceptBox';
 import {Grid, Header, Icon, List, Segment} from 'semantic-ui-react';
-import {priorityOptions} from '../../../res/data/dummyData';
+import {priorityOptions} from '../../../res/data/dataOptions';
 import {getDesc} from '../../../util/CommUtil';
 import _ from 'lodash';
 

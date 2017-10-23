@@ -1,3 +1,5 @@
+import {colors} from '../res/data/colorLight';
+
 export const dateFormat = (date, fmt) => {
     let o = {
         "M+": date.getMonth() + 1,                 //月份
@@ -58,8 +60,12 @@ export const checkCompleted = (mandatoryFile, info) => {
     return flag;
 };
 
-export const getRandomColor = () => {
+/*export const getRandomColor = () => {
     return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
+};*/
+
+export const getRandomColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
 };
 
 function createHexRandom() {

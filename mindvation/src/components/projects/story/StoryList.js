@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Table} from 'semantic-ui-react';
 import {Pagination} from 'antd';
-import {getDesc, isEmpty} from '../../../util/CommUtil';
+import {getDesc, isEmpty, dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import Discussion from './Discussion';
+import {retrieveStories} from '../../../actions/stories_action';
 import {
     Link
 } from 'react-router-dom';
@@ -21,7 +22,7 @@ class StoryList extends Component {
     };
 
     pageChange(page, pageSize) {
-        //this.props.dispatch(retrieveProjects(page, pageSize));
+        this.props.dispatch(retrieveStories(page, pageSize,this.props.requirement.reqId));
     }
 
     handleDisplayData(data, key) {
@@ -53,6 +54,9 @@ class StoryList extends Component {
                 })
             }
             return members.length;
+        }
+        if ((key === "startDate" || key === "endDate") && !isEmpty(data[key])) {
+            return dateFormat(new Date(data[key]), "yyyy-MM-dd");
         }
         if (isEmpty(data[key])) {
             return 'N/A';
@@ -91,7 +95,7 @@ class StoryList extends Component {
                     </Table.Row>
                 </Table.Header>
                 {
-                    stories.map((result, i) => {
+                    stories.stories.map((result, i) => {
                         return <Table.Body key={i}>
                             <Table.Row>
                                 {
@@ -116,7 +120,7 @@ class StoryList extends Component {
                 <Table.Footer>
                     <Table.Row>
                         <Table.HeaderCell colSpan={header.length}>
-                            <Pagination defaultCurrent={1} total={10}
+                            <Pagination defaultCurrent={1} total={stories.totalElements}
                                         showQuickJumper
                                         onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                         </Table.HeaderCell>

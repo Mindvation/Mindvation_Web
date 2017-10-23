@@ -21,16 +21,6 @@ class CreateProject extends Component {
         this.props.dispatch(clearTempChecklist());
     };
 
-    handleProjectInfo = (projectInfo) => {
-        return Object.assign(projectInfo, {
-            "progress": "0%",
-            "storyPoints": 0,
-            "CRCost": 0,
-            "SPsCost": 0,
-            "CRRate": "0%"
-        })
-    };
-
     newProject = () => {
         let basicInfo = basicModule.getInfo();
         let optionalInfo = optionalModule.getInfo();

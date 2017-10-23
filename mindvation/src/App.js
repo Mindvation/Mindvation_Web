@@ -19,7 +19,7 @@ import {
     engineeringModelOptions,
     techniqueModelOptions,
     functionOptions
-} from "./res/data/dummyData";
+} from "./res/data/dataOptions";
 import {updateGlobalData} from './util/CommUtil';
 
 const history = createHistory();

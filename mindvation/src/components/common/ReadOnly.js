@@ -62,7 +62,7 @@ class ReadOnly extends Component {
                     </Header.Content>
                 </Header>
                 <div className="read-only-text">
-                    {this.displayValue(value, hasSubItem, options)}
+                     {this.displayValue(value, hasSubItem, options)}
                 </div>
             </div>
         );
