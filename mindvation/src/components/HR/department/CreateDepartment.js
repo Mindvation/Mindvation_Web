@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Modal, Button} from 'semantic-ui-react';
-import EmployeeInfo from './DepartmentInfo';
+import DepartmentInfo from './DepartmentInfo';
 import {FormattedMessage} from 'react-intl';
-import {createEmployee} from '../../../actions/employee_action';
+import {createDepartment} from '../../../actions/department_action';
 
 class CreateDepartment extends Component {
     state = {modalOpen: false};
@@ -11,9 +11,9 @@ class CreateDepartment extends Component {
 
     closeModal = () => this.setState({modalOpen: false});
 
-    newEmployee = () => {
-        let employeeInfo = this.employeeInfoNode.getInfo();
-        this.props.dispatch(createEmployee(employeeInfo));
+    newDepartment = () => {
+        let departmentInfo = this.departmentInfoNode.getInfo();
+        this.props.dispatch(createDepartment(departmentInfo));
         this.closeModal();
     };
 
@@ -24,8 +24,8 @@ class CreateDepartment extends Component {
                 <div>
                     <Button color='blue' onClick={() => this.openModal()}>
                         <FormattedMessage
-                            id='createEmployee'
-                            defaultMessage='Create Employee'
+                            id='createDepartment'
+                            defaultMessage='Create Department'
                         />
                     </Button>
                     <Modal
@@ -35,11 +35,11 @@ class CreateDepartment extends Component {
                         size='large'>
                         <Modal.Header>
                             <FormattedMessage
-                                id='createEmployee'
-                                defaultMessage='Create Employee'
+                                id='createDepartment'
+                                defaultMessage='Create Department'
                             />
                         </Modal.Header>
-                        <EmployeeInfo ref={(node) => this.employeeInfoNode = node}/>
+                        <DepartmentInfo ref={(node) => this.departmentInfoNode = node}/>
                         <Modal.Actions>
                             <Button secondary onClick={() => this.closeModal()}>
                                 <FormattedMessage
@@ -47,7 +47,7 @@ class CreateDepartment extends Component {
                                     defaultMessage='Cancel'
                                 />
                             </Button>
-                            <Button primary onClick={() => this.newEmployee()}>
+                            <Button primary onClick={() => this.newDepartment()}>
                                 <FormattedMessage
                                     id='confirm'
                                     defaultMessage='Confirm'

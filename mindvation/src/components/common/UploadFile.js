@@ -3,6 +3,7 @@ import {Upload} from 'antd';
 import {Header, Icon, Button} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
+import {url} from '../../util/ServiceUrl';
 
 class UploadFile extends Component {
     state = {
@@ -10,44 +11,22 @@ class UploadFile extends Component {
         uploading: false,
     };
 
-    handleUpload = () => {
-        const {fileList} = this.state;
-        const formData = new FormData();
-        fileList.forEach((file) => {
-            formData.append('files[]', file);
-        });
-
-        this.setState({
-            uploading: true,
-        });
-    };
-
     render() {
-        const {uploading} = this.state;
         const {label, icon, required} = this.props;
 
         const props = {
-            action: '//jsonplaceholder.typicode.com/posts/',
-            onRemove: (file) => {
-                this.setState(({fileList}) => {
-                    const index = fileList.indexOf(file);
-                    const newFileList = fileList.slice();
-                    newFileList.splice(index, 1);
-                    return {
-                        fileList: newFileList,
-                    };
-                });
+            name: 'mFile',
+            action: url.uploadFile,
+            headers: {
+                authorization: 'authorization-text',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Token': sessionStorage.getItem('access_token') || ''
             },
-            beforeUpload: (file) => {
-                this.setState(({fileList}) => ({
-                    fileList: [...fileList, file],
-                }));
-                return false;
-            },
-            fileList: this.state.fileList,
-            multiple: true
+            data: {
+                "subjectId": "P1",
+                "creatorId": "m2"
+            }
         };
-
         return (
             <div className="components-item">
                 <Header as='h4'>
@@ -58,6 +37,8 @@ class UploadFile extends Component {
                         />
                     </Header.Content>
                 </Header>
+                {/*<input id="file" type="file" name="name"/>
+                <button onClick={this.testUpload}>Upload</button>*/}
                 <Upload {...props}>
                     <Button basic>
                         <Icon name="upload"/>
@@ -67,18 +48,6 @@ class UploadFile extends Component {
                         />
                     </Button>
                 </Upload>
-                <Button
-                    primary
-                    onClick={this.handleUpload}
-                    disabled={this.state.fileList.length === 0}
-                    loading={uploading}
-                    style={{marginTop: '15px'}}
-                >
-                    <FormattedMessage
-                        id='startUpload'
-                        defaultMessage='Start Upload'
-                    />
-                </Button>
             </div>
         );
     }

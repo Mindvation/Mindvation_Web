@@ -168,6 +168,15 @@ const en_US = {
     "Logon Name": "Logon Name",
     "Initial Password": "Initial Password",
     "Position Level": "Position Level",
-    editEmployee: "Edit Employee"
+    editEmployee: "Edit Employee",
+    departmentTitle: "Department",
+    "Department ID": "Department ID",
+    "Department Name": "Department Name",
+    editDepartment: "Edit Department",
+    "Position Name": "Position Name",
+    createPosition: "Create Position",
+    createDepartment: "Create Department",
+    usingModel: "Using {modelType} Team Structure Mode",
+    modelDesc: "This Project had select Dev model with {modelType} template"
 };
 export default en_US;

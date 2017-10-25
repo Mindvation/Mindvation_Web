@@ -1,0 +1,118 @@
+{
+  "basicInfo": {
+    "modelName": "Agile",
+    "business": "software",
+    "processLabel": [
+      {
+        "key": "L0",
+        "value": "Logon",
+        "subData": [
+          {
+            "key": "S0",
+            "value": "Logon1"
+          },
+          {
+            "key": "S1",
+            "value": "Logon2"
+          }
+        ]
+      },
+      {
+        "key": "L1",
+        "value": "Register",
+        "subData": [
+          {
+            "key": "S3",
+            "value": "Register1"
+          }
+        ]
+      },
+      {
+        "key": "L2",
+        "value": "Test"
+      }
+    ],
+    "roles": [
+      {
+        "key": "R0",
+        "value": "BA"
+      },
+      {
+        "key": "R1",
+        "value": "FE"
+      },
+      {
+        "key": "R2",
+        "value": "BE"
+      },
+      {
+        "key": "R3",
+        "value": "Tester"
+      },
+      {
+        "key": "R4",
+        "value": "PM"
+      },
+      {
+        "key": "R5",
+        "value": "Scrum Master"
+      }
+    ]
+  },
+  "iteration": [
+    {
+      "key": "I0",
+      "value": "MVP1",
+      "labels": [
+        {
+          "key": "L0",
+          "value": "Logon",
+          "subData": [
+            {
+              "key": "S0",
+              "value": "Logon1"
+            },
+            {
+              "key": "S1",
+              "value": "Logon2"
+            }
+          ]
+        },
+        {
+          "key": "L1",
+          "value": "Register",
+          "subData": [
+            {
+              "key": "S3",
+              "value": "Register1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "I1",
+      "value": "MVP2",
+      "labels": [
+        {
+          "key": "L2",
+          "value": "Test"
+        }
+      ]
+    }
+  ],
+  "attachments": [
+    {
+      "key": "b9e55ea1508917113220",
+      "type": "protoAndProgress",
+      "title": "原型图",
+      "color": "#b0e063"
+    },
+    {
+      "key": "8e8bcf11508917118659",
+      "type": "progress",
+      "title": "效率图",
+      "color": "#ff6369"
+    }
+  ]
+}

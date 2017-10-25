@@ -175,10 +175,6 @@
     white-space: pre-line;
 }
 
-.pre-line {
-    white-space: pre-line;
-}
-
 .edit-info-icon {
     float: right;
     cursor: pointer;
@@ -557,6 +553,10 @@ i.icon.mode-remove-label {
     width: 3em;
     border-bottom: 4px solid #000000;
     left: calc(100% + 3px);
+}
+
+.iteration-display .iteration-line {
+    top: 10px;
 }
 
 .iteration-line:after {

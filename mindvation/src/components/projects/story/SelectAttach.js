@@ -123,17 +123,24 @@ class SelectAttach extends Component {
 
     render() {
         const {modalOpen, model} = this.state;
+        const {taskDeliveries = []} = this.props;
         return (
             <div>
                 <div>
                     {
-                        modelMapping.map((item, i) => {
+                        taskDeliveries.map((item, i) => {
                             return <Button key={i}
                                            basic
                                            className="upload-attach-button"
                                            onClick={() => this.SelectModel(item)}>{item.text}</Button>
                         })
                     }
+                    <Button basic
+                            className="upload-attach-button"
+                            onClick={() => this.SelectModel({
+                                key: "custom",
+                                text: "自定义"
+                            })}>自定义</Button>
                 </div>
 
                 {model.title ? <Segment className="story-upload-file add-task-attach">

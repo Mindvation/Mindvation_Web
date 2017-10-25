@@ -37,6 +37,7 @@ class ProjectsList extends Component {
         }
         if (key === "description") {
             return <Popup
+                className="pre-line"
                 trigger={<span>{data[key]}</span>}
                 content={data[key]}
                 basic

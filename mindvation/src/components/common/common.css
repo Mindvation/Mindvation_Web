@@ -353,3 +353,7 @@
     bottom: 0;
     z-index: 1001;
 }
+
+.pre-line {
+    white-space: pre-line;
+}

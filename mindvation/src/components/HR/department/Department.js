@@ -1,26 +1,26 @@
 import React, {Component} from 'react';
-import EmployeeList from './DepartmentList';
+import DepartmentList from './DepartmentList';
 import {Header, Icon} from 'semantic-ui-react';
-import CreateEmployee from './CreateDepartment';
+import CreateDepartment from './CreateDepartment';
 
 import {FormattedMessage} from 'react-intl';
 
 class Department extends Component {
     render() {
-        const {dispatch, employee} = this.props;
+        const {dispatch, department} = this.props;
         return (
             <div className="project-content">
                 <Header as='h3'>
-                    <Icon name='users'/>
+                    <Icon name='home'/>
                     <Header.Content className={"project-title underLine"}>
                         <FormattedMessage
-                            id='employeeTitle'
-                            defaultMessage='Employee'
+                            id='departmentTitle'
+                            defaultMessage='Department'
                         />
                     </Header.Content>
                 </Header>
-                <EmployeeList dispatch={dispatch} employee={employee}/>
-                <CreateEmployee dispatch={dispatch}/>
+                <DepartmentList dispatch={dispatch} department={department}/>
+                <CreateDepartment dispatch={dispatch}/>
             </div>
         );
     }

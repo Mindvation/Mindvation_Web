@@ -58,6 +58,7 @@ class AddTask extends Component {
 
     render() {
         const {modalOpen, assignOption} = this.state;
+        const {story} = this.props;
         return (
             <div>
                 <Button color='blue' onClick={() => this.openModal()}>
@@ -103,7 +104,7 @@ class AddTask extends Component {
                                     />
                                 </Header.Content>
                             </Header>
-                            <SelectAttach ref={node => modelNode = node}/>
+                            <SelectAttach taskDeliveries={story.taskDeliveries} ref={node => modelNode = node}/>
                         </div>
                     </Modal.Content>
                     <Modal.Actions>

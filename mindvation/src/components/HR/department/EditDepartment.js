@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Button, Modal} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
-import EmployeeInfo from './DepartmentInfo';
-import {updateEmployee} from '../../../actions/employee_action';
+import DepartmentInfo from './DepartmentInfo';
+import {updateDepartment} from '../../../actions/department_action';
 
 class EditDepartment extends Component {
-    state = {modalOpen: false, employeeInfo: {}};
+    state = {modalOpen: false, departmentInfo: {}};
 
     componentWillUpdate() {
         this.fixBody();
@@ -20,19 +20,19 @@ class EditDepartment extends Component {
         if (anotherModal > 0) document.body.classList.add('scrolling', 'dimmable', 'dimmed');
     };
 
-    openModal = (employeeInfo) => this.setState({modalOpen: true, employeeInfo: employeeInfo});
+    openModal = (departmentInfo) => this.setState({modalOpen: true, departmentInfo: departmentInfo});
 
     closeModal = () => this.setState({modalOpen: false});
 
-    updateChecklist = () => {
-        let employeeInfo = this.employeeInfoNode.getInfo();
-        employeeInfo.id = this.state.employeeInfo.id;
-        this.props.dispatch(updateEmployee(employeeInfo));
+    updateDepartmentList = () => {
+        let departmentInfo = this.departmentInfoNode.getInfo();
+        departmentInfo.id = this.state.departmentInfo.id;
+        this.props.dispatch(updateDepartment(departmentInfo));
         this.closeModal();
     };
 
     render() {
-        const {modalOpen, employeeInfo} = this.state;
+        const {modalOpen, departmentInfo} = this.state;
         return (
             <div>
                 <Modal
@@ -41,12 +41,12 @@ class EditDepartment extends Component {
                     open={modalOpen}>
                     <Modal.Header>
                         <FormattedMessage
-                            id='editEmployee'
-                            defaultMessage='Edit Employee'
+                            id='editDepartment'
+                            defaultMessage='Edit Department'
                         />
                     </Modal.Header>
                     <Modal.Content>
-                        <EmployeeInfo info={employeeInfo} ref={node => this.employeeInfoNode = node}/>
+                        <DepartmentInfo info={departmentInfo} ref={node => this.departmentInfoNode = node}/>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeModal()}>
@@ -55,7 +55,7 @@ class EditDepartment extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.updateChecklist()}>
+                        <Button primary onClick={() => this.updateDepartmentList()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

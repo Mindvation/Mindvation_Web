@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
 import Menu from './Menu';
-import CreateModel from '../model/CreateModel';
+import CreateModel from '../model/createModel/CreateModel';
 import Dashboard from '../projects/MVPPlan/Dashboard';
 import MyDashboard from '../projects/MVPPlan/MyDashboard';
 import Employee from '../../containers/employee_container';
-import Department from '../HR/department/Department';
+import Department from '../../containers/department_container';
 import ProjectDetail from '../../containers/projectDetail_container';
 import RequirementDetail from '../../containers/requirementDetail_container';
 import StoryDetail from '../../containers/storyDetail_container';
 import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
+import ModelList from '../model/Models/ModelList';
+import MyModelList from '../model/myModels/MyModelList';
+
 import {Layout, BackTop} from 'antd';
 import {
     Route,
@@ -57,6 +60,14 @@ const routes = [
     {
         path: '/home/Department',
         main: Department
+    },
+    {
+        path: '/home/ModelList',
+        main: ModelList
+    },
+    {
+        path: '/home/MyModelList',
+        main: MyModelList
     }
 ];
 

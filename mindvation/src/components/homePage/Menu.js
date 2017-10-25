@@ -16,7 +16,8 @@ const keyPathMapping = [
     },
     {
         "key": '2',
-        "path": '/home/CreateModel'
+        "path": '/home/CreateModel',
+        "hostKey": "sub2"
     },
     {
         "key": '3',
@@ -27,7 +28,18 @@ const keyPathMapping = [
         "key": '4',
         "path": '/home/Department',
         "hostKey": "sub1"
-    }];
+    },
+    {
+        "key": '5',
+        "path": '/home/ModelList',
+        "hostKey": "sub2"
+    },
+    {
+        "key": '6',
+        "path": '/home/MyModelList',
+        "hostKey": "sub2"
+    }
+];
 
 let defaultKey = '1', hostKey;
 
@@ -61,11 +73,19 @@ class HomeMenu extends Component {
                         />
                     </span>
                 </Menu.Item>
-                <Menu.Item key="2">
+                {/*<Menu.Item key="2">
                     <Link to="/home/CreateModel"/>
                     <Icon type="desktop"/>
                     <span>创建模板</span>
-                </Menu.Item>
+                </Menu.Item>*/}
+                <SubMenu
+                    key="sub2"
+                    title={<span><Icon type="desktop"/><span>模板</span></span>}
+                >
+                    <Menu.Item key="2"><Link to="/home/CreateModel">CreateModel</Link></Menu.Item>
+                    <Menu.Item key="5"><Link to="/home/ModelList">Models And Templates</Link></Menu.Item>
+                    <Menu.Item key="6"><Link to="/home/MyModelList">My Models</Link></Menu.Item>
+                </SubMenu>
                 <SubMenu
                     key="sub1"
                     title={<span><Icon type="user"/><span>HR</span></span>}

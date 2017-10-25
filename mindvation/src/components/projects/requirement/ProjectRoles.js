@@ -38,7 +38,7 @@ class SelectMembers extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {roles} = this.props;
+        const {roles, model} = this.props;
         return (
             <div style={{marginBottom: '10px'}} className={"components-length components-item"}>
                 <div className="single-line">
@@ -56,16 +56,18 @@ class SelectMembers extends Component {
                             floated='right'
                             onClick={() => this.openModal()}>
                         <FormattedMessage
-                            id="usingAgile"
-                            defaultValue="Using Agile Team Structure Mode"
+                            id="usingModel"
+                            defaultValue="Using {modelType} Team Structure Mode"
+                            values={{modelType: model}}
                         />
                     </Header>
 
                     <Popup
                         trigger={<Icon size='large' name='attention'/>}
                         content={<FormattedMessage
-                            id="agileModelDesc"
-                            defaultValue='This Project had select to be Software Dev model with Agile template'
+                            id="modelDesc"
+                            defaultValue='This Project had select to be Software Dev model with {modelType} template'
+                            values={{modelType: model}}
                         />}
                         position='right center'
                         inverted

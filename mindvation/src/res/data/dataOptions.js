@@ -201,3 +201,22 @@ export const genderOptions = [
         value: "O"
     }
 ];
+
+export const modelOptions = [
+    {
+        text: '软件',
+        value: 'software'
+    },
+    {
+        text: '工程',
+        value: 'engineering'
+    },
+    {
+        text: '业务需求',
+        value: 'business requirements'
+    },
+    {
+        text: '技术',
+        value: 'technology'
+    }
+];

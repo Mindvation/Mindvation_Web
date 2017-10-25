@@ -1,27 +1,28 @@
 import React, {Component} from 'react';
 import {Table, Button} from 'semantic-ui-react';
 import {Pagination} from 'antd';
-import {getDesc, isEmpty} from '../../../util/CommUtil';
+import {isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
-import {deleteEmployee, getEmployeeList} from '../../../actions/employee_action';
-import {genderOptions} from '../../../res/data/dataOptions';
-import EditEmployee from './EditDepartment';
+import {deleteDepartment, getDepartmentList} from '../../../actions/department_action';
+import EditDepartment from './EditDepartment';
 
-const header = ["Employee ID", "Employee Name", "Gender", "Position", "Department", "Mail", "Phone", "Skill Tags", "Status", "Action"];
-const checklistKey = ["id", "name", "gender", "position", "department", "mail", "phone", "skillTags", "status"];
+const header = ["Department ID", "Department Name", "Position", "Action"];
+const checklistKey = ["id", "name", "position"];
 
 class DepartmentList extends Component {
     componentDidMount() {
-        this.props.dispatch(getEmployeeList());
+        this.props.dispatch(getDepartmentList());
     };
 
     pageChange(page, pageSize) {
-        this.props.dispatch(getEmployeeList(page, pageSize));
+        this.props.dispatch(getDepartmentList(page, pageSize));
     }
 
     getChecklistDesc = (result, key) => {
-        if (key === "gender" && !isEmpty(result[key])) {
-            return getDesc(genderOptions, result[key]);
+        if (key === "position" && result[key] && result[key].length > 0) {
+            return result[key].map((item) => {
+                return item.name + "/ ";
+            });
         }
 
         if (isEmpty(result[key])) {
@@ -31,15 +32,15 @@ class DepartmentList extends Component {
     };
 
     remove = (result) => {
-        this.props.dispatch(deleteEmployee(result))
+        this.props.dispatch(deleteDepartment(result))
     };
 
     edit = (result) => {
-        this.editEmployeeNode.openModal(result)
+        this.editDepartmentNode.openModal(result)
     };
 
     render() {
-        const {employee, dispatch} = this.props;
+        const {department, dispatch} = this.props;
         return (
             <div>
                 <Table striped>
@@ -59,12 +60,11 @@ class DepartmentList extends Component {
 
                     <Table.Body>
                         {
-                            employee.employees.map((result, i) => {
+                            department.departments.map((result, i) => {
                                 return <Table.Row key={i}>
                                     {
                                         checklistKey.map((key, j) => {
                                             return <Table.Cell
-                                                className={"checklist-table-cell-length " + (key === "description" ? "text-ellipsis" : "")}
                                                 key={i + "_" + j}>
                                                 {this.getChecklistDesc(result, key)}
                                             </Table.Cell>
@@ -91,14 +91,14 @@ class DepartmentList extends Component {
                     <Table.Footer>
                         <Table.Row>
                             <Table.HeaderCell colSpan={header.length}>
-                                <Pagination defaultCurrent={1} total={employee.totalElements}
+                                <Pagination defaultCurrent={1} total={department.totalElements}
                                             showQuickJumper
                                             onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                             </Table.HeaderCell>
                         </Table.Row>
                     </Table.Footer>
                 </Table>
-                <EditEmployee dispatch={dispatch} ref={node => this.editEmployeeNode = node}/>
+                <EditDepartment dispatch={dispatch} ref={node => this.editDepartmentNode = node}/>
             </div>
         );
     }

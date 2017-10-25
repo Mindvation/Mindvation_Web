@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Input, Header, Button, Icon, Modal, Segment, Label, List} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import _ from 'lodash';
-import {arrOrder} from '../../util/CommUtil';
+import {arrOrder} from '../../../util/CommUtil';
 
 let iterationKey = 0;
 

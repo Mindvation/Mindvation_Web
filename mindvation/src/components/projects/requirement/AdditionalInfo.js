@@ -43,6 +43,25 @@ class AdditionalInfo extends Component {
         }.bind(this));
     };
 
+    getModelInfo = (modelId) => {
+        const {project, isEdit} = this.props;
+        if (!isEdit) {
+            if (project.softwareModel && project.softwareModel.value === modelId) {
+                return project.softwareModel.text;
+            }
+            if (project.engineeringModel && project.engineeringModel.value === modelId) {
+                return project.engineeringModel.text;
+            }
+            if (project.businessModel && project.businessModel.value === modelId) {
+                return project.businessModel.text;
+            }
+            if (project.techniqueModel && project.techniqueModel.value === modelId) {
+                return project.techniqueModel.text;
+            }
+            return modelId;
+        }
+    };
+
     render() {
         const {requirement = {}, project, isEdit} = this.props;
         const {model, functionOptions} = this.state;
@@ -111,6 +130,7 @@ class AdditionalInfo extends Component {
                     ref={node => {
                         this.rolesNode = node
                     }}
+                    model={this.getModelInfo(model)}
                 /> : null}
 
                 <DatePicker icon="clock" label="Start / End Date"

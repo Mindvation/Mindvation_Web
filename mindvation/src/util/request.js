@@ -5,7 +5,6 @@ const history = createHistory();
 
 // Get the current location.
 const location = history.location;
-const gateWay = "http://192.168.0.104:";
 
 function request(method, url, body) {
     method = method.toUpperCase();
@@ -20,7 +19,7 @@ function request(method, url, body) {
         body = body && JSON.stringify(body);
     }
 
-    return fetch(gateWay + url, {
+    return fetch(url, {
         method,
         headers: {
             'Content-Type': 'application/json',

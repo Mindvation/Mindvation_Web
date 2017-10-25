@@ -64,7 +64,6 @@ class EmployeeList extends Component {
                                     {
                                         checklistKey.map((key, j) => {
                                             return <Table.Cell
-                                                className={"checklist-table-cell-length " + (key === "description" ? "text-ellipsis" : "")}
                                                 key={i + "_" + j}>
                                                 {this.getChecklistDesc(result, key)}
                                             </Table.Cell>

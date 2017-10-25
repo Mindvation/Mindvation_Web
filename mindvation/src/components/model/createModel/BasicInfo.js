@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import Input from '../common/Input';
-import Select from '../common/Select';
+import Input from '../../common/Input';
+import Select from '../../common/Select';
 import ProcessLabelInfo from './ProcessLabelInfo';
 import AddRole from './AddRole';
+import {modelOptions} from '../../../res/data/dataOptions';
 
 /*const businessOptions = [{
     text: "软件",
@@ -30,25 +31,6 @@ import AddRole from './AddRole';
     value: "service"
 }];*/
 
-const businessOptions = [
-    {
-        text: '软件',
-        value: 'software'
-    },
-    {
-        text: '工程',
-        value: 'engineering'
-    },
-    {
-        text: '业务需求',
-        value: 'business requirements'
-    },
-    {
-        text: '技术',
-        value: 'technology'
-    }
-];
-
 class BasicInfo extends Component {
 
     getInfo = () => {
@@ -65,7 +47,7 @@ class BasicInfo extends Component {
             <div className="model-basic">
                 <Input label="Model Name" horizontal={true} fullWidth={true}
                        ref={node => this.modeNameNode = node}/>
-                <Select label="Industry" options={businessOptions} horizontal={true}
+                <Select label="Industry" options={modelOptions} horizontal={true}
                         ref={node => this.businessNode = node}
                 />
                 <ProcessLabelInfo ref={node => this.processLabelNode = node}/>

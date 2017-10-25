@@ -168,6 +168,15 @@ const zh_CN = {
     "Logon Name": "登录名",
     "Initial Password": "初始密码",
     "Position Level": "职级",
-    editEmployee: "修改员工信息"
+    editEmployee: "修改员工信息",
+    departmentTitle: "部门",
+    "Department ID": "部门ID",
+    "Department Name": "部门名称",
+    editDepartment: "修改部门信息",
+    "Position Name": "职位名称",
+    createPosition: "创建职位",
+    createDepartment: "创建部门",
+    usingModel: "使用{modelType}模型",
+    modelDesc: "该项目选择了{modelType}模板作为开发模式"
 };
 export default zh_CN;

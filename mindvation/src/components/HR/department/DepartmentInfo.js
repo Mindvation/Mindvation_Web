@@ -1,81 +1,137 @@
 import React, {Component} from 'react';
-import {Header, Modal} from 'semantic-ui-react';
+import {Icon, Modal, Divider, Button} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Input from '../../common/Input';
-import Select from '../../common/Select';
-import {genderOptions} from '../../../res/data/dataOptions';
-import AddTags from "../../../containers/tag_container";
+import _ from 'lodash';
+import {getTimeAndRandom} from '../../../util/CommUtil';
 
 class DepartmentInfo extends Component {
+    state = {
+        position: this.props.info && this.props.info.position ?
+            _.cloneDeep(this.props.info.position) :
+            [{
+                key: getTimeAndRandom(),
+                name: ''
+            }]
+    };
 
     getInfo = () => {
         return {
             name: this.nameNode.getWrappedInstance().getValue(),
-            logonName: this.logonNameNode.getWrappedInstance().getValue(),
-            initialPassword: this.initialPasswordNode.getWrappedInstance().getValue(),
-            gender: this.genderNode.getWrappedInstance().getValue(),
-            position: this.positionNode.getWrappedInstance().getValue(),
-            department: this.departmentNode.getWrappedInstance().getValue(),
-            positionLevel: this.positionLevelNode.getWrappedInstance().getValue(),
-            mail: this.mailNode.getWrappedInstance().getValue(),
-            phone: this.phoneNode.getWrappedInstance().getValue(),
-            skillTags: this.skillTagsNode.getWrappedInstance().getValue().length,
-            status: 'active'
+            position: this.state.position
         }
+    };
+
+    createLeaderPosition = () => {
+        let tempLeaderPosition = this.state.leaderPosition;
+        const level = tempLeaderPosition[tempLeaderPosition.length - 1].positionLevel;
+        tempLeaderPosition.push({key: getTimeAndRandom(), name: '', positionLevel: level + 1});
+        this.setState({
+            leaderPosition: tempLeaderPosition
+        })
+    };
+
+    createPosition = () => {
+        let tempPosition = this.state.position;
+        tempPosition.push({key: getTimeAndRandom(), name: ''});
+        this.setState({
+            position: tempPosition
+        })
+    };
+
+    removeLeaderPosition = (position) => {
+        let tempLeaderPosition = this.state.leaderPosition;
+        tempLeaderPosition.splice(tempLeaderPosition.indexOf(position), 1);
+        tempLeaderPosition.map((tempPosition) => {
+            if (tempPosition.positionLevel > position.positionLevel) {
+                tempPosition.positionLevel = tempPosition.positionLevel - 1;
+            }
+        });
+        this.setState({
+            leaderPosition: tempLeaderPosition
+        })
+    };
+
+    removePosition = (position) => {
+        let tempPosition = this.state.position;
+        tempPosition.splice(tempPosition.indexOf(position), 1);
+        this.setState({
+            position: tempPosition
+        })
     };
 
     render() {
         const {info = {}} = this.props;
+        const {position} = this.state;
         return (
             <Modal.Content>
-                <Input label="Employee Name" horizontal={true} icon="user"
+                <Input label="Department Name" horizontal={true} icon="home"
                        ref={node => this.nameNode = node}
                        defaultValue={info.name}
                 />
-                <Input label="Logon Name" horizontal={true} icon="user"
-                       ref={node => this.logonNameNode = node}
-                       defaultValue={info.logonName}
-                />
-                <Input label="Initial Password" horizontal={true} icon="user"
-                       ref={node => this.initialPasswordNode = node}
-                       defaultValue={info.initialPassword}
-                />
-                <Select options={genderOptions} label="Gender" horizontal={true} icon="user"
-                        ref={node => this.genderNode = node}
-                        defaultValue={info.gender}
-                />
-                <Select options={genderOptions} label="Department" horizontal={true} icon="user"
-                        ref={node => this.departmentNode = node}
-                        defaultValue={info.department}
-                />
-                <Select options={genderOptions} label="Position" horizontal={true} icon="user"
-                        ref={node => this.positionNode = node}
-                        defaultValue={info.position}
-                />
-                <Select options={genderOptions} label="Position Level" horizontal={true} icon="user"
-                        ref={node => this.positionLevelNode = node}
-                        defaultValue={info.positionLevel}
-                />
-                <Input label="Mail" horizontal={true} icon="mail"
-                       ref={node => this.mailNode = node}
-                       defaultValue={info.mail}
-                />
-                <Input label="Phone" horizontal={true} icon="phone"
-                       ref={node => this.phoneNode = node}
-                       defaultValue={info.phone}
-                />
-
-                <div className={"components-item item-horizontal components-length"}>
-                    <Header as='h4'>
-                        <Header.Content>
-                            <FormattedMessage
-                                id='Skill Tags'
-                                defaultMessage='Skill Tags'
+                {/*{
+                    leaderPosition.map((position, i) => {
+                        return <div style={{display: 'flex'}}>
+                            <Input key={i}
+                                   label={"职位" + position.positionLevel}
+                                   horizontal={true}
+                                   icon="user"
+                                   onChange={(value) => {
+                                       position.name = value;
+                                       this.setState({
+                                           leaderPosition: leaderPosition
+                                       })
+                                   }}
+                                   value={position.name}
                             />
-                        </Header.Content>
-                    </Header>
-                    <AddTags ref={node => this.skillTagsNode = node}/>
-                </div>
+                            {leaderPosition.length > 1 ? <Icon name="trash"
+                                                               className={"remove-position-button pointer-cursor"}
+                                                               onClick={() => this.removeLeaderPosition(position)}
+                            /> : null}
+                        </div>
+                    })
+                }
+                <Divider/>
+                <Button className="create-position-button" compact basic
+                        onClick={() => this.createLeaderPosition()}>
+                    <Icon name="plus circle"/>
+                    <FormattedMessage
+                        id='新建负责人职位'
+                        defaultMessage='新建负责人职位'
+                    />
+                </Button>*/}
+                <Divider/>
+                {
+                    position.map((item, i) => {
+                        return <div key={i} style={{display: 'flex'}}>
+                            <Input
+                                label="Position Name"
+                                horizontal={true}
+                                icon="home"
+                                onChange={(value) => {
+                                    item.name = value;
+                                    this.setState({
+                                        position: position
+                                    })
+                                }}
+                                value={item.name}
+                            />
+                            {position.length > 1 ? <Icon name="trash"
+                                                         className={"remove-position-button pointer-cursor"}
+                                                         onClick={() => this.removePosition(position)}
+                            /> : null}
+                        </div>
+                    })
+                }
+                <Divider/>
+                <Button className="create-position-button" compact basic
+                        onClick={() => this.createPosition()}>
+                    <Icon name="plus circle"/>
+                    <FormattedMessage
+                        id='createPosition'
+                        defaultMessage='Create Position'
+                    />
+                </Button>
             </Modal.Content>
         );
     }

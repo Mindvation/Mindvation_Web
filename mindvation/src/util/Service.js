@@ -41,9 +41,35 @@ export function createModel(model, callback) {
     const params = convertModelToServer(model);
     post(url.createModel, params)
         .then((res) => {
-            callback && callback();
+            callback && callback(res.responseBody);
         })
         .catch((error) => {
             console.info(error);
+        });
+}
+
+export function getModels(type, page, pageSize, callback) {
+    fetch('/stub/getModelList.json')
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            callback(data)
+        })
+        .catch((e) => {
+            console.log(e.message);
+        });
+}
+
+export function getModelDetail(id, callback) {
+    fetch('/stub/getModelDetail.json')
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            callback(data)
+        })
+        .catch((e) => {
+            console.log(e.message);
         });
 }

@@ -9,3 +9,29 @@
 .main-content-collapsed {
     margin-left: 64px;
 }
+
+.create-position-button {
+    font-size: 2em !important;
+}
+
+i.icon.remove-position-button {
+    margin-left: 1em;
+    margin-top: 20px;
+    font-size: 2em;
+}
+
+.model-display-text {
+    padding: 8px 0;
+}
+
+.iteration-value-text {
+    height: 2em;
+    vertical-align: middle;
+    line-height: 2em;
+    border: 1px solid #1b1c1d;
+    text-align: center;
+}
+
+.iteration-item.iteration-display {
+    margin-top: 0;
+}

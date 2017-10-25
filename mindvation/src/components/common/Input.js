@@ -58,7 +58,11 @@ class MVInput extends Component {
 
         this.setState({
             returnValue: inputValue
-        })
+        });
+
+        if (this.props.onChange) {
+            this.props.onChange(inputValue)
+        }
     };
 
     getValue = () => {
@@ -71,7 +75,7 @@ class MVInput extends Component {
         };
         const {
             label, icon, required, checked, placeHolder, defaultValue, type = "text",
-            step = "0.1", style, fullWidth, action, horizontal
+            step = "0.1", style, fullWidth, action, horizontal, value
         } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
@@ -95,7 +99,7 @@ class MVInput extends Component {
                        error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
                        className={fullWidth ? "" : "components-length"}
                        onChange={(event, data) => this.checkValue(event, data)}
-                       defaultValue={defaultValue}
+                       defaultValue={defaultValue} value={value}
                        type={type} step={step} action={action}
                 />
             </div>
@@ -115,7 +119,8 @@ MVInput.propTypes = {
     style: PropTypes.object,
     fullWidth: PropTypes.bool,
     action: PropTypes.object,
-    horizontal: PropTypes.bool
+    horizontal: PropTypes.bool,
+    onChange: PropTypes.func
 };
 
 export default injectIntl(MVInput, {withRef: true});

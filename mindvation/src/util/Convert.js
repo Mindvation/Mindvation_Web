@@ -838,7 +838,8 @@ export function convertStoryToLocal(res) {
             status: res.storyInfo.status,
             percent: res.storyInfo.progress,
             ragStatus: res.storyInfo.ragStatus
-        }
+        },
+        taskDeliveries: []
     };
 
     if (!isEmpty(res.storyInfo.startDate)) {
@@ -907,6 +908,20 @@ export function convertStoryToLocal(res) {
         res.sTasks.map((task) => {
             story.tasks.push(convertTaskToLocal(task))
         })
+    }
+
+    if (res.taskDeliveries && res.taskDeliveries.length > 0) {
+        res.taskDeliveries.map((delivery) => {
+            story.taskDeliveries.push({
+                text: delivery.name,
+                data: {
+                    key: getTimeAndRandom(),
+                    type: delivery.type,
+                    title: delivery.name,
+                    images: []
+                }
+            },)
+        });
     }
 
     return story;
