@@ -22,11 +22,6 @@ export const isEmpty = (text) => {
     return text === null || text === undefined || text === "";
 };
 
-export const updateGlobalData = (key, options) => {
-    global[key] = global[key] || {};
-    Object.assign(global[key], options);
-};
-
 export const getDesc = (options, key) => {
     let desc = "";
     options.some((option) => {

@@ -1,5 +1,7 @@
 import {post} from '../util/request';
 import StaticLoad from '../components/common/Loading';
+import {url} from '../util/ServiceUrl';
+import {setUser, removeUser} from '../util/UserStore';
 /*
  * action 类型
  */
@@ -16,32 +18,23 @@ function logonSuccess(userInfo) {
 }
 
 export function logOut() {
+    removeUser();
     return {type: LOG_OUT}
 }
 
 export function logon(user, callback) {
     return dispatch => {
-        StaticLoad.show("d");
-        let timer = setTimeout(() => {
-            const res = {
-                'responseCode': '000'
-            };
-            dispatch(logonSuccess(res));
-            StaticLoad.remove("d");
-            callback();
-            timer && clearTimeout(timer);
-        }, 2000);
-        /*post('http://192.168.0.103:8081/sports-meetup-papi/users/login', user)
+        StaticLoad.show("logon");
+        post(url.login, user)
             .then((res) => {
-                if (res) {
-                    dispatch(logonSuccess(res))
-                } else {
-                    console.info('登录失败，账号或密码错误');
-                }
-            });*/
-        /*const res = {
-            'responseCode': '000'
-        };
-        dispatch(logonSuccess(res))*/
+                dispatch(logonSuccess(res));
+                setUser(res.responseBody);
+                StaticLoad.remove("logon");
+                callback();
+            })
+            .catch((error) => {
+                dispatch(logonSuccess(error));
+                StaticLoad.remove("logon");
+            });
     }
 }

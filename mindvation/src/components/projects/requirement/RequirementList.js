@@ -8,6 +8,7 @@ import {retrieveRequirements} from '../../../actions/requirements_action';
 import {
     Link
 } from 'react-router-dom';
+import {priorityOptions} from '../../../res/data/dataOptions';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
 const rmKey = ["reqmntId", "summary", "priority", "startDate", "endDate", "leader", "members"];
@@ -24,7 +25,7 @@ class RequirementList extends Component {
             </Link>
         }
         if (key === "priority" && !isEmpty(data[key])) {
-            return getDesc(global.dummyData.priorityOptions, data[key]);
+            return getDesc(priorityOptions, data[key]);
         }
         if (key === "taskQty") {
             if (data.tasks) {

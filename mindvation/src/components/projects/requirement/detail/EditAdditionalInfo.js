@@ -5,6 +5,7 @@ import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../AdditionalInfo';
 import {updateRequirementAdditional} from '../../../../actions/requirement_action';
 import TagList from '../../create/TagList';
+import {priorityOptions} from '../../../../res/data/dataOptions';
 
 let AdditionalModule;
 
@@ -39,7 +40,7 @@ class EditAdditionalInfo extends Component {
             icon: "flag",
             title: "Priority",
             value: requirement.priority,
-            options: global.dummyData.priorityOptions
+            options: priorityOptions
         }, {
             icon: "sitemap",
             title: "Process/Function Label",

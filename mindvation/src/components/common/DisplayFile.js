@@ -6,7 +6,7 @@ class DisplayFile extends Component {
     render() {
         const {fileList} = this.props;
         const props = {
-            defaultFileList: [...fileList]
+            fileList: [...fileList]
         };
         return (
             <div style={{marginTop: '-10px'}}>

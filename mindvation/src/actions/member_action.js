@@ -1,6 +1,9 @@
 /*
  * action 类型
  */
+import {url} from '../util/ServiceUrl';
+import {post} from '../util/request';
+import {convertMemberToLocal} from '../util/Convert';
 
 export const SEARCH_MEMBERS_BY_TAGS = 'SEARCH_MEMBERS_BY_TAGS';
 export const CLEAR_TEMP_MEMBERS = 'CLEAR_TEMP_MEMBERS';
@@ -14,15 +17,14 @@ function retrievedMembers(members) {
 
 export function searchMembersByTags(tags) {
     return dispatch => {
-        fetch('/stub/getMembersByTags.json')
+        post(url.retrieveStaff, {})
             .then((res) => {
-                return res.json();
+                const members = convertMemberToLocal(res.responseBody);
+                dispatch(retrievedMembers(members));
             })
-            .then((data) => {
-                dispatch(retrievedMembers(data));
-            })
-            .catch((e) => {
-                console.log(e.message);
+            .catch((error) => {
+                console.info(error);
+                dispatch(retrievedMembers([]));
             });
     }
 }

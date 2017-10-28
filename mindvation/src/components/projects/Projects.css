@@ -371,6 +371,31 @@
     border-bottom: 1px solid rgba(34, 36, 38, .15);
 }
 
+.mvp-sprint-action {
+    position: absolute;
+    top: 0;
+    right: 1em;
+}
+
+.mvp-sprint-action .ui.dropdown .menu {
+    right: -1em;
+}
+
+.mvp-sprint-action .ui.dropdown {
+    display: flex;
+}
+
+.mvp-sprint-action .ui.dropdown > .dropdown.icon {
+    font-size: 2em;
+    margin: 0.35em 0.25em;
+}
+
+.mvp-sprint-status {
+    position: absolute;
+    top: 0;
+    left: 1em;
+}
+
 .mvp-sprint-title-text {
     font-size: 1.5em;
     font-weight: 700;
@@ -592,11 +617,12 @@ i.icon.mode-remove-label {
     min-width: 4em;
     font-size: 2em;
     text-align: center;
+    -webkit-box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
+    box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
 }
 
 .model-attach .list-content:hover {
-    -webkit-box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
-    box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
+
 }
 
 .model-attach .list-content:hover .list-actions-content {

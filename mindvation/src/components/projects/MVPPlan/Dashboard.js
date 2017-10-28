@@ -33,9 +33,9 @@ class Dashboard extends Component {
                         <MoveProject storyDetail={(storyId) => {
                             this.checkDetail(storyId)
                         }}/>
-                        <DemoCalendar storyDetail={(storyId) => {
+                        {/*<DemoCalendar storyDetail={(storyId) => {
                             this.checkDetail(storyId)
-                        }}/>
+                        }}/>*/}
                     </div>
                 </Sidebar.Pusher>
             </Sidebar.Pushable>

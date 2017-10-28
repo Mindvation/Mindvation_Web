@@ -62,13 +62,20 @@ function _respHandle(res) {
     if (res.responseCode !== "000") {
         return {
             'responseCode': res.responseCode,
-            'message': errorMsg[res.responseCode] ? errorMsg[res.responseCode] : errorMsg.default
-        };
+            'message': errorMsg[res.responseCode] || res.responseMsg || errorMsg.default
+        }
     }
     return null;
 }
 
 function _errorHandle(error) {
+    if (error.responseCode && error.message) {
+        return {
+            'responseCode': error.responseCode,
+            'message': error.message
+        };
+    }
+
     if (error.message) {
         return {
             'responseCode': 'A001',

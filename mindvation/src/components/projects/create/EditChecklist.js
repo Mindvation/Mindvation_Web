@@ -5,6 +5,7 @@ import Select from '../../common/Select';
 import {editChecklist} from '../../../actions/checklist_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
+import {getStaffId} from '../../../util/UserStore';
 
 let checklistDesc, assignTo;
 
@@ -34,7 +35,7 @@ class EditChecklist extends Component {
             "assignee": assignTo.getWrappedInstance().getFullValue(),
             "assigner": {
                 text: "Frank",
-                value: "m2"
+                value: getStaffId()
             },
             "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
         };

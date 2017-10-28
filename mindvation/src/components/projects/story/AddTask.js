@@ -7,6 +7,7 @@ import SelectAttach from './SelectAttach';
 import {addTask} from '../../../actions/story_action';
 import {FormattedMessage} from 'react-intl';
 import {retrieveStaff} from '../../../util/Service';
+import {getStaffId} from '../../../util/UserStore';
 
 let taskDesc, assignTo, startEndDate, modelNode;
 
@@ -45,7 +46,7 @@ class AddTask extends Component {
             assignee: assignTo.getWrappedInstance().getValue(),
             startDate: startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             endDate: startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            assigner: "m2",
+            assigner: getStaffId(),
             model: modelNode.getInfo(),
         };
         this.props.dispatch(addTask(task, this.closeModal))

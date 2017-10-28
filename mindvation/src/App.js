@@ -9,35 +9,14 @@ import {
     Switch
 } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import {
-    assignOptions,
-    contingencyOptions,
-    priorityOptions,
-    statusOptions,
-    softModelOptions,
-    businessModelOptions,
-    engineeringModelOptions,
-    techniqueModelOptions,
-    functionOptions
-} from "./res/data/dataOptions";
-import {updateGlobalData} from './util/CommUtil';
+import {checkUser} from './util/UserStore';
 
 const history = createHistory();
 
 class App extends Component {
     constructor() {
         super();
-        updateGlobalData("dummyData", {
-            assignOptions: assignOptions,
-            contingencyOptions: contingencyOptions,
-            priorityOptions: priorityOptions,
-            statusOptions: statusOptions,
-            softModelOptions: softModelOptions,
-            businessModelOptions: businessModelOptions,
-            engineeringModelOptions: engineeringModelOptions,
-            techniqueModelOptions: techniqueModelOptions,
-            functionOptions: functionOptions
-        });
+        checkUser(history);
     }
 
     render() {

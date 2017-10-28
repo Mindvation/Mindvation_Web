@@ -1,8 +1,10 @@
 let url;
-const isProduction = false;
-const gateWay = "http://192.168.0.110:";
+const isProduction = true;
+
 if (isProduction) {
+    const gateWay = "http://192.168.0.254:";
     url = {
+        login: gateWay + '8080/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
         updateReqmntInfo: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo',
         retrieveModels: gateWay + '8080/mdvn-model-papi/model/rtrvModelList',
@@ -23,10 +25,16 @@ if (isProduction) {
         addTask: gateWay + '8080/mdvn-task-papi/task/createTask',
         updateTask: gateWay + '8080/mdvn-task-papi/task/updateTask',
         createModel: gateWay + '8080/mdvn-model-papi/model/createModel',
-        uploadFile: gateWay + '8080/mdvn-file-papi/files/uploadFile'
+        uploadFile: gateWay + '8080/mdvn-file-papi/files/uploadFile',
+        getModels: gateWay + '8080/mdvn-model-papi/model/rtrvModelList',
+        getModelDetail: gateWay + '8080/mdvn-model-papi/model/findModelDetailById',
+        addFileToTask: gateWay + '8080/mdvn-task-papi/task/addAttachForTask',
+        removeFileFromTask: gateWay + '8080/mdvn-task-papi/task/deleteAttachForTask'
     };
 } else {
+    const gateWay = "http://192.168.0.109:";
     url = {
+        login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
         updateReqmntInfo: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo',
         retrieveModels: gateWay + '10010/mdvn-model-papi/model/rtrvModelList',
@@ -47,7 +55,11 @@ if (isProduction) {
         addTask: gateWay + '10003/mdvn-task-papi/task/createTask',
         updateTask: gateWay + '10003/mdvn-task-papi/task/updateTask',
         createModel: gateWay + '10010/mdvn-model-papi/model/createModel',
-        uploadFile: gateWay + '10020/mdvn-file-papi/files/uploadFile'
+        uploadFile: gateWay + '10020/mdvn-file-papi/files/uploadFile',
+        getModels: gateWay + '10010/mdvn-model-papi/model/rtrvModelList',
+        getModelDetail: gateWay + '10010/mdvn-model-papi/model/findModelDetailById',
+        addFileToTask: gateWay + '10003/mdvn-task-papi/task/addAttachForTask',
+        removeFileFromTask: gateWay + '10003/mdvn-task-papi/task/deleteAttachForTask'
     };
 }
 

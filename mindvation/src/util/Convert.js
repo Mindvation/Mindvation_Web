@@ -1,4 +1,5 @@
 import {isEmpty, dateFormat, getTimeAndRandom} from './CommUtil';
+import {getStaffId} from './UserStore';
 
 export const convertProjectToLocal = (res) => {
     let project = {
@@ -95,13 +96,25 @@ export const convertProjectToLocal = (res) => {
         project.requirements = res.requirementInfos;
     }
 
+    if (res.attchInfos && res.attchInfos.length > 0) {
+        res.attchInfos.map((attach) => {
+            project.fileList.push({
+                uid: attach.id,
+                fileId: attach.id,
+                name: attach.originName,
+                status: "done",
+                url: attach.url
+            })
+        });
+    }
+
     return project;
 };
 
 export const convertProjectToServer = (project) => {
 
     let params = {
-        staffId: "m2",
+        staffId: getStaffId(),
         name: project.projectName,
         description: project.description,
         priority: project.priority,
@@ -109,7 +122,8 @@ export const convertProjectToServer = (project) => {
         leaders: [],
         checkLists: [],
         tags: project.tags,
-        models: []
+        models: [],
+        attchUrls: []
     };
 
     if (project.startDate) {
@@ -133,7 +147,7 @@ export const convertProjectToServer = (project) => {
             params.checkLists.push({
                 checkListDesc: checklist.description,
                 executorId: checklist.assignee ? checklist.assignee.value : '',
-                assignerId: "m2"
+                assignerId: getStaffId()
             })
         })
     }
@@ -162,13 +176,21 @@ export const convertProjectToServer = (project) => {
         })
     }
 
+    if (project.fileList && project.fileList.length > 0) {
+        project.fileList.map((file) => {
+            params.attchUrls.push({
+                attachmentId: file.fileId
+            })
+        });
+    }
+
     return params;
 };
 
 export const convertProjectBasicToServer = (basicInfo) => {
     return {
         projId: basicInfo.projectId,
-        staffId: "m2",
+        staffId: getStaffId(),
         name: basicInfo.projectName,
         description: basicInfo.description
     };
@@ -185,7 +207,7 @@ export const convertProjectAdditionalToServer = (additionalInfo) => {
 
     let params = {
         projId: additionalInfo.projectId,
-        staffId: "m2",
+        staffId: getStaffId(),
         priority: additionalInfo.priority,
         contingency: additionalInfo.contingency,
         leaders: [],
@@ -298,8 +320,9 @@ export const convertProjectAdditionalToLocal = (res) => {
 export const convertProjectOptionalToServer = (optionalInfo) => {
     let params = {
         projId: optionalInfo.projectId,
-        staffId: "m2",
-        checkLists: []
+        staffId: getStaffId(),
+        checkLists: [],
+        attchUrls: []
     };
 
     if (optionalInfo.checklists && optionalInfo.checklists.length > 0) {
@@ -308,9 +331,17 @@ export const convertProjectOptionalToServer = (optionalInfo) => {
                 checkListId: checklist.idNumber,
                 checkListDesc: checklist.description,
                 executorId: checklist.assignee.value,
-                assignerId: "m2"
+                assignerId: getStaffId()
             })
         })
+    }
+
+    if (optionalInfo.fileList && optionalInfo.fileList.length > 0) {
+        optionalInfo.fileList.map((file) => {
+            params.attchUrls.push({
+                attachmentId: file.fileId
+            })
+        });
     }
 
     return params;
@@ -319,7 +350,8 @@ export const convertProjectOptionalToServer = (optionalInfo) => {
 export const convertProjectOptionalToLocal = (res) => {
 
     let project = {
-        checklists: []
+        checklists: [],
+        fileList: []
     };
 
     if (res.checkLists && res.checkLists.length > 0) {
@@ -342,6 +374,18 @@ export const convertProjectOptionalToLocal = (res) => {
                 }
             );
         })
+    }
+
+    if (res.attchInfos && res.attchInfos.length > 0) {
+        res.attchInfos.map((attach) => {
+            project.fileList.push({
+                uid: attach.id,
+                fileId: attach.id,
+                name: attach.originName,
+                status: "done",
+                url: attach.url
+            })
+        });
     }
 
     return project;
@@ -375,31 +419,31 @@ export const convertModelOptionToLocal = (res) => {
 
     if (res.models && res.models.length > 0) {
         res.models.map((model) => {
-            if (model.modelType === "software") {
+            if (model.model.modelType === "software") {
                 modelOption.softwareOption.push({
-                    text: model.name,
-                    value: model.modelId
+                    text: model.model.name,
+                    value: model.model.modelId
                 })
             }
 
-            if (model.modelType === "engineering") {
+            if (model.model.modelType === "engineering") {
                 modelOption.engineeringOption.push({
-                    text: model.name,
-                    value: model.modelId
+                    text: model.model.name,
+                    value: model.model.modelId
                 })
             }
 
-            if (model.modelType === "business requirements") {
+            if (model.model.modelType === "business requirements") {
                 modelOption.businessOption.push({
-                    text: model.name,
-                    value: model.modelId
+                    text: model.model.name,
+                    value: model.model.modelId
                 })
             }
 
-            if (model.modelType === "technology") {
+            if (model.model.modelType === "technology") {
                 modelOption.techniqueOption.push({
-                    text: model.name,
-                    value: model.modelId
+                    text: model.model.name,
+                    value: model.model.modelId
                 })
             }
         })
@@ -422,6 +466,29 @@ export const convertStaffOptionToLocal = (res) => {
     }
 
     return staffOption;
+};
+
+export const convertMemberToLocal = (res) => {
+    let members = [];
+    if (res.staffs && res.staffs.length > 0) {
+        res.staffs.map((staff) => {
+            members.push({
+                name: {
+                    text: staff.name,
+                    value: staff.staffId,
+                    image: {
+                        avatar: true,
+                        src: staff.avatar
+                    }
+                },
+                tags: [],
+                efficiency: staff.effective,
+                contribution: staff.contribution,
+                rec: staff.recommendation
+            })
+        })
+    }
+    return members;
 };
 
 export const convertModelInfoToLocal = (res) => {
@@ -451,7 +518,7 @@ export const convertModelInfoToLocal = (res) => {
 export const convertRequirementToServer = (requirement) => {
     let params = {
         projId: requirement.projectId,
-        creatorId: "m2",
+        creatorId: getStaffId(),
         summary: requirement.summary,
         description: requirement.description,
         priority: requirement.priority,
@@ -459,7 +526,8 @@ export const convertRequirementToServer = (requirement) => {
         modelId: requirement.model,
         members: [],
         tags: requirement.tags,
-        rCheckLists: []
+        rCheckLists: [],
+        attchUrls: []
     };
 
     if (requirement.startDate) {
@@ -481,7 +549,7 @@ export const convertRequirementToServer = (requirement) => {
             params.rCheckLists.push({
                 description: checklist.description,
                 assigneeId: checklist.assignee ? checklist.assignee.value : '',
-                assignerId: "m2"
+                assignerId: getStaffId()
             })
         })
     }
@@ -499,6 +567,14 @@ export const convertRequirementToServer = (requirement) => {
             }
             params.members.push(tempRole);
         })
+    }
+
+    if (requirement.fileList && requirement.fileList.length > 0) {
+        requirement.fileList.map((file) => {
+            params.attchUrls.push({
+                attachmentId: file.fileId
+            })
+        });
     }
 
     return params;
@@ -522,7 +598,8 @@ export function convertRequirementToLocal(res) {
             status: res.reqmntInfo.status,
             percent: res.reqmntInfo.progress,
             ragStatus: res.reqmntInfo.ragStatus
-        }
+        },
+        fileList: []
     };
 
     if (!isEmpty(res.reqmntInfo.startDate)) {
@@ -582,12 +659,24 @@ export function convertRequirementToLocal(res) {
         })
     }
 
+    if (res.attchInfos && res.attchInfos.length > 0) {
+        res.attchInfos.map((attach) => {
+            requirement.fileList.push({
+                uid: attach.id,
+                fileId: attach.id,
+                name: attach.originName,
+                status: "done",
+                url: attach.url
+            })
+        });
+    }
+
     return requirement;
 }
 
 export const convertReqBasicToServer = (basicInfo) => {
     return {
-        staffId: "m2",
+        staffId: getStaffId(),
         reqmntInfo: {
             projId: basicInfo.projectId,
             reqmntId: basicInfo.reqId,
@@ -608,12 +697,13 @@ export const convertReqBasicToLocal = (res) => {
 
 export const convertReqOptionalToServer = (optionalInfo) => {
     let params = {
-        staffId: "m2",
+        staffId: getStaffId(),
         reqmntInfo: {
             projId: optionalInfo.projectId,
             reqmntId: optionalInfo.reqId
         },
-        checkLists: []
+        checkLists: [],
+        attchUrls: []
     };
 
     if (optionalInfo.checklists && optionalInfo.checklists.length > 0) {
@@ -622,9 +712,17 @@ export const convertReqOptionalToServer = (optionalInfo) => {
                 checkListId: checklist.idNumber,
                 description: checklist.description,
                 assigneeId: checklist.assignee ? checklist.assignee.value : '',
-                assignerId: "m2"
+                assignerId: getStaffId()
             })
         })
+    }
+
+    if (optionalInfo.fileList && optionalInfo.fileList.length > 0) {
+        optionalInfo.fileList.map((file) => {
+            params.attchUrls.push({
+                attachmentId: file.fileId
+            })
+        });
     }
 
     return params;
@@ -634,7 +732,8 @@ export const convertReqOptionalToLocal = (res) => {
     let requirement = {
         projectId: res.reqmntInfo.projId,
         reqId: res.reqmntInfo.reqmntId,
-        checklists: []
+        checklists: [],
+        fileList: []
     };
 
     if (res.checkLists && res.checkLists.length > 0) {
@@ -659,12 +758,24 @@ export const convertReqOptionalToLocal = (res) => {
         })
     }
 
+    if (res.attchInfos && res.attchInfos.length > 0) {
+        res.attchInfos.map((attach) => {
+            requirement.fileList.push({
+                uid: attach.id,
+                fileId: attach.id,
+                name: attach.originName,
+                status: "done",
+                url: attach.url
+            })
+        });
+    }
+
     return requirement;
 };
 
 export const convertReqAdditionalToServer = (optionalInfo) => {
     let params = {
-        staffId: "m3",
+        staffId: getStaffId(),
         reqmntInfo: {
             projId: optionalInfo.projectId,
             reqmntId: optionalInfo.reqId,
@@ -751,7 +862,7 @@ export function convertReqAdditionalToLocal(res) {
 
 export function convertReqStatusToServer(statusInfo) {
     return {
-        staffId: "m3",
+        staffId: getStaffId(),
         reqmntInfo: {
             projId: statusInfo.projectId,
             reqmntId: statusInfo.reqId,
@@ -775,7 +886,7 @@ export function convertReqStatusToLocal(res) {
 
 export function convertStoryToServer(story) {
     let params = {
-        creatorId: "m2",
+        creatorId: getStaffId(),
         storyInfo: {
             projId: story.projectId,
             reqmntId: story.reqId,
@@ -788,7 +899,8 @@ export function convertStoryToServer(story) {
             name: story.functionLabel
         },
         members: [],
-        sTags: story.tags
+        sTags: story.tags,
+        attchUrls: []
     };
 
     if (story.startDate) {
@@ -812,6 +924,14 @@ export function convertStoryToServer(story) {
             }
             params.members.push(tempRole);
         })
+    }
+
+    if (story.fileList && story.fileList.length > 0) {
+        story.fileList.map((file) => {
+            params.attchUrls.push({
+                attachmentId: file.fileId
+            })
+        });
     }
 
     return params;
@@ -924,12 +1044,66 @@ export function convertStoryToLocal(res) {
         });
     }
 
+    if (res.attchInfos && res.attchInfos.length > 0) {
+        res.attchInfos.map((attach) => {
+            story.fileList.push({
+                uid: attach.id,
+                fileId: attach.id,
+                name: attach.originName,
+                status: "done",
+                url: attach.url
+            })
+        });
+    }
+
+    return story;
+}
+
+export function convertStoryOptionalToServer(optionalInfo) {
+    let params = {
+        creatorId: getStaffId(),
+        storyInfo: {
+            storyId: optionalInfo.storyId
+        },
+        attchUrls: []
+    };
+    if (optionalInfo.fileList && optionalInfo.fileList.length > 0) {
+        optionalInfo.fileList.map((file) => {
+            params.attchUrls.push({
+                attachmentId: file.fileId
+            })
+        });
+    }
+
+    return params;
+}
+
+export function convertStoryOptionalToLocal(res) {
+    let story = {
+        projectId: res.storyInfo.projId,
+        reqId: res.storyInfo.reqmntId,
+        storyId: res.storyInfo.storyId,
+        fileList: []
+    };
+
+    if (res.attchInfos && res.attchInfos.length > 0) {
+        res.attchInfos.map((attach) => {
+            story.fileList.push({
+                uid: attach.id,
+                fileId: attach.id,
+                name: attach.originName,
+                status: "done",
+                url: attach.url
+            })
+        });
+    }
+
     return story;
 }
 
 export function convertStoryBasicToServer(basicInfo) {
     return {
-        creatorId: "m2",
+        creatorId: getStaffId(),
         storyInfo: {
             storyId: basicInfo.storyId,
             summary: basicInfo.summary,
@@ -948,7 +1122,7 @@ export function convertStoryBasicToLocal(res) {
 
 export function convertStoryStatusToServer(statusInfo) {
     return {
-        creatorId: "m2",
+        creatorId: getStaffId(),
         storyInfo: {
             storyId: statusInfo.storyId,
             status: statusInfo.status,
@@ -972,7 +1146,7 @@ export function convertStoryStatusToLocal(res) {
 
 export function convertStoryAdditionalToServer(additionalInfo) {
     let params = {
-        creatorId: "m2",
+        creatorId: getStaffId(),
         storyInfo: {
             storyId: additionalInfo.storyId,
             priority: additionalInfo.priority,
@@ -1064,7 +1238,7 @@ export function convertTaskToServer(taskInfo) {
     let params = {
         description: taskInfo.description,
         assigneeId: taskInfo.assignee,
-        creatorId: "m2",
+        creatorId: getStaffId(),
         storyId: taskInfo.storyId,
         deliver: {}
     };
@@ -1093,7 +1267,8 @@ export function convertTaskToLocal(res) {
         description: res.description,
         assignee: res.assignee,
         assigner: res.creator,
-        model: {}
+        model: {},
+        fileList: []
     };
 
     if (!isEmpty(res.startTime)) {
@@ -1114,12 +1289,25 @@ export function convertTaskToLocal(res) {
         }
     }
 
+    if (res.attachUrlList && res.attachUrlList.length > 0) {
+        res.attachUrlList.map((attach) => {
+            task.fileList.push({
+                uid: attach.id,
+                fileId: attach.id,
+                name: attach.originName,
+                status: "done",
+                url: attach.url,
+                thumbUrl: attach.url
+            })
+        })
+    }
+
     return task;
 }
 
 export function convertTaskStatusToServer(statusInfo) {
     return {
-        assigneeId: "m2",
+        assigneeId: getStaffId(),
         taskId: statusInfo.idNumber,
         progress: statusInfo.model.percent,
         remarks: statusInfo.remark
@@ -1128,7 +1316,7 @@ export function convertTaskStatusToServer(statusInfo) {
 
 export function convertModelToServer(modelInfo) {
     let params = {
-        creatorId: "m2",
+        creatorId: getStaffId(),
         name: modelInfo.basicInfo.modelName,
         modelType: modelInfo.basicInfo.business,
         functionLabels: [],
@@ -1187,4 +1375,79 @@ export function convertModelToServer(modelInfo) {
         })
     }
     return params;
+}
+
+export function convertModelDetailToLocal(res) {
+    let modelDetail = {
+        basicInfo: {
+            modelName: res.model.name,
+            business: res.model.modelType,
+            processLabel: [],
+            roles: []
+        },
+        iteration: [],
+        attachments: []
+    };
+
+    if (res.functionLabels && res.functionLabels.length > 0) {
+        res.functionLabels.map((label) => {
+            let tempLabel = {
+                key: label.modelId,
+                value: label.name,
+                subData: []
+            };
+            if (label.subFunctionLabels && label.subFunctionLabels.length > 0) {
+                label.subFunctionLabels.map((subLabel) => {
+                    tempLabel.subData.push({
+                        key: subLabel.labelId,
+                        value: subLabel.name
+                    })
+                });
+            }
+            modelDetail.basicInfo.processLabel.push(tempLabel);
+        })
+    }
+
+    if (res.roles && res.roles.length > 0) {
+        res.roles.map((role) => {
+            modelDetail.basicInfo.roles.push({
+                key: role.roleId,
+                value: role.name
+            })
+        })
+    }
+
+    if (res.taskDeliveries && res.taskDeliveries.length > 0) {
+        res.taskDeliveries.map((delivery) => {
+            modelDetail.attachments.push({
+                key: delivery.uuId,
+                type: delivery.type,
+                title: delivery.name,
+                color: delivery.color
+            })
+        })
+    }
+
+    if (res.iterationModels && res.iterationModels.length > 0) {
+        res.iterationModels.map((iteration) => {
+            let tempIteration = {
+                key: iteration.iterationModel.uuId,
+                value: iteration.iterationModel.name,
+                labels: []
+            };
+
+            if (iteration.functionLabels && iteration.functionLabels.length > 0) {
+                iteration.functionLabels.map((label) => {
+                    tempIteration.labels.push({
+                        key: label.labelId,
+                        value: label.name
+                    })
+                })
+            }
+
+            modelDetail.iteration.push(tempIteration);
+        })
+    }
+
+    return modelDetail;
 }

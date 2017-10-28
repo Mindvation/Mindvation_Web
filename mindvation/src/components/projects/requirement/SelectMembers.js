@@ -38,7 +38,7 @@ class SelectMembers extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {roles, model} = this.props;
+        const {roles, model, tags} = this.props;
         return (
             <div style={{marginBottom: '10px'}} className={"components-length components-item"}>
                 <div className="single-line">
@@ -158,7 +158,7 @@ class SelectMembers extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
-                <ChooseMembers ref={node => chooseMembersNode = node}/>
+                <ChooseMembers tags={tags} ref={node => chooseMembersNode = node}/>
             </div>
         );
     }

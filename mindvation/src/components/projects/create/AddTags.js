@@ -5,6 +5,7 @@ import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
 import {retrieveTags, createTag as createTagAction} from '../../../actions/tags_action';
 import _ from 'lodash';
+import {getStaffId} from '../../../util/UserStore';
 
 let createTagNode, allTagsNode, existOption;
 
@@ -87,7 +88,7 @@ class AddTags extends Component {
                 this.props.dispatch(createTagAction({
                     name: tag,
                     color: getRandomColor(),
-                    "creatorId": "m2"
+                    "creatorId": getStaffId()
                 }, function (res) {
                     createTagNode.inputRef.value = "";
                     allTagsNode.selectTag(res);

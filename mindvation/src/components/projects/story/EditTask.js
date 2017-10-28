@@ -6,11 +6,20 @@ import DatePicker from '../../common/DatePicker';
 import {editTask} from '../../../actions/task_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
+import {retrieveStaff} from '../../../util/Service';
 
 let taskDesc, assignTo, startEndDate;
 
 class EditTask extends Component {
-    state = {modalOpen: false, taskInfo: {}};
+    state = {modalOpen: false, taskInfo: {}, assignOption: []};
+
+    componentWillMount() {
+        retrieveStaff(function (option) {
+            this.setState({
+                assignOption: option
+            })
+        }.bind(this))
+    }
 
     componentWillUpdate() {
         this.fixBody();
@@ -40,7 +49,7 @@ class EditTask extends Component {
     };
 
     render() {
-        const {modalOpen} = this.state;
+        const {modalOpen, assignOption} = this.state;
         return (
             <div>
                 <Modal
@@ -60,7 +69,7 @@ class EditTask extends Component {
                                   }}
                                   defaultValue={this.state.taskInfo.description}
                         />
-                        <Select icon="user" options={global.dummyData.assignOptions} label="Assign To" search={true}
+                        <Select icon="user" options={assignOption} label="Assign To" search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node

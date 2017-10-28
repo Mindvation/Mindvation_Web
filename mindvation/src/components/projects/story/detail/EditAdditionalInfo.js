@@ -6,6 +6,7 @@ import AdditionalInfo from '../AdditionalInfo';
 import {updateStoryAdditional} from '../../../../actions/story_action';
 import TagList from '../../create/TagList';
 import Display from '../../../common/Display';
+import {priorityOptions} from '../../../../res/data/dataOptions';
 
 let AdditionalModule;
 
@@ -50,7 +51,7 @@ class EditAdditionalInfo extends Component {
             icon: "flag",
             title: "Priority",
             value: story.priority,
-            options: global.dummyData.priorityOptions
+            options: priorityOptions
         }, {
             icon: "group",
             title: "Members",

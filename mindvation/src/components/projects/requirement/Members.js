@@ -87,8 +87,8 @@ class Members extends Component {
             return <Checkbox checked={this.state.selectedMembers.indexOf(result) > -1}
                              onClick={() => this.toggleSelected(result)}/>
         }
-        if (key === "tags" && !isEmpty(result[key])) {
-            return <TagList tagList={result[key]} shortTag={true}/>
+        if (key === "tags") {
+            return (result[key] && result[key].length > 0) ? <TagList tagList={result[key]} shortTag={true}/> : 'N/A'
         }
         if (key === "name" && !isEmpty(result[key])) {
             return <div>
@@ -96,9 +96,9 @@ class Members extends Component {
                 <span>{result[key].text}</span>
             </div>
         }
-        if (key === "rec" && !isEmpty(result[key])) {
+        /*if (key === "rec" && !isEmpty(result[key])) {
             return result[key] + "%";
-        }
+        }*/
         if (isEmpty(result[key])) {
             return 'N/A';
         }

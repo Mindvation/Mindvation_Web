@@ -1,29 +1,6 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
-export const assignOptions = [
-    {
-        text: 'Bob',
-        value: 'm1',
-        image: {avatar: true, src: require('../image/photo.jpg')}
-    },
-    {
-        text: 'Frank',
-        value: 'm2',
-        image: {avatar: true, src: require('../image/photo.jpg')}
-    },
-    {
-        text: 'Darcy',
-        value: 'm3',
-        image: {avatar: true, src: require('../image/photo.jpg')}
-    },
-    {
-        text: 'Migun',
-        value: 'm4',
-        image: {avatar: true, src: require('../image/photo.jpg')}
-    }
-];
-
 export const priorityOptions = [
     {
         text: <FormattedMessage
@@ -219,4 +196,21 @@ export const modelOptions = [
         text: '技术',
         value: 'technology'
     }
+];
+
+export const iterationCycleOptions = [
+    {
+        text: '1周',
+        value: '1'
+    },
+    {
+        text: '2周',
+        value: '2'
+    }, {
+        text: '3周',
+        value: '3'
+    }, {
+        text: '4周',
+        value: '4'
+    },
 ];

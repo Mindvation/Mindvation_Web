@@ -31,10 +31,11 @@ class UploadAttach extends Component {
         }
         if (modelItem.type === 'protoAndProgress') {
             return <UploadAndProgress percent={modelItem.percent} domKey={modelItem.key}
+                                      task={task}
                                       editProgress={() => this.editProgress(task)}/>
         }
         if (modelItem.type === 'proto') {
-            return <UploadMulti/>
+            return <UploadMulti task={task}/>
         }
     };
 

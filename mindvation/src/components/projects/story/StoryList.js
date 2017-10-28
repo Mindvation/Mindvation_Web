@@ -8,6 +8,7 @@ import {retrieveStories} from '../../../actions/stories_action';
 import {
     Link
 } from 'react-router-dom';
+import {priorityOptions} from '../../../res/data/dataOptions';
 
 const header = ["Story ID", "Summary", "Priority", "Members", "Story Points", "Start Date", "End Date",
     "Duration", "Finished SP", "Progress", "Efficiency", "Defect Qty", "Critical Defects", "High Defects",
@@ -22,7 +23,7 @@ class StoryList extends Component {
     };
 
     pageChange(page, pageSize) {
-        this.props.dispatch(retrieveStories(page, pageSize,this.props.requirement.reqId));
+        this.props.dispatch(retrieveStories(page, pageSize, this.props.requirement.reqId));
     }
 
     handleDisplayData(data, key) {
@@ -32,7 +33,7 @@ class StoryList extends Component {
             </Link>
         }
         if (key === "priority" && !isEmpty(data[key])) {
-            return getDesc(global.dummyData.priorityOptions, data[key]);
+            return getDesc(priorityOptions, data[key]);
         }
         if (key === "taskQty") {
             if (data.tasks) {

@@ -357,3 +357,15 @@
 .pre-line {
     white-space: pre-line;
 }
+
+.display-flex {
+    display: flex;
+}
+
+.ui.form .field .ui.input.error input {
+    background-color: #fff6f6;
+    border-color: #e0b4b4;
+    color: #9f3a38;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

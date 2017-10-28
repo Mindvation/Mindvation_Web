@@ -5,6 +5,7 @@ import DatePicker from '../../common/DatePicker';
 import AddTags from "../../../containers/tag_container";
 import {FormattedMessage} from 'react-intl';
 import {retrieveModels, retrieveStaff} from '../../../util/Service';
+import {priorityOptions, contingencyOptions} from '../../../res/data/dataOptions';
 
 let priority, leaders, startEndDate, softwareModel, engineeringModel, businessModel, techniqueModel, contingency,
     addTagsNode;
@@ -76,7 +77,7 @@ class OtherInfo extends Component {
                 }}
                          defaultValue={info.tags}
                 />
-                <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
+                <Select icon="flag" options={priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
                             priority = node
@@ -113,7 +114,7 @@ class OtherInfo extends Component {
                         ref={node => {
                             softwareModel = node
                         }}
-                        defaultValue={info.softwareModel?info.softwareModel.value:''}
+                        defaultValue={info.softwareModel ? info.softwareModel.value : ''}
                 />
                 <Select options={modelOption.engineeringOption} label="Engineering Model"
                         placeHolder="engineeringModelPlaceHolderDesc"
@@ -121,7 +122,7 @@ class OtherInfo extends Component {
                         ref={node => {
                             engineeringModel = node
                         }}
-                        defaultValue={info.engineeringModel?info.engineeringModel.value:''}
+                        defaultValue={info.engineeringModel ? info.engineeringModel.value : ''}
                 />
                 <Select options={modelOption.businessOption} label="Business Requirement Model"
                         placeHolder="businessRequirementModelPlaceHolderDesc"
@@ -129,7 +130,7 @@ class OtherInfo extends Component {
                         ref={node => {
                             businessModel = node
                         }}
-                        defaultValue={info.businessModel?info.businessModel.value:''}
+                        defaultValue={info.businessModel ? info.businessModel.value : ''}
                 />
                 <Select options={modelOption.techniqueOption} label="Technique Model"
                         placeHolder="techniqueModelPlaceHolderDesc"
@@ -137,9 +138,9 @@ class OtherInfo extends Component {
                         ref={node => {
                             techniqueModel = node
                         }}
-                        defaultValue={info.techniqueModel?info.techniqueModel.value:''}
+                        defaultValue={info.techniqueModel ? info.techniqueModel.value : ''}
                 />
-                <Select icon="percent" options={global.dummyData.contingencyOptions} label="Contingency"
+                <Select icon="percent" options={contingencyOptions} label="Contingency"
                         placeHolder="ContingencyPlaceHolderDesc"
                         ref={node => {
                             contingency = node

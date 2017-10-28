@@ -6,6 +6,7 @@ import {convertProjectToServer} from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
+import {getStaffId} from '../util/UserStore';
 
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const RETRIEVED_PROJECTS = 'RETRIEVE_PROJECTS';
@@ -44,7 +45,7 @@ export function createProject(project, callback) {
 export function retrieveProjects(page, pageSize) {
     return dispatch => {
         const params = {
-            "staffId": "m2",
+            "staffId": getStaffId(),
             "page": page,
             "pageSize": pageSize
         };
@@ -56,6 +57,5 @@ export function retrieveProjects(page, pageSize) {
             .catch((error) => {
                 console.info(error);
             });
-        ;
     }
 }

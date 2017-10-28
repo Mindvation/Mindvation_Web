@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Icon, Table, Button, List} from 'semantic-ui-react';
+import {Header, Icon, Table, Button, List, Image} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {FormattedMessage} from 'react-intl';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
@@ -7,14 +7,14 @@ import {getModels} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
 import {modelOptions} from '../../../res/data/dataOptions';
 
-const rmKey = ["ranking", "name", "creator", "vote", "quoted", "comments"];
+const rmKey = ["ranking", "name", "creatorInfo", "vote", "quoted", "comments"];
 
 class ModelList extends Component {
 
     state = {
         model: {
-            modelList: [],
-            totalElements: 1
+            models: [],
+            totalNumber: 1
         },
         showDetail: false,
         selectedModel: 'software',
@@ -22,7 +22,13 @@ class ModelList extends Component {
     };
 
     componentDidMount() {
-        getModels('software', 0, 3, function (data) {
+        const params = {
+            "page": 1,
+            "pageSize": 3,
+            "modelType": "software"
+        };
+
+        getModels(params, function (data) {
             this.setState({
                 model: data
             })
@@ -33,7 +39,13 @@ class ModelList extends Component {
         this.setState({
             currentPage: page
         });
-        getModels(this.state.selectedModel, page, pageSize, function (data) {
+        const params = {
+            "page": page,
+            "pageSize": pageSize,
+            "modelType": this.state.selectedModel
+        };
+
+        getModels(params, function (data) {
             this.setState({
                 model: data
             })
@@ -46,7 +58,14 @@ class ModelList extends Component {
             selectedModel: type,
             currentPage: 1
         });
-        getModels(type, 0, 3, function (data) {
+
+        const params = {
+            "page": 1,
+            "pageSize": 3,
+            "modelType": type
+        };
+
+        getModels(params, function (data) {
             this.setState({
                 model: data
             })
@@ -54,43 +73,49 @@ class ModelList extends Component {
     };
 
     handleDisplayData = (data, key) => {
-        if (key === "creator") {
-            return <div>
-                <div>{data[key].name}</div>
-                <div>{data[key].position}</div>
-                <div>{data[key].company}</div>
+        if (key === "creatorInfo") {
+            return <div className="display-flex">
+                <Image verticalAlign="middle" src={data[key].avatar}
+                       className="model-creator-avatar"
+                       avatar/>
+                <div>
+                    <div className="model-creator-name">{data[key].name}</div>
+                    <div className="model-creator-company">{data[key].position}</div>
+                    <div className="model-creator-company">{data[key].company}</div>
+                </div>
             </div>;
         }
 
         if (key === "vote") {
             return <div>
-                <Icon name="thumbs up" size="big"/>{data[key]}
+                <Icon name="thumbs up" size="big"/>{data.model[key] ? data.model[key] : 0}
             </div>
         }
 
         if (key === "quoted") {
             return <div>
-                <Icon name="external share" size="big"/>{data[key]}
+                <Icon name="external share" size="big"/>{data.model[key] ? data.model[key] : 0}
             </div>
         }
 
         if (key === "comments") {
             return <div>
-                <Icon name="talk" size="big"/>{data[key]}
+                <Icon name="talk" size="big"/>{data.model[key] ? data.model[key] : 0}
             </div>
         }
 
-        if (isEmpty(data[key])) {
+        if (isEmpty(data.model[key])) {
             return 'N/A';
         }
-        return data[key];
+
+        return data.model[key];
     };
 
     showModelDetail = (model) => {
         this.setState({
             showDetail: true
         }, () => {
-            this.modelDetailNode.initModelData(model);
+            this.modelDetailNode.initModelData(model.model.modelId);
         });
     };
 
@@ -126,7 +151,7 @@ class ModelList extends Component {
                     <Table striped>
                         <Table.Body>
                             {
-                                model.modelList.map((result, i) => {
+                                model.models.map((result, i) => {
                                     return <Table.Row key={i}>
                                         {
                                             rmKey.map((key, j) => {
@@ -138,7 +163,10 @@ class ModelList extends Component {
                                         }
                                         <Table.Cell className="checklist-action-cell">
                                             <Button primary size="small" onClick={() => this.showModelDetail(result)}>
-                                                详情
+                                                <FormattedMessage
+                                                    id='detail'
+                                                    defaultMessage='Detail'
+                                                />
                                             </Button>
                                         </Table.Cell>
                                     </Table.Row>
@@ -149,7 +177,7 @@ class ModelList extends Component {
                         <Table.Footer>
                             <Table.Row>
                                 <Table.HeaderCell colSpan={rmKey.length + 1}>
-                                    <Pagination defaultCurrent={1} total={model.totalElements}
+                                    <Pagination defaultCurrent={1} total={model.totalNumber}
                                                 showQuickJumper pageSize={3}
                                                 current={currentPage}
                                                 onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
@@ -163,7 +191,10 @@ class ModelList extends Component {
                         <ModelDetail ref={node => this.modelDetailNode = node}/>
                         <Button primary size="small" onClick={() => this.showModelList()}
                                 style={{marginTop: '1em'}}>
-                            返回
+                            <FormattedMessage
+                                id='back'
+                                defaultMessage='Back'
+                            />
                         </Button>
                     </div>
                     : null}

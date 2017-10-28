@@ -3,6 +3,7 @@ import {convertStoryToServer} from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
+import {getStaffId} from '../util/UserStore';
 
 /*
  * action 类型
@@ -49,7 +50,7 @@ export function retrieveStories(page, pageSize, reqId) {
     return dispatch => {
         const params = {
             "reqmntId": reqId,
-            "staffId": "m2",
+            "staffId": getStaffId(),
             "page": page,
             "pageSize": pageSize
         };

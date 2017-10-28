@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 class UploadAndProgress extends Component {
 
     render() {
-        const {mode = "progress", percent = 0, editProgress, domeKey, readOnly} = this.props;
+        const {mode = "progress", percent = 0, editProgress, domeKey, readOnly, task} = this.props;
         return <div>
             <div className="upload-progress-top">
-                <UploadMulti readOnly={readOnly}/>
+                <UploadMulti readOnly={readOnly} task={task}/>
             </div>
             <div className="upload-progress-bar">
                 <Progress readOnly={readOnly} mode={mode} percent={percent} editProgress={editProgress}

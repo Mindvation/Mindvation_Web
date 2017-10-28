@@ -57,9 +57,9 @@ class MyDashboard extends Component {
                         <ChangeStatus storyDetail={(storyId) => {
                             this.checkDetail(storyId)
                         }} sprint={sprint}/>
-                        <MyDemoCalendar storyDetail={(storyId) => {
+                        {/*<MyDemoCalendar storyDetail={(storyId) => {
                             this.checkDetail(storyId)
-                        }} sprint={sprint}/>
+                        }} sprint={sprint}/>*/}
                     </div>
                 </Sidebar.Pusher>
             </Sidebar.Pushable>

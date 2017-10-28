@@ -4,6 +4,9 @@ import {Image, Button, Icon} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Message from './Message';
 import PropTypes from 'prop-types';
+import {url} from '../../util/ServiceUrl';
+import {addFileToTask, removeFileFromTask} from '../../util/Service';
+import {getStaffId} from '../../util/UserStore';
 
 let messageNode;
 
@@ -11,8 +14,8 @@ class UploadMulti extends Component {
     state = {
         previewVisible: false,
         previewImage: '',
-        fileList: [],
-        displayFileList: [],
+        fileList: this.props.task ? this.props.task.fileList || [] : [],
+        displayFileList: this.props.task ? this.props.task.fileList || [] : [],
         uploading: false
     };
 
@@ -20,8 +23,10 @@ class UploadMulti extends Component {
         console.info(file.status);
         this.setState({fileList});
         if (file.status === 'done') {
+            this.setFileUrl(fileList, file);
             messageNode.getWrappedInstance().success("uploadSuccess");
             this.setState({displayFileList: Object.assign([], fileList), uploading: false});
+            addFileToTask(this.props.task, file);
         } else if (file.status === 'error') {
             messageNode.getWrappedInstance().error("uploadFail");
             let tempList = this.state.fileList;
@@ -37,16 +42,28 @@ class UploadMulti extends Component {
         }
     };
 
+    setFileUrl = (fileList, file) => {
+        fileList.some((item) => {
+            if (item.uid === file.uid) {
+                item.url = file.response.responseBody.url;
+                item.fileId = file.response.responseBody.id;
+                return true;
+            }
+        })
+    };
+
     deleteFile = (file) => {
-        let index = this.getFileIndex(file);
-        if (index > -1) {
-            let tempList = this.state.fileList;
-            tempList.splice(index, 1);
-            this.setState({
-                fileList: tempList,
-                displayFileList: tempList
-            });
-        }
+        removeFileFromTask(this.props.task, file, function () {
+            let index = this.getFileIndex(file);
+            if (index > -1) {
+                let tempList = this.state.fileList;
+                tempList.splice(index, 1);
+                this.setState({
+                    fileList: tempList,
+                    displayFileList: tempList
+                });
+            }
+        }.bind(this));
     };
 
     getFileIndex = (file) => {
@@ -72,6 +89,19 @@ class UploadMulti extends Component {
                 />
             </Button>
         );
+        const props = {
+            name: 'mFile',
+            action: url.uploadFile,
+            headers: {
+                authorization: 'authorization-text',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Token': sessionStorage.getItem('access_token') || ''
+            },
+            data: {
+                "creatorId": getStaffId()
+            },
+            onChange: this.handleChange
+        };
         return (
             <div className="upload-multi">
                 <Carousel>
@@ -81,7 +111,7 @@ class UploadMulti extends Component {
                                 <Image src={file.thumbUrl}/>
                                 <div className="list-actions-content">
                                 <span className="list-actions">
-                                <a href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                <a href={file.url}
                                    target="_blank" rel="noopener noreferrer">
                                     <Icon name="eye" className="list-action-icon"/>
                                 </a>
@@ -98,12 +128,10 @@ class UploadMulti extends Component {
                         />
                     </div>}
                 </Carousel>
-                <Upload
-                    action="//jsonplaceholder.typicode.com/posts/"
-                    onChange={this.handleChange}
-                    listType='picture'
-                    fileList={fileList}
-                    disabled={readOnly || uploading}
+                <Upload {...props}
+                        listType='picture'
+                        fileList={fileList}
+                        disabled={readOnly || uploading}
                 >
                     {uploadButton}
                 </Upload>
@@ -114,7 +142,8 @@ class UploadMulti extends Component {
 }
 
 UploadMulti.propTypes = {
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    defaultFileList: PropTypes.array
 };
 
 export default UploadMulti;

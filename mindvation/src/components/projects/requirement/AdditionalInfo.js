@@ -3,10 +3,11 @@ import {Header, Modal, Icon} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
 import AddTags from "../../../containers/tag_container";
-import ProjectRoles from '../../../containers/role_container';
+import SelectMembers from '../../../containers/role_container';
 import {FormattedMessage} from 'react-intl';
 import {getModelById} from '../../../util/Service';
 import {setRoles} from '../../../actions/role_action';
+import {priorityOptions} from '../../../res/data/dataOptions';
 
 class AdditionalInfo extends Component {
     state = {model: null, functionOptions: [], roles: []};
@@ -106,7 +107,7 @@ class AdditionalInfo extends Component {
                     }}
                     defaultValue={requirement.tags}
                 />
-                <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
+                <Select icon="flag" options={priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
                             this.priority = node
@@ -126,10 +127,11 @@ class AdditionalInfo extends Component {
                                             }}
                                             defaultValue={requirement.functionLabel}
                 /> : null}
-                {isEdit || model ? <ProjectRoles
+                {isEdit || model ? <SelectMembers
                     ref={node => {
                         this.rolesNode = node
                     }}
+                    tags={project.tags}
                     model={this.getModelInfo(model)}
                 /> : null}
 

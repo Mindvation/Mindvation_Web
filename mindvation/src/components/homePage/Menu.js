@@ -73,25 +73,55 @@ class HomeMenu extends Component {
                         />
                     </span>
                 </Menu.Item>
-                {/*<Menu.Item key="2">
-                    <Link to="/home/CreateModel"/>
-                    <Icon type="desktop"/>
-                    <span>创建模板</span>
-                </Menu.Item>*/}
                 <SubMenu
                     key="sub2"
-                    title={<span><Icon type="desktop"/><span>模板</span></span>}
+                    title={<span><Icon type="desktop"/><span>
+                        <FormattedMessage
+                            id='model'
+                            defaultMessage='Model'
+                        />
+                    </span></span>}
                 >
-                    <Menu.Item key="2"><Link to="/home/CreateModel">CreateModel</Link></Menu.Item>
-                    <Menu.Item key="5"><Link to="/home/ModelList">Models And Templates</Link></Menu.Item>
-                    <Menu.Item key="6"><Link to="/home/MyModelList">My Models</Link></Menu.Item>
+                    <Menu.Item key="2"><Link to="/home/CreateModel">
+                        <FormattedMessage
+                            id='createModel'
+                            defaultMessage='Create Model'
+                        />
+                    </Link></Menu.Item>
+                    <Menu.Item key="5"><Link to="/home/ModelList">
+                        <FormattedMessage
+                            id='modelsAndTemplates'
+                            defaultMessage='Models And Templates'
+                        />
+                    </Link></Menu.Item>
+                    <Menu.Item key="6"><Link to="/home/MyModelList">
+                        <FormattedMessage
+                            id='myModels'
+                            defaultMessage='My Models'
+                        />
+                    </Link></Menu.Item>
                 </SubMenu>
                 <SubMenu
                     key="sub1"
-                    title={<span><Icon type="user"/><span>HR</span></span>}
+                    title={<span><Icon type="user"/><span>
+                        <FormattedMessage
+                            id='hr'
+                            defaultMessage='HR'
+                        />
+                    </span></span>}
                 >
-                    <Menu.Item key="3"><Link to="/home/Employee">Employee</Link></Menu.Item>
-                    <Menu.Item key="4"><Link to="/home/Department">Department</Link></Menu.Item>
+                    <Menu.Item key="3"><Link to="/home/Employee">
+                        <FormattedMessage
+                            id='employee'
+                            defaultMessage='Employee'
+                        />
+                    </Link></Menu.Item>
+                    <Menu.Item key="4"><Link to="/home/Department">
+                        <FormattedMessage
+                            id='department'
+                            defaultMessage='Department'
+                        />
+                    </Link></Menu.Item>
                 </SubMenu>
                 {/*<SubMenu
                     key="sub2"

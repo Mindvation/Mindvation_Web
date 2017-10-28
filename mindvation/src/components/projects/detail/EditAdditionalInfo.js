@@ -5,6 +5,7 @@ import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../create/AdditionalInfo';
 import {updateProjectAdditional} from '../../../actions/project_action';
 import TagList from '../create/TagList';
+import {priorityOptions, contingencyOptions} from '../../../res/data/dataOptions';
 
 let AdditionalModule;
 
@@ -38,7 +39,7 @@ class EditAdditionalInfo extends Component {
             icon: "flag",
             title: "Priority",
             value: project.priority,
-            options: global.dummyData.priorityOptions
+            options: priorityOptions
         }, {
             icon: "user",
             title: "Leaders",
@@ -77,7 +78,7 @@ class EditAdditionalInfo extends Component {
             icon: "percent",
             title: "Contingency",
             value: project.contingency,
-            options: global.dummyData.contingencyOptions
+            options: contingencyOptions
         }];
         return (
             <div className="read-only-component">

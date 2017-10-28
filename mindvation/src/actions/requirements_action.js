@@ -6,6 +6,7 @@ import {convertRequirementToServer} from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
+import {getStaffId} from '../util/UserStore';
 
 export const CREATED_REQUIREMENT = 'CREATED_REQUIREMENT';
 export const UPDATE_REQUIREMENTS = 'UPDATE_REQUIREMENTS';
@@ -44,7 +45,7 @@ export function retrieveRequirements(page, pageSize, projectId) {
     return dispatch => {
         const params = {
             "projId": projectId,
-            "staffId": "m2",
+            "staffId": getStaffId(),
             "page": page,
             "pageSize": pageSize
         };

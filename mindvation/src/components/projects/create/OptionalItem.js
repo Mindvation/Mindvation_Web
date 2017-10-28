@@ -7,8 +7,6 @@ import UploadFile from '../../common/UploadFile';
 import {addTempChecklists} from '../../../actions/checklist_action';
 import {retrieveStaff} from '../../../util/Service';
 
-let checklistsNode;
-
 class OptionalItem extends Component {
 
     state = {
@@ -32,12 +30,13 @@ class OptionalItem extends Component {
 
     getInfo = () => {
         return {
-            checklists: checklistsNode.store.getState().checklist
+            checklists: this.checklistsNode.store.getState().checklist,
+            fileList: this.uploadFileNode.getInfo()
         };
     };
 
     render() {
-        const {dispatch, showAction} = this.props;
+        const {dispatch, showAction, info = {}} = this.props;
         const {assignOption} = this.state;
         return (
             <Modal.Content>
@@ -60,7 +59,7 @@ class OptionalItem extends Component {
                 </Header>
                 <Checklists
                     ref={node => {
-                        checklistsNode = node
+                        this.checklistsNode = node
                     }}
                     showAction={showAction}
                     dispatch={dispatch}
@@ -69,7 +68,8 @@ class OptionalItem extends Component {
                 <AddChecklist dispatch={dispatch}
                               assignOption={assignOption}
                 />
-                <UploadFile label="Attachments" icon="attach"/>
+                <UploadFile label="Attachments" icon="attach" ref={node => this.uploadFileNode = node}
+                            defaultFileList={info.fileList}/>
             </Modal.Content>
         );
     }

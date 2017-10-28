@@ -4,6 +4,7 @@ import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {deleteChecklist} from '../../../actions/checklist_action';
 import EditChecklist from './EditChecklist';
+import {statusOptions} from '../../../res/data/dataOptions';
 
 const headerWithAction = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status", ""];
 const header = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status"];
@@ -20,7 +21,7 @@ class Checklist extends Component {
             return result[key].text;
         }
         if (key === "status" && !isEmpty(result[key])) {
-            return getDesc(global.dummyData.statusOptions, result[key])
+            return getDesc(statusOptions, result[key])
         }
         if (isEmpty(result[key])) {
             return 'N/A';

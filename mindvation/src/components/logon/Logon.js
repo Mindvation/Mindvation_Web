@@ -1,44 +1,36 @@
 import React, {Component} from 'react';
 import {Button, Form, Grid, Header, Image, Message, Segment, Input} from 'semantic-ui-react';
-import {
-    Redirect
-} from 'react-router-dom';
-import 'url-search-params-polyfill';
 import {injectIntl, FormattedMessage} from 'react-intl';
 import {messages} from '../../res/language/defineMessages';
+import {isEmpty} from '../../util/CommUtil';
 
 let userName;
 let passWord;
 
 class Logon extends Component {
+    state = {
+        selfChecked: false
+    };
 
     logonService() {
         const {userLogon, history} = this.props;
         const user = {
-            "userName": userName.inputRef.value,
+            "account": userName.inputRef.value,
             "password": passWord.inputRef.value
         };
+        this.setState({
+            selfChecked: true
+        });
+        if (isEmpty(user.account) || isEmpty(user.password)) return;
         const callback = () => {
             history.push('/home')
         };
-        //TODO this.props.dispatch(logon(user,this.props.history));
         userLogon(user, callback);
     }
 
     render() {
         const {userInfo} = this.props;
         const {formatMessage} = this.props.intl;
-
-        /*if (userInfo.responseCode === "000") {
-            let redirect = this.props.location.pathname + this.props.location.search;
-            let urlParams = new URLSearchParams(decodeURIComponent(redirect));
-            let newUrl = urlParams.get("redirect_uri");
-            return (
-                <Redirect to={{
-                    pathname: newUrl ? newUrl : '/home'
-                }}/>
-            )
-        }*/
 
         return (
 
@@ -50,7 +42,7 @@ class Logon extends Component {
                 >
                     <Grid.Column style={{maxWidth: 450}}>
                         <Header as='h2' color='teal' textAlign='center'>
-                            <Image src={require('../../res/image/logo.png')}/>{' '}
+                            <Image src={require('../../res/image/logo.png')}/>
                             <FormattedMessage
                                 id='logInAccount'
                                 defaultMessage='Log-in to your account!'
@@ -69,6 +61,7 @@ class Logon extends Component {
                                         iconPosition='left'
                                         placeholder={formatMessage(messages.userNameDescription)}
                                         ref={node => userName = node}
+                                        error={this.state.selfChecked && isEmpty(userName.inputRef.value)}
                                     />
                                 </Form.Field>
                                 <Form.Field>
@@ -79,6 +72,7 @@ class Logon extends Component {
                                         placeholder={formatMessage(messages.passWordDescription)}
                                         type='password'
                                         ref={node => passWord = node}
+                                        error={this.state.selfChecked && isEmpty(passWord.inputRef.value)}
                                     />
                                 </Form.Field>
                                 <Button color='teal' fluid size='large'

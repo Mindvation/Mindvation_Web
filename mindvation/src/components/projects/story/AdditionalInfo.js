@@ -7,6 +7,7 @@ import Display from '../../common/Display';
 import AddTags from "../../../containers/tag_container";
 import ChooseMembers from './ChooseMembers';
 import {FormattedMessage} from 'react-intl';
+import {priorityOptions} from '../../../res/data/dataOptions';
 
 let priority, startEndDate, addTagsNode, chooseMembersNode, storyPointsNode, subFunctionLabel;
 
@@ -75,7 +76,7 @@ class AdditionalInfo extends Component {
                         defaultValue={info.functionLabel ? info.functionLabel.name : ''}
                     />
                 </div>
-                <Select icon="flag" options={global.dummyData.priorityOptions} label="Priority"
+                <Select icon="flag" options={priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
                             priority = node

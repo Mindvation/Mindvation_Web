@@ -58,7 +58,7 @@ class ProjectDetail extends Component {
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
-                        <Grid columns={2}>
+                        {/*<Grid columns={2}>
                             <Grid.Column width={11}>
                                 <Segment padded className="e-charts-segment">
                                     <EfficiencyDiagram/>
@@ -79,8 +79,8 @@ class ProjectDetail extends Component {
                                     </div>
                                 </Carousel>
                             </Grid.Column>
-                        </Grid>
-                        <Grid.Row className="grid-component-right-bottom">
+                        </Grid>*/}
+                        <Grid.Row>
                             <Segment>
                                 <Requirement project={project}/>
                             </Segment>

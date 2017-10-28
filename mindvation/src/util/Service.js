@@ -1,9 +1,12 @@
 import {post} from './request';
+import StaticLoad from '../components/common/Loading';
+import StaticDialog from '../components/common/Dialog';
 import {
     convertModelOptionToLocal,
     convertStaffOptionToLocal,
     convertModelInfoToLocal,
-    convertModelToServer
+    convertModelToServer,
+    convertModelDetailToLocal
 } from '../util/Convert';
 import {url} from './ServiceUrl';
 
@@ -39,7 +42,22 @@ export function getModelById(id, callback) {
 
 export function createModel(model, callback) {
     const params = convertModelToServer(model);
+    StaticLoad.show("createModel");
     post(url.createModel, params)
+        .then((res) => {
+            StaticLoad.remove("createModel");
+            callback && callback(res.responseBody);
+        })
+        .catch((error) => {
+            StaticLoad.remove("createModel");
+            StaticDialog.show("createModel-error", error.responseCode, error.message);
+            console.info(error);
+        });
+
+}
+
+export function getModels(params, callback) {
+    post(url.getModels, params)
         .then((res) => {
             callback && callback(res.responseBody);
         })
@@ -48,28 +66,41 @@ export function createModel(model, callback) {
         });
 }
 
-export function getModels(type, page, pageSize, callback) {
-    fetch('/stub/getModelList.json')
+export function getModelDetail(id, callback) {
+    post(url.getModelDetail, {modelId: id})
         .then((res) => {
-            return res.json();
+            const modelDetail = convertModelDetailToLocal(res.responseBody);
+            callback && callback(modelDetail);
         })
-        .then((data) => {
-            callback(data)
-        })
-        .catch((e) => {
-            console.log(e.message);
+        .catch((error) => {
+            console.info(error);
         });
 }
 
-export function getModelDetail(id, callback) {
-    fetch('/stub/getModelDetail.json')
+export function addFileToTask(task, file) {
+    post(url.addFileToTask, {
+            taskId: task.idNumber,
+            attachmentId: file.response.responseBody.id
+        }
+    )
         .then((res) => {
-            return res.json();
+            console.info(res)
         })
-        .then((data) => {
-            callback(data)
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function removeFileFromTask(task, file, callback) {
+    post(url.removeFileFromTask, {
+            taskId: task.idNumber,
+            attachmentId: file.fileId
+        }
+    )
+        .then(() => {
+            callback();
         })
-        .catch((e) => {
-            console.log(e.message);
+        .catch((error) => {
+            console.info(error);
         });
 }

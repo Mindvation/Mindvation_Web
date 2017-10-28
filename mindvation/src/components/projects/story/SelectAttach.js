@@ -9,53 +9,6 @@ import {FormattedMessage} from 'react-intl';
 
 let mandatoryFile = ["title", "modelType"];
 
-const modelMapping = [
-    {
-        key: "prototypeMap",
-        text: "原型图",
-        data: {
-            key: getTimeAndRandom(),
-            type: 'protoAndProgress',
-            title: '原型图',
-            images: []
-        }
-    },
-    {
-        key: "UIMap",
-        text: "UI效果图",
-        data: {
-            key: getTimeAndRandom(),
-            type: 'proto',
-            title: 'UI效果图',
-            images: []
-        }
-    },
-    {
-        key: "logicMap",
-        text: "逻辑图",
-        data: {
-            key: getTimeAndRandom(),
-            type: 'progress',
-            title: '逻辑图',
-            images: []
-        }
-    },
-    {
-        key: "testCase",
-        text: "测试用例",
-        data: {
-            key: getTimeAndRandom(),
-            type: 'progress',
-            title: '测试用例',
-            images: []
-        }
-    },
-    {
-        key: "custom",
-        text: "自定义"
-    }
-];
-
 class SelectAttach extends Component {
     state = {
         model: {},

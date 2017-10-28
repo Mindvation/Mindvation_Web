@@ -9,7 +9,9 @@ import {
     convertStoryAdditionalToLocal,
     convertTaskToServer,
     convertTaskToLocal,
-    convertTaskStatusToServer
+    convertTaskStatusToServer,
+    convertStoryOptionalToServer,
+    convertStoryOptionalToLocal
 } from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
@@ -110,6 +112,25 @@ export function updateStoryStatus(statusInfo) {
             .catch((error) => {
                 StaticLoad.remove("updateStoryStatus");
                 StaticDialog.show("updateStoryStatus-error", error.responseCode, error.message);
+                console.info(error);
+            });
+    }
+}
+
+export function updateStoryOptional(optionalInfo, callback) {
+    return dispatch => {
+        const params = convertStoryOptionalToServer(optionalInfo);
+        StaticLoad.show("updateStoryOptional");
+        post(url.updateStory, params)
+            .then((res) => {
+                StaticLoad.remove("updateStoryOptional");
+                const story = convertStoryOptionalToLocal(res.responseBody.storyDetail);
+                dispatch(updateStory(story));
+                callback();
+            })
+            .catch((error) => {
+                StaticLoad.remove("updateStoryOptional");
+                StaticDialog.show("updateStoryOptional-error", error.responseCode, error.message);
                 console.info(error);
             });
     }

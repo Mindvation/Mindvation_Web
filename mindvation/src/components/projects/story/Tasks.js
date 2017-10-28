@@ -4,6 +4,7 @@ import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {deleteTask} from '../../../actions/task_action';
 import EditTask from './EditTask';
+import {assignOptions, statusOptions} from '../../../res/data/dataOptions';
 
 const headerWithAction = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status", ""];
 const header = ["ID Number", "Description", "Assignee", "Assigner", "Create Date", "Latest Update", "Status"];
@@ -15,10 +16,10 @@ class Tasks extends Component {
 
     getTaskDesc = (result, key) => {
         if (key === "assignee" && !isEmpty(result[key])) {
-            return getDesc(global.dummyData.assignOptions, result[key])
+            return getDesc(assignOptions, result[key])
         }
         if (key === "status" && !isEmpty(result[key])) {
-            return getDesc(global.dummyData.statusOptions, result[key])
+            return getDesc(statusOptions, result[key])
         }
         if (isEmpty(result[key])) {
             return 'N/A';
@@ -26,7 +27,7 @@ class Tasks extends Component {
         return result[key];
     };
 
-    delete = (result) => {
+    remove = (result) => {
         this.props.dispatch(deleteTask(result))
     };
 
@@ -74,7 +75,7 @@ class Tasks extends Component {
                                                 defaultMessage='Edit'
                                             />
                                         </Button>
-                                        <Button color='red' size="small" onClick={() => this.delete(result)}>
+                                        <Button color='red' size="small" onClick={() => this.remove(result)}>
                                             <FormattedMessage
                                                 id='delete'
                                                 defaultMessage='Delete'

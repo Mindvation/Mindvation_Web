@@ -5,21 +5,28 @@ import {FormattedMessage} from 'react-intl';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {getModels} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
+import {getStaffId} from '../../../util/UserStore';
 
-const rmKey = ["id", "name", "vote", "quoted", "comments"];
+const rmKey = ["modelId", "name", "vote", "quoted", "comments"];
 
 class MyModelList extends Component {
 
     state = {
         model: {
-            modelList: [],
-            totalElements: 1
+            models: [],
+            totalNumber: 1
         },
         showDetail: false
     };
 
     componentDidMount() {
-        getModels('', 0, 3, function (data) {
+        const params = {
+            "page": 1,
+            "pageSize": 3,
+            "creatorId": getStaffId()
+        };
+
+        getModels(params, function (data) {
             this.setState({
                 model: data
             })
@@ -27,7 +34,13 @@ class MyModelList extends Component {
     };
 
     pageChange = (page, pageSize) => {
-        getModels('', page, pageSize, function (data) {
+        const params = {
+            "page": page,
+            "pageSize": pageSize,
+            "creatorId": getStaffId()
+        };
+
+        getModels(params, function (data) {
             this.setState({
                 model: data
             })
@@ -38,19 +51,19 @@ class MyModelList extends Component {
 
         if (key === "vote") {
             return <div>
-                <Icon name="thumbs up" size="big"/>{data[key]}
+                <Icon name="thumbs up" size="big"/>{data[key] ? data[key] : 0}
             </div>
         }
 
         if (key === "quoted") {
             return <div>
-                <Icon name="external share" size="big"/>{data[key]}
+                <Icon name="external share" size="big"/>{data[key] ? data[key] : 0}
             </div>
         }
 
         if (key === "comments") {
             return <div>
-                <Icon name="talk" size="big"/>{data[key]}
+                <Icon name="talk" size="big"/>{data[key] ? data[key] : 0}
             </div>
         }
 
@@ -64,7 +77,7 @@ class MyModelList extends Component {
         this.setState({
             showDetail: true
         }, () => {
-            this.modelDetailNode.initModelData(model)
+            this.modelDetailNode.initModelData(model.model.modelId)
         });
     };
 
@@ -88,13 +101,13 @@ class MyModelList extends Component {
                     <Table striped>
                         <Table.Body>
                             {
-                                model.modelList.map((result, i) => {
+                                model.models.map((result, i) => {
                                     return <Table.Row key={i}>
                                         {
                                             rmKey.map((key, j) => {
                                                 return <Table.Cell
                                                     key={i + "_" + j}>
-                                                    {this.handleDisplayData(result, key)}
+                                                    {this.handleDisplayData(result.model, key)}
                                                 </Table.Cell>
                                             })
                                         }
@@ -111,7 +124,7 @@ class MyModelList extends Component {
                         <Table.Footer>
                             <Table.Row>
                                 <Table.HeaderCell colSpan={rmKey.length + 1}>
-                                    <Pagination defaultCurrent={1} total={model.totalElements}
+                                    <Pagination defaultCurrent={1} total={model.totalNumber}
                                                 showQuickJumper pageSize={3}
                                                 onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                                 </Table.HeaderCell>

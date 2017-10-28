@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import ProjectRoles from '../components/projects/requirement/ProjectRoles';
+import SelectMembers from '../components/projects/requirement/SelectMembers';
 
 const mapStateToProps = (state) => {
     return {
@@ -7,4 +7,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(ProjectRoles)
+export default connect(mapStateToProps)(SelectMembers)

@@ -35,3 +35,22 @@ i.icon.remove-position-button {
 .iteration-item.iteration-display {
     margin-top: 0;
 }
+
+.model-detail-display .ant-tree li .ant-tree-node-content-wrapper {
+    margin-top: 6px;
+}
+
+.model-creator-avatar.ui.avatar.image {
+    height: 60px;
+    width: 60px;
+    margin-right: 1em;
+}
+
+.model-creator-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.model-creator-company {
+    color: #999a9b;
+}

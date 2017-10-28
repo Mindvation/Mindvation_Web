@@ -177,6 +177,23 @@ const en_US = {
     createPosition: "Create Position",
     createDepartment: "Create Department",
     usingModel: "Using {modelType} Team Structure Mode",
-    modelDesc: "This Project had select Dev model with {modelType} template"
+    modelDesc: "This Project had select Dev model with {modelType} template",
+    "Iteration Cycle": "Iteration Cycle",
+    "Move To": "Move To",
+    model: "Model",
+    modelsAndTemplates: "Models And Templates",
+    myModels: "My Models",
+    hr: "HR",
+    employee: "Employee",
+    department: "Department",
+    detail: "Detail",
+    back: "Back",
+    modelDetail: "Model Detail",
+    modelName: "Model Name",
+    basicInfoDesc: "Input model basic info",
+    rolesInfo: "Roles Info",
+    confirmRoleInfo: "Confirm Model Roles Info",
+    designIterationPlan: "Design Iteration Plan Model",
+    addTaskAttachments: "Add Task Attachments"
 };
 export default en_US;

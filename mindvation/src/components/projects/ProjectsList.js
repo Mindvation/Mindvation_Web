@@ -7,6 +7,7 @@ import {FormattedMessage} from 'react-intl';
 import {
     Link
 } from 'react-router-dom';
+import {priorityOptions} from '../../res/data/dataOptions';
 
 const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Checklist Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
 const projectKey = ['projId', 'name', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPointQty', 'checklistQty', 'crStoryQty', 'crStoryPointQty', 'crCost', 'cost', 'crRate'];
@@ -27,7 +28,7 @@ class ProjectsList extends Component {
             </Link>
         }
         if (key === "priority" && !isEmpty(data[key])) {
-            return getDesc(global.dummyData.priorityOptions, data[key]);
+            return getDesc(priorityOptions, data[key]);
         }
         if (key === "checklistQty") {
             if (data.checklists) {

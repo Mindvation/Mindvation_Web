@@ -10,10 +10,67 @@ import {createModel} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
 
 const steps = [
-    {active: true, completed: false, title: 'Basic Info', description: 'Input model basic info'},
-    {active: false, completed: false, title: 'Roles Info', description: 'Confirm model roles info'},
-    {active: false, completed: false, title: '迭代计划模板', description: '确认迭代计划模板'},
-    {active: false, completed: false, title: '任务交付件', description: '确认任务交付件'}
+    {
+        active: true, completed: false, key: 1,
+        title: <div key={1} className="title">
+            <FormattedMessage
+                id='basicInfo'
+                defaultMessage='Basic Info'
+            />
+        </div>,
+        description: <div className="description">
+            <FormattedMessage
+                id='basicInfoDesc'
+                defaultMessage='Input model basic info'
+            />
+        </div>
+    },
+    {
+        active: false, completed: false, key: 2,
+        title: <div key={2} className="title">
+            <FormattedMessage
+                id='rolesInfo'
+                defaultMessage='Roles Info'
+            />
+        </div>,
+        description: <div className="description">
+            <FormattedMessage
+                id='confirmRoleInfo'
+                defaultMessage='Confirm model roles info'
+            />
+        </div>
+    },
+    {
+        active: false, completed: false, key: 3,
+        title: <div key={3} className="title">
+            <FormattedMessage
+                id='iterationPlanModel'
+                defaultMessage='Iteration Plan Model'
+            />
+        </div>,
+        description: <div className="description">
+            <FormattedMessage
+                id='designIterationPlan'
+                defaultMessage='Design Iteration Plan Model'
+            />
+        </div>
+    },
+    {
+        active: false, completed: false, key: 4,
+        title: <div className="title">
+            <FormattedMessage
+                id='taskAttachments'
+                defaultMessage='Task Attachments'
+            />
+        </div>,
+        description:
+            <div className="description">
+                <FormattedMessage
+                    id='addTaskAttachments'
+                    defaultMessage='Add Task Attachments'
+                />
+            </div>
+    }
 ];
 
 class CreateModel extends Component {
@@ -69,12 +126,15 @@ class CreateModel extends Component {
         tempSteps[tempIndex].completed = true;
         tempInfo.attachments = this.attachNode.getInfo();
         this.setState({
-            modelInfo: tempInfo,
-            showDetail: true
+            modelInfo: tempInfo
         });
 
         createModel(tempInfo, (res) => {
-            this.modelDetailNode.initModelData(res);
+            this.setState({
+                showDetail: true
+            }, () => {
+                this.modelDetailNode.initModelData(res.model.modelId);
+            });
         })
     };
 

@@ -3,8 +3,7 @@ import {Header, Icon, Modal, Button, List} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import OptionalItem from '../OptionalItem';
-import {updateStory} from '../../../../actions/story_action';
-import {clearTempTask} from '../../../../actions/task_action';
+import {updateStoryOptional} from '../../../../actions/story_action';
 import DisplayFile from '../../../common/DisplayFile';
 
 let optionalModule;
@@ -17,7 +16,6 @@ class EditOptionalInfo extends Component {
 
     closeModal = () => {
         this.setState({modalOpen: false});
-        this.props.dispatch(clearTempTask());
     };
 
     edit = () => {
@@ -26,26 +24,10 @@ class EditOptionalInfo extends Component {
 
     update = () => {
         let optionalInfo = optionalModule.getInfo();
-        this.props.dispatch(updateStory(optionalInfo));
-        this.props.dispatch(clearTempTask());
-        this.closeModal();
-    };
-
-    formatTasks = () => {
-        const {story} = this.props;
-        if (story.tasks && story.tasks.length) {
-            return <List>
-                {story.tasks.map((result, i) => {
-                    return <List.Item key={i} className={"task-list-" + result.status}>
-                        <List.Icon name='circle'/>
-                        <List.Content>
-                            <List.Description>{result.description}</List.Description>
-                        </List.Content>
-                    </List.Item>
-                })}
-            </List>;
-        }
-        return "";
+        optionalInfo.storyId = this.props.story.storyId;
+        this.props.dispatch(updateStoryOptional(optionalInfo, function () {
+            this.closeModal();
+        }.bind(this)));
     };
 
     render() {
@@ -68,8 +50,6 @@ class EditOptionalInfo extends Component {
                             </div>
                     }
                 </Header>
-                {/*<ReadOnly icon="tasks" title="Tasks"
-                          value={this.formatTasks()}/>*/}
                 <ReadOnly icon="attach" title="Attachments"
                           value={story.fileList && story.fileList.length > 0 ?
                               <DisplayFile fileList={story.fileList}/> : ""}/>

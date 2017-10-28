@@ -177,6 +177,23 @@ const zh_CN = {
     createPosition: "创建职位",
     createDepartment: "创建部门",
     usingModel: "使用{modelType}模型",
-    modelDesc: "该项目选择了{modelType}模板作为开发模式"
+    modelDesc: "该项目选择了{modelType}模板作为开发模式",
+    "Iteration Cycle": "迭代周期",
+    "Move To": "移动到",
+    model: "模板",
+    modelsAndTemplates: "模板样本",
+    myModels: "我的模板",
+    hr: "人事管理",
+    employee: "员工",
+    department: "部门",
+    detail: "详情",
+    back: "返回",
+    modelDetail: "模板详情",
+    modelName: "模板名称",
+    basicInfoDesc: "输入模板基本信息",
+    rolesInfo: "角色信息",
+    confirmRoleInfo: "确认角色信息",
+    designIterationPlan: "制定迭代计划模板",
+    addTaskAttachments: "添加任务交付件"
 };
 export default zh_CN;

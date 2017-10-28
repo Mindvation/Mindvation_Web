@@ -74,7 +74,7 @@ class ChooseMembers extends Component {
 
     render() {
         const {modalOpen, originMembers} = this.state;
-        const {members} = this.props;
+        const {members, tags} = this.props;
         return (
             <div>
                 <Modal
@@ -90,7 +90,7 @@ class ChooseMembers extends Component {
                     </Modal.Header>
                     <Modal.Content>
                         <TagList
-                            tagList={allTags}
+                            tagList={tags}
                             ref={node => tagsNode = node}
                         />
                         <Input
