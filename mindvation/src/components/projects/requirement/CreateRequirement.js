@@ -63,11 +63,11 @@ class CreateRequirement extends Component {
                     />
                 </Button>
                 <Link style={{border: '1px solid #1b1c1d'}} className="create-requirement-button"
-                      to={`/home/MVPDashboard`}>
+                      to={`/home/MVPDashboard/${project.projectId}`}>
                     MVP Dashboard
                 </Link>
                 <Link style={{border: '1px solid #1b1c1d', marginLeft: '2em'}} className="create-requirement-button"
-                      to={`/home/MyMVPDashboard`}>
+                      to={`/home/MyMVPDashboard/${project.projectId}`}>
                     My MVP Dashboard
                 </Link>
                 <Modal

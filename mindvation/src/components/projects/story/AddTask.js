@@ -41,6 +41,7 @@ class AddTask extends Component {
 
     createTask = () => {
         const task = {
+            projectId: this.props.story.projectId,
             storyId: this.props.story.storyId,
             description: taskDesc.getWrappedInstance().getValue(),
             assignee: assignTo.getWrappedInstance().getValue(),

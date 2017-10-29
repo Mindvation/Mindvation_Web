@@ -30,12 +30,12 @@ const routes = [
         main: () => <Projects/>
     },
     {
-        path: '/home/MVPDashboard',
-        main: () => <Dashboard/>
+        path: '/home/MVPDashboard/:id',
+        main: Dashboard
     },
     {
-        path: '/home/MyMVPDashboard',
-        main: () => <MyDashboard/>
+        path: '/home/MyMVPDashboard/:id',
+        main: MyDashboard
     },
     {
         path: '/home/CreateModel',

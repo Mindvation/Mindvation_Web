@@ -1240,6 +1240,7 @@ export function convertTaskToServer(taskInfo) {
         assigneeId: taskInfo.assignee,
         creatorId: getStaffId(),
         storyId: taskInfo.storyId,
+        projId: taskInfo.projectId,
         deliver: {}
     };
 

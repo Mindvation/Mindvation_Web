@@ -1,5 +1,5 @@
 let url;
-const isProduction = true;
+const isProduction = false;
 
 if (isProduction) {
     const gateWay = "http://192.168.0.254:";
@@ -29,10 +29,12 @@ if (isProduction) {
         getModels: gateWay + '8080/mdvn-model-papi/model/rtrvModelList',
         getModelDetail: gateWay + '8080/mdvn-model-papi/model/findModelDetailById',
         addFileToTask: gateWay + '8080/mdvn-task-papi/task/addAttachForTask',
-        removeFileFromTask: gateWay + '8080/mdvn-task-papi/task/deleteAttachForTask'
+        removeFileFromTask: gateWay + '8080/mdvn-task-papi/task/deleteAttachForTask',
+        rtrvStoryList: gateWay + '8080/mdvn-dashboard-papi/dashboard/rtrvStoryList',
+        updateDashboard: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateDashboard'
     };
 } else {
-    const gateWay = "http://192.168.0.109:";
+    const gateWay = "http://192.168.0.102:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -59,7 +61,9 @@ if (isProduction) {
         getModels: gateWay + '10010/mdvn-model-papi/model/rtrvModelList',
         getModelDetail: gateWay + '10010/mdvn-model-papi/model/findModelDetailById',
         addFileToTask: gateWay + '10003/mdvn-task-papi/task/addAttachForTask',
-        removeFileFromTask: gateWay + '10003/mdvn-task-papi/task/deleteAttachForTask'
+        removeFileFromTask: gateWay + '10003/mdvn-task-papi/task/deleteAttachForTask',
+        rtrvStoryList: gateWay + '10018/mdvn-dashboard-papi/dashboard/rtrvStoryList',
+        updateDashboard: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateDashboard'
     };
 }
 

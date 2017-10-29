@@ -2,13 +2,23 @@ import React, {Component} from 'react';
 import DragDropContext from '../../common/DragDropContext';
 import MoveProject from './MoveProject';
 import {Sidebar} from 'semantic-ui-react';
-import DemoCalendar from './DemoCalendar';
 import StorySummary from '../../../containers/storySummary_container';
+import {rtrvStoryList} from '../../../util/Service';
 
 class Dashboard extends Component {
     state = {
         visible: false,
-        storyId: ''
+        storyId: '',
+        storyList: ''
+    };
+
+    componentWillMount() {
+        const {id} = this.props.match.params;
+        rtrvStoryList(id, function (storyList) {
+            this.setState({
+                storyList: storyList
+            })
+        }.bind(this))
     };
 
     checkDetail = (storyId) => {
@@ -16,7 +26,7 @@ class Dashboard extends Component {
     };
 
     render() {
-        const {visible, storyId} = this.state;
+        const {visible, storyId, storyList} = this.state;
         return (
             <Sidebar.Pushable>
                 <Sidebar
@@ -30,9 +40,15 @@ class Dashboard extends Component {
                 </Sidebar>
                 <Sidebar.Pusher>
                     <div className="component-container" onClick={() => this.setState({visible: false})}>
-                        <MoveProject storyDetail={(storyId) => {
-                            this.checkDetail(storyId)
-                        }}/>
+                        {
+                            (storyList && storyList.length > 0) ?
+                                storyList.map((story, i) => {
+                                    return <MoveProject key={i} storyList={story} storyDetail={(storyId) => {
+                                        this.checkDetail(storyId)
+                                    }}/>
+                                }) : null
+                        }
+
                         {/*<DemoCalendar storyDetail={(storyId) => {
                             this.checkDetail(storyId)
                         }}/>*/}

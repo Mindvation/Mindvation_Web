@@ -9,6 +9,7 @@ import {
     convertModelDetailToLocal
 } from '../util/Convert';
 import {url} from './ServiceUrl';
+import {getStaffId, getUser} from "./UserStore";
 
 export function retrieveModels(callback) {
     post(url.retrieveModels, {})
@@ -102,5 +103,31 @@ export function removeFileFromTask(task, file, callback) {
         })
         .catch((error) => {
             console.info(error);
+        });
+}
+
+export function rtrvStoryList(projectId, callback) {
+    post(url.rtrvStoryList, {
+            projId: projectId,
+            creatorId: getStaffId()
+        }
+    )
+        .then((res) => {
+            callback(res.responseBody);
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function updateDashboard(params) {
+    StaticLoad.show("updateDashboard");
+    post(url.updateDashboard, params)
+        .then(() => {
+            StaticLoad.remove("updateDashboard");
+        })
+        .catch((error) => {
+            StaticLoad.remove("updateDashboard");
+            StaticDialog.show("updateDashboard-error", error.responseCode, error.message);
         });
 }
