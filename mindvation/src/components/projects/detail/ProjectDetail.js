@@ -12,6 +12,10 @@ import ProgressDashboard from './ProgressDashboard';
 import Carousel from '../../common/Carousel';
 import Requirement from '../requirement/Requirement';
 import EditStatus from "../EditStatus";
+import {hasAuth} from '../../../util/AuthUtil';
+import {
+    Link
+} from 'react-router-dom';
 
 class ProjectDetail extends Component {
     componentDidMount() {
@@ -51,10 +55,14 @@ class ProjectDetail extends Component {
                     <Grid.Column width={5}>
                         <Segment padded>
                             <EditStatus status={project.status} isStory={true}
+                                        disabled={!hasAuth("updateProjectStatus", project.authCode)}
                                         changeStatus={(status, percent) => this.changeStatus(project, status, percent)}/>
-                            <EditBasicInfo project={project} dispatch={dispatch}/>
-                            <EditAdditionalInfo project={project} dispatch={dispatch}/>
-                            <EditOptionalInfo project={project} dispatch={dispatch}/>
+                            <EditBasicInfo project={project} dispatch={dispatch}
+                                           disabled={!hasAuth("updateProject", project.authCode)}/>
+                            <EditAdditionalInfo project={project} dispatch={dispatch}
+                                                disabled={!hasAuth("updateProject", project.authCode)}/>
+                            <EditOptionalInfo project={project} dispatch={dispatch}
+                                              disabled={!hasAuth("updateProject", project.authCode)}/>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
@@ -82,11 +90,23 @@ class ProjectDetail extends Component {
                         </Grid>*/}
                         <Grid.Row>
                             <Segment>
-                                <Requirement project={project}/>
+                                <Requirement/>
+                            </Segment>
+                            <Segment>
+                                <Link style={{border: '1px solid #1b1c1d'}} className="create-requirement-button"
+                                      to={`/home/MVPDashboard/${project.projectId}`}>
+                                    MVP Dashboard
+                                </Link>
+                                <Link style={{border: '1px solid #1b1c1d', marginLeft: '2em'}}
+                                      className="create-requirement-button"
+                                      to={`/home/MyMVPDashboard/${project.projectId}`}>
+                                    My MVP Dashboard
+                                </Link>
                             </Segment>
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>
+
             </div>
         );
     }

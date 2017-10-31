@@ -31,10 +31,25 @@ if (isProduction) {
         addFileToTask: gateWay + '8080/mdvn-task-papi/task/addAttachForTask',
         removeFileFromTask: gateWay + '8080/mdvn-task-papi/task/deleteAttachForTask',
         rtrvStoryList: gateWay + '8080/mdvn-dashboard-papi/dashboard/rtrvStoryList',
-        updateDashboard: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateDashboard'
+        updateDashboard: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateDashboard',
+        getMyTaskList: gateWay + '8080/mdvn-dashboard-papi/dashboard/getMyDashboardInfos',
+        updateTaskStatus: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateMyDashboard',
+        getTaskById: gateWay + '8080/mdvn-task-papi/task/retrieveTaskInfo',
+        createStaff: gateWay + '8080/mdvn-staff-papi/staff/createStaff',
+        rtrvStaffDetail: gateWay + '8080/mdvn-staff-papi/staff/rtrvStaffDetail',
+        deleteStaff: gateWay + '8080/mdvn-staff-papi/staff/deleteStaff',
+        updateStaffDetail: gateWay + '8080/mdvn-staff-papi/staff/updateStaffDetail',
+        createDepartment: gateWay + '8080/mdvn-department-papi/department/createDepartment',
+        rtrvDepartmentList: gateWay + '8080/mdvn-department-papi/department/rtrvDepartmentList',
+        updateDepartment: gateWay + '8080/mdvn-department-papi/department/updateDepartment',
+        deleteDepartment: gateWay + '8080/mdvn-department-papi/department/deleteDepartment',
+        getAllDepartment: gateWay + '8080/mdvn-department-papi/department/getAllDepartment',
+        startIteration: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateSprintStartStatus',
+        getNextIterations: gateWay + '8080/mdvn-dashboard-papi/dashboard/itSprints',
+        closeIteration: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateSprintCloseStatus'
     };
 } else {
-    const gateWay = "http://192.168.0.102:";
+    const gateWay = "http://192.168.0.101:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -63,7 +78,22 @@ if (isProduction) {
         addFileToTask: gateWay + '10003/mdvn-task-papi/task/addAttachForTask',
         removeFileFromTask: gateWay + '10003/mdvn-task-papi/task/deleteAttachForTask',
         rtrvStoryList: gateWay + '10018/mdvn-dashboard-papi/dashboard/rtrvStoryList',
-        updateDashboard: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateDashboard'
+        updateDashboard: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateDashboard',
+        getMyTaskList: gateWay + '10018/mdvn-dashboard-papi/dashboard/getMyDashboardInfos',
+        updateTaskStatus: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateMyDashboard',
+        getTaskById: gateWay + '10003/mdvn-task-papi/task/retrieveTaskInfo',
+        createStaff: gateWay + '10014/mdvn-staff-papi/staff/createStaff',
+        rtrvStaffDetail: gateWay + '10014/mdvn-staff-papi/staff/rtrvStaffDetail',
+        deleteStaff: gateWay + '10014/mdvn-staff-papi/staff/deleteStaff',
+        updateStaffDetail: gateWay + '10014/mdvn-staff-papi/staff/updateStaffDetail',
+        createDepartment: gateWay + '10024/mdvn-department-papi/department/createDepartment',
+        rtrvDepartmentList: gateWay + '10024/mdvn-department-papi/department/rtrvDepartmentList',
+        updateDepartment: gateWay + '10024/mdvn-department-papi/department/updateDepartment',
+        deleteDepartment: gateWay + '10024/mdvn-department-papi/department/deleteDepartment',
+        getAllDepartment: gateWay + '10024/mdvn-department-papi/department/getAllDepartment',
+        startIteration: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateSprintStartStatus',
+        getNextIterations: gateWay + '10018/mdvn-dashboard-papi/dashboard/itSprints',
+        closeIteration: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateSprintCloseStatus'
     };
 }
 

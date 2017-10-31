@@ -8,9 +8,7 @@ import {clearTempRequirement} from '../../../actions/requirement_action';
 import {createRequirement} from '../../../actions/requirements_action';
 import {clearTempChecklist} from '../../../actions/checklist_action';
 import {checkCompleted} from '../../../util/CommUtil';
-import {
-    Link
-} from 'react-router-dom';
+import {hasAuth} from '../../../util/AuthUtil';
 
 let basicModule, optionalModule, AdditionalModule;
 let mandatoryFile = ["summary", "description"];
@@ -54,22 +52,15 @@ class CreateRequirement extends Component {
         const {requirement, dispatch, project} = this.props;
         return (
             <div>
-                <Button className="create-requirement-button" compact basic
-                        onClick={() => this.createTempRequirement()}>
-                    <Icon name="plus circle"/>
-                    <FormattedMessage
-                        id='createRequirement'
-                        defaultMessage='Create Requirement'
-                    />
-                </Button>
-                <Link style={{border: '1px solid #1b1c1d'}} className="create-requirement-button"
-                      to={`/home/MVPDashboard/${project.projectId}`}>
-                    MVP Dashboard
-                </Link>
-                <Link style={{border: '1px solid #1b1c1d', marginLeft: '2em'}} className="create-requirement-button"
-                      to={`/home/MyMVPDashboard/${project.projectId}`}>
-                    My MVP Dashboard
-                </Link>
+                {hasAuth("createRequirement", project.authCode) ?
+                    <Button className="create-requirement-button" compact basic
+                            onClick={() => this.createTempRequirement()}>
+                        <Icon name="plus circle"/>
+                        <FormattedMessage
+                            id='createRequirement'
+                            defaultMessage='Create Requirement'
+                        />
+                    </Button> : null}
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

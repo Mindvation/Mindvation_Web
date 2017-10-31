@@ -24,11 +24,10 @@ class EditDepartment extends Component {
 
     closeModal = () => this.setState({modalOpen: false});
 
-    updateDepartmentList = () => {
+    updateDepartmentDetail = () => {
         let departmentInfo = this.departmentInfoNode.getInfo();
         departmentInfo.id = this.state.departmentInfo.id;
-        this.props.dispatch(updateDepartment(departmentInfo));
-        this.closeModal();
+        this.props.dispatch(updateDepartment(departmentInfo, this.closeModal));
     };
 
     render() {
@@ -55,7 +54,7 @@ class EditDepartment extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.updateDepartmentList()}>
+                        <Button primary onClick={() => this.updateDepartmentDetail()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

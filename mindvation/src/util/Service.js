@@ -6,10 +6,12 @@ import {
     convertStaffOptionToLocal,
     convertModelInfoToLocal,
     convertModelToServer,
-    convertModelDetailToLocal
+    convertModelDetailToLocal,
+    convertDepartmentToLocal
 } from '../util/Convert';
 import {url} from './ServiceUrl';
-import {getStaffId, getUser} from "./UserStore";
+import {getStaffId} from "./UserStore";
+import {convertTaskToLocal} from "./Convert";
 
 export function retrieveModels(callback) {
     post(url.retrieveModels, {})
@@ -129,5 +131,95 @@ export function updateDashboard(params) {
         .catch((error) => {
             StaticLoad.remove("updateDashboard");
             StaticDialog.show("updateDashboard-error", error.responseCode, error.message);
+        });
+}
+
+export function getMyTaskList(projectId, callback) {
+    post(url.getMyTaskList, {
+            projId: projectId,
+            creatorId: getStaffId()
+        }
+    )
+        .then((res) => {
+            callback(res.responseBody);
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function updateTaskStatus(params, callback) {
+    StaticLoad.show("updateTaskStatus");
+    post(url.updateTaskStatus, params)
+        .then(() => {
+            StaticLoad.remove("updateTaskStatus");
+            callback();
+        })
+        .catch((error) => {
+            StaticLoad.remove("updateTaskStatus");
+            StaticDialog.show("updateTaskStatus-error", error.responseCode, error.message);
+        });
+}
+
+export function getTaskById(id, callback) {
+    post(url.getTaskById, {
+            taskId: id
+        }
+    )
+        .then((res) => {
+            const taskDetail = convertTaskToLocal(res.responseBody);
+            callback(taskDetail);
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function getAllDepartment(callback) {
+    post(url.getAllDepartment, {}
+    )
+        .then((res) => {
+            const department = convertDepartmentToLocal(res.responseBody);
+            callback(department);
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function startIteration(params, callback) {
+    StaticLoad.show("startIteration");
+    post(url.startIteration, params)
+        .then((res) => {
+            StaticLoad.remove("startIteration");
+            callback(res.responseBody);
+        })
+        .catch((error) => {
+            StaticLoad.remove("startIteration");
+            StaticDialog.show("startIteration-error", error.responseCode, error.message);
+        });
+}
+
+export function getNextIterations(iterationKey, callback) {
+    post(url.getNextIterations, {uuId: iterationKey}
+    )
+        .then((res) => {
+            callback(res.responseBody);
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
+export function closeIteration(params, callback) {
+    StaticLoad.show("closeIteration");
+    post(url.closeIteration, params)
+        .then((res) => {
+            StaticLoad.remove("closeIteration");
+            callback(res.responseBody);
+        })
+        .catch((error) => {
+            StaticLoad.remove("closeIteration");
+            StaticDialog.show("closeIteration-error", error.responseCode, error.message);
         });
 }

@@ -16,6 +16,7 @@ import {
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
+import {getStaffId} from '../util/UserStore';
 /*
  * action 类型
  */
@@ -48,10 +49,14 @@ function updateStoryTask(task) {
 export function getStoryById(id) {
     return dispatch => {
         post(url.getStoryById, {
-            "storyId": id
+            "storyId": id,
+            "staffId": getStaffId()
         })
             .then((res) => {
                 const story = convertStoryToLocal(res.responseBody.storyDetail);
+                if (res.responseBody.staffAuthInfo) {
+                    story.authCode = res.responseBody.staffAuthInfo.authCode;
+                }
                 dispatch(retrievedStory(story));
             })
             .catch((error) => {

@@ -7,16 +7,17 @@ import {getDesc, checkCompleted} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import SelectCycle from './SelectCycle';
 import CompleteSprint from './CompleteSprint';
-import {updateDashboard} from '../../../util/Service';
+import {updateDashboard, startIteration, closeIteration} from '../../../util/Service';
 
-let mandatoryFile = ["iterationCycle"];
+let mandatoryFiled = ["iterationCycle"], iterationMandatoryFiled = ["moveToSprint"];
 
 class MoveProject extends Component {
     state = {
         sprints: [],
         cycleOpen: false,
         completeOpen: false,
-        model: {}
+        model: {},
+        activeSprint: 1
     };
 
     componentWillMount() {
@@ -25,20 +26,26 @@ class MoveProject extends Component {
     }
 
     formatSprintsData(storyList) {
-        let tempSprints = this.state.sprints;
+        let tempSprints = [];
+        let activeSprint = 1;
         if (storyList.sprintStoryLists && storyList.sprintStoryLists.length > 0) {
-            storyList.sprintStoryLists.map((sprint) => {
+            storyList.sprintStoryLists.map((sprint, i) => {
                 let tempIteration = {
                     key: sprint.sprintInfo.uuId,
                     text: sprint.sprintInfo.name,
                     stories: [],
                     labels: sprint.labelIds || [],
+                    status: sprint.sprintInfo.status,
                     points: 0
                 };
+                if (sprint.sprintInfo.status === "close") {
+                    activeSprint = i + 1;
+                }
                 if (sprint.stories && sprint.stories.length > 0) {
                     sprint.stories.map((story) => {
-                        tempIteration.stories.push(story);
-                        tempIteration.points += Number(story.storyPoint)
+                        story.story.functionLabelId = story.labelId;
+                        tempIteration.stories.push(story.story);
+                        tempIteration.points += Number(story.story.storyPoint)
                     })
                 }
                 tempSprints.push(tempIteration);
@@ -47,7 +54,8 @@ class MoveProject extends Component {
 
         this.setState({
             sprints: tempSprints,
-            model: storyList.model
+            model: storyList.model,
+            activeSprint: activeSprint
         })
     }
 
@@ -76,12 +84,14 @@ class MoveProject extends Component {
     };
 
     startSprint = (sprint) => {
+        this.handleSprint = sprint;
         this.setState({
             cycleOpen: true
         })
     };
 
     closeSprint = (sprint) => {
+        this.handleSprint = sprint;
         this.setState({
             completeOpen: true
         })
@@ -96,9 +106,12 @@ class MoveProject extends Component {
 
     selectCycleInfo = () => {
         const cycleInfo = this.selectCycleNode.getInfo();
-        let flag = checkCompleted(mandatoryFile, cycleInfo);
+        let flag = checkCompleted(mandatoryFiled, cycleInfo);
         if (flag) {
-            this.closeCycleModal();
+            startIteration({
+                "uuId": this.handleSprint.key,
+                "iterationCycle": cycleInfo.iterationCycle
+            }, (iterationInfo) => this.updateSprintStatus(iterationInfo));
         }
     };
 
@@ -109,20 +122,39 @@ class MoveProject extends Component {
     };
 
     completeSprint = () => {
+        const iterationInfo = this.completeSprintNode.getInfo();
+        let flag = checkCompleted(iterationMandatoryFiled, iterationInfo);
+        if (flag) {
+            closeIteration({
+                "beforUuId": this.handleSprint.key,
+                "afterUuId": iterationInfo.moveToSprint,
+                "stories": iterationInfo.movedStories
+            }, (storyList) => {
+                this.formatSprintsData(storyList);
+                this.closeCompleteModal();
+            });
+        }
+    };
+
+    updateSprintStatus = (iterationInfo) => {
+        this.handleSprint.status = iterationInfo.status;
         this.setState({
-            completeOpen: false
-        })
+            sprints: this.state.sprints
+        });
+        this.closeCycleModal();
     };
 
     AIArrangement = () => {
         const {sprints} = this.state;
         let tempSprints = [];
         let allStories = [];
+        let allLabels = [];
         sprints.map((item) => {
             tempSprints.push({
                 key: item.key,
                 text: item.text,
                 labels: item.labels,
+                status: item.status,
                 stories: [],
                 points: 0
             });
@@ -130,28 +162,28 @@ class MoveProject extends Component {
             if (item.stories && item.stories.length > 0) {
                 allStories = allStories.concat(item.stories);
             }
+
+            if (item.labels && item.labels.length > 0) {
+                allLabels = allLabels.concat(item.labels);
+            }
         });
 
         if (allStories.length > 0) {
             allStories.map((story) => {
-                tempSprints.some((item) => {
-                    if (item.labels.indexOf(story.labelId) > -1) {
-                        item.stories.push(story);
-                        item.points += Number(story.storyPoint);
-                        allStories.splice(allStories.indexOf(story), 1);
-                        return true;
-                    }
-                })
+                if (allLabels.indexOf(story.functionLabelId) === -1) {
+                    tempSprints[0].stories.push(story);
+                    tempSprints[0].points += Number(story.storyPoint);
+                } else {
+                    tempSprints.some((item) => {
+                        if (item.labels.indexOf(story.functionLabelId) > -1) {
+                            item.stories.push(story);
+                            item.points += Number(story.storyPoint);
+                            return true;
+                        }
+                    })
+                }
             })
         }
-
-        tempSprints.map((sprint) => {
-            if (sprint.text !== 'Product Backlogs') return;
-            allStories.map((story) => {
-                sprint.stories.push(story);
-                sprint.points += Number(story.storyPoint);
-            })
-        });
 
         this.setState({
             sprints: tempSprints
@@ -184,7 +216,7 @@ class MoveProject extends Component {
     };
 
     render() {
-        const {sprints, cycleOpen, completeOpen, model} = this.state;
+        const {sprints, cycleOpen, completeOpen, model, activeSprint} = this.state;
         return (
             <div>
                 <Header as='h3'>
@@ -201,27 +233,30 @@ class MoveProject extends Component {
                                     <div className="mvp-sprint-title">
                                         <span className="mvp-sprint-title-text">{sprint.text}({sprint.points})</span>
                                         {sprint.text !== 'Product Backlogs' ? <div className="mvp-sprint-status">
-                                            {sprint.status === 'inProgress' ?
+                                            {sprint.status === 'start' ?
                                                 <Icon name='video play outline' size="large" color="green"/> : null}
-                                            {sprint.status === 'inProgress' ?
+                                            {sprint.status === 'start' ?
                                                 <Icon name='recycle' size="large" color="blue"/> : null}
-                                            {sprint.status === 'inProgress' ?
+                                            {sprint.status === 'warning' ?
                                                 <Icon name='warning sign' size="large" color="orange"/> : null}
-                                            {sprint.status === 'done' ?
+                                            {sprint.status === 'close' ?
                                                 <Icon name='stop circle outline' size="large"/> : null}
                                         </div> : null}
-                                        {sprint.text !== 'Product Backlogs' ? <div className="mvp-sprint-action">
-                                            <Dropdown>
-                                                <Dropdown.Menu>
-                                                    <Dropdown.Item text='Start Sprint' onClick={() => {
-                                                        this.startSprint(sprint)
-                                                    }}/>
-                                                    <Dropdown.Item text='Close Sprint' onClick={() => {
-                                                        this.closeSprint(sprint)
-                                                    }}/>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </div> : null}
+                                        {activeSprint === i ?
+                                            <div className="mvp-sprint-action">
+                                                <Dropdown>
+                                                    <Dropdown.Menu>
+                                                        {sprint.status === 'notStart' ?
+                                                            <Dropdown.Item text='Start Sprint' onClick={() => {
+                                                                this.startSprint(sprint)
+                                                            }}/> : null}
+                                                        {sprint.status === 'start' ?
+                                                            <Dropdown.Item text='Close Sprint' onClick={() => {
+                                                                this.closeSprint(sprint)
+                                                            }}/> : null}
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div> : null}
                                     </div>
                                     <DropContainer data={sprint.key}>
                                         <List divided>
@@ -295,7 +330,8 @@ class MoveProject extends Component {
                     closeOnRootNodeClick={false}
                     open={completeOpen}
                     size='small'>
-                    <CompleteSprint/>
+                    <CompleteSprint handleSprint={this.handleSprint}
+                                    ref={node => this.completeSprintNode = node}/>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeCompleteModal()}>
                             <FormattedMessage

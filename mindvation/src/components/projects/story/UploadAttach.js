@@ -5,6 +5,7 @@ import UploadMulti from '../../common/UploadMulti';
 import UploadAndProgress from '../../common/UploadAndProgress';
 import EditProgress from './detail/EditProgress';
 import {updateTaskStatus} from '../../../actions/story_action';
+import {hasAuth} from '../../../util/AuthUtil';
 
 class UploadAttach extends Component {
     state = {
@@ -27,15 +28,18 @@ class UploadAttach extends Component {
         const modelItem = task.model;
         if (modelItem.type === 'progress') {
             return <Progress percent={modelItem.percent} mode="charts" domKey={modelItem.key}
-                             editProgress={() => this.editProgress(task)}/>
+                             editProgress={() => this.editProgress(task)}
+                             readOnly={!hasAuth("updateTask", task.authCode)}/>
         }
         if (modelItem.type === 'protoAndProgress') {
             return <UploadAndProgress percent={modelItem.percent} domKey={modelItem.key}
                                       task={task}
-                                      editProgress={() => this.editProgress(task)}/>
+                                      editProgress={() => this.editProgress(task)}
+                                      readOnly={!hasAuth("updateTask", task.authCode)}/>
         }
         if (modelItem.type === 'proto') {
-            return <UploadMulti task={task}/>
+            return <UploadMulti task={task}
+                                readOnly={!hasAuth("updateTask", task.authCode)}/>
         }
     };
 

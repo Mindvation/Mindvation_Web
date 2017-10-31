@@ -379,6 +379,7 @@
 
 .mvp-sprint-action .ui.dropdown .menu {
     right: -1em;
+    left: auto;
 }
 
 .mvp-sprint-action .ui.dropdown {

@@ -1,4 +1,9 @@
-import {GET_DEPARTMENT_LIST, CREATE_DEPARTMENT, UPDATE_DEPARTMENT, DELETE_DEPARTMENT} from '../actions/department_action';
+import {
+    GET_DEPARTMENT_LIST,
+    CREATE_DEPARTMENT,
+    UPDATE_DEPARTMENT,
+    DELETE_DEPARTMENT
+} from '../actions/department_action';
 
 function department(state = {
     departments: [],
@@ -14,7 +19,7 @@ function department(state = {
         case UPDATE_DEPARTMENT:
             let temp2 = {...state};
             temp2.departments.some((department) => {
-                if (department.key === action.department.key) {
+                if (department.id === action.department.id) {
                     Object.assign(department, action.department);
                     return true;
                 }
@@ -23,6 +28,7 @@ function department(state = {
         case DELETE_DEPARTMENT:
             let temp3 = {...state};
             temp3.departments.splice(temp3.departments.indexOf(action.department), 1);
+            temp3.totalElements = temp3.totalElements - 1;
             return temp3;
         default:
             return state

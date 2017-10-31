@@ -75,7 +75,7 @@ class MVInput extends Component {
         };
         const {
             label, icon, required, checked, placeHolder, defaultValue, type = "text",
-            step = "0.1", style, fullWidth, action, horizontal, value
+            step = "0.1", style, fullWidth, action, horizontal, value, readOnly
         } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
@@ -95,6 +95,7 @@ class MVInput extends Component {
                     </Header> : null
                 }
                 <Input fluid
+                       disabled={readOnly}
                        placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                        error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
                        className={fullWidth ? "" : "components-length"}
@@ -120,6 +121,7 @@ MVInput.propTypes = {
     fullWidth: PropTypes.bool,
     action: PropTypes.object,
     horizontal: PropTypes.bool,
+    readOnly: PropTypes.bool,
     onChange: PropTypes.func
 };
 

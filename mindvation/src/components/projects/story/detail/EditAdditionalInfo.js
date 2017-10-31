@@ -30,7 +30,7 @@ class EditAdditionalInfo extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {story, readOnly} = this.props;
+        const {story, disabled} = this.props;
         const readyOnlyItems = [{
             icon: "tag",
             title: "Tags",
@@ -96,7 +96,7 @@ class EditAdditionalInfo extends Component {
                         defaultMessage='additional Info'
                     />
                     {
-                        readOnly ? null :
+                        disabled ? null :
                             <div className="edit-line-cont">
                                 <div className="edit-info-line"/>
                                 <div className="edit-info-icon" onClick={this.edit}>

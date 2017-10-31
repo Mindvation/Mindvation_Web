@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Button} from 'semantic-ui-react';
+import {Header, Button, Image, Popup} from 'semantic-ui-react';
 import {logOut} from '../../actions/logon_action';
 import {FormattedMessage} from 'react-intl';
 import {getUser} from '../../util/UserStore';
@@ -17,10 +17,24 @@ class CommonHeader extends Component {
             this.props.history.push('/login?language=login&redirect_uri=' + encodeURIComponent(redirect));
         }*/
         return (
-            <Header as='h2' textAlign='center'>
-                <span style={{float: 'left', color: '#f9f9f9'}}>
+            <Header as='h2' textAlign='center' className="common-header">
+                {/*<span style={{float: 'left', color: '#f9f9f9'}}>
                     {getUser().name}
-                </span>
+                </span>*/}
+                <div className="display-flex" style={{float: 'left'}}>
+                    <Popup
+                        className="pre-line"
+                        trigger={<Image verticalAlign="middle" src={getUser().avatar} avatar
+                                        className="header-avatar"/>}
+                        content={<Image verticalAlign="middle" src={getUser().avatar} avatar
+                                        style={{width: '10em', height: '10em'}}/>}
+                        position="bottom left"
+                    />
+
+                    <span style={{color: '#f9f9f9'}}>
+                        {getUser().name}
+                    </span>
+                </div>
 
                 <span style={{color: '#f9f9f9'}}>
                     <FormattedMessage

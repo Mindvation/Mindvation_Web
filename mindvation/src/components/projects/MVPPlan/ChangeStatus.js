@@ -2,103 +2,7 @@ import React, {Component} from 'react';
 import AcceptContainer from '../../common/AcceptContainer';
 import AcceptBox from '../../common/AcceptBox';
 import {Grid, Header, Icon, List, Segment} from 'semantic-ui-react';
-import {priorityOptions} from '../../../res/data/dataOptions';
-import {getDesc} from '../../../util/CommUtil';
-import _ from 'lodash';
-
-const testProjects = [
-    [{
-        storyId: 'S0001',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'H',
-        storyPoints: '1',
-        status: 'new',
-        subStatus: 'normal'
-    }, {
-        storyId: 'S0002',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'M',
-        storyPoints: '2',
-        status: 'new',
-        subStatus: 'normal'
-    }, {
-        storyId: 'S0003',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'L',
-        storyPoints: '3',
-        status: 'new',
-        subStatus: 'warning'
-    }, {
-        storyId: 'S0004',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'H',
-        storyPoints: '5',
-        status: 'inProgress',
-        subStatus: 'delay'
-    }, {
-        storyId: 'S0005',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'H',
-        storyPoints: '2.5',
-        status: 'done'
-    }],
-    [{
-        storyId: 'S0006',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'H',
-        storyPoints: '1',
-        status: 'done'
-    }, {
-        storyId: 'S0007',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'M',
-        storyPoints: '2',
-        status: 'inProgress',
-        subStatus: 'normal'
-    }, {
-        storyId: 'S0008',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'L',
-        storyPoints: '3',
-        status: 'new',
-        subStatus: 'warning'
-    }, {
-        storyId: 'S0009',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'H',
-        storyPoints: '5',
-        status: 'inProgress',
-        subStatus: 'delay'
-    }, {
-        storyId: 'S0010',
-        description: 'We need make a B2B project which can help company to solve teamwork',
-        priority: 'H',
-        storyPoints: '2.5',
-        status: 'done'
-    }]
-];
-
-const statuses = [
-    {
-        key: 'new',
-        text: 'To Do',
-        stories: [],
-        points: 0,
-        accepts: []
-    }, {
-        key: 'inProgress',
-        text: 'In Progress',
-        stories: [],
-        points: 0,
-        accepts: ['new']
-    }, {
-        key: 'done',
-        text: 'Done',
-        stories: [],
-        points: 0,
-        accepts: ['inProgress']
-    },
-];
+import {getMyTaskList, updateTaskStatus} from '../../../util/Service';
 
 class MoveProject extends Component {
     state = {
@@ -106,62 +10,63 @@ class MoveProject extends Component {
     };
 
     componentWillMount() {
-        this.formatSprintData(this.props.sprint);
+        const {projectId} = this.props;
+        getMyTaskList(projectId, function (taskList) {
+            this.formatTaskStatusData(taskList);
+        }.bind(this));
     }
 
-    componentWillReceiveProps(nextProps) {
-        const {sprint} = nextProps;
-        if (sprint === this.props.sprint) return;
-        this.formatSprintData(sprint);
-    }
-
-    formatSprintData = (sprint) => {
-        let currSprint = sprint > 1 ? 1 : 0;
-        let tempStatus = _.cloneDeep(statuses);
-        let projects = _.cloneDeep(testProjects[currSprint]);
-        projects.map((testPro) => {
-            if (testPro.status === "new") {
-                tempStatus[0].stories.push(testPro);
-                tempStatus[0].points += Number(testPro.storyPoints);
+    formatTaskStatusData = (taskList) => {
+        const taskStatus = [
+            {
+                key: 'new',
+                text: 'To Do',
+                tasks: taskList.toDo || [],
+                accepts: []
+            }, {
+                key: 'inProgress',
+                text: 'In Progress',
+                tasks: taskList.inProgress || [],
+                accepts: ['new']
+            }, {
+                key: 'done',
+                text: 'Done',
+                tasks: taskList.done || [],
+                accepts: ['inProgress']
             }
-            if (testPro.status === "inProgress") {
-                tempStatus[1].stories.push(testPro);
-                tempStatus[1].points += Number(testPro.storyPoints);
-            }
-            if (testPro.status === "done") {
-                tempStatus[2].stories.push(testPro);
-                tempStatus[2].points += Number(testPro.storyPoints);
-            }
-        });
+        ];
 
         this.setState({
-            statuses: tempStatus
+            statuses: taskStatus
         })
     };
 
-    moveProjectToNext = (story, status) => {
-        if (story.lastStatus === status.key) return;
-        let tempStatues = this.state.statuses;
-        tempStatues.map((item) => {
-            if (item.key === status.name) {
-                story.story.status = item.key;
-                item.stories.push(story.story);
-                item.points += Number(story.story.storyPoints)
-            }
-            if (item.key === story.lastStatus) {
-                item.stories.splice(item.stories.indexOf(story.story), 1);
-                item.points -= Number(story.story.storyPoints)
-            }
-        });
-        this.setState({
-            statuses: tempStatues
-        })
+    moveProjectToNext = (task, status) => {
+        if (task.lastStatus === status.key) return;
+        updateTaskStatus({
+            taskId: task.task.taskId,
+            status: status.name
+        }, function () {
+            let tempStatues = this.state.statuses;
+            tempStatues.map((item) => {
+                if (item.key === status.name) {
+                    task.task.status = item.key;
+                    item.tasks.push(task.task);
+                }
+                if (item.key === task.lastStatus) {
+                    item.tasks.splice(item.tasks.indexOf(task.task), 1);
+                }
+            });
+            this.setState({
+                statuses: tempStatues
+            })
+        }.bind(this))
     };
 
-    checkDetail = (event, storyId) => {
+    checkDetail = (event, taskId) => {
         event.stopPropagation();
-        const {storyDetail} = this.props;
-        storyDetail && storyDetail(storyId);
+        const {taskDetail} = this.props;
+        taskDetail && taskDetail(taskId);
     };
 
     render() {
@@ -181,33 +86,31 @@ class MoveProject extends Component {
                             return <Grid.Column key={i}>
                                 <Segment className="mvp-sprint-container">
                                     <div className="mvp-sprint-title">
-                                        <span className="mvp-sprint-title-text">{status.text}({status.points})</span>
+                                        <span className="mvp-sprint-title-text">{status.text}</span>
                                     </div>
                                     <AcceptContainer data={status.key} accepts={status.accepts}>
                                         <List divided>
                                             {
-                                                status.stories.map((story, i) => {
+                                                status.tasks.map((task, i) => {
                                                     return <List.Item
-                                                        className={story.status === "inProgress" ? "mvp-project-AcceptBox story-in-progress " + "story-status-" + (story.subStatus ? story.subStatus : 'normal') : "mvp-project-AcceptBox"}
+                                                        className={task.status === "inProgress" ? "mvp-project-AcceptBox story-in-progress " + "story-status-" + (task.subStatus ? task.subStatus : 'normal') : "mvp-project-AcceptBox"}
                                                         key={i}>
                                                         <AcceptBox
                                                             data={{
-                                                                'story': story,
+                                                                'task': task,
                                                                 'lastStatus': status.key
                                                             }}
-                                                            type={story.status}
+                                                            type={task.status}
                                                             action={(handleData, status) => this.moveProjectToNext(handleData, status)}>
                                                             <div className="mvp-story-info"
-                                                                 onClick={(event) => this.checkDetail(event, story.storyId)}>
+                                                                 onClick={(event) => this.checkDetail(event, task.taskId)}>
                                                                     <span
-                                                                        className="mvp-story-id">{story.storyId}</span>
+                                                                        className="mvp-story-id">{task.taskId}</span>
                                                                 <span
-                                                                    className="mvp-story-desc">{story.description}</span>
-                                                                <span className="mvp-story-priority">
-                                                                {getDesc(priorityOptions, story.priority)}
-                                                                </span>
-                                                                <span
-                                                                    className="mvp-story-point">{story.storyPoints}</span>
+                                                                    className="mvp-story-desc">{task.description}</span>
+                                                                {/*<span className="mvp-story-priority">
+                                                                {getDesc(priorityOptions, task.priority)}
+                                                                </span>*/}
                                                             </div>
                                                         </AcceptBox>
                                                     </List.Item>

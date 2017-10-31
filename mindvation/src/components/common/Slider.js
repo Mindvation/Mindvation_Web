@@ -28,7 +28,7 @@ class MvSlider extends Component {
     }
 
     render() {
-        const {label, icon, value, className = ""} = this.props;
+        const {label, icon, value, className = "", disabled} = this.props;
         return (
             <div className={"components-item components-length " + className}>
                 {
@@ -44,9 +44,10 @@ class MvSlider extends Component {
                 <div className="mv-slider-container">
                     <div className="slider-container">
                         <Slider min={0} max={100} onChange={this.onChange} value={this.state.inputValue}
-                                defaultValue={value}/>
+                                defaultValue={value} disabled={disabled}/>
                     </div>
                     <InputNumber
+                        disabled={disabled}
                         min={0}
                         max={100}
                         style={{marginLeft: 16}}
@@ -65,7 +66,8 @@ MvSlider.propTypes = {
     value: PropTypes.number,
     label: PropTypes.string,
     icon: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    disabled: PropTypes.bool
 };
 
 export default MvSlider;

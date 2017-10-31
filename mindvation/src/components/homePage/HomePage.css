@@ -54,3 +54,23 @@ i.icon.remove-position-button {
 .model-creator-company {
     color: #999a9b;
 }
+
+.sort-text {
+    font-size: 2.5em;
+}
+
+.sort-color-1 {
+    color: #f5d93e;
+}
+
+.sort-color-2 {
+    color: #d9dbee;
+}
+
+.sort-color-3 {
+    color: #ef9f45;
+}
+
+.sort-color-other {
+    color: #8a8a8a;
+}

@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import DragDropContext from '../../common/DragDropContext';
 import ChangeStatus from './ChangeStatus';
-import MyDemoCalendar from './MyDemoCalendar';
 import {Sidebar, Icon, Button} from 'semantic-ui-react';
-import StorySummary from '../../../containers/storySummary_container';
+import TaskSummary from './TaskSummary';
 
 class MyDashboard extends Component {
 
     state = {
         sprint: 1,
         visible: false,
-        storyId: ''
+        taskId: ''
     };
 
     previousSprint = () => {
@@ -27,12 +26,13 @@ class MyDashboard extends Component {
         })
     };
 
-    checkDetail = (storyId) => {
-        this.setState({visible: true, storyId: storyId})
+    checkDetail = (taskId) => {
+        this.setState({visible: true, taskId: taskId})
     };
 
     render() {
-        const {sprint, visible, storyId} = this.state;
+        const {sprint, taskId, visible} = this.state;
+        const {id} = this.props.match.params;
         return (
             <Sidebar.Pushable>
                 <Sidebar
@@ -42,21 +42,24 @@ class MyDashboard extends Component {
                     visible={visible}
                     icon='labeled'
                 >
-                    <StorySummary storyId={storyId}/>
+                    <TaskSummary taskId={taskId}/>
                 </Sidebar>
                 <Sidebar.Pusher>
                     <div className="component-container" onClick={() => this.setState({visible: false})}>
-                        <Button style={{display: sprint > 1 ? 'inline-block' : 'none'}}
+                        {/*<Button style={{display: sprint > 1 ? 'inline-block' : 'none'}}
                                 className="change-sprint-button" onClick={() => this.previousSprint()}>
                             <Icon name="chevron left"/>
                             Previous Sprint</Button>
                         <Button className="change-sprint-button" onClick={() => this.nextSprint()}>
                             Next Sprint
                             <Icon name="chevron right"/>
-                        </Button>
-                        <ChangeStatus storyDetail={(storyId) => {
+                        </Button>*/}
+                        <ChangeStatus sprint={sprint} projectId={id} taskDetail={(taskId) => {
+                            this.checkDetail(taskId)
+                        }}/>
+                        {/*<ChangeStatus storyDetail={(storyId) => {
                             this.checkDetail(storyId)
-                        }} sprint={sprint}/>
+                        }} sprint={sprint}/>*/}
                         {/*<MyDemoCalendar storyDetail={(storyId) => {
                             this.checkDetail(storyId)
                         }} sprint={sprint}/>*/}

@@ -44,7 +44,7 @@ class AddTask extends Component {
             projectId: this.props.story.projectId,
             storyId: this.props.story.storyId,
             description: taskDesc.getWrappedInstance().getValue(),
-            assignee: assignTo.getWrappedInstance().getValue(),
+            //assignee: assignTo.getWrappedInstance().getValue(),
             startDate: startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             endDate: startEndDate.getValue() ? startEndDate.getValue()[1] : "",
             assigner: getStaffId(),
@@ -84,12 +84,12 @@ class AddTask extends Component {
                                   ref={node => {
                                       taskDesc = node
                                   }}/>
-                        <Select icon="user" options={assignOption} label="Assign To"
+                        {/*<Select icon="user" options={assignOption} label="Assign To"
                                 search={true}
                                 placeHolder="assignToPlaceHolderDesc"
                                 ref={node => {
                                     assignTo = node
-                                }}/>
+                                }}/>*/}
                         <DatePicker icon="clock" label="Start / End Date"
                                     range={true}
                                     ref={node => {

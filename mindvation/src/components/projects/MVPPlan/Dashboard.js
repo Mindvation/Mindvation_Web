@@ -36,10 +36,10 @@ class Dashboard extends Component {
                     visible={visible}
                     icon='labeled'
                 >
-                    <StorySummary storyId={storyId} linkToStory={false}/>
+                    <StorySummary storyId={storyId} linkToStory={true}/>
                 </Sidebar>
-                <Sidebar.Pusher>
-                    <div className="component-container" onClick={() => this.setState({visible: false})}>
+                <Sidebar.Pusher onClick={() => this.setState({visible: false})}>
+                    <div className="component-container">
                         {
                             (storyList && storyList.length > 0) ?
                                 storyList.map((story, i) => {

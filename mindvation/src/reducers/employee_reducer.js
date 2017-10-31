@@ -14,7 +14,7 @@ function employee(state = {
         case UPDATE_EMPLOYEE:
             let temp2 = {...state};
             temp2.employees.some((employee) => {
-                if (employee.key === action.employee.key) {
+                if (employee.staffId === action.employee.staffId) {
                     Object.assign(employee, action.employee);
                     return true;
                 }
@@ -23,6 +23,7 @@ function employee(state = {
         case DELETE_EMPLOYEE:
             let temp3 = {...state};
             temp3.employees.splice(temp3.employees.indexOf(action.employee), 1);
+            temp3.totalElements = temp3.totalElements - 1;
             return temp3;
         default:
             return state

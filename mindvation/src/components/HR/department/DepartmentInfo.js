@@ -7,8 +7,8 @@ import {getTimeAndRandom} from '../../../util/CommUtil';
 
 class DepartmentInfo extends Component {
     state = {
-        position: this.props.info && this.props.info.position ?
-            _.cloneDeep(this.props.info.position) :
+        positions: this.props.info && this.props.info.positions ?
+            _.cloneDeep(this.props.info.positions) :
             [{
                 key: getTimeAndRandom(),
                 name: ''
@@ -18,107 +18,54 @@ class DepartmentInfo extends Component {
     getInfo = () => {
         return {
             name: this.nameNode.getWrappedInstance().getValue(),
-            position: this.state.position
+            positions: this.state.positions
         }
     };
 
-    createLeaderPosition = () => {
-        let tempLeaderPosition = this.state.leaderPosition;
-        const level = tempLeaderPosition[tempLeaderPosition.length - 1].positionLevel;
-        tempLeaderPosition.push({key: getTimeAndRandom(), name: '', positionLevel: level + 1});
-        this.setState({
-            leaderPosition: tempLeaderPosition
-        })
-    };
-
     createPosition = () => {
-        let tempPosition = this.state.position;
-        tempPosition.push({key: getTimeAndRandom(), name: ''});
+        let tempPositions = this.state.positions;
+        tempPositions.push({key: getTimeAndRandom(), name: ''});
         this.setState({
-            position: tempPosition
-        })
-    };
-
-    removeLeaderPosition = (position) => {
-        let tempLeaderPosition = this.state.leaderPosition;
-        tempLeaderPosition.splice(tempLeaderPosition.indexOf(position), 1);
-        tempLeaderPosition.map((tempPosition) => {
-            if (tempPosition.positionLevel > position.positionLevel) {
-                tempPosition.positionLevel = tempPosition.positionLevel - 1;
-            }
-        });
-        this.setState({
-            leaderPosition: tempLeaderPosition
+            positions: tempPositions
         })
     };
 
     removePosition = (position) => {
-        let tempPosition = this.state.position;
-        tempPosition.splice(tempPosition.indexOf(position), 1);
+        let tempPositions = this.state.positions;
+        tempPositions.splice(tempPositions.indexOf(position), 1);
         this.setState({
-            position: tempPosition
+            positions: tempPositions
         })
     };
 
     render() {
         const {info = {}} = this.props;
-        const {position} = this.state;
+        const {positions} = this.state;
         return (
             <Modal.Content>
                 <Input label="Department Name" horizontal={true} icon="home"
                        ref={node => this.nameNode = node}
                        defaultValue={info.name}
                 />
-                {/*{
-                    leaderPosition.map((position, i) => {
-                        return <div style={{display: 'flex'}}>
-                            <Input key={i}
-                                   label={"职位" + position.positionLevel}
-                                   horizontal={true}
-                                   icon="user"
-                                   onChange={(value) => {
-                                       position.name = value;
-                                       this.setState({
-                                           leaderPosition: leaderPosition
-                                       })
-                                   }}
-                                   value={position.name}
-                            />
-                            {leaderPosition.length > 1 ? <Icon name="trash"
-                                                               className={"remove-position-button pointer-cursor"}
-                                                               onClick={() => this.removeLeaderPosition(position)}
-                            /> : null}
-                        </div>
-                    })
-                }
-                <Divider/>
-                <Button className="create-position-button" compact basic
-                        onClick={() => this.createLeaderPosition()}>
-                    <Icon name="plus circle"/>
-                    <FormattedMessage
-                        id='新建负责人职位'
-                        defaultMessage='新建负责人职位'
-                    />
-                </Button>*/}
                 <Divider/>
                 {
-                    position.map((item, i) => {
+                    positions.map((item, i) => {
                         return <div key={i} style={{display: 'flex'}}>
                             <Input
                                 label="Position Name"
                                 horizontal={true}
-                                icon="home"
+                                icon="id card"
                                 onChange={(value) => {
                                     item.name = value;
                                     this.setState({
-                                        position: position
+                                        positions: positions
                                     })
                                 }}
                                 value={item.name}
                             />
-                            {position.length > 1 ? <Icon name="trash"
-                                                         className={"remove-position-button pointer-cursor"}
-                                                         onClick={() => this.removePosition(position)}
+                            {positions.length > 1 ? <Icon name="trash"
+                                                          className={"remove-position-button pointer-cursor"}
+                                                          onClick={() => this.removePosition(item)}
                             /> : null}
                         </div>
                     })

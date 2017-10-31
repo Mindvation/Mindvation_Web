@@ -7,6 +7,7 @@ import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
 import Story from '../../story/Story';
 import EditStatus from "../../EditStatus";
+import {hasAuth} from '../../../../util/AuthUtil';
 import {
     Link
 } from 'react-router-dom';
@@ -39,12 +40,12 @@ class RequirementDetail extends Component {
             <div className="project-detail">
                 <Header as='h4'>
                     <Header.Content>
-                                    <span className={"underLine header-project"}>
-                                        <FormattedMessage
-                                            id='projectsUpper'
-                                            defaultMessage='PROJECTS'
-                                        />
-                                    </span>{'>'}
+                        <span className={"underLine header-project"}>
+                            <FormattedMessage
+                                id='projectsUpper'
+                                defaultMessage='PROJECTS'
+                            />
+                        </span>{'>'}
                         <span className={"underLine header-id"}>
                             <Link to={`/home/projects/${requirement.projectId}`}>
                                 {requirement.projectId}
@@ -58,15 +59,19 @@ class RequirementDetail extends Component {
                     <Grid.Column width={5}>
                         <Segment padded>
                             <EditStatus status={requirement.status}
+                                        disabled={!hasAuth("updateRequirementStatus", requirement.authCode)}
                                         changeStatus={(status, percent) => this.changeStatus(requirement, status, percent)}/>
-                            <EditBasicInfo requirement={requirement} dispatch={dispatch}/>
-                            <EditAdditionalInfo requirement={requirement} dispatch={dispatch}/>
-                            <EditOptionalInfo requirement={requirement} dispatch={dispatch}/>
+                            <EditBasicInfo requirement={requirement} dispatch={dispatch}
+                                           disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
+                            <EditAdditionalInfo requirement={requirement} dispatch={dispatch}
+                                                disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
+                            <EditOptionalInfo requirement={requirement} dispatch={dispatch}
+                                              disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
                         <Segment>
-                            <Story requirement={requirement}/>
+                            <Story/>
                         </Segment>
                     </Grid.Column>
                 </Grid>

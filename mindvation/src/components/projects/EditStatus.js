@@ -22,7 +22,7 @@ class EditStatus extends Component {
     };
 
     render() {
-        const {isStory, status = {}} = this.props;
+        const {isStory, status = {}, disabled} = this.props;
         return (
             <div className="edit-status-component">
                 <Header as="h3" className="underLine" style={{display: 'flex'}}>
@@ -45,13 +45,14 @@ class EditStatus extends Component {
                     </Button>
                     <Button className={status.status === "inProgress" ? "status-indicator" : ""} compact
                             onClick={() => this.changeStatus('inProgress')}
-                            disabled={status.status === "done" || status.status === "close" || status.status === "hold"}>
+                            disabled={disabled || status.status === "done" || status.status === "close" || status.status === "hold"}>
                         <FormattedMessage
                             id='inProgress'
                             defaultMessage='In Progress'
                         />
                     </Button>
                     <Button className={status.status === "done" ? "status-indicator" : ""} compact
+                            disabled={disabled}
                             onClick={() => this.changeStatus('done')}>
                         <FormattedMessage
                             id='done'
@@ -60,6 +61,7 @@ class EditStatus extends Component {
                     </Button>
                     {isStory ? <span>
                         <Button className={status.status === "close" ? "status-indicator" : ""} compact
+                                disabled={disabled}
                                 onClick={() => this.changeStatus('close')}>
                             <FormattedMessage
                                 id='close'
@@ -67,6 +69,7 @@ class EditStatus extends Component {
                             />
                         </Button>
                         <Button className={status.status === "hold" ? "status-indicator" : ""} compact
+                                disabled={disabled}
                                 onClick={() => this.changeStatus('hold')}>
                             <FormattedMessage
                                 id='hold'
@@ -75,6 +78,7 @@ class EditStatus extends Component {
                         </Button>
                     </span> : null}
                     <Button className={status.status === "reopen" ? "status-indicator" : ""} compact
+                            disabled={disabled}
                             onClick={() => this.changeStatus('reopen')}>
                         <FormattedMessage
                             id='reopen'
@@ -84,15 +88,16 @@ class EditStatus extends Component {
                 </div>
                 {status.status === "inProgress" ? <div className="components-item edit-status-progress">
                     <Slider className="edit-status-slider"
+                            disabled={disabled}
                             value={status.percent}
                             ref={node => this.progressNode = node}/>
-                    <Button compact className="edit-status-confirm"
-                            onClick={() => this.changeStatus('inProgress', this.progressNode.getValue())}>
+                    {disabled ? null : <Button compact className="edit-status-confirm"
+                                               onClick={() => this.changeStatus('inProgress', this.progressNode.getValue())}>
                         <FormattedMessage
                             id='confirm'
                             defaultMessage='Confirm'
                         />
-                    </Button>
+                    </Button>}
                 </div> : null}
             </div>
         );
@@ -102,7 +107,8 @@ class EditStatus extends Component {
 EditStatus.propTypes = {
     isStory: PropTypes.bool,
     changeStatus: PropTypes.func,
-    status: PropTypes.object
+    status: PropTypes.object,
+    disabled: PropTypes.bool
 };
 
 export default EditStatus;

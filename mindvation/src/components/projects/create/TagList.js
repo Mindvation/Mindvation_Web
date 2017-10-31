@@ -11,9 +11,20 @@ class TagList extends Component {
         return this.state.selectedTags;
     }
 
+    getTagIndex = (tagArr, tag) => {
+        let index = -1;
+        tagArr.some((item, i) => {
+            if (item.tagId === tag.tagId) {
+                index = i;
+                return true;
+            }
+        });
+        return index;
+    };
+
     selectTag(tag) {
         let tempTags = this.state.selectedTags;
-        if (tempTags.indexOf(tag) === -1) {
+        if (this.getTagIndex(tempTags, tag) === -1) {
             tempTags.push(tag);
             this.setState({
                 selectedTags: tempTags
@@ -23,8 +34,9 @@ class TagList extends Component {
 
     toggleTag(tag) {
         let tempTags = this.state.selectedTags;
-        if (tempTags.indexOf(tag) > -1) {
-            tempTags.splice(tempTags.indexOf(tag), 1);
+        let index = this.getTagIndex(tempTags, tag);
+        if (index > -1) {
+            tempTags.splice(index, 1);
         } else {
             tempTags.push(tag);
         }

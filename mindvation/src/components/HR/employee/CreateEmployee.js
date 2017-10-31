@@ -13,11 +13,11 @@ class CreateEmployee extends Component {
 
     newEmployee = () => {
         let employeeInfo = this.employeeInfoNode.getInfo();
-        this.props.dispatch(createEmployee(employeeInfo));
-        this.closeModal();
+        this.props.dispatch(createEmployee(employeeInfo, this.closeModal));
     };
 
     render() {
+        const {department} = this.props;
         const {modalOpen} = this.state;
         return (
             <div className="project-content">
@@ -39,7 +39,7 @@ class CreateEmployee extends Component {
                                 defaultMessage='Create Employee'
                             />
                         </Modal.Header>
-                        <EmployeeInfo ref={(node) => this.employeeInfoNode = node}/>
+                        <EmployeeInfo ref={(node) => this.employeeInfoNode = node} department={department}/>
                         <Modal.Actions>
                             <Button secondary onClick={() => this.closeModal()}>
                                 <FormattedMessage

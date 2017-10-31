@@ -16,6 +16,7 @@ import {
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
+import {getStaffId} from '../util/UserStore';
 
 export const GET_PROJECT_BY_ID = 'GET_PROJECT_BY_ID';
 export const UPDATE_PROJECT = 'UPDATE_PROJECT';
@@ -35,10 +36,14 @@ function setRequirement(requirements) {
 export function getProjectById(id) {
     return dispatch => {
         post(url.getProjectById, {
-            "projId": id
+            "projId": id,
+            "staffId": getStaffId()
         })
             .then((res) => {
                 const project = convertProjectToLocal(res.responseBody.projectDetail);
+                if (res.responseBody.staffAuthInfo) {
+                    project.authCode = res.responseBody.staffAuthInfo.authCode;
+                }
                 dispatch(retrievedProject(project));
                 dispatch(setRequirement(project.requirementInfo));
             })

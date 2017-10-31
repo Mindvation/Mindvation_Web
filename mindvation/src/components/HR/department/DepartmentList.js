@@ -7,11 +7,11 @@ import {deleteDepartment, getDepartmentList} from '../../../actions/department_a
 import EditDepartment from './EditDepartment';
 
 const header = ["Department ID", "Department Name", "Position", "Action"];
-const checklistKey = ["id", "name", "position"];
+const checklistKey = ["id", "name", "positions"];
 
 class DepartmentList extends Component {
     componentDidMount() {
-        this.props.dispatch(getDepartmentList());
+        this.props.dispatch(getDepartmentList(1, 10));
     };
 
     pageChange(page, pageSize) {
@@ -19,7 +19,7 @@ class DepartmentList extends Component {
     }
 
     getChecklistDesc = (result, key) => {
-        if (key === "position" && result[key] && result[key].length > 0) {
+        if (key === "positions" && result[key] && result[key].length > 0) {
             return result[key].map((item) => {
                 return item.name + "/ ";
             });

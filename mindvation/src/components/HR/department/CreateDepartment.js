@@ -13,8 +13,7 @@ class CreateDepartment extends Component {
 
     newDepartment = () => {
         let departmentInfo = this.departmentInfoNode.getInfo();
-        this.props.dispatch(createDepartment(departmentInfo));
-        this.closeModal();
+        this.props.dispatch(createDepartment(departmentInfo, this.closeModal));
     };
 
     render() {

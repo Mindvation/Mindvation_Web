@@ -17,6 +17,7 @@ import {
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
+import {getStaffId} from '../util/UserStore';
 
 export const UPDATE_REQUIREMENT = 'UPDATE_REQUIREMENT';
 export const CLEAR_TEMP_REQUIREMENT = 'CLEAR_TEMP_REQUIREMENT';
@@ -46,10 +47,14 @@ function setStories(stories) {
 export function getRequirementById(id) {
     return dispatch => {
         post(url.getRequirementById, {
-            "reqmntId": id
+            "reqmntId": id,
+            "staffId": getStaffId()
         })
             .then((res) => {
                 const requirement = convertRequirementToLocal(res.responseBody);
+                if (res.responseBody.staffAuthInfo) {
+                    requirement.authCode = res.responseBody.staffAuthInfo.authCode;
+                }
                 dispatch(retrievedRequirement(requirement));
                 dispatch(setRoles(requirement.roles));
                 dispatch(setStories(requirement.stories));

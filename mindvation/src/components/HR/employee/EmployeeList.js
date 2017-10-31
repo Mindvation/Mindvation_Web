@@ -4,15 +4,15 @@ import {Pagination} from 'antd';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {deleteEmployee, getEmployeeList} from '../../../actions/employee_action';
-import {genderOptions} from '../../../res/data/dataOptions';
+import {genderOptions, staffStatusOptions} from '../../../res/data/dataOptions';
 import EditEmployee from './EditEmployee';
 
-const header = ["Employee ID", "Employee Name", "Gender", "Position", "Department", "Mail", "Phone", "Skill Tags", "Status", "Action"];
-const checklistKey = ["id", "name", "gender", "position", "department", "mail", "phone", "skillTags", "status"];
+const header = ["Employee ID", "Employee Name", "Gender", "Department", "Position", "Mail", "Phone", "Skill Tags", "Status", "Action"];
+const checklistKey = ["staffId", "name", "gender", "deptId", "positionId", "emailAddr", "phoneNum", "tagCnt", "status"];
 
 class EmployeeList extends Component {
     componentDidMount() {
-        this.props.dispatch(getEmployeeList());
+        this.props.dispatch(getEmployeeList(1, 10));
     };
 
     pageChange(page, pageSize) {
@@ -24,10 +24,39 @@ class EmployeeList extends Component {
             return getDesc(genderOptions, result[key]);
         }
 
+        if (key === 'status' && !isEmpty(result[key])) {
+            return getDesc(staffStatusOptions, result[key]);
+        }
+
+        if (key === 'deptId' && !isEmpty(result[key])) {
+            return getDesc(this.props.department, result[key]) || 'N/A';
+        }
+
+        if (key === 'positionId' && !isEmpty(result.deptId) && !isEmpty(result[key])) {
+            return this.getPositionDesc(result.deptId, result[key]);
+        }
+
         if (isEmpty(result[key])) {
             return 'N/A';
         }
         return result[key];
+    };
+
+    getPositionDesc = (deptId, positionId) => {
+        const {department} = this.props;
+        let desc = 'N/A';
+        department.some((item) => {
+            if (item.value === deptId) {
+                item.positions.some((position) => {
+                    if (position.value === positionId) {
+                        desc = position.text;
+                        return true;
+                    }
+                });
+                return true;
+            }
+        });
+        return desc;
     };
 
     remove = (result) => {
@@ -35,11 +64,11 @@ class EmployeeList extends Component {
     };
 
     edit = (result) => {
-        this.editEmployeeNode.openModal(result)
+        this.editEmployeeNode.openModal(result.staffId)
     };
 
     render() {
-        const {employee, dispatch} = this.props;
+        const {employee, dispatch, department} = this.props;
         return (
             <div>
                 <Table striped>
@@ -97,7 +126,7 @@ class EmployeeList extends Component {
                         </Table.Row>
                     </Table.Footer>
                 </Table>
-                <EditEmployee dispatch={dispatch} ref={node => this.editEmployeeNode = node}/>
+                <EditEmployee dispatch={dispatch} ref={node => this.editEmployeeNode = node} department={department}/>
             </div>
         );
     }

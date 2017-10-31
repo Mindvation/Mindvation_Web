@@ -108,8 +108,19 @@ class AddTags extends Component {
         return tempOption;
     };
 
+    getTagIndex = (tagArr, tag) => {
+        let index = -1;
+        tagArr.some((item, i) => {
+            if (item.tagId === tag.tagId) {
+                index = i;
+                return true;
+            }
+        });
+        return index;
+    };
+
     updateProjectTags = (tag) => {
-        if (this.state.projectTags.indexOf(tag) === -1) {
+        if (this.getTagIndex(this.state.projectTags, tag) === -1) {
             let tempTags = this.state.projectTags;
             tempTags.push(tag);
             this.setState({
@@ -120,7 +131,8 @@ class AddTags extends Component {
 
     removeProjectTags = (tag) => {
         let tempTags = this.state.projectTags;
-        tempTags.splice(tempTags.indexOf(tag), 1);
+        let index = this.getTagIndex(tempTags, tag);
+        tempTags.splice(index, 1);
         this.setState({
             projectTags: tempTags
         });

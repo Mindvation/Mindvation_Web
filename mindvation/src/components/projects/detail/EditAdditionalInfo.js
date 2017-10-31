@@ -29,7 +29,7 @@ class EditAdditionalInfo extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {project} = this.props;
+        const {project, disabled} = this.props;
         const readyOnlyItems = [{
             icon: "tag",
             title: "Tags",
@@ -87,10 +87,12 @@ class EditAdditionalInfo extends Component {
                         id='additionalInfo'
                         defaultMessage='additional Info'
                     />
-                    <div className="edit-info-line"/>
-                    <div className="edit-info-icon" onClick={this.edit}>
-                        <Icon name='pencil'/>
-                    </div>
+                    {disabled ? null : <div className="edit-line-cont">
+                        <div className="edit-info-line"/>
+                        <div className="edit-info-icon" onClick={this.edit}>
+                            <Icon name='pencil'/>
+                        </div>
+                    </div>}
                 </Header>
                 {readyOnlyItems.map((item, i) => {
                     return <ReadOnly

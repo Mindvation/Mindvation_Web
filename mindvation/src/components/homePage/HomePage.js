@@ -104,7 +104,7 @@ class HomePage extends Component {
     render() {
         return (
             <Layout>
-                <Header style={{paddingTop: '17px'}}><CommonHeader/></Header>
+                <Header><CommonHeader/></Header>
                 <Layout>
                     <Sider collapsible
                            collapsed={this.state.collapsed}

@@ -20,7 +20,7 @@ function request(method, url, body) {
     }
 
     return fetch(url, {
-        method,
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

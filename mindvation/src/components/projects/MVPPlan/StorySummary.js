@@ -39,9 +39,9 @@ class StorySummary extends Component {
                         defaultMessage='Go to Workflow'
                     />
                 </Button> : null}
-                <EditBasicInfo readOnly={true} story={story} dispatch={dispatch}/>
-                <EditAdditionalInfo readOnly={true} story={story} dispatch={dispatch}/>
-                <EditOptionalInfo readOnly={true} story={story} dispatch={dispatch}/>
+                <EditBasicInfo disabled={true} story={story} dispatch={dispatch}/>
+                <EditAdditionalInfo disabled={true} story={story} dispatch={dispatch}/>
+                <EditOptionalInfo disabled={true} story={story} dispatch={dispatch}/>
             </div>
         );
     }

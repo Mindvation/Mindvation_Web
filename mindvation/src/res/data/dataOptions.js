@@ -179,6 +179,51 @@ export const genderOptions = [
     }
 ];
 
+export const staffStatusOptions = [
+    {
+        text: <FormattedMessage
+            id='active'
+            defaultMessage='Active'
+        />,
+        value: 'active'
+    }, {
+        text: <FormattedMessage
+            id='inactive'
+            defaultMessage='Inactive'
+        />,
+        value: 'inactive'
+    }, {
+        text: <FormattedMessage
+            id='cancellation'
+            defaultMessage='Cancellation'
+        />,
+        value: 'cancellation'
+    }
+];
+
+export const positionLevelOptions = [
+    {
+        text: <FormattedMessage
+            id='junior'
+            defaultMessage='Junior'
+        />,
+        value: 'junior'
+    },
+    {
+        text: <FormattedMessage
+            id='intermediate'
+            defaultMessage='Intermediate'
+        />,
+        value: 'intermediate'
+    }, {
+        text: <FormattedMessage
+            id='senior'
+            defaultMessage='Senior'
+        />,
+        value: 'senior'
+    }
+];
+
 export const modelOptions = [
     {
         text: '软件',

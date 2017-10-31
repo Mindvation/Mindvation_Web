@@ -194,6 +194,13 @@ const zh_CN = {
     rolesInfo: "角色信息",
     confirmRoleInfo: "确认角色信息",
     designIterationPlan: "制定迭代计划模板",
-    addTaskAttachments: "添加任务交付件"
+    addTaskAttachments: "添加任务交付件",
+    "Attachments Type": "交付件类型",
+    active: "激活",
+    inactive: "未激活",
+    cancellation: "注销",
+    junior: "初级",
+    intermediate: "中级",
+    senior: "高级"
 };
 export default zh_CN;

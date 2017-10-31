@@ -55,7 +55,7 @@ class EditOptionalInfo extends Component {
 
     render() {
         const {modalOpen} = this.state;
-        const {project, dispatch} = this.props;
+        const {project, dispatch, disabled} = this.props;
         return (
             <div className="read-only-component">
                 <Header as="h3" className="underLine" style={{display: 'flex'}}>
@@ -63,10 +63,12 @@ class EditOptionalInfo extends Component {
                         id='optionalItems'
                         defaultMessage='Optional Items'
                     />
-                    <div className="edit-info-line"/>
-                    <div className="edit-info-icon" onClick={this.edit}>
-                        <Icon name='pencil'/>
-                    </div>
+                    {disabled ? null : <div className="edit-line-cont">
+                        <div className="edit-info-line"/>
+                        <div className="edit-info-icon" onClick={this.edit}>
+                            <Icon name='pencil'/>
+                        </div>
+                    </div>}
                 </Header>
                 <ReadOnly icon="tasks" title="Checklists"
                           value={this.formatChecklists()}/>

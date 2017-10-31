@@ -194,6 +194,13 @@ const en_US = {
     rolesInfo: "Roles Info",
     confirmRoleInfo: "Confirm Model Roles Info",
     designIterationPlan: "Design Iteration Plan Model",
-    addTaskAttachments: "Add Task Attachments"
+    addTaskAttachments: "Add Task Attachments",
+    "Attachments Type": "Attachments Type",
+    active: "Active",
+    inactive: "Inactive",
+    cancellation: "Cancellation",
+    junior: "Junior",
+    intermediate: "Intermediate",
+    senior: "Senior"
 };
 export default en_US;

@@ -10,6 +10,7 @@ import AddTask from '../AddTask';
 import {
     Link
 } from 'react-router-dom';
+import {hasAuth} from '../../../../util/AuthUtil';
 import EditStatus from "../../EditStatus";
 
 class StoryDetail extends Component {
@@ -64,17 +65,21 @@ class StoryDetail extends Component {
                     <Grid.Column width={5}>
                         <Segment padded>
                             <EditStatus status={story.status}
+                                        disabled={!hasAuth("updateStoryStatus", story.authCode)}
                                         changeStatus={(status, percent) => this.changeStatus(story, status, percent)}/>
-                            <EditBasicInfo story={story} dispatch={dispatch}/>
-                            <EditAdditionalInfo story={story} dispatch={dispatch}/>
-                            <EditOptionalInfo story={story} dispatch={dispatch}/>
+                            <EditBasicInfo story={story} dispatch={dispatch}
+                                           disabled={!hasAuth("updateStory", story.authCode)}/>
+                            <EditAdditionalInfo story={story} dispatch={dispatch}
+                                                disabled={!hasAuth("updateStory", story.authCode)}/>
+                            <EditOptionalInfo story={story} dispatch={dispatch}
+                                              disabled={!hasAuth("updateStory", story.authCode)}/>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
                         <Segment>
                             <UploadAttach story={story} dispatch={dispatch}/>
                         </Segment>
-                        <AddTask dispatch={dispatch} story={story}/>
+                        {hasAuth("createTask", story.authCode) ? <AddTask dispatch={dispatch} story={story}/> : null}
                     </Grid.Column>
                 </Grid>
 

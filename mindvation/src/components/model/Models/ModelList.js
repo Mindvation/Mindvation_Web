@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {Header, Icon, Table, Button, List, Image} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {FormattedMessage} from 'react-intl';
-import {getDesc, isEmpty} from '../../../util/CommUtil';
+import {isEmpty} from '../../../util/CommUtil';
 import {getModels} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
 import {modelOptions} from '../../../res/data/dataOptions';
 
-const rmKey = ["ranking", "name", "creatorInfo", "vote", "quoted", "comments"];
+const rmKey = ["sort", "name", "creatorInfo", "vote", "quoted", "comments"];
 
 class ModelList extends Component {
 
@@ -21,7 +21,7 @@ class ModelList extends Component {
         currentPage: 1
     };
 
-    componentDidMount() {
+    componentWillMount() {
         const params = {
             "page": 1,
             "pageSize": 3,
@@ -73,6 +73,12 @@ class ModelList extends Component {
     };
 
     handleDisplayData = (data, key) => {
+        if (key === "sort") {
+            return <div className={"display-flex sort-color-" + (data[key] < 4 ? data[key] : "other")}>
+                <Icon name="winner" size="huge"/>
+                <div className="sort-text">{data[key]}</div>
+            </div>
+        }
         if (key === "creatorInfo") {
             return <div className="display-flex">
                 <Image verticalAlign="middle" src={data[key].avatar}

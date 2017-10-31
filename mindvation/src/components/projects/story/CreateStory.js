@@ -7,6 +7,7 @@ import OptionalItem from './OptionalItem';
 import {addStoryToList} from '../../../actions/stories_action';
 import {clearTempTask} from '../../../actions/task_action';
 import {checkCompleted} from '../../../util/CommUtil';
+import {hasAuth} from '../../../util/AuthUtil';
 
 let basicModule, optionalModule, AdditionalModule;
 let mandatoryFile = ["summary", "description"];
@@ -42,36 +43,29 @@ class CreateRequirement extends Component {
         }
     };
 
-    formatStory = (story) => {
-        story.defectQty = 0;
-        story.criticalDefects = 0;
-        story.highDefects = 0;
-        story.mediumDefects = 0;
-        story.lowDefects = 0;
-        story.progress = '0%';
-    };
-
     render() {
         const {modalOpen} = this.state;
         const {dispatch, requirement} = this.props;
         return (
             <div>
-                <Button className="create-requirement-button" compact basic
-                        onClick={() => this.createTempStory('story')}>
-                    <Icon name="plus circle"/>
-                    <FormattedMessage
-                        id='createStory'
-                        defaultMessage='Create Story'
-                    />
-                </Button>
-                <Button style={{marginTop: '10px'}} className="create-requirement-button" compact basic
-                        onClick={() => this.createTempStory('cr')}>
-                    <Icon name="plus circle"/>
-                    <FormattedMessage
-                        id='createChangeRequest'
-                        defaultMessage='Create Change Request'
-                    />
-                </Button>
+                {hasAuth("createStory", requirement.authCode) ?
+                    <Button className="create-requirement-button" compact basic
+                            onClick={() => this.createTempStory('story')}>
+                        <Icon name="plus circle"/>
+                        <FormattedMessage
+                            id='createStory'
+                            defaultMessage='Create Story'
+                        />
+                    </Button> : null}
+                {hasAuth("createStory", requirement.authCode) ?
+                    <Button style={{marginTop: '10px'}} className="create-requirement-button" compact basic
+                            onClick={() => this.createTempStory('cr')}>
+                        <Icon name="plus circle"/>
+                        <FormattedMessage
+                            id='createChangeRequest'
+                            defaultMessage='Create Change Request'
+                        />
+                    </Button> : null}
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
