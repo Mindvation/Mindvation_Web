@@ -54,9 +54,12 @@ export function getStoryById(id) {
         })
             .then((res) => {
                 const story = convertStoryToLocal(res.responseBody.storyDetail);
-                if (res.responseBody.staffAuthInfo) {
-                    story.authCode = res.responseBody.staffAuthInfo.authCode;
-                }
+                story.authCode = res.responseBody.staffAuthInfo;
+                /*if (res.responseBody.staffAuthInfo && res.responseBody.staffAuthInfo.length > 0) {
+                    res.responseBody.staffAuthInfo.map((auth) => {
+                        story.authCode.push(auth.authCode)
+                    })
+                }*/
                 dispatch(retrievedStory(story));
             })
             .catch((error) => {

@@ -3,7 +3,7 @@ const en_US = {
     userName: "User name",
     passWord: "Password",
     logIn: "Log In",
-    mindvation: "Mindvation",
+    mindvations: "Mindvations",
     logOut: "Log Out",
     projectsUpper: "PROJECTS",
     "Project ID": "Project ID",
@@ -201,6 +201,15 @@ const en_US = {
     cancellation: "Cancellation",
     junior: "Junior",
     intermediate: "Intermediate",
-    senior: "Senior"
+    senior: "Senior",
+    noOptions: 'No Options',
+    selectHolder: "Please Select",
+    doneIssueAndPoint: "{doneNumber} issues were done ({donePoint} point)",
+    incompleteIssueAndPoint: "{incompleteNumber} issues were incomplete ({incompletePoint} point)",
+    moveIssueDesc: "Select where all incomplete issues should be moved:",
+    dashboard: "Dashboard",
+    closeSprint: "Close Sprint",
+    startSprint: "Start Sprint",
+    chooseIterationCycle: "Choose Iteration Cycle"
 };
 export default en_US;

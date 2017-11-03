@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Modal, Icon} from 'semantic-ui-react';
 import Select from '../../common/Select';
+import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';
 import AddTags from "../../../containers/tag_container";
 import SelectMembers from '../../../containers/role_container';
@@ -10,7 +11,13 @@ import {setRoles} from '../../../actions/role_action';
 import {priorityOptions} from '../../../res/data/dataOptions';
 
 class AdditionalInfo extends Component {
-    state = {model: null, functionOptions: [], roles: []};
+    state = {
+        model: null,
+        functionLabel: '',
+        functionOptions: [],
+        roles: [],
+        tempTags: this.props.requirement ? this.props.requirement.tags || [] : []
+    };
 
     getInfo = () => {
         let addInfo = {
@@ -29,19 +36,53 @@ class AdditionalInfo extends Component {
             addInfo.functionLabel = this.functionLabelNode.getWrappedInstance().getValue()
         }
 
+        if (this.functionLabelOtherNode) {
+            addInfo.otherFunctionLabel = this.functionLabelOtherNode.getWrappedInstance().getValue()
+        }
+
         return addInfo;
     };
 
-    handelModelChange = (model) => {
+    handleModelChange = (model) => {
         this.setState({
             model: model
         });
         getModelById(model, function (option) {
-            this.setState({
-                functionOptions: option.functionOptions,
-            });
+            if (option.functionOptions && option.functionOptions.length > 0) {
+                option.functionOptions.push({
+                    text: <FormattedMessage
+                        id='other'
+                        defaultMessage='Other'
+                    />,
+                    value: 'other'
+                });
+                this.setState({
+                    functionOptions: option.functionOptions,
+                });
+            } else {
+                option.functionOptions = [{
+                    text: <FormattedMessage
+                        id='other'
+                        defaultMessage='Other'
+                    />,
+                    value: 'other'
+                }];
+                this.setState({
+                    functionOptions: option.functionOptions,
+                });
+                this.setState({
+                    functionLabel: 'other'
+                })
+            }
+
             this.props.dispatch(setRoles(option.roles));
         }.bind(this));
+    };
+
+    handleLabelChange = (label) => {
+        this.setState({
+            functionLabel: label
+        })
     };
 
     getModelInfo = (modelId) => {
@@ -65,7 +106,7 @@ class AdditionalInfo extends Component {
 
     render() {
         const {requirement = {}, project, isEdit} = this.props;
-        const {model, functionOptions} = this.state;
+        const {model, functionOptions, tempTags, functionLabel} = this.state;
         const modelOptions = [];
         if (!isEdit) {
             if (project.softwareModel) {
@@ -106,6 +147,11 @@ class AdditionalInfo extends Component {
                         this.addTagsNode = node
                     }}
                     defaultValue={requirement.tags}
+                    onChange={(tags) => {
+                        this.setState({
+                            tempTags: tags
+                        })
+                    }}
                 />
                 <Select icon="flag" options={priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
@@ -117,21 +163,29 @@ class AdditionalInfo extends Component {
                 {isEdit ? null : <Select icon="file" options={modelOptions}
                                          label="Requirement Model"
                                          defaultValue={requirement.Model}
-                                         onChange={(value) => this.handelModelChange(value)}
+                                         onChange={(value) => this.handleModelChange(value)}
                 />}
-                {!isEdit && model ? <Select icon="sitemap" options={functionOptions}
-                                            label="Process/Function Label"
-                                            placeHolder="functionLabelPlaceHolderDesc"
-                                            ref={node => {
-                                                this.functionLabelNode = node
-                                            }}
-                                            defaultValue={requirement.functionLabel}
+                {(!isEdit && model) ? <Select icon="sitemap" options={functionOptions}
+                                              disabled={functionOptions.length === 1}
+                                              label="Process/Function Label"
+                                              placeHolder="functionLabelPlaceHolderDesc"
+                                              ref={node => {
+                                                  this.functionLabelNode = node
+                                              }}
+                                              defaultValue={requirement.functionLabel}
+                                              onChange={(value) => this.handleLabelChange(value)}
                 /> : null}
-                {isEdit || model ? <SelectMembers
+                {(!isEdit && model && functionLabel === 'other') ?
+                    <Input
+                        ref={node => {
+                            this.functionLabelOtherNode = node
+                        }}/> : null
+                }
+                {(isEdit || model) ? <SelectMembers
                     ref={node => {
                         this.rolesNode = node
                     }}
-                    tags={project.tags}
+                    tags={tempTags}
                     model={this.getModelInfo(model)}
                 /> : null}
 

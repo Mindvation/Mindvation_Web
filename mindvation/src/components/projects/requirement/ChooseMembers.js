@@ -6,32 +6,6 @@ import Members from './Members';
 import {searchMembersByTags, clearTempMembers} from '../../../actions/member_action';
 import {updateRoleMembers} from '../../../actions/role_action';
 
-const allTags = [{
-    key: "T1",
-    text: "React Native",
-    color: "#7efefe"
-}, {
-    key: "T2",
-    text: "PHP",
-    color: "#ff9900"
-}, {
-    key: "T3",
-    text: "Business Canvas",
-    color: "#66cc33"
-}, {
-    key: "T4",
-    text: "EPICs",
-    color: "#0099cc"
-}, {
-    key: "T5",
-    text: "BI",
-    color: "#ffcc00"
-}, {
-    key: "T6",
-    text: "Reactjs",
-    color: "#7efefe"
-}];
-
 let searchNode, tagsNode, membersNode;
 
 class ChooseMembers extends Component {
@@ -80,8 +54,7 @@ class ChooseMembers extends Component {
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
-                    open={modalOpen}
-                    className="choose-members-modal">
+                    open={modalOpen}>
                     <Modal.Header>
                         <FormattedMessage
                             id="chooseMembers"

@@ -115,8 +115,8 @@ class UploadMulti extends Component {
                                    target="_blank" rel="noopener noreferrer">
                                     <Icon name="eye" className="list-action-icon"/>
                                 </a>
-                                    <Icon onClick={() => this.deleteFile(file)} name="trash"
-                                          className={"list-action-icon pointer-cursor"}/>
+                                    {readOnly ? null : <Icon onClick={() => this.deleteFile(file)} name="trash"
+                                                             className={"list-action-icon pointer-cursor"}/>}
                                 </span>
                                 </div>
                             </div>

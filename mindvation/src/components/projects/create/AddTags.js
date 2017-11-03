@@ -59,7 +59,11 @@ class AddTags extends Component {
     openPopup = () => this.setState({popupOpen: true});
 
     addTagsToProject = () => {
-        this.setState({modalOpen: false, projectTags: allTagsNode.getSelectedTags()});
+        const allTags = allTagsNode.getSelectedTags();
+        this.setState({modalOpen: false, projectTags: allTags});
+        if (this.props.onChange) {
+            this.props.onChange(allTags)
+        }
     };
 
     addExistTagToProject = () => {
@@ -126,6 +130,10 @@ class AddTags extends Component {
             this.setState({
                 projectTags: tempTags
             });
+
+            if (this.props.onChange) {
+                this.props.onChange(tempTags)
+            }
         }
     };
 
@@ -136,6 +144,9 @@ class AddTags extends Component {
         this.setState({
             projectTags: tempTags
         });
+        if (this.props.onChange) {
+            this.props.onChange(tempTags)
+        }
     };
 
     render() {

@@ -20,11 +20,10 @@ class SelectCycle extends Component {
             <Modal.Content>
                 <Modal.Description>
                     <Header as="h3" className="modal-header">
-                        {/*<FormattedMessage
-                            id='additionalInfo'
-                            defaultMessage='Additional Info'
-                        />*/}
-                        选择迭代周期
+                        <FormattedMessage
+                            id='chooseIterationCycle'
+                            defaultMessage='Choose Iteration Cycle'
+                        />
                     </Header>
                 </Modal.Description>
                 <Select icon="recycle"

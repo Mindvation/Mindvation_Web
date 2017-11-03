@@ -8,7 +8,7 @@ import {genderOptions, staffStatusOptions} from '../../../res/data/dataOptions';
 import EditEmployee from './EditEmployee';
 
 const header = ["Employee ID", "Employee Name", "Gender", "Department", "Position", "Mail", "Phone", "Skill Tags", "Status", "Action"];
-const checklistKey = ["staffId", "name", "gender", "deptId", "positionId", "emailAddr", "phoneNum", "tagCnt", "status"];
+const checklistKey = ["staffId", "name", "gender", "deptId", "positionId", "emailAddr", "phoneNum", "tagsCnt", "status"];
 
 class EmployeeList extends Component {
     componentDidMount() {

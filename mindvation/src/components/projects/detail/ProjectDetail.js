@@ -93,10 +93,11 @@ class ProjectDetail extends Component {
                                 <Requirement/>
                             </Segment>
                             <Segment>
-                                <Link style={{border: '1px solid #1b1c1d'}} className="create-requirement-button"
-                                      to={`/home/MVPDashboard/${project.projectId}`}>
-                                    MVP Dashboard
-                                </Link>
+                                {hasAuth("MVPDashBoard", project.authCode) ?
+                                    <Link style={{border: '1px solid #1b1c1d'}} className="create-requirement-button"
+                                          to={`/home/MVPDashboard/${project.projectId}`}>
+                                        MVP Dashboard
+                                    </Link> : null}
                                 <Link style={{border: '1px solid #1b1c1d', marginLeft: '2em'}}
                                       className="create-requirement-button"
                                       to={`/home/MyMVPDashboard/${project.projectId}`}>

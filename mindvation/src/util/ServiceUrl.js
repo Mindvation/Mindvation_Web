@@ -49,7 +49,7 @@ if (isProduction) {
         closeIteration: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateSprintCloseStatus'
     };
 } else {
-    const gateWay = "http://192.168.0.101:";
+    const gateWay = "http://192.168.0.109:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',

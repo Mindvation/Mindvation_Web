@@ -105,11 +105,34 @@ class CompleteSprint extends Component {
                     </Header>
                 </Modal.Description>
                 <div className="components-item">
-                    <div>{doneNumber} issues were done ({donePoint} point)</div>
-                    <div>{incompleteNumber} issues were incomplete ({incompletePoint} point)</div>
+                    <div>
+                        <FormattedMessage
+                            id="doneIssueAndPoint"
+                            defaultValue="{doneNumber} issues were done ({donePoint} point)"
+                            values={{
+                                doneNumber: doneNumber + '',
+                                donePoint: doneNumber + ''
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <FormattedMessage
+                            id="incompleteIssueAndPoint"
+                            defaultValue="{incompleteNumber} issues were incomplete ({incompletePoint} point)"
+                            values={{
+                                incompleteNumber: incompleteNumber + '',
+                                incompletePoint: incompletePoint + ''
+                            }}
+                        />
+                    </div>
                     {incompleteNumber > 0 ?
                         <div>
-                            <div style={{marginTop: '1em'}}>Select where all incomplete issues should be moved:</div>
+                            <div style={{marginTop: '1em'}}>
+                                <FormattedMessage
+                                    id="moveIssueDesc"
+                                    defaultValue="Select where all incomplete issues should be moved:"
+                                />
+                            </div>
                             <Select
                                 checked={checked}
                                 horizontal={true}

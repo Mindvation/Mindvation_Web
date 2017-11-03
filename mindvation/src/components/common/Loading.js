@@ -16,7 +16,7 @@ let StaticLoad = {
         document.body.appendChild(div);
         ReactDOM.render((
             <Dimmer active>
-                <Loader size='big'>{message || 'Loading...'}</Loader>
+                <Loader size='big'>{message}</Loader>
             </Dimmer>), div);
     },
     show: (id, message) => {

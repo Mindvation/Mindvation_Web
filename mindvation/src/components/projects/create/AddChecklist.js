@@ -5,7 +5,7 @@ import Select from '../../common/Select';
 import {addChecklist} from '../../../actions/checklist_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
-import {getStaffId} from '../../../util/UserStore';
+import {getStaffId, getUser} from '../../../util/UserStore';
 
 let checklistDesc, assignTo;
 
@@ -34,7 +34,7 @@ class AddChecklist extends Component {
             "description": checklistDesc.getWrappedInstance().getValue(),
             "assignee": assignTo.getWrappedInstance().getFullValue(),
             "assigner": {
-                text: "Frank",
+                text: getUser().name,
                 value: getStaffId()
             },
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),

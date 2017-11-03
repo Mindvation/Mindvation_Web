@@ -36,17 +36,15 @@ class Echarts extends Component {
         }
         const myChart = echarts.init(document.getElementById(eChartId));
         myChart.setOption(option);
-        myChart.on('click', (params) => {
+
+        /*myChart.on('click', (params) => {
             this.showClickParams(params);
-        });
+        });*/
 
         this.myChart = myChart;
         window.addEventListener('resize', this.eChartsResize, false);
     }
 
-    showClickParams(params) {
-        alert(JSON.stringify(params.data));
-    }
 
     render() {
         return (

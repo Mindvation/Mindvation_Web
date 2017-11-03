@@ -946,7 +946,6 @@ export function convertStoryToLocal(res) {
         description: res.storyInfo.description,
         functionLabel: res.subFunctionLabel,
         priority: res.storyInfo.priority,
-        storyPoints: res.storyInfo.storyPoint + '',
         tags: res.tags,
         roles: [],
         tasks: [],
@@ -961,6 +960,10 @@ export function convertStoryToLocal(res) {
         },
         taskDeliveries: []
     };
+
+    if (!isEmpty(res.storyInfo.storyPoint)) {
+        story.storyPoints = res.storyInfo.storyPoint + '';
+    }
 
     if (!isEmpty(res.storyInfo.startDate)) {
         story.startDate = dateFormat(new Date(res.storyInfo.startDate), "yyyy-MM-dd");
@@ -1192,10 +1195,13 @@ export function convertStoryAdditionalToLocal(res) {
         storyId: res.storyInfo.storyId,
         functionLabel: res.subFunctionLabel,
         priority: res.storyInfo.priority,
-        storyPoints: res.storyInfo.storyPoint + '',
         tags: res.tags,
         roles: []
     };
+
+    if (!isEmpty(res.storyInfo.storyPoint)) {
+        story.storyPoints = res.storyInfo.storyPoint + '';
+    }
 
     if (!isEmpty(res.storyInfo.startDate)) {
         story.startDate = dateFormat(new Date(res.storyInfo.startDate), "yyyy-MM-dd");
@@ -1271,6 +1277,7 @@ export function convertTaskToLocal(res) {
         assigner: res.creator,
         model: {},
         fileList: [],
+        authCode: res.staffAuthInfo,
         progress: res.progress
     };
 
@@ -1305,9 +1312,11 @@ export function convertTaskToLocal(res) {
         })
     }
 
-    if (res.staffAuthInfo) {
-        task.authCode = res.staffAuthInfo.authCode;
-    }
+    /*if (res.staffAuthInfo && res.staffAuthInfo.length > 0) {
+        res.staffAuthInfo.map((auth) => {
+            task.authCode.push(auth.authCode)
+        })
+    }*/
 
     return task;
 }

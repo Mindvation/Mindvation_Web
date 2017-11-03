@@ -41,9 +41,12 @@ export function getProjectById(id) {
         })
             .then((res) => {
                 const project = convertProjectToLocal(res.responseBody.projectDetail);
-                if (res.responseBody.staffAuthInfo) {
-                    project.authCode = res.responseBody.staffAuthInfo.authCode;
-                }
+                project.authCode = res.responseBody.staffAuthInfo;
+                /*if (res.responseBody.staffAuthInfo && res.responseBody.staffAuthInfo.length > 0) {
+                    res.responseBody.staffAuthInfo.map((auth) => {
+                        project.authCode.push(auth.authCode)
+                    })
+                }*/
                 dispatch(retrievedProject(project));
                 dispatch(setRequirement(project.requirementInfo));
             })

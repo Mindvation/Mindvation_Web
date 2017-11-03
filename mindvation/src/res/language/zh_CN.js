@@ -3,7 +3,7 @@ const zh_CN = {
     userName: "账号",
     passWord: "密码",
     logIn: "登录",
-    mindvation: "Mindvation",
+    mindvations: "Mindvations",
     logOut: '登出',
     projectsUpper: "项目",
     "Project ID": "项目编号",
@@ -201,6 +201,15 @@ const zh_CN = {
     cancellation: "注销",
     junior: "初级",
     intermediate: "中级",
-    senior: "高级"
+    senior: "高级",
+    noOptions: '没有可选项',
+    selectHolder: "请选择",
+    doneIssueAndPoint: "已完成{doneNumber}个用户故事（完成{donePoint}个用户故事点）",
+    incompleteIssueAndPoint: "剩余{incompleteNumber}个用户故事（剩余{incompletePoint}个用户故事点）",
+    moveIssueDesc: "讲所有未完成的用户故事移动到:",
+    dashboard: "看板",
+    closeSprint: "关闭迭代",
+    startSprint: "开启迭代",
+    chooseIterationCycle: "选择迭代周期"
 };
 export default zh_CN;

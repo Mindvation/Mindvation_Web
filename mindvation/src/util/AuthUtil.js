@@ -4,6 +4,7 @@ const authConfig = {
     updateProjectStatus: [1],
     createProjectChecklist: [1, 2],
     updateProjectChecklist: [1, 2],
+    MVPDashBoard: [2],
     createRequirement: [2],
     updateRequirement: [2, 3],
     updateRequirementStatus: [2],
@@ -18,7 +19,14 @@ const authConfig = {
 };
 
 export function hasAuth(action, authCode) {
-    if (!authCode) return false;
-    let authCodeList = authConfig[action];
-    return authCodeList && authCodeList.indexOf(authCode) > -1;
+    if (!authCode || authCode.length === 0) return false;
+    const authCodeList = authConfig[action];
+    let authFlag = false;
+    authCode.some((item) => {
+        if (authCodeList.indexOf(item.authCode) > -1) {
+            authFlag = true;
+            return true;
+        }
+    });
+    return authFlag;
 }

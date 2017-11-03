@@ -52,9 +52,12 @@ export function getRequirementById(id) {
         })
             .then((res) => {
                 const requirement = convertRequirementToLocal(res.responseBody);
-                if (res.responseBody.staffAuthInfo) {
-                    requirement.authCode = res.responseBody.staffAuthInfo.authCode;
-                }
+                requirement.authCode = res.responseBody.staffAuthInfo;
+                /*if (res.responseBody.staffAuthInfo && res.responseBody.staffAuthInfo.length > 0) {
+                    res.responseBody.staffAuthInfo.map((auth) => {
+                        requirement.authCode.push(auth.authCode)
+                    })
+                }*/
                 dispatch(retrievedRequirement(requirement));
                 dispatch(setRoles(requirement.roles));
                 dispatch(setStories(requirement.stories));

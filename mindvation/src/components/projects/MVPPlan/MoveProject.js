@@ -145,22 +145,14 @@ class MoveProject extends Component {
     };
 
     AIArrangement = () => {
-        const {sprints} = this.state;
-        let tempSprints = [];
+        let tempSprints = this.state.sprints;
         let allStories = [];
         let allLabels = [];
-        sprints.map((item) => {
-            tempSprints.push({
-                key: item.key,
-                text: item.text,
-                labels: item.labels,
-                status: item.status,
-                stories: [],
-                points: 0
-            });
-
-            if (item.stories && item.stories.length > 0) {
-                allStories = allStories.concat(item.stories);
+        tempSprints.map((item) => {
+            if (item.text === 'Product Backlogs') {
+                allStories = item.stories;
+                item.stories = [];
+                item.points = 0;
             }
 
             if (item.labels && item.labels.length > 0) {
@@ -222,7 +214,11 @@ class MoveProject extends Component {
                 <Header as='h3'>
                     <Icon name='dashboard'/>
                     <Header.Content>
-                        Dashboard --- {model.name}
+                        <FormattedMessage
+                            id="dashboard"
+                            defaultValue="Dashboard"
+                        />
+                         --- {model.name}
                     </Header.Content>
                 </Header>
                 <Grid columns={3} className="mvp-project-container">
@@ -247,11 +243,21 @@ class MoveProject extends Component {
                                                 <Dropdown>
                                                     <Dropdown.Menu>
                                                         {sprint.status === 'notStart' ?
-                                                            <Dropdown.Item text='Start Sprint' onClick={() => {
+                                                            <Dropdown.Item text={
+                                                                <FormattedMessage
+                                                                    id="startSprint"
+                                                                    defaultValue="Start Sprint"
+                                                                />
+                                                            } onClick={() => {
                                                                 this.startSprint(sprint)
                                                             }}/> : null}
                                                         {sprint.status === 'start' ?
-                                                            <Dropdown.Item text='Close Sprint' onClick={() => {
+                                                            <Dropdown.Item text={
+                                                                <FormattedMessage
+                                                                    id="closeSprint"
+                                                                    defaultValue="Close Sprint"
+                                                                />
+                                                            } onClick={() => {
                                                                 this.closeSprint(sprint)
                                                             }}/> : null}
                                                     </Dropdown.Menu>

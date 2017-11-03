@@ -11,16 +11,11 @@ import {
 import {priorityOptions} from '../../../res/data/dataOptions';
 
 const header = ["Story ID", "Summary", "Priority", "Members", "Story Points", "Start Date", "End Date",
-    "Duration", "Finished SP", "Progress", "Efficiency", "Defect Qty", "Critical Defects", "High Defects",
-    "Medium Defects", "Low Defects", "Defect fix rate", "Quality Index"];
+    "Duration", "Finished SP", "Progress", "Efficiency", "Quality Index"];
 const rmKey = ["storyId", "summary", "priority", "members", "storyPoints", "startDate", "endDate",
-    "duration", "finishedSP", "progress", "efficiency", "defectQty", "criticalDefects", "highDefects",
-    "mediumDefects", "lowDefects", "defectFixRate", "qualityIndex"];
+    "duration", "finishedSP", "progress", "efficiency", "qualityIndex"];
 
 class StoryList extends Component {
-    componentDidMount() {
-        //this.props.dispatch(retrieveProjects(1, 10));
-    };
 
     pageChange(page, pageSize) {
         this.props.dispatch(retrieveStories(page, pageSize, this.props.requirement.reqId));

@@ -38,8 +38,8 @@ class CommonHeader extends Component {
 
                 <span style={{color: '#f9f9f9'}}>
                     <FormattedMessage
-                        id='mindvation'
-                        defaultMessage='Mindvation'
+                        id='mindvations'
+                        defaultMessage='Mindvations'
                     />
                 </span>
 

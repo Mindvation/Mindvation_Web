@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {isEmpty, getOption} from '../../util/CommUtil';
 import {injectIntl, FormattedMessage} from 'react-intl';
 import {messages} from '../../res/language/defineMessages';
+import _ from 'lodash';
 
 class MVSelect extends Component {
     state = {
@@ -89,11 +90,37 @@ class MVSelect extends Component {
         let props = {
             ...this.props
         };
-        const {label, options, icon, required, checked, search, multiple, placeHolder, horizontal, defaultValue} = this.props;
+        const {
+            label, options, icon, required, checked, search,
+            multiple, placeHolder, horizontal, defaultValue, disabled
+        } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
         }
+
+        let selectOptions = _.cloneDeep(options);
+        if (selectOptions.length > 0) {
+            if (!multiple) {
+                selectOptions.unshift(
+                    {
+                        text: <FormattedMessage
+                            id='selectHolder'
+                            defaultMessage='Please Select'
+                        />,
+                        value: ''
+                    })
+            }
+        } else {
+            selectOptions = [{
+                text: <FormattedMessage
+                    id='noOptions'
+                    defaultMessage='No Options'
+                />,
+                value: ''
+            }];
+        }
+
         return (
             <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}>
                 <Header as='h4'>
@@ -108,12 +135,13 @@ class MVSelect extends Component {
                           search={search}
                           multiple={multiple}
                           selection
-                          options={options}
+                          options={selectOptions}
                           className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                           onChange={(event, data) => {
                               this.checkValue(event, data)
                           }}
                           defaultValue={defaultValue}
+                          disabled={disabled}
                 />
             </div>
         );
@@ -130,7 +158,8 @@ MVSelect.propTypes = {
     search: PropTypes.bool,
     multiple: PropTypes.bool,
     horizontal: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool
 };
 
 export default injectIntl(MVSelect, {withRef: true});
