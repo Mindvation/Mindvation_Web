@@ -75,9 +75,13 @@
     padding: 8px 20px 8px 0;
 }
 
-.ui.selection.dropdown {
-    flex: 1;
+.align-right {
+    justify-content: flex-end;
 }
+
+/*.ui.selection.dropdown {
+    flex: 1;
+}*/
 
 .ui.fluid.input {
     flex: 1;
@@ -417,4 +421,17 @@ img.ui.image.logon-back-image {
 
 .ui.comments .comment .avatar img {
     border-radius: 50%;
+}
+
+.input-content,
+.input-content.ui.basic.table,
+.input-content.ui.form,
+.input-content.ui.selection.dropdown,
+.input-content.ui.input {
+    width: 70%;
+}
+
+.full-width.ui.selection.dropdown,
+.full-width.ui.input {
+    width: 100%;
 }

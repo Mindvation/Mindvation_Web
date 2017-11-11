@@ -35,7 +35,7 @@ class EditBasicInfo extends Component {
         const {project, disabled} = this.props;
         return (
             <div className="read-only-component">
-                <Header as="h3" className="underLine" style={{display: 'flex'}}>
+                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
                     <FormattedMessage
                         id='basicInfo'
                         defaultMessage='Basic info'
@@ -46,11 +46,18 @@ class EditBasicInfo extends Component {
                             <Icon name='pencil'/>
                         </div>
                     </div>}
-                </Header>
-                <ReadOnly icon="product hunt" title="Project Name" value={project.projectName}/>
-                <ReadOnly icon="book" title="Description"
-                          value={project.description}/>
-
+                </Header>*/}
+                {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
+                    <FormattedMessage
+                        id='editBasicInfo'
+                        defaultMessage='Edit Basic info'
+                    />
+                </div>}
+                <div className="edit-detail-info">
+                    <ReadOnly icon="product hunt" title="Project Name" value={project.projectName}/>
+                    <ReadOnly icon="book" title="Description"
+                              value={project.description}/>
+                </div>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

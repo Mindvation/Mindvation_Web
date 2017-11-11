@@ -82,7 +82,7 @@ class MVInput extends Component {
             props.ref = this.setWrappedInstance;
         }
         return (
-            <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}
+            <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}
                  style={style}>
                 {
                     label ? <Header as='h4'>
@@ -94,14 +94,14 @@ class MVInput extends Component {
                         </Header.Content>
                     </Header> : null
                 }
-                <Input
-                    disabled={readOnly}
-                    placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
-                    error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
-                    className={fullWidth ? "full-width" : "input-content"}
-                    onChange={(event, data) => this.checkValue(event, data)}
-                    defaultValue={defaultValue} value={value}
-                    type={type} step={step} action={action}
+                <Input fluid
+                       disabled={readOnly}
+                       placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
+                       error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
+                       className={fullWidth ? "" : "components-length"}
+                       onChange={(event, data) => this.checkValue(event, data)}
+                       defaultValue={defaultValue} value={value}
+                       type={type} step={step} action={action}
                 />
             </div>
         );

@@ -210,6 +210,9 @@ const en_US = {
     dashboard: "Dashboard",
     closeSprint: "Close Sprint",
     startSprint: "Start Sprint",
-    chooseIterationCycle: "Choose Iteration Cycle"
+    chooseIterationCycle: "Choose Iteration Cycle",
+    editAdditionalInfo: "Edit Additional Info",
+    editBasicInfo: "Edit Basic Info",
+    editOptionalItems: "Edit Optional Items"
 };
 export default en_US;

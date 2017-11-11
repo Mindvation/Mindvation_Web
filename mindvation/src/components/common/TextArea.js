@@ -74,7 +74,7 @@ class MVTextArea extends Component {
             props.ref = this.setWrappedInstance;
         }
         return (
-            <div className="components-item">
+            <div className="components-item item-horizontal align-right">
                 <Header as='h4'>
                     {icon ? <Icon name={icon}/> : null}
                     <Header.Content className={required ? "input-label" : null}>
@@ -83,11 +83,11 @@ class MVTextArea extends Component {
                         />
                     </Header.Content>
                 </Header>
-                <Form>
+                <Form className="input-content">
                 <TextArea
                     autoHeight style={{minHeight: 100}}
                     placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
-                    className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
+                    className={(required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                     onChange={(event, data) => this.checkValue(event, data)}
                     defaultValue={defaultValue}
                 />

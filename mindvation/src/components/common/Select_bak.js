@@ -95,8 +95,8 @@ class MVSelect extends Component {
             ...this.props
         };
         const {
-            label, options, icon, required, checked, search, fullWidth, addOther,
-            multiple, placeHolder, defaultValue, disabled
+            label, options, icon, required, checked, search, subSelect, addOther,
+            multiple, placeHolder, horizontal, defaultValue, disabled
         } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
@@ -139,7 +139,9 @@ class MVSelect extends Component {
 
 
         return (
-            <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}>
+            <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}
+                 style={subSelect ? {width: '100%'} : {}}
+            >
                 {
                     label ? <Header as='h4'>
                         {icon ? <Icon name={icon}/> : null}
@@ -155,7 +157,7 @@ class MVSelect extends Component {
                           multiple={multiple}
                           selection
                           options={selectOptions}
-                          className={fullWidth ? "full-width" : "input-content" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
+                          className={(subSelect ? "full-width" : "components-length") + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                           onChange={(event, data) => {
                               this.checkValue(event, data)
                           }}
@@ -179,8 +181,7 @@ MVSelect.propTypes = {
     horizontal: PropTypes.bool,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
-    subSelect: PropTypes.bool,
-    fullWidth: PropTypes.bool
+    subSelect: PropTypes.bool
 };
 
 export default injectIntl(MVSelect, {withRef: true});

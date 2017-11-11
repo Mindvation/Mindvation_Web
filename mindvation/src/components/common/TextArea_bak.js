@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import {Header, Input, Icon} from 'semantic-ui-react';
+import {Header, TextArea, Icon, Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {isEmpty} from '../../util/CommUtil';
 import {injectIntl, FormattedMessage} from 'react-intl';
 import {messages} from '../../res/language/defineMessages';
 
-class MVInput extends Component {
+class MVTextArea extends Component {
     state = {
         isEmpty: true,
-        selfChecked: false
+        selfChecked: false,
     };
 
     componentDidMount() {
@@ -55,14 +55,9 @@ class MVInput extends Component {
                 selfChecked: true
             })
         }
-
         this.setState({
             returnValue: inputValue
-        });
-
-        if (this.props.onChange) {
-            this.props.onChange(inputValue)
-        }
+        })
     };
 
     getValue = () => {
@@ -73,56 +68,42 @@ class MVInput extends Component {
         let props = {
             ...this.props
         };
-        const {
-            label, icon, required, checked, placeHolder, defaultValue, type = "text",
-            step = "0.1", style, fullWidth, action, horizontal, value, readOnly
-        } = this.props;
+        const {label, icon, required, checked, placeHolder, defaultValue} = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
         }
         return (
-            <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}
-                 style={style}>
-                {
-                    label ? <Header as='h4'>
-                        {icon ? <Icon name={icon}/> : null}
-                        <Header.Content className={required ? "input-label" : null}>
-                            <FormattedMessage
-                                id={label}
-                            />
-                        </Header.Content>
-                    </Header> : null
-                }
-                <Input
-                    disabled={readOnly}
+            <div className="components-item">
+                <Header as='h4'>
+                    {icon ? <Icon name={icon}/> : null}
+                    <Header.Content className={required ? "input-label" : null}>
+                        <FormattedMessage
+                            id={label}
+                        />
+                    </Header.Content>
+                </Header>
+                <Form>
+                <TextArea
+                    autoHeight style={{minHeight: 100}}
                     placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
-                    error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
-                    className={fullWidth ? "full-width" : "input-content"}
+                    className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                     onChange={(event, data) => this.checkValue(event, data)}
-                    defaultValue={defaultValue} value={value}
-                    type={type} step={step} action={action}
+                    defaultValue={defaultValue}
                 />
+                </Form>
             </div>
         );
     }
 }
 
-MVInput.propTypes = {
+MVTextArea.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.string,
     required: PropTypes.bool,
     checked: PropTypes.bool,
     placeHolder: PropTypes.string,
-    defaultValue: PropTypes.string,
-    type: PropTypes.string,
-    step: PropTypes.string,
-    style: PropTypes.object,
-    fullWidth: PropTypes.bool,
-    action: PropTypes.object,
-    horizontal: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    onChange: PropTypes.func
+    defaultValue: PropTypes.string
 };
 
-export default injectIntl(MVInput, {withRef: true});
+export default injectIntl(MVTextArea, {withRef: true});

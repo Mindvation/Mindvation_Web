@@ -70,7 +70,7 @@ class MVDatePicker extends Component {
         const {label, icon, required, checked, range, defaultValue} = this.props;
         const dateFormat = 'YYYY/MM/DD';
         return (
-            <div className="components-item">
+            <div className="components-item item-horizontal align-right">
                 <Header as='h4'>
                     {icon ? <Icon name={icon}/> : null}
                     <Header.Content className={required ? "input-label" : null}>
@@ -79,16 +79,18 @@ class MVDatePicker extends Component {
                         />
                     </Header.Content>
                 </Header>
-                {
-                    range ? <RangePicker
-                        onChange={this.dateChange}
-                        className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
-                        defaultValue={(defaultValue && defaultValue[0] && defaultValue[1]) ? [moment(defaultValue[0], dateFormat), moment(defaultValue[1], dateFormat)] : null}
-                    /> : <DatePicker
-                        className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
-                        onChange={this.dateChange}
-                        defaultValue={defaultValue ? moment(defaultValue, dateFormat) : null}/>
-                }
+                <div className="input-content">
+                    {
+                        range ? <RangePicker
+                            onChange={this.dateChange}
+                            className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
+                            defaultValue={(defaultValue && defaultValue[0] && defaultValue[1]) ? [moment(defaultValue[0], dateFormat), moment(defaultValue[1], dateFormat)] : null}
+                        /> : <DatePicker
+                            className={required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : ""}
+                            onChange={this.dateChange}
+                            defaultValue={defaultValue ? moment(defaultValue, dateFormat) : null}/>
+                    }
+                </div>
             </div>
         );
     }

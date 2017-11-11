@@ -56,7 +56,7 @@ class EditOptionalInfo extends Component {
         const {requirement, dispatch, disabled} = this.props;
         return (
             <div className="read-only-component">
-                <Header as="h3" className="underLine" style={{display: 'flex'}}>
+                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
                     <FormattedMessage
                         id='optionalItems'
                         defaultMessage='Optional Items'
@@ -67,12 +67,20 @@ class EditOptionalInfo extends Component {
                             <Icon name='pencil'/>
                         </div>
                     </div>}
-                </Header>
-                <ReadOnly icon="tasks" title="Checklists"
-                          value={this.formatChecklists()}/>
-                <ReadOnly icon="attach" title="Attachments"
-                          value={requirement.fileList && requirement.fileList.length > 0 ?
-                              <DisplayFile fileList={requirement.fileList}/> : ""}/>
+                </Header>*/}
+                {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
+                    <FormattedMessage
+                        id='editOptionalItems'
+                        defaultMessage='Edit Optional Items'
+                    />
+                </div>}
+                <div className="edit-detail-info">
+                    <ReadOnly icon="tasks" title="Checklists"
+                              value={this.formatChecklists()}/>
+                    <ReadOnly icon="attach" title="Attachments"
+                              value={requirement.fileList && requirement.fileList.length > 0 ?
+                                  <DisplayFile fileList={requirement.fileList}/> : ""}/>
+                </div>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

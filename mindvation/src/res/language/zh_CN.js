@@ -210,6 +210,9 @@ const zh_CN = {
     dashboard: "看板",
     closeSprint: "关闭迭代",
     startSprint: "开启迭代",
-    chooseIterationCycle: "选择迭代周期"
+    chooseIterationCycle: "选择迭代周期",
+    editAdditionalInfo: "修改其他信息",
+    editBasicInfo: "修改基础信息",
+    editOptionalItems: "修改可选信息"
 };
 export default zh_CN;

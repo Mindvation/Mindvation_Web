@@ -91,7 +91,7 @@ class EditAdditionalInfo extends Component {
         }];
         return (
             <div className="read-only-component">
-                <Header as="h3" className="underLine" style={{display: 'flex'}}>
+                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
                     <FormattedMessage
                         id='additionalInfo'
                         defaultMessage='additional Info'
@@ -105,18 +105,26 @@ class EditAdditionalInfo extends Component {
                                 </div>
                             </div>
                     }
-                </Header>
-                {readyOnlyItems.map((item, i) => {
-                    return <ReadOnly
-                        key={i}
-                        icon={item.icon}
-                        title={item.title}
-                        value={item.value}
-                        hasSubItem={item.hasSubItem}
-                        isSubItem={item.isSubItem}
-                        options={item.options}
+                </Header>*/}
+                {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
+                    <FormattedMessage
+                        id='editAdditionalInfo'
+                        defaultMessage='Edit Additional Info'
                     />
-                })}
+                </div>}
+                <div className="edit-detail-info">
+                    {readyOnlyItems.map((item, i) => {
+                        return <ReadOnly
+                            key={i}
+                            icon={item.icon}
+                            title={item.title}
+                            value={item.value}
+                            hasSubItem={item.hasSubItem}
+                            isSubItem={item.isSubItem}
+                            options={item.options}
+                        />
+                    })}
+                </div>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

@@ -1,5 +1,5 @@
 let url;
-const isProduction = false;
+const isProduction = true;
 
 if (isProduction) {
     const gateWay = "http://192.168.0.254:";

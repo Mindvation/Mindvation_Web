@@ -63,20 +63,22 @@ class OtherInfo extends Component {
                         />
                     </Header>
                 </Modal.Description>
-                <Header as='h4'>
-                    <Icon name='tag'/>
-                    <Header.Content>
-                        <FormattedMessage
-                            id='tags'
-                            defaultMessage='Tags'
-                        />
-                    </Header.Content>
-                </Header>
-                <AddTags ref={node => {
-                    addTagsNode = node
-                }}
-                         defaultValue={info.tags}
-                />
+                <div className={"components-item item-horizontal align-right"}>
+                    <Header as='h4'>
+                        <Icon name='tag'/>
+                        <Header.Content>
+                            <FormattedMessage
+                                id='tags'
+                                defaultMessage='Tags'
+                            />
+                        </Header.Content>
+                    </Header>
+                    <AddTags ref={node => {
+                        addTagsNode = node
+                    }}
+                             defaultValue={info.tags}
+                    />
+                </div>
                 <Select icon="flag" options={priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {

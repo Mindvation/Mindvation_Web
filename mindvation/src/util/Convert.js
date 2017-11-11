@@ -612,7 +612,8 @@ export function convertRequirementToLocal(res) {
             percent: res.reqmntInfo.progress,
             ragStatus: res.reqmntInfo.ragStatus
         },
-        fileList: []
+        fileList: [],
+        model: res.reqmntInfo.modelId
     };
 
     if (!isEmpty(res.reqmntInfo.startDate)) {

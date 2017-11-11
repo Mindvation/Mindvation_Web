@@ -40,65 +40,64 @@ class SelectMembers extends Component {
         const {modalOpen} = this.state;
         const {roles, model, tags} = this.props;
         return (
-            <div style={{marginBottom: '10px'}} className={"components-length components-item"}>
-                <div className="single-line">
-                    <Header as='h4'>
-                        <Icon name="group"/>
-                        <Header.Content>
-                            <FormattedMessage
-                                id="Members"
-                                defaultValue="Members"
-                            />
-                        </Header.Content>
-                    </Header>
-                    <Header style={{cursor: 'pointer', marginLeft: '50px', color: 'blue'}}
-                            size='small' className="underLine"
-                            floated='right'
-                            onClick={() => this.openModal()}>
+            <div style={{marginBottom: '10px'}} className="components-item item-horizontal align-right">
+
+                <Header as='h4'>
+                    <Icon name="group"/>
+                    <Header.Content>
                         <FormattedMessage
-                            id="usingModel"
-                            defaultValue="Using {modelType} Team Structure Mode"
-                            values={{modelType: model}}
+                            id="Members"
+                            defaultValue="Members"
                         />
-                    </Header>
+                    </Header.Content>
+                </Header>
+                <div className="input-content">
+                    <div className="display-flex" style={{paddingTop: '8px'}}>
+                        <div className="underLine model-title"
+                             onClick={() => this.openModal()}>
+                            <FormattedMessage
+                                id="usingModel"
+                                defaultValue="Using {modelType} Team Structure Mode"
+                                values={{modelType: model}}
+                            />
+                        </div>
+                        <Popup
+                            trigger={<Icon size='large' name='attention'/>}
+                            content={<FormattedMessage
+                                id="modelDesc"
+                                defaultValue='This Project had select to be Software Dev model with {modelType} template'
+                                values={{modelType: model}}
+                            />}
+                            position='right center'
+                            inverted
+                            className="mode-desc-popup"
+                        />
+                    </div>
 
-                    <Popup
-                        trigger={<Icon size='large' name='attention'/>}
-                        content={<FormattedMessage
-                            id="modelDesc"
-                            defaultValue='This Project had select to be Software Dev model with {modelType} template'
-                            values={{modelType: model}}
-                        />}
-                        position='right center'
-                        inverted
-                        className="mode-desc-popup"
-                    />
+                    {roles && roles.length > 0 ?
+                        <Table basic='very' collapsing>
+                            <Table.Body>
+                                {roles.map((role, i) => {
+                                    return role.members && role.members.length > 0 ?
+                                        <Table.Row key={i}>
+                                            <Table.Cell>{role.name}</Table.Cell>
+                                            <Table.Cell>
+                                                {
+                                                    role.members.map((member, j) => {
+                                                        return <div className="table-single-line" key={i + "_" + j}>
+                                                            <Image verticalAlign="middle" src={member.name.image.src}
+                                                                   avatar/>
+                                                            <span>{member.name.text}</span>
+                                                        </div>
+                                                    })
+                                                }
+                                            </Table.Cell>
+                                        </Table.Row> :
+                                        null
+                                })}
+                            </Table.Body>
+                        </Table> : null}
                 </div>
-
-                {roles && roles.length > 0 ?
-                    <Table basic='very' collapsing>
-                        <Table.Body>
-                            {roles.map((role, i) => {
-                                return role.members && role.members.length > 0 ?
-                                    <Table.Row key={i}>
-                                        <Table.Cell>{role.name}</Table.Cell>
-                                        <Table.Cell>
-                                            {
-                                                role.members.map((member, j) => {
-                                                    return <div className="table-single-line" key={i + "_" + j}>
-                                                        <Image verticalAlign="middle" src={member.name.image.src}
-                                                               avatar/>
-                                                        <span>{member.name.text}</span>
-                                                    </div>
-                                                })
-                                            }
-                                        </Table.Cell>
-                                    </Table.Row> :
-                                    null
-                            })}
-                        </Table.Body>
-                    </Table> : null}
-
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

@@ -44,8 +44,8 @@ class MyDashboard extends Component {
                 >
                     <TaskSummary taskId={taskId}/>
                 </Sidebar>
-                <Sidebar.Pusher>
-                    <div className="component-container" onClick={() => this.setState({visible: false})}>
+                <Sidebar.Pusher onClick={() => this.setState({visible: false})}>
+                    <div className="component-container">
                         {/*<Button style={{display: sprint > 1 ? 'inline-block' : 'none'}}
                                 className="change-sprint-button" onClick={() => this.previousSprint()}>
                             <Icon name="chevron left"/>

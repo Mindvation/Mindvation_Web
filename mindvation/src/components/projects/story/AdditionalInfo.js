@@ -92,9 +92,6 @@ class AdditionalInfo extends Component {
     render() {
         const {info = {}, requirement = {}} = this.props;
         const {subLabel} = this.state;
-        /*const subFunctionLabelOptions = this.getSubFunctionLabelOption();
-        const subFunctionLabelValue = this.getSubFunctionLabelValue();
-        const subOtherLabelValue = this.getSubOtherLabelValue(subFunctionLabelValue);*/
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -105,54 +102,59 @@ class AdditionalInfo extends Component {
                         />
                     </Header>
                 </Modal.Description>
-                <Header as='h4'>
-                    <Icon name='tag'/>
-                    <Header.Content>
-                        <FormattedMessage
-                            id='tags'
-                            defaultMessage='Tags'
-                        />
-                    </Header.Content>
-                </Header>
-                <AddTags
-                    ref={node => {
-                        this.addTagsNode = node
-                    }}
-                    defaultValue={info.tags}
-                />
-                <Header as='h4'>
-                    <Icon name='sitemap'/>
-                    <Header.Content>
-                        <FormattedMessage
-                            id='Process/Function Label'
-                            defaultMessage='Process/Function Label'
-                        />
-                    </Header.Content>
-                </Header>
-                <div style={{display: "flex"}} className="components-length">
-                    <Display
-                        value={requirement.functionLabel ? requirement.functionLabel.name : info.requirementFunctionLabel ? info.requirementFunctionLabel.name : ''}
-                    />
-                    <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
-                    {this.subFunctionLabelOptions.length > 0 ?
-                        <Select options={this.subFunctionLabelOptions}
-                                ref={node => {
-                                    this.subFunctionLabel = node
-                                }}
-                                subSelect={true}
-                                addOther={true}
-                                defaultValue={this.subFunctionLabelValue}
-                                onChange={(value) => this.handleLabelChange(value)}
-                        /> : null}
-                    {this.subFunctionLabelOptions.length === 0 ? <Input
+                <div className={"components-item item-horizontal align-right"}>
+                    <Header as='h4'>
+                        <Icon name='tag'/>
+                        <Header.Content>
+                            <FormattedMessage
+                                id='tags'
+                                defaultMessage='Tags'
+                            />
+                        </Header.Content>
+                    </Header>
+                    <AddTags
                         ref={node => {
-                            this.subFunctionTextLabel = node
+                            this.addTagsNode = node
                         }}
-                        style={{flex: 1, marginTop: '1em'}}
-                        fullWidth={true}
-                        placeHolder="subFunctionLabelPHDesc"
-                        defaultValue={info.functionLabel ? info.functionLabel.name : ''}
-                    /> : null}
+                        defaultValue={info.tags}
+                    />
+                </div>
+                <div className={"components-item item-horizontal align-right"}>
+                    <Header as='h4'>
+                        <Icon name='sitemap'/>
+                        <Header.Content>
+                            <FormattedMessage
+                                id='Process/Function Label'
+                                defaultMessage='Process/Function Label'
+                            />
+                        </Header.Content>
+                    </Header>
+                    <div style={{display: "flex"}} className="input-content">
+                        <Display
+                            value={requirement.functionLabel ? requirement.functionLabel.name : info.requirementFunctionLabel ? info.requirementFunctionLabel.name : ''}
+                        />
+                        <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
+                        {this.subFunctionLabelOptions.length > 0 ?
+                            <Select options={this.subFunctionLabelOptions}
+                                    ref={node => {
+                                        this.subFunctionLabel = node
+                                    }}
+                                    style={{width: '100%'}}
+                                    addOther={true}
+                                    fullWidth={true}
+                                    defaultValue={this.subFunctionLabelValue}
+                                    onChange={(value) => this.handleLabelChange(value)}
+                            /> : null}
+                        {this.subFunctionLabelOptions.length === 0 ? <Input
+                            ref={node => {
+                                this.subFunctionTextLabel = node
+                            }}
+                            style={{flex: 1, marginTop: '1em'}}
+                            fullWidth={true}
+                            placeHolder="subFunctionLabelPHDesc"
+                            defaultValue={info.functionLabel ? info.functionLabel.name : ''}
+                        /> : null}
+                    </div>
                 </div>
 
                 {subLabel === 'other' ? <Input

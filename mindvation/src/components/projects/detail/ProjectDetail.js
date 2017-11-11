@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Header, Segment} from 'semantic-ui-react';
+import {Grid, Header, Segment, Tab, Menu, Icon} from 'semantic-ui-react';
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
@@ -38,6 +38,57 @@ class ProjectDetail extends Component {
 
     render() {
         const {project, dispatch} = this.props;
+        const panes = [
+            {
+                menuItem: <Menu.Item key="basicInfo">
+                    <div className="detail-tab-title">
+                        <Icon name="browser"/>
+                        <FormattedMessage
+                            id='basicInfo'
+                            defaultMessage='Basic info'
+                        />
+                    </div>
+                </Menu.Item>,
+                render: () =>
+                    <Tab.Pane attached={false}>
+                        <EditBasicInfo project={project} dispatch={dispatch}
+                                       disabled={!hasAuth("updateProject", project.authCode)}/>
+                    </Tab.Pane>
+            },
+            {
+                menuItem: <Menu.Item key="additionalInfo">
+                    <div className="detail-tab-title">
+                        <Icon name="browser"/>
+                        <FormattedMessage
+                            id='additionalInfo'
+                            defaultMessage='additional Info'
+                        />
+                    </div>
+                </Menu.Item>,
+                render: () =>
+                    <Tab.Pane attached={false}>
+                        <EditAdditionalInfo project={project} dispatch={dispatch}
+                                            disabled={!hasAuth("updateProject", project.authCode)}/>
+                    </Tab.Pane>
+            },
+            {
+                menuItem: <Menu.Item key="optionalItems">
+                    <div className="detail-tab-title">
+                        <Icon name="browser"/>
+                        <FormattedMessage
+                            id='optionalItems'
+                            defaultMessage='Optional Items'
+                        />
+                    </div>
+                </Menu.Item>,
+                render: () =>
+                    <Tab.Pane attached={false}>
+                        <EditOptionalInfo project={project} dispatch={dispatch}
+                                          disabled={!hasAuth("updateProject", project.authCode)}/>
+                    </Tab.Pane>
+            }
+        ];
+
         return (
             <div className="project-detail">
                 <Header as='h4'>
@@ -53,16 +104,13 @@ class ProjectDetail extends Component {
                 </Header>
                 <Grid columns={2}>
                     <Grid.Column width={5}>
-                        <Segment padded>
+                        <Segment>
                             <EditStatus status={project.status} isStory={true}
                                         disabled={!hasAuth("updateProjectStatus", project.authCode)}
                                         changeStatus={(status, percent) => this.changeStatus(project, status, percent)}/>
-                            <EditBasicInfo project={project} dispatch={dispatch}
-                                           disabled={!hasAuth("updateProject", project.authCode)}/>
-                            <EditAdditionalInfo project={project} dispatch={dispatch}
-                                                disabled={!hasAuth("updateProject", project.authCode)}/>
-                            <EditOptionalInfo project={project} dispatch={dispatch}
-                                              disabled={!hasAuth("updateProject", project.authCode)}/>
+                        </Segment>
+                        <Segment className="component-detail">
+                            <Tab menu={{secondary: true, pointing: true}} panes={panes}/>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">

@@ -159,7 +159,7 @@ class AddTags extends Component {
             props.ref = this.setWrappedInstance;
         }
         return (
-            <div style={{marginBottom: '10px'}} className="input-content">
+            <div style={{marginBottom: '10px'}} className="components-length">
                 <TagList tagList={this.state.projectTags} handleClick={(tag) => {
                     this.removeProjectTags(tag)
                 }}/>

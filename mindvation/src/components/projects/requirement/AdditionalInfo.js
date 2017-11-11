@@ -12,7 +12,7 @@ import {priorityOptions} from '../../../res/data/dataOptions';
 
 class AdditionalInfo extends Component {
     state = {
-        model: null,
+        model: this.props.requirement ? this.props.requirement.model : '',
         functionLabel: '',
         functionOptions: [],
         roles: [],
@@ -133,26 +133,28 @@ class AdditionalInfo extends Component {
                         />
                     </Header>
                 </Modal.Description>
-                <Header as='h4'>
-                    <Icon name='tag'/>
-                    <Header.Content>
-                        <FormattedMessage
-                            id='tags'
-                            defaultMessage='Tags'
-                        />
-                    </Header.Content>
-                </Header>
-                <AddTags
-                    ref={node => {
-                        this.addTagsNode = node
-                    }}
-                    defaultValue={requirement.tags}
-                    onChange={(tags) => {
-                        this.setState({
-                            tempTags: tags
-                        })
-                    }}
-                />
+                <div className={"components-item item-horizontal align-right"}>
+                    <Header as='h4'>
+                        <Icon name='tag'/>
+                        <Header.Content>
+                            <FormattedMessage
+                                id='tags'
+                                defaultMessage='Tags'
+                            />
+                        </Header.Content>
+                    </Header>
+                    <AddTags
+                        ref={node => {
+                            this.addTagsNode = node
+                        }}
+                        defaultValue={requirement.tags}
+                        onChange={(tags) => {
+                            this.setState({
+                                tempTags: tags
+                            })
+                        }}
+                    />
+                </div>
                 <Select icon="flag" options={priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {

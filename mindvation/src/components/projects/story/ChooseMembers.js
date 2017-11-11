@@ -73,7 +73,7 @@ class ChooseMembers extends Component {
     render() {
         const {requirement = {}, info = {}} = this.props;
         return (
-            <div className="components-item">
+            <div className="components-item item-horizontal align-right">
                 <Header as='h4'>
                     <Icon name='group'/>
                     <Header.Content>
@@ -83,7 +83,7 @@ class ChooseMembers extends Component {
                         />
                     </Header.Content>
                 </Header>
-                <Table basic='very' collapsing>
+                <Table basic='very' collapsing className="input-content">
                     <Table.Body>
                         {(requirement.roles || info.requirementRoles || []).map((role, i) => {
                             return role.members && role.members.length > 0 ?
