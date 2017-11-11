@@ -46,10 +46,13 @@ if (isProduction) {
         getAllDepartment: gateWay + '8080/mdvn-department-papi/department/getAllDepartment',
         startIteration: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateSprintStartStatus',
         getNextIterations: gateWay + '8080/mdvn-dashboard-papi/dashboard/itSprints',
-        closeIteration: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateSprintCloseStatus'
+        closeIteration: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateSprintCloseStatus',
+        rtrvStaffListByName: gateWay + '8080/mdvn-staff-papi/staff/rtrvStaffListByName',
+        createComment: gateWay + '8080/mdvn-comment-papi/comments/createCommentInfo',
+        voteComment: gateWay + '8080/mdvn-comment-papi/comments/likeOrDislike'
     };
 } else {
-    const gateWay = "http://192.168.0.109:";
+    const gateWay = "http://192.168.0.107:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -93,7 +96,10 @@ if (isProduction) {
         getAllDepartment: gateWay + '10024/mdvn-department-papi/department/getAllDepartment',
         startIteration: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateSprintStartStatus',
         getNextIterations: gateWay + '10018/mdvn-dashboard-papi/dashboard/itSprints',
-        closeIteration: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateSprintCloseStatus'
+        closeIteration: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateSprintCloseStatus',
+        rtrvStaffListByName: gateWay + '10014/mdvn-staff-papi/staff/rtrvStaffListByName',
+        createComment: gateWay + '10026/mdvn-comment-papi/comments/createCommentInfo',
+        voteComment: gateWay + '10026/mdvn-comment-papi/comments/likeOrDislike'
     };
 }
 

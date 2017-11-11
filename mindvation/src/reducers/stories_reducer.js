@@ -11,7 +11,14 @@ function stories(state = {
             temp.stories.push(action.story);
             return temp;
         case UPDATE_STORIES:
-            return Object.assign([], state, action.story);
+            let temp2 = {...state};
+            temp2.stories.some((item) => {
+                if (item.storyId === action.story.storyId) {
+                    Object.assign(item, action.requirement);
+                    return true;
+                }
+            });
+            return Object.assign([], state, temp2);
         case SET_STORIES:
         case RETRIEVED_STORIES:
             return action.stories || {

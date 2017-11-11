@@ -88,6 +88,7 @@ export function updateProjectAdditional(additionalInfo, callback) {
             .then((res) => {
                 StaticLoad.remove("updateProAdditional");
                 const project = convertProjectAdditionalToLocal(res.responseBody.projectDetail);
+                project.authCode = res.responseBody.staffAuthInfo;
                 dispatch(updateProject(project));
                 callback();
             })

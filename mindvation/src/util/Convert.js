@@ -108,6 +108,18 @@ export const convertProjectToLocal = (res) => {
         });
     }
 
+    if (project.requirementInfo.requirementInfos && project.requirementInfo.requirementInfos.length > 0) {
+        project.requirementInfo.requirementInfos.map((req) => {
+            let tempComments = [];
+            if (req.commentDetails && req.commentDetails.length > 0) {
+                req.commentDetails.map((comm) => {
+                    tempComments.push(convertCommentToLocal(comm))
+                })
+            }
+            req.comments = tempComments;
+        })
+    }
+
     return project;
 };
 
@@ -470,18 +482,18 @@ export const convertStaffOptionToLocal = (res) => {
 
 export const convertMemberToLocal = (res) => {
     let members = [];
-    if (res.staffs && res.staffs.length > 0) {
-        res.staffs.map((staff) => {
+    if (res.staffMatched && res.staffMatched.length > 0) {
+        res.staffMatched.map((staff) => {
             members.push({
                 name: {
-                    text: staff.name,
-                    value: staff.staffId,
+                    text: staff.staff.name,
+                    value: staff.staff.staffId,
                     image: {
                         avatar: true,
-                        src: staff.avatar
+                        src: staff.staff.avatar
                     }
                 },
-                tags: [],
+                tags: staff.tags,
                 efficiency: staff.effective,
                 contribution: staff.contribution,
                 rec: staff.recommendation
@@ -522,7 +534,7 @@ export const convertRequirementToServer = (requirement) => {
         summary: requirement.summary,
         description: requirement.description,
         priority: requirement.priority,
-        functionLabelId: requirement.functionLabel,
+        functionLabel: {},
         modelId: requirement.model,
         members: [],
         tags: requirement.tags,
@@ -538,11 +550,11 @@ export const convertRequirementToServer = (requirement) => {
         params.endDate = new Date(requirement.endDate).getTime()
     }
 
-    /*if (requirement.tags && requirement.tags.length > 0) {
-        requirement.tags.map((tag) => {
-            params.tagIds.push(tag.tagId)
-        })
-    }*/
+    if (requirement.functionLabel !== 'other') {
+        params.functionLabel.labelId = requirement.functionLabel;
+    } else {
+        params.functionLabel.name = requirement.otherFunctionLabel;
+    }
 
     if (requirement.checklists && requirement.checklists.length > 0) {
         requirement.checklists.map((checklist) => {
@@ -587,6 +599,7 @@ export function convertRequirementToLocal(res) {
         summary: res.reqmntInfo.summary,
         description: res.reqmntInfo.description,
         functionLabel: res.labelDetail, //update
+        subFunctionLabels: res.subFunctionLabels,
         priority: res.reqmntInfo.priority,
         storyPoints: res.reqmntInfo.totalStoryPoint,
         tags: res.tagList,
@@ -669,6 +682,18 @@ export function convertRequirementToLocal(res) {
                 url: attach.url
             })
         });
+    }
+
+    if (requirement.stories.stories && requirement.stories.stories.length > 0) {
+        requirement.stories.stories.map((story) => {
+            let tempComments = [];
+            if (story.commentDetails && story.commentDetails.length > 0) {
+                story.commentDetails.map((comm) => {
+                    tempComments.push(convertCommentToLocal(comm))
+                })
+            }
+            story.comments = tempComments;
+        })
     }
 
     return requirement;
@@ -884,6 +909,28 @@ export function convertReqStatusToLocal(res) {
     };
 }
 
+export function convertReqCommentToServer(reqInfo, commentInfo) {
+    let params = {
+        projId: reqInfo.projId,
+        subjectId: reqInfo.reqmntId,
+        creatorId: getStaffId(),
+        content: commentInfo.text,
+        passiveAts: []
+    };
+
+    if (commentInfo.mentions && commentInfo.mentions.length > 0) {
+        commentInfo.mentions.map((mention) => {
+            params.passiveAts.push(mention.value)
+        })
+    }
+
+    if (commentInfo.reply && commentInfo.reply.commentId) {
+        params.replyId = commentInfo.reply.commentId
+    }
+
+    return params;
+}
+
 export function convertStoryToServer(story) {
     let params = {
         creatorId: getStaffId(),
@@ -909,6 +956,17 @@ export function convertStoryToServer(story) {
 
     if (story.endDate) {
         params.storyInfo.endDate = new Date(story.endDate).getTime()
+    }
+
+    if (story.functionLabel === 'other') {
+        params.subFunctionLabel.name = story.functionOtherLabel;
+    } else {
+        if (story.functionLabel) {
+            params.subFunctionLabel.labelId = story.functionLabel;
+        }
+        if (story.functionTextLabel) {
+            params.subFunctionLabel.name = story.functionTextLabel;
+        }
     }
 
     if (story.roles && story.roles.length > 0) {
@@ -945,6 +1003,7 @@ export function convertStoryToLocal(res) {
         summary: res.storyInfo.summary,
         description: res.storyInfo.description,
         functionLabel: res.subFunctionLabel,
+        subFunctionLabels: res.subFunctionLabels,
         priority: res.storyInfo.priority,
         tags: res.tags,
         roles: [],
@@ -1151,13 +1210,12 @@ export function convertStoryAdditionalToServer(additionalInfo) {
     let params = {
         creatorId: getStaffId(),
         storyInfo: {
+            projId: additionalInfo.projectId,
             storyId: additionalInfo.storyId,
             priority: additionalInfo.priority,
             storyPoint: additionalInfo.storyPoints
         },
-        subFunctionLabel: {
-            name: additionalInfo.functionLabel
-        },
+        subFunctionLabel: {},
         members: [],
         sTags: additionalInfo.tags
     };
@@ -1168,6 +1226,17 @@ export function convertStoryAdditionalToServer(additionalInfo) {
 
     if (additionalInfo.endDate) {
         params.storyInfo.endDate = new Date(additionalInfo.endDate).getTime()
+    }
+
+    if (additionalInfo.functionLabel === 'other') {
+        params.subFunctionLabel.name = additionalInfo.functionOtherLabel;
+    } else {
+        if (additionalInfo.functionLabel) {
+            params.subFunctionLabel.labelId = additionalInfo.functionLabel;
+        }
+        if (additionalInfo.functionTextLabel) {
+            params.subFunctionLabel.name = additionalInfo.functionTextLabel;
+        }
     }
 
     if (additionalInfo.roles && additionalInfo.roles.length > 0) {
@@ -1183,6 +1252,28 @@ export function convertStoryAdditionalToServer(additionalInfo) {
             }
             params.members.push(tempRole);
         })
+    }
+
+    return params;
+}
+
+export function convertStoryCommentToServer(storyInfo, commentInfo) {
+    let params = {
+        projId: storyInfo.projId,
+        subjectId: storyInfo.storyId,
+        creatorId: getStaffId(),
+        content: commentInfo.text,
+        passiveAts: []
+    };
+
+    if (commentInfo.mentions && commentInfo.mentions.length > 0) {
+        commentInfo.mentions.map((mention) => {
+            params.passiveAts.push(mention.value)
+        })
+    }
+
+    if (commentInfo.reply && commentInfo.reply.commentId) {
+        params.replyId = commentInfo.reply.commentId
     }
 
     return params;
@@ -1559,4 +1650,28 @@ export function convertDepartmentToLocal(res) {
     }
 
     return department;
+}
+
+export function convertCommentToLocal(res) {
+    let comment = {
+        commentId: res.comment.commentId,
+        author: {
+            text: res.comment.creatorInfo ? res.comment.creatorInfo.name : '',
+            value: res.comment.creatorInfo ? res.comment.creatorInfo.staffId : '',
+            image: res.comment.creatorInfo ? res.comment.creatorInfo.avatar : ''
+        },
+        time: dateFormat(new Date(res.comment.createTime), 'yyyy-MM-dd hh:mm:ss'),
+        text: res.comment.content,
+        approve: res.comment.likeIds ? res.comment.likeIds.split(",") : [],
+        disagree: res.comment.dislikeIds ? res.comment.dislikeIds.split(",") : []
+    };
+
+    if (res.replyDetail) {
+        comment.replyInfo = {
+            replyId: res.replyDetail.commentId,
+            replyStaff: res.replyDetail.creatorInfo
+        }
+    }
+
+    return comment;
 }

@@ -9,24 +9,92 @@ import ChooseMembers from './ChooseMembers';
 import {FormattedMessage} from 'react-intl';
 import {priorityOptions} from '../../../res/data/dataOptions';
 
-let priority, startEndDate, addTagsNode, chooseMembersNode, storyPointsNode, subFunctionLabel;
-
 class AdditionalInfo extends Component {
+    constructor(props) {
+        super();
+        this.props = props;
+        this.subFunctionLabelOptions = this.getSubFunctionLabelOption();
+        this.subFunctionLabelValue = this.getSubFunctionLabelValue(this.subFunctionLabelOptions);
+        this.subOtherLabelValue = this.getSubOtherLabelValue(this.subFunctionLabelValue);
+        this.state = {
+            subLabel: this.subFunctionLabelValue
+        }
+    }
 
     getInfo = () => {
         return {
-            "priority": priority.getWrappedInstance().getValue(),
-            "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
-            "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            "tags": addTagsNode.getWrappedInstance().getValue(),
-            "storyPoints": storyPointsNode.getWrappedInstance().getValue(),
-            "functionLabel": subFunctionLabel.getWrappedInstance().getValue(),
-            "roles": chooseMembersNode.getValue()
+            "priority": this.priority.getWrappedInstance().getValue(),
+            "startDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
+            "endDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
+            "tags": this.addTagsNode.getWrappedInstance().getValue(),
+            "storyPoints": this.storyPointsNode.getWrappedInstance().getValue(),
+            "functionLabel": this.subFunctionLabel ? this.subFunctionLabel.getWrappedInstance().getValue() : '',
+            "functionOtherLabel": this.subFunctionOtherLabel ? this.subFunctionOtherLabel.getWrappedInstance().getValue() : '',
+            "functionTextLabel": this.subFunctionTextLabel ? this.subFunctionTextLabel.getWrappedInstance().getValue() : '',
+            "roles": this.chooseMembersNode.getValue()
         }
+    };
+
+    getSubFunctionLabelOption = () => {
+        const {info = {}, requirement = {}} = this.props;
+        let options = [];
+        if (info.subFunctionLabels && info.subFunctionLabels.length > 0) {
+            info.subFunctionLabels.map((label) => {
+                options.push({
+                    text: label.name,
+                    value: label.labelId
+                })
+            });
+        } else {
+            if (requirement.subFunctionLabels && requirement.subFunctionLabels.length > 0) {
+                requirement.subFunctionLabels.map((label) => {
+                    options.push({
+                        text: label.name,
+                        value: label.labelId
+                    })
+                });
+            }
+        }
+
+        return options;
+    };
+
+    handleLabelChange = (label) => {
+        this.setState({
+            subLabel: label
+        })
+    };
+
+    getSubFunctionLabelValue = (options) => {
+        const {info = {}} = this.props;
+        let defaultValue = '';
+        if (info.functionLabel && options.length > 0) {
+            if (info.functionLabel.parentId) {
+                defaultValue = info.functionLabel.labelId;
+            } else {
+                defaultValue = 'other';
+            }
+        }
+        return defaultValue;
+    };
+
+    getSubOtherLabelValue = (subValue) => {
+        const {info = {}} = this.props;
+        let otherValue = '';
+        if (subValue === 'other') {
+            otherValue = info.functionLabel ? info.functionLabel.name : '';
+        } else {
+            otherValue = '';
+        }
+        return otherValue;
     };
 
     render() {
         const {info = {}, requirement = {}} = this.props;
+        const {subLabel} = this.state;
+        /*const subFunctionLabelOptions = this.getSubFunctionLabelOption();
+        const subFunctionLabelValue = this.getSubFunctionLabelValue();
+        const subOtherLabelValue = this.getSubOtherLabelValue(subFunctionLabelValue);*/
         return (
             <Modal.Content>
                 <Modal.Description>
@@ -48,7 +116,7 @@ class AdditionalInfo extends Component {
                 </Header>
                 <AddTags
                     ref={node => {
-                        addTagsNode = node
+                        this.addTagsNode = node
                     }}
                     defaultValue={info.tags}
                 />
@@ -66,39 +134,58 @@ class AdditionalInfo extends Component {
                         value={requirement.functionLabel ? requirement.functionLabel.name : info.requirementFunctionLabel ? info.requirementFunctionLabel.name : ''}
                     />
                     <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
-                    <Input
+                    {this.subFunctionLabelOptions.length > 0 ?
+                        <Select options={this.subFunctionLabelOptions}
+                                ref={node => {
+                                    this.subFunctionLabel = node
+                                }}
+                                subSelect={true}
+                                addOther={true}
+                                defaultValue={this.subFunctionLabelValue}
+                                onChange={(value) => this.handleLabelChange(value)}
+                        /> : null}
+                    {this.subFunctionLabelOptions.length === 0 ? <Input
                         ref={node => {
-                            subFunctionLabel = node
+                            this.subFunctionTextLabel = node
                         }}
                         style={{flex: 1, marginTop: '1em'}}
                         fullWidth={true}
                         placeHolder="subFunctionLabelPHDesc"
                         defaultValue={info.functionLabel ? info.functionLabel.name : ''}
-                    />
+                    /> : null}
                 </div>
+
+                {subLabel === 'other' ? <Input
+                    ref={node => {
+                        this.subFunctionOtherLabel = node
+                    }}
+                    placeHolder="subFunctionLabelPHDesc"
+                    defaultValue={this.subOtherLabelValue}
+                /> : null}
+
                 <Select icon="flag" options={priorityOptions} label="Priority"
                         placeHolder="priorityPlaceHolderDesc"
                         ref={node => {
-                            priority = node
+                            this.priority = node
                         }}
                         defaultValue={info.priority}
                 />
                 <ChooseMembers
                     ref={node => {
-                        chooseMembersNode = node
+                        this.chooseMembersNode = node
                     }}
                     info={info}
                     requirement={requirement}/>
                 <DatePicker icon="clock" label="Start / End Date"
                             range={true}
                             ref={node => {
-                                startEndDate = node
+                                this.startEndDate = node
                             }}
                             defaultValue={[info.startDate, info.endDate]}
                 />
                 <Input label="Story Points" icon="database" type="number"
                        ref={node => {
-                           storyPointsNode = node
+                           this.storyPointsNode = node
                        }}
                        defaultValue={info.storyPoints}
                 />

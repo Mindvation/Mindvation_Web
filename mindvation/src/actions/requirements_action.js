@@ -2,7 +2,11 @@
  * action 类型
  */
 import {post} from '../util/request';
-import {convertRequirementToServer} from '../util/Convert';
+import {
+    convertRequirementToServer,
+    convertReqCommentToServer,
+    convertCommentToLocal
+} from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
@@ -62,4 +66,45 @@ export function retrieveRequirements(page, pageSize, projectId) {
 
 export function updateRequirements(requirement) {
     return {type: UPDATE_REQUIREMENTS, requirement}
+}
+
+export function createRequirementComment(requirement, comment, callback) {
+    return dispatch => {
+        const params = convertReqCommentToServer(requirement, comment);
+        post(url.createComment, params)
+            .then((res) => {
+                if (!requirement.comments) requirement.comments = [];
+                const comment = convertCommentToLocal(res.responseBody);
+                requirement.comments.push(comment);
+                dispatch(updateRequirements(requirement));
+                callback && callback();
+            })
+            .catch((error) => {
+                StaticDialog.show("createRequirementComment-error", error.responseCode, error.message);
+            });
+    }
+}
+
+export function voteRequirementComment(requirement, comment, action) {
+    return dispatch => {
+        const params = {
+            commentId: comment.commentId,
+            remark: action === "upVote" ? "like" : "dislike",
+            creatorId: getStaffId()
+        };
+        post(url.voteComment, params)
+            .then((res) => {
+                const comment = convertCommentToLocal(res.responseBody);
+                requirement.comments.some((item) => {
+                    if (item.commentId === comment.commentId) {
+                        Object.assign(item, comment);
+                        return true;
+                    }
+                });
+                dispatch(updateRequirements(requirement));
+            })
+            .catch((error) => {
+                StaticDialog.show("voteRequirementComment-error", error.responseCode, error.message);
+            });
+    }
 }

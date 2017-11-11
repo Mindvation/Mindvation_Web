@@ -1,5 +1,9 @@
 import {post} from '../util/request';
-import {convertStoryToServer} from '../util/Convert';
+import {
+    convertStoryToServer,
+    convertStoryCommentToServer,
+    convertCommentToLocal
+} from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
@@ -61,6 +65,47 @@ export function retrieveStories(page, pageSize, reqId) {
             })
             .catch((error) => {
                 console.info(error);
+            });
+    }
+}
+
+export function createStoryComment(story, comment, callback) {
+    return dispatch => {
+        const params = convertStoryCommentToServer(story, comment);
+        post(url.createComment, params)
+            .then((res) => {
+                if (!story.comments) story.comments = [];
+                const comment = convertCommentToLocal(res.responseBody);
+                story.comments.push(comment);
+                dispatch(updateStories(story));
+                callback && callback();
+            })
+            .catch((error) => {
+                StaticDialog.show("createStoryComment-error", error.responseCode, error.message);
+            });
+    }
+}
+
+export function voteStoryComment(story, comment, action) {
+    return dispatch => {
+        const params = {
+            commentId: comment.commentId,
+            remark: action === "upVote" ? "like" : "dislike",
+            creatorId: getStaffId()
+        };
+        post(url.voteComment, params)
+            .then((res) => {
+                const comment = convertCommentToLocal(res.responseBody);
+                story.comments.some((item) => {
+                    if (item.commentId === comment.commentId) {
+                        Object.assign(item, comment);
+                        return true;
+                    }
+                });
+                dispatch(updateStories(story));
+            })
+            .catch((error) => {
+                StaticDialog.show("voteStoryComment-error", error.responseCode, error.message);
             });
     }
 }

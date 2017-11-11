@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Transition, Icon, Segment} from 'semantic-ui-react';
 import Comment from '../../common/Comment';
-import {updateRequirements} from '../../../actions/requirements_action';
+import {createRequirementComment, voteRequirementComment} from '../../../actions/requirements_action';
 
 class Discussion extends Component {
     state = {
@@ -14,16 +14,26 @@ class Discussion extends Component {
         })
     };
 
-    updateRequirement = (comment, action) => {
+    updateRequirement = (comment, action, callback) => {
         const {requirement, dispatch} = this.props;
         if (action === 'add') {
+            dispatch(createRequirementComment(requirement, comment, callback));
+        } else {
+            dispatch(voteRequirementComment(requirement, comment, action));
+        }
+    };
+
+    /*updateRequirement = (comment, action) => {
+        const {requirement, dispatch} = this.props;
+        if (action === 'add') {
+            if (!requirement.comments) requirement.comments = [];
             requirement.comments.push(comment);
         } else {
             Object.assign(requirement.comments, comment);
             dispatch(updateRequirements(requirement));
         }
         dispatch(updateRequirements(requirement));
-    };
+    };*/
 
 
     render() {
@@ -38,7 +48,7 @@ class Discussion extends Component {
                 <Transition visible={visible} animation='slide down' duration={250}>
                     <Segment>
                         <Comment comments={comments} dispatch={dispatch}
-                                 changeComment={(comment, action) => this.updateRequirement(comment, action)}/>
+                                 changeComment={(comment, action, callback) => this.updateRequirement(comment, action, callback)}/>
                     </Segment>
                 </Transition>
             </div>

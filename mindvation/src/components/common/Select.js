@@ -40,7 +40,11 @@ class MVSelect extends Component {
 
         this.setState({
             returnValue: defaultValue
-        })
+        });
+
+        /*if (this.props.onChange) {
+            this.props.onChange(defaultValue)
+        }*/
     };
 
     checkValue = (event, data) => {
@@ -91,7 +95,7 @@ class MVSelect extends Component {
             ...this.props
         };
         const {
-            label, options, icon, required, checked, search,
+            label, options, icon, required, checked, search, subSelect, addOther,
             multiple, placeHolder, horizontal, defaultValue, disabled
         } = this.props;
         const {formatMessage} = this.props.intl;
@@ -100,6 +104,18 @@ class MVSelect extends Component {
         }
 
         let selectOptions = _.cloneDeep(options);
+
+
+        if (addOther && selectOptions.length > 0) {
+            selectOptions.push({
+                text: <FormattedMessage
+                    id='other'
+                    defaultMessage='Other'
+                />,
+                value: 'other'
+            });
+        }
+
         if (selectOptions.length > 0) {
             if (!multiple) {
                 selectOptions.unshift(
@@ -121,22 +137,27 @@ class MVSelect extends Component {
             }];
         }
 
+
         return (
-            <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}>
-                <Header as='h4'>
-                    {icon ? <Icon name={icon}/> : null}
-                    <Header.Content className={required ? "input-label" : null}>
-                        <FormattedMessage
-                            id={label}
-                        />
-                    </Header.Content>
-                </Header>
+            <div className={"components-item" + " " + (horizontal ? "item-horizontal components-length" : "")}
+                 style={subSelect ? {width: '100%'} : {}}
+            >
+                {
+                    label ? <Header as='h4'>
+                        {icon ? <Icon name={icon}/> : null}
+                        <Header.Content className={required ? "input-label" : null}>
+                            <FormattedMessage
+                                id={label}
+                            />
+                        </Header.Content>
+                    </Header> : null
+                }
                 <Dropdown placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                           search={search}
                           multiple={multiple}
                           selection
                           options={selectOptions}
-                          className={"components-length" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
+                          className={(subSelect ? "full-width" : "components-length") + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
                           onChange={(event, data) => {
                               this.checkValue(event, data)
                           }}
@@ -159,7 +180,8 @@ MVSelect.propTypes = {
     multiple: PropTypes.bool,
     horizontal: PropTypes.bool,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    subSelect: PropTypes.bool
 };
 
 export default injectIntl(MVSelect, {withRef: true});

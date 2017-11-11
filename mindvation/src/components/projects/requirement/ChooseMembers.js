@@ -35,7 +35,8 @@ class ChooseMembers extends Component {
 
     searchMembers = () => {
         let tagOrder = tagsNode.getTagOrder();
-        this.props.dispatch(searchMembersByTags(tagOrder));
+        let memberName = searchNode.inputRef.value;
+        this.props.dispatch(searchMembersByTags(tagOrder, memberName));
     };
 
     addMemberToRole = () => {
@@ -74,7 +75,6 @@ class ChooseMembers extends Component {
                                 onClick: () => this.searchMembers()
                             }}
                             ref={node => searchNode = node}
-                            defaultValue={this.state.role.name}
                         />
                         <Members
                             ref={node => membersNode = node}

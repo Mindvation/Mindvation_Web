@@ -25,6 +25,7 @@ class EditAdditionalInfo extends Component {
     update = () => {
         let additionalInfo = AdditionalModule.getInfo();
         additionalInfo.storyId = this.props.story.storyId;
+        additionalInfo.projectId = this.props.story.projectId;
         this.props.dispatch(updateStoryAdditional(additionalInfo, this.closeModal));
     };
 

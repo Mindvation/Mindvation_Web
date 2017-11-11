@@ -1,4 +1,4 @@
-import {CREATED_REQUIREMENT, RETRIEVED_REQUIREMENTS} from '../actions/requirements_action';
+import {CREATED_REQUIREMENT, RETRIEVED_REQUIREMENTS, UPDATE_REQUIREMENTS} from '../actions/requirements_action';
 import {SET_REQUIREMENT} from '../actions/project_action';
 
 function requirements(state = {
@@ -20,6 +20,15 @@ function requirements(state = {
                 requirementInfos: [],
                 totalElements: 0
             };
+        case UPDATE_REQUIREMENTS:
+            let temp2 = {...state};
+            temp2.requirementInfos.some((req) => {
+                if (req.reqId === action.requirement.reqId) {
+                    Object.assign(req, action.requirement);
+                    return true;
+                }
+            });
+            return Object.assign([], state, temp2);
         default:
             return state
     }

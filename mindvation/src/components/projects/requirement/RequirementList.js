@@ -11,7 +11,7 @@ import {
 import {priorityOptions} from '../../../res/data/dataOptions';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
-const rmKey = ["reqmntId", "summary", "priority", "startDate", "endDate", "leader", "members"];
+const rmKey = ["reqmntId", "summary", "priority", "startDate", "endDate", "leader", "memberCunt"];
 
 class RequirementList extends Component {
     pageChange(page, pageSize) {
@@ -33,21 +33,10 @@ class RequirementList extends Component {
             }
             return 0;
         }
-        if (key === "members") {
-            let members = [];
-            if (data.roles) {
-                data.roles.map((role) => {
-                    if (role.members && role.members.length > 0) {
-                        role.members.map((member) => {
-                            if (this.checkRepeat(members, member)) {
-                                members.push(member);
-                            }
-                        })
-                    }
-                })
-            }
-            return members.length;
+        if (key === "leader") {
+            return data.creatorInfo ? data.creatorInfo.name || "N/A" : "N/A";
         }
+
         if ((key === "startDate" || key === "endDate") && !isEmpty(data[key])) {
             return dateFormat(new Date(data[key]), "yyyy-MM-dd");
         }

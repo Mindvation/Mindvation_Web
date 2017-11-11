@@ -96,6 +96,7 @@ export function updateStoryAdditional(additionalInfo, callback) {
             .then((res) => {
                 StaticLoad.remove("updateStoryAdditional");
                 const story = convertStoryAdditionalToLocal(res.responseBody.storyDetail);
+                story.authCode = res.responseBody.staffAuthInfo;
                 dispatch(updateStory(story));
                 callback();
             })

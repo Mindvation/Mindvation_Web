@@ -97,6 +97,7 @@ export function updateRequirementAdditional(additionalInfo, callback) {
             .then((res) => {
                 StaticLoad.remove("updateReqAdditional");
                 const requirement = convertReqAdditionalToLocal(res.responseBody);
+                requirement.authCode = res.responseBody.staffAuthInfo;
                 dispatch(updateRequirement(requirement));
                 callback();
             })

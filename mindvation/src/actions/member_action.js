@@ -15,9 +15,12 @@ function retrievedMembers(members) {
     return {type: SEARCH_MEMBERS_BY_TAGS, members}
 }
 
-export function searchMembersByTags(tags) {
+export function searchMembersByTags(tags, name) {
     return dispatch => {
-        post(url.retrieveStaff, {})
+        post(url.rtrvStaffListByName, {
+            tags: Object.keys(tags),
+            name: name
+        })
             .then((res) => {
                 const members = convertMemberToLocal(res.responseBody);
                 dispatch(retrievedMembers(members));

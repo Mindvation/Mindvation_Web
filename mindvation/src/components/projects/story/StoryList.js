@@ -12,7 +12,7 @@ import {priorityOptions} from '../../../res/data/dataOptions';
 
 const header = ["Story ID", "Summary", "Priority", "Members", "Story Points", "Start Date", "End Date",
     "Duration", "Finished SP", "Progress", "Efficiency", "Quality Index"];
-const rmKey = ["storyId", "summary", "priority", "members", "storyPoints", "startDate", "endDate",
+const rmKey = ["storyId", "summary", "priority", "memberCunt", "storyPoint", "startDate", "endDate",
     "duration", "finishedSP", "progress", "efficiency", "qualityIndex"];
 
 class StoryList extends Component {
@@ -36,21 +36,7 @@ class StoryList extends Component {
             }
             return 0;
         }
-        if (key === "members") {
-            let members = [];
-            if (data.roles) {
-                data.roles.map((role) => {
-                    if (role.members && role.members.length > 0) {
-                        role.members.map((member) => {
-                            if (this.checkRepeat(members, member)) {
-                                members.push(member);
-                            }
-                        })
-                    }
-                })
-            }
-            return members.length;
-        }
+
         if ((key === "startDate" || key === "endDate") && !isEmpty(data[key])) {
             return dateFormat(new Date(data[key]), "yyyy-MM-dd");
         }

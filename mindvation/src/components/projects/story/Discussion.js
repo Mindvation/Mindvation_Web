@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Transition, Icon, Segment} from 'semantic-ui-react';
 import Comment from '../../common/Comment';
-import {updateStories} from '../../../actions/stories_action';
+import {createStoryComment, voteStoryComment} from '../../../actions/stories_action';
 
 class Discussion extends Component {
     state = {
@@ -14,15 +14,13 @@ class Discussion extends Component {
         })
     };
 
-    updateRequirement = (comment, action) => {
+    updateStory = (comment, action, callback) => {
         const {story, dispatch} = this.props;
         if (action === 'add') {
-            story.comments.push(comment);
+            dispatch(createStoryComment(story, comment, callback));
         } else {
-            Object.assign(story.comments, comment);
-            dispatch(updateStories(story));
+            dispatch(voteStoryComment(story, comment, action));
         }
-        dispatch(updateStories(story));
     };
 
 
@@ -38,7 +36,7 @@ class Discussion extends Component {
                 <Transition visible={visible} animation='slide down' duration={250}>
                     <Segment>
                         <Comment comments={comments} dispatch={dispatch}
-                                 changeComment={(comment, action) => this.updateRequirement(comment, action)}/>
+                                 changeComment={(comment, action, callback) => this.updateStory(comment, action, callback)}/>
                     </Segment>
                 </Transition>
             </div>
