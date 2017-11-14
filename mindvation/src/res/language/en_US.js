@@ -213,6 +213,7 @@ const en_US = {
     chooseIterationCycle: "Choose Iteration Cycle",
     editAdditionalInfo: "Edit Additional Info",
     editBasicInfo: "Edit Basic Info",
-    editOptionalItems: "Edit Optional Items"
+    editOptionalItems: "Edit Optional Items",
+    Workload: "Workload"
 };
 export default en_US;

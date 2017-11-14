@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Upload} from 'antd';
-import {Header, Icon, Button} from 'semantic-ui-react';
+import {List} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import {url} from '../../util/ServiceUrl';
 import Message from './Message';
 import {getStaffId} from '../../util/UserStore';
+import Image from '../common/Image';
 
 class UploadFile extends Component {
     state = {
@@ -43,8 +44,30 @@ class UploadFile extends Component {
         return this.state.fileList;
     };
 
+    deleteFile = (file) => {
+        let index = this.getFileIndex(file);
+        if (index > -1) {
+            let tempList = this.state.fileList;
+            tempList.splice(index, 1);
+            this.setState({
+                fileList: tempList
+            });
+        }
+    };
+
+    getFileIndex = (file) => {
+        let index = -1;
+        this.state.fileList.some((item, i) => {
+            if (item.uid === file.uid) {
+                index = i;
+                return true;
+            }
+        });
+        return index;
+    };
+
     render() {
-        const {label, icon, required} = this.props;
+        const {label, required} = this.props;
         const {fileList} = this.state;
         const props = {
             name: 'mFile',
@@ -57,31 +80,52 @@ class UploadFile extends Component {
             data: {
                 "creatorId": getStaffId()
             },
-            onChange: this.handleChange
+            onChange: this.handleChange,
+            showUploadList: false
         };
+
         return (
-            <div className="components-item">
-                <Header as='h4'>
-                    {icon ? <Icon name={icon}/> : null}
-                    <Header.Content className={required ? "input-label" : null}>
+            <div className="components-item last-components-item">
+                <div className="model-second-header">
+                    {/*{icon ? <Icon name={icon}/> : null}*/}
+                    <div className={required ? "input-label" : null}>
                         <FormattedMessage
                             id={label}
                         />
-                    </Header.Content>
-                </Header>
+                    </div>
+                </div>
                 {/*<input id="file" type="file" name="name"/>
                 <button onClick={this.testUpload}>Upload</button>*/}
                 <Upload {...props}
                         fileList={fileList}
                 >
-                    <Button basic>
-                        <Icon name="upload"/>
-                        <FormattedMessage
-                            id='selectFile'
-                            defaultMessage='Select File'
-                        />
-                    </Button>
+                    <div className="upload-file-button">
+                        + <FormattedMessage
+                        id='selectFile'
+                        defaultMessage='Select File'
+                    />
+                    </div>
                 </Upload>
+                {fileList.length > 0 ? <List horizontal>
+                    {fileList.map((file, i) => {
+                        return <List.Item key={i}>
+                            <div className="file-item">
+                                <div className="file-name">
+                                    <a href={file.url}
+                                       target="_blank" rel="noopener noreferrer">{file.name}</a>
+                                </div>
+                                {/*{file.status === "uploading" ? <div className="file-delete-button">
+                                    <Image style={{marginRight: 0}} name="loading" type="gif"/>
+                                </div> : <div className="file-delete-button" onClick={() => this.deleteFile(file)}>
+                                    <Image style={{marginRight: 0}} name="delete"/>
+                                </div>}*/}
+                                <div className="file-delete-button">
+                                    <Image style={{marginRight: 0}} name="loading" type="gif"/>
+                                </div>
+                            </div>
+                        </List.Item>
+                    })}
+                </List> : null}
                 <Message ref={node => this.messageNode = node}/>
             </div>
         );

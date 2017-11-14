@@ -1335,7 +1335,7 @@ export function convertStoryAdditionalToLocal(res) {
 export function convertTaskToServer(taskInfo) {
     let params = {
         description: taskInfo.description,
-        //assigneeId: taskInfo.assignee,
+        usedTime: taskInfo.workload,
         creatorId: getStaffId(),
         storyId: taskInfo.storyId,
         projId: taskInfo.projectId,

@@ -115,13 +115,13 @@ class Attachments extends Component {
                     </Modal.Header>
                     <SelectModel ref={node => this.SelectModelNode = node}/>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.addModel()}>
+                        <Button className="confirm-button" onClick={() => this.update()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

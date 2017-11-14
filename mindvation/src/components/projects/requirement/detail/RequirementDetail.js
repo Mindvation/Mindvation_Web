@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Header, Segment, Tab, Menu, Icon} from 'semantic-ui-react';
+import {Grid, Header, Segment, Tab, Menu} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import {getRequirementById, updateRequirementStatus} from '../../../../actions/requirement_action';
 import EditBasicInfo from './EditBasicInfo';
@@ -11,8 +11,10 @@ import {hasAuth} from '../../../../util/AuthUtil';
 import {
     Link
 } from 'react-router-dom';
+import Image from '../../../common/Image';
 
 class RequirementDetail extends Component {
+    state = {activeTab: 0};
 
     componentDidMount() {
         const {id} = this.props.match.params;
@@ -36,11 +38,12 @@ class RequirementDetail extends Component {
 
     render() {
         const {requirement, dispatch} = this.props;
+        const {activeTab} = this.state;
         const panes = [
             {
                 menuItem: <Menu.Item key="basicInfo">
                     <div className="detail-tab-title">
-                        <Icon name="browser"/>
+                        <Image name={activeTab === 0 ? "basic_selected" : "basic_unselected"}/>
                         <FormattedMessage
                             id='basicInfo'
                             defaultMessage='Basic info'
@@ -56,7 +59,7 @@ class RequirementDetail extends Component {
             {
                 menuItem: <Menu.Item key="additionalInfo">
                     <div className="detail-tab-title">
-                        <Icon name="browser"/>
+                        <Image name={activeTab === 1 ? "additional_selected" : "additional_unselected"}/>
                         <FormattedMessage
                             id='additionalInfo'
                             defaultMessage='additional Info'
@@ -72,7 +75,7 @@ class RequirementDetail extends Component {
             {
                 menuItem: <Menu.Item key="optionalItems">
                     <div className="detail-tab-title">
-                        <Icon name="browser"/>
+                        <Image name={activeTab === 2 ? "optional_selected" : "optional_unselected"}/>
                         <FormattedMessage
                             id='optionalItems'
                             defaultMessage='Optional Items'
@@ -89,32 +92,39 @@ class RequirementDetail extends Component {
 
         return (
             <div className="project-detail">
-                <Header as='h4'>
-                    <Header.Content>
-                        <span className={"underLine header-project"}>
+                <div className="header-project">
+                        <span className="header-project-text">
                             <FormattedMessage
                                 id='projectsUpper'
                                 defaultMessage='PROJECTS'
                             />
-                        </span>{'>'}
-                        <span className={"underLine header-id"}>
-                            <Link to={`/home/projects/${requirement.projectId}`}>
-                                {requirement.projectId}
-                            </Link>
+                            {' - '}
                         </span>
-                        {'>'}
-                        <span className={"underLine header-id"}>{requirement.reqId}</span>
-                    </Header.Content>
-                </Header>
+                    <span className="header-link">
+                        <Link to={`/home/projects/${requirement.projectId}`}>
+                            {requirement.projectId}
+                        </Link>
+                    </span>
+                    <span className="header-project-text">
+                        {' - '}
+                    </span>
+                    <span className="header-id">{requirement.reqId}</span>
+                </div>
                 <Grid columns={2}>
-                    <Grid.Column width={5}>
+                    <Grid.Column width={5} className="grid-component-left">
                         <Segment padded>
                             <EditStatus status={requirement.status}
                                         disabled={!hasAuth("updateRequirementStatus", requirement.authCode)}
                                         changeStatus={(status, percent) => this.changeStatus(requirement, status, percent)}/>
                         </Segment>
                         <Segment className="component-detail">
-                            <Tab menu={{secondary: true, pointing: true}} panes={panes}/>
+                            <Tab menu={{secondary: true, pointing: true}} panes={panes}
+                                 onTabChange={(event, data) => {
+                                     this.setState({
+                                         activeTab: data.activeIndex
+                                     })
+                                 }}
+                            />
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">

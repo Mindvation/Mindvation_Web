@@ -74,3 +74,7 @@ i.icon.remove-position-button {
 .sort-color-other {
     color: #8a8a8a;
 }
+
+.ant-layout {
+    background-color: #f8f8f8;
+}

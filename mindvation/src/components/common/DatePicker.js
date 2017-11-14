@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Header, Icon} from 'semantic-ui-react';
 import {DatePicker} from 'antd';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -67,18 +66,17 @@ class MVDatePicker extends Component {
     };
 
     render() {
-        const {label, icon, required, checked, range, defaultValue} = this.props;
+        const {label, required, checked, range, defaultValue} = this.props;
         const dateFormat = 'YYYY/MM/DD';
         return (
             <div className="components-item item-horizontal align-right">
-                <Header as='h4'>
-                    {icon ? <Icon name={icon}/> : null}
-                    <Header.Content className={required ? "input-label" : null}>
+                <div className='field-title'>
+                    <div className={required ? "input-label" : null}>
                         <FormattedMessage
                             id={label}
                         />
-                    </Header.Content>
-                </Header>
+                    </div>
+                </div>
                 <div className="input-content">
                     {
                         range ? <RangePicker
@@ -98,7 +96,6 @@ class MVDatePicker extends Component {
 
 MVDatePicker.propTypes = {
     label: PropTypes.string,
-    icon: PropTypes.string,
     required: PropTypes.bool,
     checked: PropTypes.bool,
     range: PropTypes.bool

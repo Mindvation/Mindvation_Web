@@ -6,6 +6,7 @@ import {addChecklist} from '../../../actions/checklist_action';
 import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {getStaffId, getUser} from '../../../util/UserStore';
+import Image from '../../common/Image';
 
 let checklistDesc, assignTo;
 
@@ -49,18 +50,19 @@ class AddChecklist extends Component {
         const {modalOpen} = this.state;
         const {assignOption} = this.props;
         return (
-            <div>
-                <Button color='blue' onClick={() => this.openModal()}>
-                    <FormattedMessage
-                        id='addChecklist'
-                        defaultMessage='Add Checklist'
-                    />
-                </Button>
+            <div className="model-main-container">
+                <div className="model-pop-button" onClick={() => this.openModal()}>
+                    + <FormattedMessage
+                    id='addChecklist'
+                    defaultMessage='Add Checklist'
+                />
+                </div>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
-                    <Modal.Header>
+                    <Modal.Header className="modal-title-border">
+                        <Image name="checklist"/>
                         <FormattedMessage
                             id='addChecklist'
                             defaultMessage='Add Checklist'
@@ -78,13 +80,13 @@ class AddChecklist extends Component {
                                 }}/>
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.createChecklist()}>
+                        <Button className="confirm-button" onClick={() => this.createChecklist()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

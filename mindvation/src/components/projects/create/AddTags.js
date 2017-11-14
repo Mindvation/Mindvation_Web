@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Modal, Segment, Header, Input} from 'semantic-ui-react';
-import {isEmpty, getRandomColor} from '../../../util/CommUtil';
+import {isEmpty, getRandomStyle} from '../../../util/CommUtil';
 import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
 import {retrieveTags, createTag as createTagAction} from '../../../actions/tags_action';
 import _ from 'lodash';
 import {getStaffId} from '../../../util/UserStore';
+import Image from '../../common/Image';
 
 let createTagNode, allTagsNode, existOption;
 
@@ -91,8 +92,8 @@ class AddTags extends Component {
 
                 this.props.dispatch(createTagAction({
                     name: tag,
-                    color: getRandomColor(),
-                    "creatorId": getStaffId()
+                    creatorId: getStaffId(),
+                    tagStyle: getRandomStyle()
                 }, function (res) {
                     createTagNode.inputRef.value = "";
                     allTagsNode.selectTag(res);
@@ -153,24 +154,28 @@ class AddTags extends Component {
         let props = {
             ...this.props
         };
-        const {modalOpen} = this.state;
+        const {modalOpen, projectTags} = this.state;
         const {allTags} = this.props;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
         }
         return (
             <div style={{marginBottom: '10px'}} className="input-content">
-                <TagList tagList={this.state.projectTags} handleClick={(tag) => {
-                    this.removeProjectTags(tag)
-                }}/>
-                <Segment>
-                    <Header size='small' className="underLine">
+                <Segment className="select-tag-segment">
+                    <TagList className="selected-tag-list"
+                             isSelected={true}
+                             tagList={projectTags} handleClick={(tag) => {
+                        this.removeProjectTags(tag)
+                    }}/>
+                    {projectTags.length > 0 ? <div className="tag-divider"/> : null}
+                    <div className="select-tag-text">
                         <FormattedMessage
                             id='selectTagsHeader'
                             defaultMessage='You can select some recommendations as below'
                         />
-                    </Header>
+                    </div>
                     <TagList
+                        className="all-tag-list"
                         tagList={allTags.slice(0, 6)}
                         handleClick={(tag) => {
                             this.updateProjectTags(tag)
@@ -193,34 +198,33 @@ class AddTags extends Component {
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
-                    <Modal.Header>
+                    <Modal.Header className="modal-title-border">
+                        <Image name="tag"/>
                         <FormattedMessage
                             id='addTags'
                             defaultMessage='Add Tags'
                         />
                     </Modal.Header>
                     <Modal.Content>
-                        <Segment className="all-tags-segment">
-                            <TagList tagList={this.props.allTags}
-                                     toggle={true}
-                                     selected={this.state.projectTags}
-                                     ref={node => {
-                                         allTagsNode = node
-                                     }}
+                        <div className="all-tags-segment">
+                            <TagList
+                                className="all-tag-list"
+                                tagList={this.props.allTags}
+                                toggle={true}
+                                selected={projectTags}
+                                ref={node => {
+                                    allTagsNode = node
+                                }}
                             />
-                        </Segment>
-                        <div style={{position: 'relative'}}>
+                        </div>
+                        <div className="add-tag">
                             <Input
-                                icon='tag'
-                                iconPosition='left'
-                                label={{
-                                    style: {cursor: 'pointer'},
-                                    tag: true,
+                                action={{
+                                    className: "add-tag-button",
                                     content: <FormattedMessage
                                         id='createTags'
                                         defaultMessage='Create Tags'
                                     />,
-                                    color: 'teal',
                                     onClick: () => this.createTag()
                                 }}
                                 labelPosition='right'
@@ -228,6 +232,7 @@ class AddTags extends Component {
                                 ref={node => {
                                     createTagNode = node
                                 }}
+                                className="add-tag-input"
                             />
                             {this.state.popupOpen ?
                                 <div>
@@ -258,13 +263,13 @@ class AddTags extends Component {
                         </div>
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.addTagsToProject()}>
+                        <Button className="confirm-button" onClick={() => this.addTagsToProject()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

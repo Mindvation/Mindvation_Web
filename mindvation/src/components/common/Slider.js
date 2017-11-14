@@ -28,20 +28,18 @@ class MvSlider extends Component {
     }
 
     render() {
-        const {label, icon, value, className = "", disabled} = this.props;
+        const {label, value, className = "", disabled} = this.props;
         return (
-            <div className={"components-item components-length " + className}>
+            <div className={"components-item item-horizontal align-right " + className}>
                 {
-                    label ? <Header as='h4'>
-                        {icon ? <Icon name={icon}/> : null}
-                        <Header.Content>
-                            <FormattedMessage
-                                id={label}
-                            />
-                        </Header.Content>
-                    </Header> : null
+                    label ? <div className='field-title'>
+                        {/*{icon ? <Icon name={icon}/> : null}*/}
+                        <FormattedMessage
+                            id={label}
+                        />
+                    </div> : null
                 }
-                <div className="mv-slider-container">
+                <div className="mv-slider-container input-content">
                     <div className="slider-container">
                         <Slider min={0} max={100} onChange={this.onChange} value={this.state.inputValue}
                                 defaultValue={value} disabled={disabled}/>

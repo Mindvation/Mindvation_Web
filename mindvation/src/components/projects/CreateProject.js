@@ -7,6 +7,7 @@ import {createProject} from '../../actions/projects_action';
 import {clearTempChecklist} from '../../actions/checklist_action';
 import {checkCompleted} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
+import Image from '../common/Image';
 
 let basicModule, optionalModule, AdditionalModule;
 let mandatoryFile = ["projectName", "description"];
@@ -40,19 +41,20 @@ class CreateProject extends Component {
         const {modalOpen} = this.state;
         const {dispatch} = this.props;
         return (
-            <div>
-                <Button color='blue' onClick={() => this.openModal()}>
-                    <FormattedMessage
-                        id='createProject'
-                        defaultMessage='Create Project'
-                    />
-                </Button>
+            <div className="model-main-container">
+                <div className="create-project-button" onClick={() => this.openModal()}>
+                    + <FormattedMessage
+                    id='createProject'
+                    defaultMessage='Create Project'
+                />
+                </div>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}
                     size='large'>
                     <Modal.Header>
+                        <Image name="project"/>
                         <FormattedMessage
                             id='createNewProject'
                             defaultMessage='Create New Project'
@@ -61,22 +63,20 @@ class CreateProject extends Component {
                     <BasicInfo ref={node => {
                         basicModule = node
                     }}/>
-                    <Divider/>
                     <AdditionalInfo ref={node => {
                         AdditionalModule = node
                     }}/>
-                    <Divider/>
                     <OptionalItem dispatch={dispatch} ref={node => {
                         optionalModule = node
                     }}/>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.newProject()}>
+                        <Button className="confirm-button" onClick={() => this.newProject()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

@@ -1,5 +1,6 @@
 .components-item {
     margin-top: 20px;
+    position: relative;
 }
 
 .components-length {
@@ -434,4 +435,151 @@ img.ui.image.logon-back-image {
 .full-width.ui.selection.dropdown,
 .full-width.ui.input {
     width: 100%;
+}
+
+img.ui.image.mv-image {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.ant-calendar-range-picker-separator {
+    line-height: 28px;
+}
+
+.field-title {
+    margin: 0;
+    padding: 8px 20px 0 0;
+    font-size: 14px;
+    color: #666666;
+}
+
+.cancel-button.ui.button {
+    background-color: #eeeeee;
+    border: 2px solid #dddddd;
+    color: #666666;
+    margin-right: 30px;
+}
+
+.confirm-button.ui.button {
+    background-color: #577ca6;
+    border: 2px solid #3d5f91;
+    color: #fffefe;
+}
+
+.ui.modal .actions > .button {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 30px;
+}
+
+.tag-style {
+    padding: 5px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tag-style.tag-selected {
+    color: #ffffff;
+}
+
+.tag-style-default, .tag-style-1 {
+    background-color: rgba(130, 114, 174, 0.5);
+    border: 2px solid transparent;
+    color: #725cae;
+}
+
+.tag-style-default.tag-selected, .tag-style-1.tag-selected {
+    background-color: rgba(114, 92, 174, 1);
+    border: 2px solid rgba(50, 35, 93, 1);
+}
+
+.tag-style-2 {
+    background-color: rgba(195, 122, 120, 0.5);
+    border: 2px solid transparent;
+    color: #c35f5c;
+}
+
+.tag-style-2.tag-selected {
+    background-color: rgba(195, 95, 92, 1);
+    border: 2px solid rgba(135, 42, 40, 1);
+}
+
+.tag-style-3 {
+    background-color: rgba(195, 154, 120, 0.5);
+    border: 2px solid transparent;
+    color: #d4865b;
+}
+
+.tag-style-3.tag-selected {
+    background-color: rgba(212, 134, 91, 1);
+    border: 2px solid rgba(135, 84, 40, 1);
+}
+
+.tag-style-4 {
+    background-color: rgba(104, 163, 169, 0.5);
+    border: 2px solid transparent;
+    color: #51a1a9;
+}
+
+.tag-style-4.tag-selected {
+    background-color: rgba(81, 161, 169, 1);
+    border: 2px solid rgba(25, 77, 82, 1);
+}
+
+.tag-style-5 {
+    background-color: rgba(165, 190, 117, 0.5);
+    border: 2px solid transparent;
+    color: #a5be75;
+}
+
+.tag-style-5.tag-selected {
+    background-color: rgba(156, 190, 90, 1);
+    border: 2px solid rgba(95, 126, 37, 1);
+}
+
+.tag-style-6 {
+    background-color: rgba(180, 110, 155, 0.5);
+    border: 2px solid transparent;
+    color: #b46e9b;
+}
+
+.tag-style-6.tag-selected {
+    background-color: rgba(180, 85, 147, 1);
+    border: 2px solid rgba(104, 31, 79, 1);
+}
+
+.tag-style-7 {
+    background-color: rgba(113, 129, 173, 0.5);
+    border: 2px solid transparent;
+    color: #7181ad;
+}
+
+.tag-style-7.tag-selected {
+    background-color: rgba(92, 114, 173, 1);
+    border: 2px solid rgba(34, 49, 91, 1);
+}
+
+.ui.horizontal.list > .item {
+    padding: 0 !important;
+}
+
+.file-name {
+    padding: 10px 26px;
+    font-size: 14px;
+    color: #999999;
+    background-color: #f5f5f5;
+    border: 2px solid #eeeeee;
+}
+
+.file-delete-button {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    background-color: #eeeeee;
+
 }

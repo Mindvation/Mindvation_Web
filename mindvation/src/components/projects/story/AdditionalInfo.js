@@ -8,6 +8,7 @@ import AddTags from "../../../containers/tag_container";
 import ChooseMembers from './ChooseMembers';
 import {FormattedMessage} from 'react-intl';
 import {priorityOptions} from '../../../res/data/dataOptions';
+import Image from '../../common/Image';
 
 class AdditionalInfo extends Component {
     constructor(props) {
@@ -90,107 +91,105 @@ class AdditionalInfo extends Component {
     };
 
     render() {
-        const {info = {}, requirement = {}} = this.props;
+        const {info = {}, requirement = {}, isEdit} = this.props;
         const {subLabel} = this.state;
         return (
             <Modal.Content>
-                <Modal.Description>
-                    <Header as="h3" className="modal-header">
+                <div className={isEdit ? "edit-modal-description" : "modal-description"}>
+                    <div className="modal-header">
+                        <Image name={isEdit ? "additional_info_black" : "additional_info"}/>
                         <FormattedMessage
                             id='additionalInfo'
                             defaultMessage='Additional Info'
                         />
-                    </Header>
-                </Modal.Description>
-                <div className={"components-item item-horizontal align-right"}>
-                    <Header as='h4'>
-                        <Icon name='tag'/>
-                        <Header.Content>
+                    </div>
+                </div>
+                <div className={isEdit ? "" : "model-container"}>
+                    <div className={"components-item item-horizontal align-right"}>
+                        <div className='field-title'>
                             <FormattedMessage
                                 id='tags'
                                 defaultMessage='Tags'
                             />
-                        </Header.Content>
-                    </Header>
-                    <AddTags
-                        ref={node => {
-                            this.addTagsNode = node
-                        }}
-                        defaultValue={info.tags}
-                    />
-                </div>
-                <div className={"components-item item-horizontal align-right"}>
-                    <Header as='h4'>
-                        <Icon name='sitemap'/>
-                        <Header.Content>
+                        </div>
+                        <AddTags
+                            ref={node => {
+                                this.addTagsNode = node
+                            }}
+                            defaultValue={info.tags}
+                        />
+                    </div>
+                    <div className={"components-item item-horizontal align-right"}>
+
+                        <div className='field-title'>
                             <FormattedMessage
                                 id='Process/Function Label'
                                 defaultMessage='Process/Function Label'
                             />
-                        </Header.Content>
-                    </Header>
-                    <div style={{display: "flex"}} className="input-content">
-                        <Display
-                            value={requirement.functionLabel ? requirement.functionLabel.name : info.requirementFunctionLabel ? info.requirementFunctionLabel.name : ''}
-                        />
-                        <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
-                        {this.subFunctionLabelOptions.length > 0 ?
-                            <Select options={this.subFunctionLabelOptions}
-                                    ref={node => {
-                                        this.subFunctionLabel = node
-                                    }}
-                                    style={{width: '100%'}}
-                                    addOther={true}
-                                    fullWidth={true}
-                                    defaultValue={this.subFunctionLabelValue}
-                                    onChange={(value) => this.handleLabelChange(value)}
+                        </div>
+                        <div style={{display: "flex"}} className="input-content">
+                            <Display
+                                value={requirement.functionLabel ? requirement.functionLabel.name : info.requirementFunctionLabel ? info.requirementFunctionLabel.name : ''}
+                            />
+                            <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
+                            {this.subFunctionLabelOptions.length > 0 ?
+                                <Select options={this.subFunctionLabelOptions}
+                                        ref={node => {
+                                            this.subFunctionLabel = node
+                                        }}
+                                        style={{width: '100%'}}
+                                        addOther={true}
+                                        fullWidth={true}
+                                        defaultValue={this.subFunctionLabelValue}
+                                        onChange={(value) => this.handleLabelChange(value)}
+                                /> : null}
+                            {this.subFunctionLabelOptions.length === 0 ? <Input
+                                ref={node => {
+                                    this.subFunctionTextLabel = node
+                                }}
+                                style={{flex: 1, marginTop: '1em'}}
+                                fullWidth={true}
+                                placeHolder="subFunctionLabelPHDesc"
+                                defaultValue={info.functionLabel ? info.functionLabel.name : ''}
                             /> : null}
-                        {this.subFunctionLabelOptions.length === 0 ? <Input
-                            ref={node => {
-                                this.subFunctionTextLabel = node
-                            }}
-                            style={{flex: 1, marginTop: '1em'}}
-                            fullWidth={true}
-                            placeHolder="subFunctionLabelPHDesc"
-                            defaultValue={info.functionLabel ? info.functionLabel.name : ''}
-                        /> : null}
+                        </div>
                     </div>
-                </div>
 
-                {subLabel === 'other' ? <Input
-                    ref={node => {
-                        this.subFunctionOtherLabel = node
-                    }}
-                    placeHolder="subFunctionLabelPHDesc"
-                    defaultValue={this.subOtherLabelValue}
-                /> : null}
-
-                <Select icon="flag" options={priorityOptions} label="Priority"
-                        placeHolder="priorityPlaceHolderDesc"
+                    {subLabel === 'other' ? <Input
                         ref={node => {
-                            this.priority = node
+                            this.subFunctionOtherLabel = node
                         }}
-                        defaultValue={info.priority}
-                />
-                <ChooseMembers
-                    ref={node => {
-                        this.chooseMembersNode = node
-                    }}
-                    info={info}
-                    requirement={requirement}/>
-                <DatePicker icon="clock" label="Start / End Date"
-                            range={true}
+                        placeHolder="subFunctionLabelPHDesc"
+                        defaultValue={this.subOtherLabelValue}
+                    /> : null}
+
+                    <Select options={priorityOptions} label="Priority"
+                            placeHolder="priorityPlaceHolderDesc"
                             ref={node => {
-                                this.startEndDate = node
+                                this.priority = node
                             }}
-                            defaultValue={[info.startDate, info.endDate]}
-                />
-                <Input label="Story Points" icon="database" type="number"
-                       ref={node => {
-                           this.storyPointsNode = node
-                       }}
-                       defaultValue={info.storyPoints}
-                />
+                            defaultValue={info.priority}
+                    />
+                    <ChooseMembers
+                        ref={node => {
+                            this.chooseMembersNode = node
+                        }}
+                        info={info}
+                        requirement={requirement}/>
+                    <DatePicker label="Start / End Date"
+                                range={true}
+                                ref={node => {
+                                    this.startEndDate = node
+                                }}
+                                defaultValue={[info.startDate, info.endDate]}
+                    />
+                    <Input label="Story Points" type="number"
+                           ref={node => {
+                               this.storyPointsNode = node
+                           }}
+                           defaultValue={info.storyPoints}
+                    />
+                </div>
             </Modal.Content>
         );
     }

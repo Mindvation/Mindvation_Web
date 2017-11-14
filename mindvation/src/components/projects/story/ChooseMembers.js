@@ -74,15 +74,13 @@ class ChooseMembers extends Component {
         const {requirement = {}, info = {}} = this.props;
         return (
             <div className="components-item item-horizontal align-right">
-                <Header as='h4'>
-                    <Icon name='group'/>
-                    <Header.Content>
-                        <FormattedMessage
-                            id='Members'
-                            defaultMessage='Members'
-                        />
-                    </Header.Content>
-                </Header>
+
+                <div className='field-title'>
+                    <FormattedMessage
+                        id='Members'
+                        defaultMessage='Members'
+                    />
+                </div>
                 <Table basic='very' collapsing className="input-content">
                     <Table.Body>
                         {(requirement.roles || info.requirementRoles || []).map((role, i) => {

@@ -63,6 +63,11 @@ export const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
 };
 
+export const getRandomStyle = () => {
+    const styleCont = 7;
+    return Math.floor(Math.random() * styleCont) + 1;
+};
+
 function createHexRandom() {
     let num = '';
     for (let i = 0; i <= 6; i++) {

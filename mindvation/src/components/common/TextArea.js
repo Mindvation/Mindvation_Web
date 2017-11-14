@@ -68,21 +68,21 @@ class MVTextArea extends Component {
         let props = {
             ...this.props
         };
-        const {label, icon, required, checked, placeHolder, defaultValue} = this.props;
+        const {label, required, checked, placeHolder, defaultValue} = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
         }
         return (
             <div className="components-item item-horizontal align-right">
-                <Header as='h4'>
-                    {icon ? <Icon name={icon}/> : null}
-                    <Header.Content className={required ? "input-label" : null}>
+                <div className='field-title'>
+                    {/*{icon ? <Icon name={icon}/> : null}*/}
+                    <div className={required ? "input-label" : null}>
                         <FormattedMessage
                             id={label}
                         />
-                    </Header.Content>
-                </Header>
+                    </div>
+                </div>
                 <Form className="input-content">
                 <TextArea
                     autoHeight style={{minHeight: 100}}
@@ -99,7 +99,6 @@ class MVTextArea extends Component {
 
 MVTextArea.propTypes = {
     label: PropTypes.string,
-    icon: PropTypes.string,
     required: PropTypes.bool,
     checked: PropTypes.bool,
     placeHolder: PropTypes.string,

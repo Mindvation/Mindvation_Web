@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, List, Icon} from 'semantic-ui-react';
+import {List} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 class TagList extends Component {
@@ -57,22 +57,25 @@ class TagList extends Component {
     }
 
     render() {
-        const {tagList, handleClick, toggle} = this.props;
+        const {tagList, handleClick, toggle, className, isSelected} = this.props;
         const {selectedTags} = this.state;
         return (
-            tagList.length === 0 ? null : <List horizontal>
+            tagList.length === 0 ? null : <List horizontal className={className}>
                 {tagList.map((tag, i) => {
                     return <List.Item key={i} style={{position: 'relative'}}>
-                        {toggle && this.checkTagStatus(selectedTags, tag) ?
+                        {/*{toggle && this.checkTagStatus(selectedTags, tag) ?
                             <Icon name="check circle outline" color="green" size="large"
                                   className="tags-icon"
-                            /> : null}
-                        <Button size="mini" style={{backgroundColor: tag.color}} onClick={() => {
-                            toggle ? this.toggleTag(tag) : (handleClick ? handleClick(tag) : () => {
-                            })
-                        }}>
+                            /> : null}*/}
+                        <div
+                            className={((toggle && this.checkTagStatus(selectedTags, tag) || isSelected) ? "tag-selected " : "")
+                            + "tag-style tag-style-" + (tag.tagStyle || 'default')}
+                            onClick={() => {
+                                toggle ? this.toggleTag(tag) : (handleClick ? handleClick(tag) : () => {
+                                })
+                            }}>
                             {tag.name}
-                        </Button>
+                        </div>
                     </List.Item>
                 })}
             </List>
@@ -84,7 +87,9 @@ TagList.propTypes = {
     tagList: PropTypes.array,
     handleClick: PropTypes.func,
     toggle: PropTypes.bool,
-    selected: PropTypes.array
+    selected: PropTypes.array,
+    className: PropTypes.string,
+    isSelected: PropTypes.bool
 };
 
 export default TagList;

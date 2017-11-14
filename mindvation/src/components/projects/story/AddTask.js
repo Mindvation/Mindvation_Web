@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import {Button, Modal, Header, Icon} from 'semantic-ui-react';
+import {Button, Modal} from 'semantic-ui-react';
 import TextArea from '../../common/TextArea';
-import Select from '../../common/Select';
+import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';
 import SelectAttach from './SelectAttach';
 import {addTask} from '../../../actions/story_action';
 import {FormattedMessage} from 'react-intl';
 import {retrieveStaff} from '../../../util/Service';
 import {getStaffId} from '../../../util/UserStore';
-
-let taskDesc, assignTo, startEndDate, modelNode;
 
 class AddTask extends Component {
     state = {modalOpen: false, assignOption: []};
@@ -43,23 +41,19 @@ class AddTask extends Component {
         const task = {
             projectId: this.props.story.projectId,
             storyId: this.props.story.storyId,
-            description: taskDesc.getWrappedInstance().getValue(),
-            //assignee: assignTo.getWrappedInstance().getValue(),
-            startDate: startEndDate.getValue() ? startEndDate.getValue()[0] : "",
-            endDate: startEndDate.getValue() ? startEndDate.getValue()[1] : "",
+            description: this.taskDesc.getWrappedInstance().getValue(),
+            startDate: this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
+            endDate: this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
+            workload: this.workloadNode.getWrappedInstance().getValue(),
             assigner: getStaffId(),
-            model: modelNode.getInfo(),
+            model: this.modelNode.getInfo(),
         };
         this.props.dispatch(addTask(task, this.closeModal))
-        /*
-                let tempStory = this.props.story;
-                tempStory.tasks.push(task);
-                this.setState({modalOpen: false});
-                this.props.dispatch(updateStory(tempStory));*/
+
     };
 
     render() {
-        const {modalOpen, assignOption} = this.state;
+        const {modalOpen} = this.state;
         const {story} = this.props;
         return (
             <div>
@@ -80,43 +74,47 @@ class AddTask extends Component {
                         />
                     </Modal.Header>
                     <Modal.Content>
-                        <TextArea label="Description" icon="book"
-                                  ref={node => {
-                                      taskDesc = node
-                                  }}/>
-                        {/*<Select icon="user" options={assignOption} label="Assign To"
-                                search={true}
-                                placeHolder="assignToPlaceHolderDesc"
-                                ref={node => {
-                                    assignTo = node
-                                }}/>*/}
-                        <DatePicker icon="clock" label="Start / End Date"
-                                    range={true}
-                                    ref={node => {
-                                        startEndDate = node
-                                    }}
-                        />
-                        <div className="components-item">
-                            <Header as='h4'>
-                                <Icon name="cube"/>
-                                <Header.Content>
-                                    <FormattedMessage
-                                        id="taskAttachments"
-                                        defaultMessage='Task Attachments'
-                                    />
-                                </Header.Content>
-                            </Header>
-                            <SelectAttach taskDeliveries={story.taskDeliveries} ref={node => modelNode = node}/>
+                        <div className="model-container">
+                            <TextArea label="Description"
+                                      ref={node => {
+                                          this.taskDesc = node
+                                      }}/>
+
+                            <DatePicker label="Start / End Date"
+                                        range={true}
+                                        ref={node => {
+                                            this.startEndDate = node
+                                        }}
+                            />
+                            <Input label="Workload" type="number"
+                                   ref={node => {
+                                       this.workloadNode = node
+                                   }}
+                            />
+                            <div className="components-item item-horizontal align-right">
+                                <div className='field-title'>
+                                    <div>
+                                        <FormattedMessage
+                                            id="taskAttachments"
+                                            defaultMessage='Task Attachments'
+                                        />
+                                    </div>
+                                </div>
+                                <div className="input-content">
+                                    <SelectAttach taskDeliveries={story.taskDeliveries}
+                                                  ref={node => this.modelNode = node}/>
+                                </div>
+                            </div>
                         </div>
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.createTask()}>
+                        <Button className="confirm-button" onClick={() => this.createTask()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

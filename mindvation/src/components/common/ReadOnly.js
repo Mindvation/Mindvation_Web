@@ -50,19 +50,16 @@ class ReadOnly extends Component {
     };
 
     render() {
-        const {value, icon, title, hasSubItem, isSubItem, options} = this.props;
+        const {value, title, hasSubItem, options} = this.props;
         return (
-            <div className={"components-item" + " " + (isSubItem ? "read-only-sub-item" : "")}>
-                <Header as={isSubItem ? 'h5' : 'h4'}>
-                    {icon ? <Icon name={icon} className="read-only-title"/> : null}
-                    <Header.Content className="read-only-title">
-                        <FormattedMessage
-                            id={title}
-                        />
-                    </Header.Content>
-                </Header>
+            <div className="read-only-item">
+                <div className={"read-only-title " + (hasSubItem ? "read-only-sub-title" : "")}>
+                    <FormattedMessage
+                        id={title}
+                    />
+                </div>
                 <div className="read-only-text">
-                     {this.displayValue(value, hasSubItem, options)}
+                    {this.displayValue(value, hasSubItem, options)}
                 </div>
             </div>
         );
@@ -71,9 +68,7 @@ class ReadOnly extends Component {
 
 ReadOnly.propTypes = {
     title: PropTypes.string,
-    icon: PropTypes.string,
     hasSubItem: PropTypes.bool,
-    isSubItem: PropTypes.bool,
     options: PropTypes.array
 };
 

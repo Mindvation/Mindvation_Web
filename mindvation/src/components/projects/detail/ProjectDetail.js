@@ -16,8 +16,11 @@ import {hasAuth} from '../../../util/AuthUtil';
 import {
     Link
 } from 'react-router-dom';
+import Image from '../../common/Image';
 
 class ProjectDetail extends Component {
+    state = {activeTab: 0};
+
     componentDidMount() {
         const {id} = this.props.match.params;
         this.props.dispatch(getProjectById(id));
@@ -38,11 +41,12 @@ class ProjectDetail extends Component {
 
     render() {
         const {project, dispatch} = this.props;
+        const {activeTab} = this.state;
         const panes = [
             {
                 menuItem: <Menu.Item key="basicInfo">
                     <div className="detail-tab-title">
-                        <Icon name="browser"/>
+                        <Image name={activeTab === 0 ? "basic_selected" : "basic_unselected"}/>
                         <FormattedMessage
                             id='basicInfo'
                             defaultMessage='Basic info'
@@ -58,7 +62,7 @@ class ProjectDetail extends Component {
             {
                 menuItem: <Menu.Item key="additionalInfo">
                     <div className="detail-tab-title">
-                        <Icon name="browser"/>
+                        <Image name={activeTab === 1 ? "additional_selected" : "additional_unselected"}/>
                         <FormattedMessage
                             id='additionalInfo'
                             defaultMessage='additional Info'
@@ -74,7 +78,7 @@ class ProjectDetail extends Component {
             {
                 menuItem: <Menu.Item key="optionalItems">
                     <div className="detail-tab-title">
-                        <Icon name="browser"/>
+                        <Image name={activeTab === 2 ? "optional_selected" : "optional_unselected"}/>
                         <FormattedMessage
                             id='optionalItems'
                             defaultMessage='Optional Items'
@@ -91,36 +95,41 @@ class ProjectDetail extends Component {
 
         return (
             <div className="project-detail">
-                <Header as='h4'>
-                    <Header.Content>
-                        <span className={"underLine header-project"}>
-                            <FormattedMessage
-                                id='projectsUpper'
-                                defaultMessage='PROJECTS'
-                            />
-                        </span>{'>'}
-                        <span className={"underLine header-id"}>{project.projectId}</span>
-                    </Header.Content>
-                </Header>
+                <div className="header-project">
+                    <span className="header-project-text">
+                        <FormattedMessage
+                            id='projectsUpper'
+                            defaultMessage='PROJECTS'
+                        />
+                        {' - '}
+                    </span>
+                    <span className="header-id">{project.projectId}</span>
+                </div>
                 <Grid columns={2}>
-                    <Grid.Column width={5}>
+                    <Grid.Column width={5} className="grid-component-left">
                         <Segment>
                             <EditStatus status={project.status} isStory={true}
                                         disabled={!hasAuth("updateProjectStatus", project.authCode)}
                                         changeStatus={(status, percent) => this.changeStatus(project, status, percent)}/>
                         </Segment>
                         <Segment className="component-detail">
-                            <Tab menu={{secondary: true, pointing: true}} panes={panes}/>
+                            <Tab menu={{secondary: true, pointing: true}} panes={panes}
+                                 onTabChange={(event, data) => {
+                                     this.setState({
+                                         activeTab: data.activeIndex
+                                     })
+                                 }}
+                            />
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
-                        <Grid columns={2}>
-                            <Grid.Column width={11}>
+                        <Grid columns={2} className="grid-right-top">
+                            <Grid.Column width={11} className="grid-right-top-left">
                                 <Segment padded className="e-charts-segment">
                                     <EfficiencyDiagram/>
                                 </Segment>
                             </Grid.Column>
-                            <Grid.Column width={5} className="grid-component-right">
+                            <Grid.Column width={5} className="grid-right-top-right">
                                 <Carousel>
                                     <div className="e-charts-segment-right">
                                         <div className="e-charts-small">
@@ -136,7 +145,7 @@ class ProjectDetail extends Component {
                                 </Carousel>
                             </Grid.Column>
                         </Grid>
-                        <Grid.Row className="grid-component-right-bottom">
+                        <Grid.Row className="grid-right-bottom">
                             <Segment>
                                 <Requirement/>
                             </Segment>

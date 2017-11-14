@@ -95,7 +95,7 @@ class MVSelect extends Component {
             ...this.props
         };
         const {
-            label, options, icon, required, checked, search, fullWidth, addOther,
+            label, options, required, checked, search, fullWidth, addOther,
             multiple, placeHolder, defaultValue, disabled
         } = this.props;
         const {formatMessage} = this.props.intl;
@@ -141,14 +141,14 @@ class MVSelect extends Component {
         return (
             <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}>
                 {
-                    label ? <Header as='h4'>
-                        {icon ? <Icon name={icon}/> : null}
-                        <Header.Content className={required ? "input-label" : null}>
+                    label ? <div className='field-title'>
+                        {/*{icon ? <Icon name={icon}/> : null}*/}
+                        <div className={required ? "input-label" : null}>
                             <FormattedMessage
                                 id={label}
                             />
-                        </Header.Content>
-                    </Header> : null
+                        </div>
+                    </div> : null
                 }
                 <Dropdown placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
                           search={search}
@@ -169,7 +169,6 @@ class MVSelect extends Component {
 
 MVSelect.propTypes = {
     label: PropTypes.string,
-    icon: PropTypes.string,
     options: PropTypes.array,
     required: PropTypes.bool,
     checked: PropTypes.bool,

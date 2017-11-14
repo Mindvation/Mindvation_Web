@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Header, Modal} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import Input from '../../common/Input';
 import TextArea from '../../common/TextArea';
 import {FormattedMessage} from 'react-intl';
+import Image from '../../common/Image';
 
 let name;
 let projectDesc;
@@ -20,32 +21,35 @@ class BasicInfo extends Component {
     };
 
     render() {
-        const {info = {}} = this.props;
+        const {info = {}, isEdit} = this.props;
         return (
             <Modal.Content>
-                <Modal.Description>
-                    <Header as="h3" className="modal-header">
+                <div className={isEdit ? "edit-modal-description" : "modal-description"}>
+                    <div className="modal-header">
+                        <Image name={isEdit ? "basic_info_black" : "basic_info"}/>
                         <FormattedMessage
                             id='basicInfo'
                             defaultMessage='Basic info'
                         />
-                    </Header>
-                </Modal.Description>
-                <Input label="Project Name" icon="product hunt" required={true}
-                       ref={node => {
-                           name = node
-                       }}
-                       checked={this.state.checked}
-                       placeHolder="projectNamePlaceHolderDesc"
-                       defaultValue={info.projectName}
-                />
-                <TextArea label="Description" icon="book" required={true}
-                          ref={node => {
-                              projectDesc = node
-                          }}
-                          checked={this.state.checked}
-                          defaultValue={info.description}
-                />
+                    </div>
+                </div>
+                <div className={isEdit ? "" : "model-container"}>
+                    <Input label="Project Name" required={true}
+                           ref={node => {
+                               name = node
+                           }}
+                           checked={this.state.checked}
+                           placeHolder="projectNamePlaceHolderDesc"
+                           defaultValue={info.projectName}
+                    />
+                    <TextArea label="Description" required={true}
+                              ref={node => {
+                                  projectDesc = node
+                              }}
+                              checked={this.state.checked}
+                              defaultValue={info.description}
+                    />
+                </div>
             </Modal.Content>
         );
     }

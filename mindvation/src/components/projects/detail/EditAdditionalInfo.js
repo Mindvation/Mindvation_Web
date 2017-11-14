@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button, Image} from 'semantic-ui-react';
+import {Modal, Button} from 'semantic-ui-react';
 import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../create/AdditionalInfo';
@@ -44,9 +44,9 @@ class EditAdditionalInfo extends Component {
             icon: "user",
             title: "Leaders",
             value: project.leaders && project.leaders.length > 0 ? project.leaders.map((member, i) => {
-                return <div className="read-only-text-item" key={i}>
-                    <Image verticalAlign="middle" src={member.avatar}
-                           avatar/>
+                return <div className="read-only-text-member" key={i}>
+                    {/*<Image verticalAlign="middle" src={member.avatar}
+                           avatar/>*/}
                     <span>{member.name}</span>
                 </div>
             }) : ""
@@ -123,15 +123,16 @@ class EditAdditionalInfo extends Component {
                         ref={node => {
                             AdditionalModule = node
                         }}
+                        isEdit={true}
                     />
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.update()}>
+                        <Button className="confirm-button" onClick={() => this.update()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

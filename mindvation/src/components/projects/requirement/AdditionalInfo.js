@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Modal, Icon} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';
@@ -9,6 +9,7 @@ import {FormattedMessage} from 'react-intl';
 import {getModelById} from '../../../util/Service';
 import {setRoles} from '../../../actions/role_action';
 import {priorityOptions} from '../../../res/data/dataOptions';
+import Image from '../../common/Image';
 
 class AdditionalInfo extends Component {
     state = {
@@ -125,85 +126,87 @@ class AdditionalInfo extends Component {
 
         return (
             <Modal.Content>
-                <Modal.Description>
-                    <Header as="h3" className="modal-header">
+                <div className={isEdit ? "edit-modal-description" : "modal-description"}>
+                    <div className="modal-header">
+                        <Image name={isEdit ? "additional_info_black" : "additional_info"}/>
                         <FormattedMessage
                             id='additionalInfo'
                             defaultMessage='Additional Info'
                         />
-                    </Header>
-                </Modal.Description>
-                <div className={"components-item item-horizontal align-right"}>
-                    <Header as='h4'>
-                        <Icon name='tag'/>
-                        <Header.Content>
-                            <FormattedMessage
-                                id='tags'
-                                defaultMessage='Tags'
-                            />
-                        </Header.Content>
-                    </Header>
-                    <AddTags
-                        ref={node => {
-                            this.addTagsNode = node
-                        }}
-                        defaultValue={requirement.tags}
-                        onChange={(tags) => {
-                            this.setState({
-                                tempTags: tags
-                            })
-                        }}
-                    />
+                    </div>
                 </div>
-                <Select icon="flag" options={priorityOptions} label="Priority"
-                        placeHolder="priorityPlaceHolderDesc"
-                        ref={node => {
-                            this.priority = node
-                        }}
-                        defaultValue={requirement.priority}
-                />
-                {isEdit ? null : <Select icon="file" options={modelOptions}
-                                         label="Requirement Model"
-                                         defaultValue={requirement.Model}
-                                         onChange={(value) => this.handleModelChange(value)}
-                />}
-                {(!isEdit && model) ? <Select icon="sitemap" options={functionOptions}
-                                              disabled={functionOptions.length === 1}
-                                              label="Process/Function Label"
-                                              placeHolder="functionLabelPlaceHolderDesc"
-                                              ref={node => {
-                                                  this.functionLabelNode = node
-                                              }}
-                                              defaultValue={requirement.functionLabel}
-                                              onChange={(value) => this.handleLabelChange(value)}
-                /> : null}
-                {(!isEdit && model && functionLabel === 'other') ?
-                    <Input
-                        ref={node => {
-                            this.functionLabelOtherNode = node
-                        }}/> : null
-                }
-                {(isEdit || model) ? <SelectMembers
-                    ref={node => {
-                        this.rolesNode = node
-                    }}
-                    tags={tempTags}
-                    model={this.getModelInfo(model)}
-                /> : null}
-
-                <DatePicker icon="clock" label="Start / End Date"
-                            range={true}
+                <div className={isEdit ? "" : "model-container"}>
+                    <div className={"components-item item-horizontal align-right"}>
+                        <div className='field-title'>
+                            <div>
+                                <FormattedMessage
+                                    id='tags'
+                                    defaultMessage='Tags'
+                                />
+                            </div>
+                        </div>
+                        <AddTags
                             ref={node => {
-                                this.startEndDate = node
+                                this.addTagsNode = node
                             }}
-                            defaultValue={[requirement.startDate, requirement.endDate]}
-                />
-                {/*<Input label="Story Points" icon="database" type="number"
+                            defaultValue={requirement.tags}
+                            onChange={(tags) => {
+                                this.setState({
+                                    tempTags: tags
+                                })
+                            }}
+                        />
+                    </div>
+                    <Select icon="flag" options={priorityOptions} label="Priority"
+                            placeHolder="priorityPlaceHolderDesc"
+                            ref={node => {
+                                this.priority = node
+                            }}
+                            defaultValue={requirement.priority}
+                    />
+                    {isEdit ? null : <Select icon="file" options={modelOptions}
+                                             label="Requirement Model"
+                                             defaultValue={requirement.Model}
+                                             onChange={(value) => this.handleModelChange(value)}
+                    />}
+                    {(!isEdit && model) ? <Select icon="sitemap" options={functionOptions}
+                                                  disabled={functionOptions.length === 1}
+                                                  label="Process/Function Label"
+                                                  placeHolder="functionLabelPlaceHolderDesc"
+                                                  ref={node => {
+                                                      this.functionLabelNode = node
+                                                  }}
+                                                  defaultValue={requirement.functionLabel}
+                                                  onChange={(value) => this.handleLabelChange(value)}
+                    /> : null}
+                    {(!isEdit && model && functionLabel === 'other') ?
+                        <Input
+                            ref={node => {
+                                this.functionLabelOtherNode = node
+                            }}/> : null
+                    }
+                    {(isEdit || model) ? <SelectMembers
+                        ref={node => {
+                            this.rolesNode = node
+                        }}
+                        tags={tempTags}
+                        model={this.getModelInfo(model)}
+                    /> : null}
+
+                    <DatePicker icon="clock" label="Start / End Date"
+                                range={true}
+                                ref={node => {
+                                    this.startEndDate = node
+                                }}
+                                defaultValue={[requirement.startDate, requirement.endDate]}
+                    />
+                    {/*<Input label="Story Points" icon="database" type="number"
                        ref={node => {
                            storyPointsNode = node
                        }}
                        defaultValue={requirement.storyPoints}
                 />*/}
+                </div>
             </Modal.Content>
         );
     }

@@ -143,13 +143,13 @@ class SelectMembers extends Component {
 
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.update()}>
+                        <Button className="confirm-button" onClick={() => this.update()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

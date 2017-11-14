@@ -35,18 +35,7 @@ class EditBasicInfo extends Component {
         const {project, disabled} = this.props;
         return (
             <div className="read-only-component">
-                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
-                    <FormattedMessage
-                        id='basicInfo'
-                        defaultMessage='Basic info'
-                    />
-                    {disabled ? null : <div className="edit-line-cont">
-                        <div className="edit-info-line"/>
-                        <div className="edit-info-icon" onClick={this.edit}>
-                            <Icon name='pencil'/>
-                        </div>
-                    </div>}
-                </Header>*/}
+
                 {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
                     <FormattedMessage
                         id='editBasicInfo'
@@ -68,15 +57,16 @@ class EditBasicInfo extends Component {
                         ref={node => {
                             basicModule = node
                         }}
+                        isEdit={true}
                     />
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.update()}>
+                        <Button className="confirm-button" onClick={() => this.update()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

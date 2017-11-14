@@ -45,7 +45,7 @@ const zh_CN = {
     techniqueModelPlaceHolder: "技术模型",
     "Contingency": "可调整系数",
     ContingencyPlaceHolder: "可调整系数",
-    selectTagsHeader: "你可以选择下列建议",
+    selectTagsHeader: "请选择标签",
     moreTags: "更多 >>",
     addTags: "添加标签",
     createTags: "创建标签",
@@ -213,6 +213,7 @@ const zh_CN = {
     chooseIterationCycle: "选择迭代周期",
     editAdditionalInfo: "修改其他信息",
     editBasicInfo: "修改基础信息",
-    editOptionalItems: "修改可选信息"
+    editOptionalItems: "修改可选信息",
+    Workload: "工作用时"
 };
 export default zh_CN;

@@ -58,7 +58,7 @@ class ProjectsList extends Component {
     render() {
         const {projectList} = this.props;
         return (
-            <Table striped>
+            <Table>
                 <Table.Header>
                     <Table.Row>
                         {
@@ -95,7 +95,6 @@ class ProjectsList extends Component {
                     <Table.Row>
                         <Table.HeaderCell colSpan={header.length}>
                             <Pagination defaultCurrent={1} total={projectList.totalElements}
-                                        showQuickJumper
                                         onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                         </Table.HeaderCell>
                     </Table.Row>

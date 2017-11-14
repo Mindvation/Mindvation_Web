@@ -74,7 +74,7 @@ class MVInput extends Component {
             ...this.props
         };
         const {
-            label, icon, required, checked, placeHolder, defaultValue, type = "text",
+            label, required, checked, placeHolder, defaultValue, type = "text",
             step = "0.1", style, fullWidth, action, horizontal, value, readOnly
         } = this.props;
         const {formatMessage} = this.props.intl;
@@ -85,14 +85,14 @@ class MVInput extends Component {
             <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}
                  style={style}>
                 {
-                    label ? <Header as='h4'>
-                        {icon ? <Icon name={icon}/> : null}
-                        <Header.Content className={required ? "input-label" : null}>
+                    label ? <div className="field-title">
+                        {/*{icon ? <Icon name={icon}/> : null}*/}
+                        <div className={required ? "input-label" : null}>
                             <FormattedMessage
                                 id={label}
                             />
-                        </Header.Content>
-                    </Header> : null
+                        </div>
+                    </div> : null
                 }
                 <Input
                     disabled={readOnly}
@@ -110,7 +110,6 @@ class MVInput extends Component {
 
 MVInput.propTypes = {
     label: PropTypes.string,
-    icon: PropTypes.string,
     required: PropTypes.bool,
     checked: PropTypes.bool,
     placeHolder: PropTypes.string,
