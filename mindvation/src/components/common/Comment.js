@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Button, Comment, Icon} from 'semantic-ui-react';
+import {Button, Comment} from 'semantic-ui-react';
 import Mention from './Mention';
 import PropTypes from 'prop-types';
 import {dateFormat, isEmpty} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {getUser, getStaffId} from '../../util/UserStore';
+import Image from './Image';
 
 class MVComment extends Component {
 
@@ -35,37 +36,15 @@ class MVComment extends Component {
         };
         changeComment(comment, 'add', this.mentionNode.handleReset);
 
-        //this.mentionNode.handleReset();
     };
 
     approve = (comment) => {
         const {changeComment} = this.props;
-        /*let approves = comment.approve;
-        let disagrees = comment.disagree;
-        disagrees.indexOf(logOnUser) > -1 ?
-            disagrees.splice(disagrees.indexOf(logOnUser), 1) :
-            null;
-
-        approves.indexOf(logOnUser) > -1 ?
-            approves.splice(approves.indexOf(logOnUser), 1) :
-            approves.push(logOnUser);
-        comment.approve = approves;
-        comment.disagree = disagrees;*/
         changeComment(comment, 'upVote');
     };
 
     disagree = (comment) => {
         const {changeComment} = this.props;
-        /*let approves = comment.approve;
-        let disagrees = comment.disagree;
-        disagrees.indexOf(logOnUser) > -1 ?
-            disagrees.splice(disagrees.indexOf(logOnUser), 1) :
-            disagrees.push(logOnUser);
-        approves.indexOf(logOnUser) > -1 ?
-            approves.splice(approves.indexOf(logOnUser), 1) :
-            null;
-        comment.disagree = disagrees;
-        comment.approve = approves;*/
         changeComment(comment, 'downVote');
     };
 
@@ -78,14 +57,7 @@ class MVComment extends Component {
                         return <Comment key={i}>
                             <Comment.Avatar src={item.author.image}/>
                             <Comment.Content>
-                                <div className="display-flex">
-                                    <Comment.Author>{item.author.text}</Comment.Author>
-                                    <div style={{marginLeft: '1em'}}>
-                                        <Comment.Metadata>
-                                            {item.time}
-                                        </Comment.Metadata>
-                                    </div>
-                                </div>
+                                <Comment.Author>{item.author.text}</Comment.Author>
                                 <Comment.Text>
                                     <div className="pre-line">
                                         {item.replyInfo && item.replyInfo.replyStaff ?
@@ -98,24 +70,22 @@ class MVComment extends Component {
                                         {item.text}
                                     </div>
                                 </Comment.Text>
+                                <Comment.Metadata>
+                                    {item.time}
+                                </Comment.Metadata>
                                 <Comment.Actions>
                                     <Comment.Action onClick={() => this.approve(item)}>
-                                        <Icon name='thumbs up'
-                                              size='large'
-                                              color={item.approve.indexOf(getStaffId()) > -1 ? 'green' : 'grey'}/>
+                                        {item.approve.indexOf(getStaffId()) > -1 ? <Image name="like_withMe"/> :
+                                            <Image name="like"/>}
                                         {item.approve.length}
                                     </Comment.Action>
                                     <Comment.Action onClick={() => this.disagree(item)}>
-                                        <Icon name='thumbs down'
-                                              size='large'
-                                              color={item.disagree.indexOf(getStaffId()) > -1 ? 'red' : 'grey'}/>
+                                        {item.disagree.indexOf(getStaffId()) > -1 ? <Image name="dislike_withMe"/> :
+                                            <Image name="dislike"/>}
                                         {item.disagree.length}
                                     </Comment.Action>
                                     <Comment.Action onClick={() => this.reply(item)}>
-                                        <FormattedMessage
-                                            id='reply'
-                                            defaultMessage='Reply'
-                                        />
+                                        <Image name="reply" style={{marginRight: 0}}/>
                                     </Comment.Action>
                                 </Comment.Actions>
                             </Comment.Content>

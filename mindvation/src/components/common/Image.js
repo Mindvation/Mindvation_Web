@@ -6,10 +6,10 @@ class MVImage extends Component {
 
     render() {
 
-        const {name, style, type} = this.props;
+        const {name, style, type, className} = this.props;
 
         return (
-            <Image className="mv-image" style={style}
+            <Image className={"mv-image " + (className ? className : "")} style={style}
                    src={require('../../res/image/UI/' + name + '.' + (type || 'png'))}/>
         );
     }
@@ -18,7 +18,8 @@ class MVImage extends Component {
 MVImage.propTypes = {
     name: PropTypes.string,
     style: PropTypes.object,
-    type: PropTypes.string
+    type: PropTypes.string,
+    className: PropTypes.string
 };
 
 export default MVImage;

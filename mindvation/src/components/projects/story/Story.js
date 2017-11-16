@@ -12,17 +12,14 @@ class Story extends Component {
     render() {
         return (
             <div className="requirement-segment">
-                <Header as='h3'>
-                    <Icon name='database'/>
-                    <Header.Content className={"project-title underLine"}>
-                        <FormattedMessage
-                            id='storyList'
-                            defaultMessage='Story List'
-                        />
-                    </Header.Content>
-                </Header>
-                <StoryList/>
+                <div className="tab-item-header">
+                    <FormattedMessage
+                        id='storyList'
+                        defaultMessage='Story List'
+                    />
+                </div>
                 <CreateStory/>
+                <StoryList/>
             </div>
         );
     }

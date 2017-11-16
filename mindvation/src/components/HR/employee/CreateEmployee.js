@@ -41,13 +41,13 @@ class CreateEmployee extends Component {
                         </Modal.Header>
                         <EmployeeInfo ref={(node) => this.employeeInfoNode = node} department={department}/>
                         <Modal.Actions>
-                            <Button secondary onClick={() => this.closeModal()}>
+                            <Button className="cancel-button" onClick={() => this.closeModal()}>
                                 <FormattedMessage
                                     id='cancel'
                                     defaultMessage='Cancel'
                                 />
                             </Button>
-                            <Button primary onClick={() => this.newEmployee()}>
+                            <Button className="confirm-button" onClick={() => this.newEmployee()}>
                                 <FormattedMessage
                                     id='confirm'
                                     defaultMessage='Confirm'

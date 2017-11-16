@@ -58,18 +58,6 @@ class EditOptionalInfo extends Component {
         const {project, dispatch, disabled} = this.props;
         return (
             <div className="read-only-component">
-                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
-                    <FormattedMessage
-                        id='optionalItems'
-                        defaultMessage='Optional Items'
-                    />
-                    {disabled ? null : <div className="edit-line-cont">
-                        <div className="edit-info-line"/>
-                        <div className="edit-info-icon" onClick={this.edit}>
-                            <Icon name='pencil'/>
-                        </div>
-                    </div>}
-                </Header>*/}
                 {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
                     <FormattedMessage
                         id='editOptionalItems'

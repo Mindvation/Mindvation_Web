@@ -78,3 +78,14 @@ i.icon.remove-position-button {
 .ant-layout {
     background-color: #f8f8f8;
 }
+
+.ui.image.menu-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.ant-menu-item,
+.sub-menu-title {
+    display: flex;
+    align-items: center;
+}

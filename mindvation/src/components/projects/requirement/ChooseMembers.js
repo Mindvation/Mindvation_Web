@@ -9,7 +9,7 @@ import {updateRoleMembers} from '../../../actions/role_action';
 let searchNode, tagsNode, membersNode;
 
 class ChooseMembers extends Component {
-    state = {modalOpen: false, role: '', originMembers: []};
+    state = {modalOpen: false, role: {}, originMembers: []};
 
     componentWillUpdate() {
         this.fixBody();
@@ -48,7 +48,7 @@ class ChooseMembers extends Component {
     };
 
     render() {
-        const {modalOpen, originMembers} = this.state;
+        const {modalOpen, originMembers, role} = this.state;
         const {members, tags} = this.props;
         return (
             <div>
@@ -59,7 +59,8 @@ class ChooseMembers extends Component {
                     <Modal.Header>
                         <FormattedMessage
                             id="chooseMembers"
-                            defaultValue="Choose Members"
+                            defaultValue="Choose {roleName} Members"
+                            values={{roleName: role ? role.name : ''}}
                         />
                     </Modal.Header>
                     <Modal.Content>
@@ -70,10 +71,15 @@ class ChooseMembers extends Component {
                         <Input
                             className="choose-members-search"
                             fluid
-                            icon={{
-                                name: 'search', circular: true, link: true,
+                            action={{
+                                className: "add-tag-button",
+                                content: <FormattedMessage
+                                    id='search'
+                                    defaultMessage='Search'
+                                />,
                                 onClick: () => this.searchMembers()
                             }}
+                            labelPosition='right'
                             ref={node => searchNode = node}
                         />
                         <Members

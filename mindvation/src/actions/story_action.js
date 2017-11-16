@@ -48,21 +48,20 @@ function updateStoryTask(task) {
 
 export function getStoryById(id) {
     return dispatch => {
+        StaticLoad.show("getStoryById");
         post(url.getStoryById, {
             "storyId": id,
             "staffId": getStaffId()
         })
             .then((res) => {
+                StaticLoad.remove("getStoryById");
                 const story = convertStoryToLocal(res.responseBody.storyDetail);
                 story.authCode = res.responseBody.staffAuthInfo;
-                /*if (res.responseBody.staffAuthInfo && res.responseBody.staffAuthInfo.length > 0) {
-                    res.responseBody.staffAuthInfo.map((auth) => {
-                        story.authCode.push(auth.authCode)
-                    })
-                }*/
                 dispatch(retrievedStory(story));
             })
             .catch((error) => {
+                StaticLoad.remove("getStoryById");
+                StaticDialog.show("getStoryById-error", error.responseCode, error.message);
                 console.info(error);
                 dispatch(retrievedStory({}));
             });

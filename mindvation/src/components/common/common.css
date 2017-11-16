@@ -132,7 +132,7 @@
 
 .discussion-comment-link {
     color: blue;
-    padding-right: 1em;
+    padding: 20px 14px;
     display: inline-block;
 }
 
@@ -420,10 +420,6 @@ img.ui.image.logon-back-image {
     position: absolute;
 }
 
-.ui.comments .comment .avatar img {
-    border-radius: 50%;
-}
-
 .input-content,
 .input-content.ui.basic.table,
 .input-content.ui.form,
@@ -581,5 +577,60 @@ img.ui.image.mv-image {
     display: flex;
     align-items: center;
     background-color: #eeeeee;
+}
 
+.ui.button {
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+.ui.table tbody .discussion-row td {
+    margin: 0;
+    padding: 0;
+}
+
+.ui.comments {
+    margin: 0;
+    padding: 10px;
+    max-width: none;
+    border-top: 1px solid #eeeeee;
+}
+
+.ui.comments .comment {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.ui.comments .comment .actions {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+}
+
+.ui.comments .comment .actions a {
+    margin-right: 24px;
+}
+
+.ui.comments .comment .avatar {
+    width: 40px;
+    height: 40px;
+}
+
+.ui.comments .comment .avatar img {
+    border-radius: 50%;
+}
+
+.ui.comments .comment > .avatar ~ .content {
+    margin-left: 50px;
+}
+
+.ui.comments .comment .metadata {
+    margin-left: 0;
+    font-size: 12px;
+    color: #999999;
+}
+
+.ui.comments .comment .author {
+    font-size: 12px;
+    color: #4481eb;
 }

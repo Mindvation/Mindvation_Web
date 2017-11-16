@@ -53,14 +53,13 @@ class CreateRequirement extends Component {
         return (
             <div>
                 {hasAuth("createRequirement", project.authCode) ?
-                    <Button className="create-requirement-button" compact basic
-                            onClick={() => this.createTempRequirement()}>
-                        <Icon name="plus circle"/>
-                        <FormattedMessage
-                            id='createRequirement'
-                            defaultMessage='Create Requirement'
-                        />
-                    </Button> : null}
+                    <div className="create-requirement-button"
+                         onClick={() => this.createTempRequirement()}>
+                        + <FormattedMessage
+                        id='createRequirement'
+                        defaultMessage='Create Requirement'
+                    />
+                    </div> : null}
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

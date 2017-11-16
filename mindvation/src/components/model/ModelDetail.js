@@ -6,6 +6,7 @@ import DisplayRoles from './createModel/DisplayRoles';
 import {getModelDetail} from '../../util/Service';
 import {modelOptions} from '../../res/data/dataOptions';
 import {getDesc} from '../../util/CommUtil';
+import Image from '../common/Image';
 
 const TreeNode = Tree.TreeNode;
 
@@ -115,7 +116,8 @@ class ModelDetail extends Component {
                         {
                             model.iteration.map((iteration, i) => {
                                 return <div key={iteration.key} className="iteration-item iteration-display">
-                                    {i === model.iteration.length - 1 ? null : <div className="iteration-line"/>}
+                                    {i === model.iteration.length - 1 ? null :
+                                        <Image className="iteration-arrow" name="arrow"/>}
                                     <div className="iteration-container">
                                         <div className="iteration-value-text">
                                             {iteration.value}

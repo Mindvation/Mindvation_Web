@@ -127,11 +127,11 @@ class AdditionalInfo extends Component {
                                 defaultMessage='Process/Function Label'
                             />
                         </div>
-                        <div style={{display: "flex"}} className="input-content">
+                        <div className="input-content display-flex">
                             <Display
                                 value={requirement.functionLabel ? requirement.functionLabel.name : info.requirementFunctionLabel ? info.requirementFunctionLabel.name : ''}
                             />
-                            <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
+                            <Image name="link" style={{marginLeft: '10px'}}/>
                             {this.subFunctionLabelOptions.length > 0 ?
                                 <Select options={this.subFunctionLabelOptions}
                                         ref={node => {
@@ -147,7 +147,7 @@ class AdditionalInfo extends Component {
                                 ref={node => {
                                     this.subFunctionTextLabel = node
                                 }}
-                                style={{flex: 1, marginTop: '1em'}}
+                                style={{flex: 1}}
                                 fullWidth={true}
                                 placeHolder="subFunctionLabelPHDesc"
                                 defaultValue={info.functionLabel ? info.functionLabel.name : ''}

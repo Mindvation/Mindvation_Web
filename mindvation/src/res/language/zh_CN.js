@@ -101,7 +101,7 @@ const zh_CN = {
     quantifierOfMember: " 名成员",
     pluralForEnglish: " ",
     noMember: "无成员",
-    chooseMembers: "选择成员",
+    chooseMembers: "选择{roleName}成员",
     "Name": "姓名",
     "Contribution": "贡献",
     "Rec.": "Rec.",
@@ -214,6 +214,7 @@ const zh_CN = {
     editAdditionalInfo: "修改其他信息",
     editBasicInfo: "修改基础信息",
     editOptionalItems: "修改可选信息",
-    Workload: "工作用时"
+    Workload: "工作用时",
+    search: "搜索"
 };
 export default zh_CN;

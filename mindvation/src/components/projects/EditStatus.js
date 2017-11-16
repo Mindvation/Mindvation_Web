@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Header, Label, Button} from 'semantic-ui-react';
+import {Label, Button} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Slider from '../common/Slider';
 import PropTypes from 'prop-types';
+import Image from '../common/Image';
 
 class EditStatus extends Component {
 
@@ -25,25 +26,26 @@ class EditStatus extends Component {
         const {isStory, status = {}, disabled} = this.props;
         return (
             <div className="edit-status-component">
-                <Header as="h3" className="underLine" style={{display: 'flex'}}>
+                <div className="status-header">
+                    <Image name="status"/>
                     <FormattedMessage
                         id='Status'
                         defaultMessage='Status'
                     />
-                </Header>
+                </div>
                 <Label className="edit-status-rag"
                        color={status.ragStatus === "R" ? "red" : status.ragStatus === "A" ? "yellow" : "green"}>
                     {status.ragStatus === "R" ? "Red" : status.ragStatus === "A" ? "Amber" : "Green"}
                 </Label>
-                <div className="components-item">
-                    <Button className={status.status === "new" ? "status-indicator" : ""} compact
+                <div>
+                    <Button className={status.status === "new" ? "status-indicator" : "" + " status-button"}
                             disabled={true}>
                         <FormattedMessage
                             id='new'
                             defaultMessage='New'
                         />
                     </Button>
-                    <Button className={status.status === "inProgress" ? "status-indicator" : ""} compact
+                    <Button className={status.status === "inProgress" ? "status-indicator" : "" + " status-button"}
                             onClick={() => this.changeStatus('inProgress')}
                             disabled={disabled || status.status === "done" || status.status === "close" || status.status === "hold"}>
                         <FormattedMessage
@@ -51,7 +53,7 @@ class EditStatus extends Component {
                             defaultMessage='In Progress'
                         />
                     </Button>
-                    <Button className={status.status === "done" ? "status-indicator" : ""} compact
+                    <Button className={status.status === "done" ? "status-indicator" : "" + " status-button"}
                             disabled={disabled}
                             onClick={() => this.changeStatus('done')}>
                         <FormattedMessage
@@ -60,7 +62,7 @@ class EditStatus extends Component {
                         />
                     </Button>
                     {isStory ? <span>
-                        <Button className={status.status === "close" ? "status-indicator" : ""} compact
+                        <Button className={status.status === "close" ? "status-indicator" : "" + " status-button"}
                                 disabled={disabled}
                                 onClick={() => this.changeStatus('close')}>
                             <FormattedMessage
@@ -68,7 +70,7 @@ class EditStatus extends Component {
                                 defaultMessage='Close'
                             />
                         </Button>
-                        <Button className={status.status === "hold" ? "status-indicator" : ""} compact
+                        <Button className={status.status === "hold" ? "status-indicator" : "" + " status-button"}
                                 disabled={disabled}
                                 onClick={() => this.changeStatus('hold')}>
                             <FormattedMessage
@@ -77,7 +79,7 @@ class EditStatus extends Component {
                             />
                         </Button>
                     </span> : null}
-                    <Button className={status.status === "reopen" ? "status-indicator" : ""} compact
+                    <Button className={status.status === "reopen" ? "status-indicator" : "" + " status-button"}
                             disabled={disabled}
                             onClick={() => this.changeStatus('reopen')}>
                         <FormattedMessage

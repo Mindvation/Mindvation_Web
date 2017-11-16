@@ -102,16 +102,13 @@ class EmployeeInfo extends Component {
                        ref={node => this.phoneNode = node}
                        defaultValue={info.phone}
                 />
-                <div className={"components-item item-horizontal components-length"}>
-                    <Header as='h4'>
-                        <Icon name="tags"/>
-                        <Header.Content>
-                            <FormattedMessage
-                                id='Skill Tags'
-                                defaultMessage='Skill Tags'
-                            />
-                        </Header.Content>
-                    </Header>
+                <div className={"components-item item-horizontal align-right"}>
+                    <div className='field-title'>
+                        <FormattedMessage
+                            id='tags'
+                            defaultMessage='Tags'
+                        />
+                    </div>
                     <AddTags ref={node => this.skillTagsNode = node} defaultValue={info.skillTags}/>
                 </div>
                 {isEdit ? <Select options={staffStatusOptions} label="Status" horizontal={true} icon="id badge"

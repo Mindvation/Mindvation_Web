@@ -5,7 +5,7 @@ import {getStoryById, updateStoryStatus} from '../../../../actions/story_action'
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
-import UploadAttach from '../UploadAttach';
+import TaskList from '../TaskList';
 import AddTask from '../AddTask';
 import {
     Link
@@ -110,7 +110,7 @@ class StoryDetail extends Component {
                         {' - '}
                     </span>
                     <span className="header-link">
-                        <Link to={`/home/projects/${story.reqId}`}>
+                        <Link to={`/home/requirement/${story.reqId}`}>
                             {story.reqId}
                         </Link>
                     </span>
@@ -138,7 +138,7 @@ class StoryDetail extends Component {
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
                         <Segment>
-                            <UploadAttach story={story} dispatch={dispatch}/>
+                            <TaskList story={story} dispatch={dispatch}/>
                         </Segment>
                         {hasAuth("createTask", story.authCode) ? <AddTask dispatch={dispatch} story={story}/> : null}
                     </Grid.Column>

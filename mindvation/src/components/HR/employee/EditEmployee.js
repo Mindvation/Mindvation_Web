@@ -54,13 +54,13 @@ class EditEmployee extends Component {
                                       department={department}/>
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.updateEmployeeInfo()}>
+                        <Button className="confirm-button" onClick={() => this.updateEmployeeInfo()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

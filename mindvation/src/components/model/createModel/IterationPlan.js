@@ -3,6 +3,7 @@ import {Input, Header, Button, Icon, Modal, Segment, Label, List} from 'semantic
 import {FormattedMessage} from 'react-intl';
 import _ from 'lodash';
 import {arrOrder} from '../../../util/CommUtil';
+import Image from "../../common/Image";
 
 let iterationKey = 0;
 
@@ -134,7 +135,7 @@ class IterationPlan extends Component {
                     {
                         planData.map((iteration, i) => {
                             return <div key={iteration.key} className="iteration-item">
-                                {i === planData.length - 1 ? null : <div className="iteration-line"/>}
+                                {i === planData.length - 1 ? null : <Image className="iteration-arrow" name="arrow"/>}
                                 <div className="iteration-action">
                                     <Icon name="trash" size="big" className={"mode-remove-label pointer-cursor"}
                                           onClick={() => this.removeIteration(planData, iteration)}/>

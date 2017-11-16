@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Button, Modal, Popup, Header, Icon, Image, Table} from 'semantic-ui-react';
+import {Button, Modal, Popup, Icon, Image, Table} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import ChooseMembers from '../../../containers/member_container';
+import MVImage from '../../common/Image';
 
 let chooseMembersNode;
 
@@ -42,15 +43,12 @@ class SelectMembers extends Component {
         return (
             <div style={{marginBottom: '10px'}} className="components-item item-horizontal align-right">
 
-                <Header as='h4'>
-                    <Icon name="group"/>
-                    <Header.Content>
-                        <FormattedMessage
-                            id="Members"
-                            defaultValue="Members"
-                        />
-                    </Header.Content>
-                </Header>
+                <div className="field-title">
+                    <FormattedMessage
+                        id="Members"
+                        defaultValue="Members"
+                    />
+                </div>
                 <div className="input-content">
                     <div className="display-flex" style={{paddingTop: '8px'}}>
                         <div className="underLine model-title"
@@ -62,7 +60,7 @@ class SelectMembers extends Component {
                             />
                         </div>
                         <Popup
-                            trigger={<Icon size='large' name='attention'/>}
+                            trigger={<div><MVImage name="alert"/></div>}
                             content={<FormattedMessage
                                 id="modelDesc"
                                 defaultValue='This Project had select to be Software Dev model with {modelType} template'
@@ -103,44 +101,47 @@ class SelectMembers extends Component {
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
                     <Modal.Header>
+                        <MVImage name="use_model"/>
                         <FormattedMessage
-                            id="agileAndTP"
-                            defaultValue='Agile team + TP Structure'
+                            id="usingModel"
+                            defaultValue="Using {modelType} Team Structure Mode"
+                            values={{modelType: model}}
                         />
                     </Modal.Header>
                     <Modal.Content>
-                        {
-                            roles.map((role, i) => {
-                                return <Button key={i} basic className="select-member-role-button" onClick={() => {
-                                    this.chooseMembersForRole(role)
-                                }}>
-                                    {role.members && role.members.length > 0 ?
-                                        <Icon size='big' name='users' color='black'/> :
-                                        <Icon size='big' name='add user' color='black'/>
-                                    }
-                                    <div className="select-member-role-button-text">
-                                        {role.name}
-                                    </div>
-                                    <div>
+                        <div className="members-container">
+                            {
+                                roles.map((role, i) => {
+                                    return <Button key={i} basic className="select-member-role-button" onClick={() => {
+                                        this.chooseMembersForRole(role)
+                                    }}>
                                         {role.members && role.members.length > 0 ?
-                                            role.members.length : <FormattedMessage
-                                                id="noMember"
-                                                defaultValue="No Member"
-                                            />}
-                                        {role.members && role.members.length > 0 ?
-                                            <FormattedMessage
-                                                id="quantifierOfMember"
-                                                defaultValue=' Member'
+                                            <MVImage name="members" style={{marginRight: 0}}/> :
+                                            <MVImage name="add_member" style={{marginRight: 0}}/>
+                                        }
+                                        <div className="select-member-role-button-text">
+                                            {role.name}
+                                        </div>
+                                        <div>
+                                            {role.members && role.members.length > 0 ?
+                                                role.members.length : <FormattedMessage
+                                                    id="noMember"
+                                                    defaultValue="No Member"
+                                                />}
+                                            {role.members && role.members.length > 0 ?
+                                                <FormattedMessage
+                                                    id="quantifierOfMember"
+                                                    defaultValue=' Member'
+                                                /> : null}
+                                            {role.members && role.members.length > 1 ? <FormattedMessage
+                                                id="pluralForEnglish"
+                                                defaultValue=' s'
                                             /> : null}
-                                        {role.members && role.members.length > 1 ? <FormattedMessage
-                                            id="pluralForEnglish"
-                                            defaultValue=' s'
-                                        /> : null}
-                                    </div>
-                                </Button>
-                            })
-                        }
-
+                                        </div>
+                                    </Button>
+                                })
+                            }
+                        </div>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button className="cancel-button" onClick={() => this.closeModal()}>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button, Table, Image} from 'semantic-ui-react';
+import {Modal, Button, Table, Image} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../AdditionalInfo';
@@ -7,6 +7,7 @@ import {updateStoryAdditional} from '../../../../actions/story_action';
 import TagList from '../../create/TagList';
 import Display from '../../../common/Display';
 import {priorityOptions} from '../../../../res/data/dataOptions';
+import MVImage from '../../../common/Image';
 
 let AdditionalModule;
 
@@ -40,13 +41,12 @@ class EditAdditionalInfo extends Component {
         }, {
             icon: "sitemap",
             title: "Process/Function Label",
-            value: <div style={{display: "flex"}} className="components-length">
+            value: <div className="components-length display-flex">
                 <Display
                     value={story.requirementFunctionLabel ? story.requirementFunctionLabel.name : ''}
                 />
-                <Icon name="linkify" size="big" style={{marginLeft: '0.5em', marginRight: '0.5em'}}/>
-                <span
-                    style={{flex: 1, marginTop: '1em'}}>{story.functionLabel ? story.functionLabel.name : 'N/A'}</span>
+                <MVImage name="link" style={{marginLeft: '10px'}}/>
+                <span>{story.functionLabel ? story.functionLabel.name : 'N/A'}</span>
             </div>
         }, {
             icon: "flag",
@@ -57,7 +57,7 @@ class EditAdditionalInfo extends Component {
             icon: "group",
             title: "Members",
             value: story.roles && story.roles.length > 0 ?
-                <Table basic='very' collapsing>
+                <Table basic='very' collapsing className="choose-member-table">
                     <Table.Body>
                         {story.roles.map((role, i) => {
                             return role.members && role.members.length > 0 ?

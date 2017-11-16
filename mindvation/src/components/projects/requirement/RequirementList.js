@@ -63,54 +63,49 @@ class RequirementList extends Component {
     render() {
         const {requirements, dispatch} = this.props;
         return (
-            <Table striped>
-                <Table.Header>
-                    <Table.Row>
-                        {
-                            header.map((result, i) => {
-                                return <Table.HeaderCell className="requirement-cell-length" key={i}>
-                                    <FormattedMessage
-                                        id={result}
-                                    />
-                                </Table.HeaderCell>
-                            })
-                        }
-                    </Table.Row>
-                </Table.Header>
-                {
-                    requirements.requirementInfos.map((result, i) => {
-                        return <Table.Body key={i}>
+            <div>
+                {requirements.requirementInfos.map((requirement, i) => {
+                    return <Table key={i} className="requirement-card">
+                        <Table.Header>
+                            <Table.Row>
+                                {
+                                    header.map((result, i) => {
+                                        return <Table.HeaderCell className="requirement-cell-length" key={i}>
+                                            <FormattedMessage
+                                                id={result}
+                                            />
+                                        </Table.HeaderCell>
+                                    })
+                                }
+                            </Table.Row>
+                        </Table.Header>
+
+                        <Table.Body>
                             <Table.Row>
                                 {
                                     rmKey.map((key, j) => {
                                         return <Table.Cell
                                             className={"requirement-cell-length " + (key === "summary" ? "text-ellipsis" : "")}
                                             key={i + "_" + j}>
-                                            {this.handleDisplayData(result, key)}
+                                            {this.handleDisplayData(requirement, key)}
                                         </Table.Cell>
                                     })
                                 }
                             </Table.Row>
-                            <Table.Row>
+                            <Table.Row className="discussion-row">
                                 <Table.Cell colSpan={rmKey.length}>
-                                    <Discussion requirement={result} dispatch={dispatch}/>
+                                    <Discussion requirement={requirement} dispatch={dispatch}/>
                                 </Table.Cell>
                             </Table.Row>
                         </Table.Body>
-                    })
-                }
+                    </Table>
+                })}
 
-
-                <Table.Footer>
-                    <Table.Row>
-                        <Table.HeaderCell colSpan={header.length}>
-                            <Pagination defaultCurrent={1} total={requirements.totalElements}
-                                        showQuickJumper
-                                        onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
-                        </Table.HeaderCell>
-                    </Table.Row>
-                </Table.Footer>
-            </Table>
+                <div className="requirement-pagination">
+                    <Pagination defaultCurrent={1} total={requirements.totalElements}
+                                onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
+                </div>
+            </div>
         );
     }
 }

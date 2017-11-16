@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Transition, Icon, Segment} from 'semantic-ui-react';
+import {Transition, Segment} from 'semantic-ui-react';
 import Comment from '../../common/Comment';
 import {createStoryComment, voteStoryComment} from '../../../actions/stories_action';
+import Image from '../../common/Image';
 
 class Discussion extends Component {
     state = {
@@ -30,14 +31,14 @@ class Discussion extends Component {
         return (
             <div>
                 <div className={"discussion-comment-link pointer-cursor"} onClick={this.toggleVisibility}>
-                    <Icon name='talk outline'/>
+                    <Image name="comment"/>
                     {comments.length}
                 </div>
                 <Transition visible={visible} animation='slide down' duration={250}>
-                    <Segment>
+                    <div>
                         <Comment comments={comments} dispatch={dispatch}
                                  changeComment={(comment, action, callback) => this.updateStory(comment, action, callback)}/>
-                    </Segment>
+                    </div>
                 </Transition>
             </div>
         );

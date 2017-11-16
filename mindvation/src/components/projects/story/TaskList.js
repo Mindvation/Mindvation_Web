@@ -7,7 +7,7 @@ import EditProgress from './detail/EditProgress';
 import {updateTaskStatus} from '../../../actions/story_action';
 import {hasAuth} from '../../../util/AuthUtil';
 
-class UploadAttach extends Component {
+class TaskList extends Component {
     state = {
         modelData: [],
         modalOpen: false
@@ -46,7 +46,7 @@ class UploadAttach extends Component {
     render() {
         const {story} = this.props;
         return (
-            <div>
+            <div style={{margin: '-10px'}}>
                 {story && story.tasks && story.tasks.length > 0 ? <Grid className="upload-attach-content" columns={3}>
                     {
                         story.tasks.map((task, i) => {
@@ -88,4 +88,4 @@ class UploadAttach extends Component {
     }
 }
 
-export default UploadAttach;
+export default TaskList;

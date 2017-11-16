@@ -43,7 +43,7 @@ class DepartmentInfo extends Component {
         const {positions} = this.state;
         return (
             <Modal.Content>
-                <Input label="Department Name" horizontal={true} icon="home"
+                <Input label="Department Name"
                        ref={node => this.nameNode = node}
                        defaultValue={info.name}
                 />
@@ -53,8 +53,6 @@ class DepartmentInfo extends Component {
                         return <div key={i} style={{display: 'flex'}}>
                             <Input
                                 label="Position Name"
-                                horizontal={true}
-                                icon="id card"
                                 onChange={(value) => {
                                     item.name = value;
                                     this.setState({
@@ -62,6 +60,7 @@ class DepartmentInfo extends Component {
                                     })
                                 }}
                                 value={item.name}
+                                style={{flex: 1}}
                             />
                             {positions.length > 1 ? <Icon name="trash"
                                                           className={"remove-position-button pointer-cursor"}

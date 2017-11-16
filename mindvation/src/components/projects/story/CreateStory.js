@@ -48,24 +48,24 @@ class CreateRequirement extends Component {
         const {dispatch, requirement} = this.props;
         return (
             <div>
-                {hasAuth("createStory", requirement.authCode) ?
-                    <Button className="create-requirement-button" compact basic
-                            onClick={() => this.createTempStory('story')}>
-                        <Icon name="plus circle"/>
-                        <FormattedMessage
+                <div className="create-story-buttons">
+                    {hasAuth("createStory", requirement.authCode) ?
+                        <div className="create-button"
+                             onClick={() => this.createTempStory('story')}>
+                            + <FormattedMessage
                             id='createStory'
                             defaultMessage='Create Story'
                         />
-                    </Button> : null}
-                {hasAuth("createStory", requirement.authCode) ?
-                    <Button style={{marginTop: '10px'}} className="create-requirement-button" compact basic
-                            onClick={() => this.createTempStory('cr')}>
-                        <Icon name="plus circle"/>
-                        <FormattedMessage
+                        </div> : null}
+                    {hasAuth("createStory", requirement.authCode) ?
+                        <div className="create-button"
+                             onClick={() => this.createTempStory('cr')}>
+                            + <FormattedMessage
                             id='createChangeRequest'
                             defaultMessage='Create Change Request'
                         />
-                    </Button> : null}
+                        </div> : null}
+                </div>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

@@ -34,14 +34,14 @@ class TagListForMember extends Component {
             tagList.length === 0 ? null : <List horizontal>
                 {tagList.map((tag) => {
                     return <List.Item key={tag.tagId} style={{position: 'relative'}}>
-                        <Button size="mini" style={{backgroundColor: tag.color}}
-                                onClick={() => {
-                                    return shortTag ? {} : this.mappingTagOrder(tag.tagId);
-                                }}>
+                        <div
+                            className={"tag-selected tag-style tag-style-" + (tag.tagStyle || 'default')}
+                            onClick={() => {
+                                return shortTag ? {} : this.mappingTagOrder(tag.tagId);
+                            }}>
                             {shortTag ? tag.name.substr(0, 1) : tag.name}
-                        </Button>
+                        </div>
                         {this.state.order[tag.tagId] && !shortTag ? <div className="tag-footer">
-                            <div className="tag-footer-line"/>
                             <div className="tag-footer-text">{this.state.order[tag.tagId]}</div>
                         </div> : null}
                     </List.Item>

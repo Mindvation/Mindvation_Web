@@ -159,7 +159,7 @@
 }
 
 .read-only-item {
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .read-only-title {
@@ -231,17 +231,17 @@
 
 .task-list-new,
 .ui.list > .task-list-new.item .description {
-    color: #66cc33;
+    color: #5c72ad;
 }
 
 .task-list-inProgress,
 .ui.list > .task-list-inProgress.item .description {
-    color: #ff9900;
+    color: #d4865b;
 }
 
 .task-list-done,
 .ui.list > .task-list-done.item .description {
-    color: #0099cc;
+    color: #9cbe5a;
     text-decoration: line-through;
 }
 
@@ -270,16 +270,11 @@
     display: flex;
 }
 
-.create-requirement-button {
-    width: 100%;
-    font-size: 4em !important;
-}
-
 .ui.button.select-member-role-button {
-    width: 8em;
-    height: 8em;
-    padding: 0.5em;
-    margin: 1em;
+    margin: 5px;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
 }
 
 .select-member-role-button-text {
@@ -294,27 +289,21 @@
 }
 
 .tag-footer {
-}
-
-.tag-footer-line {
-    width: calc(100% - 0.25em);
-    height: 3px;
-    margin-top: 2px;
-    background-color: #db2828;
-    position: absolute;
-    -webkit-box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
-    box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
+    position: relative;
 }
 
 .tag-footer-text {
     position: absolute;
-    margin-top: 8px;
-    width: calc(100% - 0.25em);
+    width: 100%;
+    font-size: 12px;
     text-align: center;
+    background: rgba(113, 129, 173, 0.5);
+    color: #ffffff;
+    border-radius: 4px;
 }
 
 .choose-members-search {
-    margin-top: 35px;
+    margin: 20px 0;
     width: 50%;
 }
 
@@ -570,8 +559,8 @@ i.icon.mode-remove-label {
 .iteration-item {
     display: inline-table;
     position: relative;
-    margin-right: 6em;
-    margin-top: 2em;
+    margin-right: 50px;
+    margin-top: 20px;
 }
 
 .iteration-action {
@@ -582,25 +571,15 @@ i.icon.mode-remove-label {
     display: block;
 }
 
-.iteration-line {
-    position: absolute;
-    top: 60px;
-    width: 3em;
-    border-bottom: 4px solid #000000;
-    left: calc(100% + 3px);
+.iteration-arrow {
+    position: absolute !important;
+    top: 53px;
+    left: 100%;
+    margin-left: 10px;
 }
 
-.iteration-display .iteration-line {
-    top: 10px;
-}
-
-.iteration-line:after {
-    content: "\2192";
-    position: absolute;
-    font-size: 4em;
-    top: -47px;
-    left: calc(100% - 8px);
-    color: #000000;
+.iteration-display .iteration-arrow {
+    top: 5px;
 }
 
 .iteration-item .ui.input {
@@ -634,10 +613,6 @@ i.icon.mode-remove-label {
     text-align: center;
     -webkit-box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
     box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, .2);
-}
-
-.model-attach .list-content:hover {
-
 }
 
 .model-attach .list-content:hover .list-actions-content {
@@ -826,7 +801,6 @@ i.icon.mode-remove-label {
 }
 
 .edit-status-component {
-    margin-bottom: 2em;
     position: relative;
 }
 
@@ -866,9 +840,10 @@ i.icon.mode-remove-label {
 
 .edit-detail-button {
     text-align: center;
-    padding: 0.5em;
+    padding: 10px;
     background-color: #f8f8f8;
     cursor: pointer;
+    color: #577ca6;
 }
 
 .edit-detail-info {
@@ -1114,4 +1089,164 @@ i.icon.mode-remove-label {
 
 .ui.grid.grid-right-top {
     padding-bottom: 10px;
+}
+
+.status-header {
+    font-size: 18px;
+    display: flex;
+    line-height: 1;
+    align-items: center;
+    font-weight: normal;
+    border: none;
+    color: #333333;
+}
+
+.ui.segment {
+    padding: 20px;
+    border-radius: 0;
+    border: none;
+}
+
+.ui.button.status-button {
+    margin-top: 10px;
+    background-color: #f5f5f5;
+    border: 2px solid #eeeeee;
+}
+
+.status-indicator.ui.button {
+    background-color: rgba(92, 114, 173, 1);
+    border: 2px solid rgba(34, 49, 91, 1);
+    color: #ffffff;
+}
+
+.requirement-segment {
+    position: relative;
+}
+
+.create-requirement-button {
+    position: absolute;
+    right: 0;
+    top: -2px;
+    font-size: 14px;
+    color: #577ca6;
+    cursor: pointer;
+}
+
+.ui.table.requirement-card {
+    margin-top: 20px;
+    -webkit-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
+.requirement-pagination {
+    margin-top: 20px;
+}
+
+.ui.tab.requirement-pane {
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.ant-tabs-bar {
+    border: none;
+    margin: 0;
+}
+
+.ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+    border: none;
+    padding: 18px 20px 10px 20px;
+    background-color: #eeeeee;
+    margin: 0;
+    color: #999999;
+}
+
+.ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-nav-container {
+    height: auto;
+}
+
+.ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.tab-item-header {
+    font-size: 16px;
+    display: -ms-flexbox;
+    display: flex;
+    line-height: 1;
+    -ms-flex-align: center;
+    align-items: center;
+    font-weight: normal;
+    border: none;
+    color: #333333;
+}
+
+.link-mvp-button {
+    background-color: rgba(92, 114, 173, 1);
+    border: 2px solid rgba(34, 49, 91, 1);
+    color: #ffffff;
+    padding: 5px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.link-mvp-button:hover {
+    color: #ffffff;
+}
+
+.ant-tabs-content {
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.create-button {
+    margin-left: 20px;
+    font-size: 14px;
+    color: #577ca6;
+    cursor: pointer;
+}
+
+.create-story-buttons {
+    position: absolute;
+    display: flex;
+    top: -3px;
+    right: 0;
+}
+
+.members-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+}
+
+.choose-member-style {
+    padding: 5px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: rgba(115, 129, 169, 0.5);
+    border: 2px solid transparent;
+    color: #5f73a9;
+}
+
+.choose-member-style > .ui.avatar.image {
+    margin-right: 10px;
+}
+
+.member-selected.choose-member-style {
+    background-color: rgba(95, 115, 169, 1);
+    border: 2px solid rgba(36, 50, 88, 1);
+    color: #ffffff;
+}
+
+.choose-member-table.ui.table tbody td {
+    padding: 10px;
+}
+
+.ui.grid > .column:not(.row) {
+    padding: 10px;
 }

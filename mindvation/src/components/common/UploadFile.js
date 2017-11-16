@@ -114,14 +114,14 @@ class UploadFile extends Component {
                                     <a href={file.url}
                                        target="_blank" rel="noopener noreferrer">{file.name}</a>
                                 </div>
-                                {/*{file.status === "uploading" ? <div className="file-delete-button">
+                                {file.status === "uploading" ? <div className="file-delete-button">
                                     <Image style={{marginRight: 0}} name="loading" type="gif"/>
                                 </div> : <div className="file-delete-button" onClick={() => this.deleteFile(file)}>
                                     <Image style={{marginRight: 0}} name="delete"/>
-                                </div>}*/}
-                                <div className="file-delete-button">
+                                </div>}
+                                {/*<div className="file-delete-button">
                                     <Image style={{marginRight: 0}} name="loading" type="gif"/>
-                                </div>
+                                </div>*/}
                             </div>
                         </List.Item>
                     })}

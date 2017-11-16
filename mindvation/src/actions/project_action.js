@@ -35,11 +35,13 @@ function setRequirement(requirements) {
 
 export function getProjectById(id) {
     return dispatch => {
+        StaticLoad.show("getProjectById");
         post(url.getProjectById, {
             "projId": id,
             "staffId": getStaffId()
         })
             .then((res) => {
+                StaticLoad.remove("getProjectById");
                 const project = convertProjectToLocal(res.responseBody.projectDetail);
                 project.authCode = res.responseBody.staffAuthInfo;
                 /*if (res.responseBody.staffAuthInfo && res.responseBody.staffAuthInfo.length > 0) {
@@ -51,6 +53,8 @@ export function getProjectById(id) {
                 dispatch(setRequirement(project.requirementInfo));
             })
             .catch((error) => {
+                StaticLoad.remove("getProjectById");
+                StaticDialog.show("getProjectById-error", error.responseCode, error.message);
                 dispatch(retrievedProject({}));
                 dispatch(setRequirement());
             });

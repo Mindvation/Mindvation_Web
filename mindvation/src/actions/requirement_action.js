@@ -46,11 +46,13 @@ function setStories(stories) {
 
 export function getRequirementById(id) {
     return dispatch => {
+        StaticLoad.show("getRequirementById");
         post(url.getRequirementById, {
             "reqmntId": id,
             "staffId": getStaffId()
         })
             .then((res) => {
+                StaticLoad.remove("getRequirementById");
                 const requirement = convertRequirementToLocal(res.responseBody);
                 requirement.authCode = res.responseBody.staffAuthInfo;
                 /*if (res.responseBody.staffAuthInfo && res.responseBody.staffAuthInfo.length > 0) {
@@ -63,6 +65,8 @@ export function getRequirementById(id) {
                 dispatch(setStories(requirement.stories));
             })
             .catch((error) => {
+                StaticLoad.remove("getRequirementById");
+                StaticDialog.show("getRequirementById-error", error.responseCode, error.message);
                 dispatch(retrievedRequirement({}));
                 dispatch(setRoles([]));
                 dispatch(setStories());

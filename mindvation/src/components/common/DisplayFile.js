@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
-import {Upload} from 'antd';
+import {List} from 'semantic-ui-react';
 
 class DisplayFile extends Component {
 
     render() {
         const {fileList} = this.props;
-        const props = {
-            fileList: [...fileList]
-        };
+
         return (
-            <div style={{marginTop: '-10px'}}>
-                <Upload {...props} className="display-file"/>
+            <div>
+                <List horizontal>
+                    {fileList.map((file, i) => {
+                        return <List.Item key={i}>
+                            <div className="file-item">
+                                <div className="file-name">
+                                    <a href={file.url}
+                                       target="_blank" rel="noopener noreferrer">{file.name}</a>
+                                </div>
+                            </div>
+                        </List.Item>
+                    })}
+                </List>
             </div>
         );
     }

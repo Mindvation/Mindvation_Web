@@ -62,7 +62,7 @@ class StoryList extends Component {
     render() {
         const {stories, dispatch} = this.props;
         return (
-            <Table striped>
+            <Table className="requirement-card">
                 <Table.Header>
                     <Table.Row>
                         {
@@ -90,7 +90,7 @@ class StoryList extends Component {
                                     })
                                 }
                             </Table.Row>
-                            <Table.Row>
+                            <Table.Row className="discussion-row">
                                 <Table.Cell colSpan={rmKey.length}>
                                     <Discussion story={result} dispatch={dispatch}/>
                                 </Table.Cell>

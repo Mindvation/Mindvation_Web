@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Header, Segment, Tab, Menu, Icon} from 'semantic-ui-react';
+import {Grid, Segment, Tab, Menu} from 'semantic-ui-react';
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
@@ -17,9 +17,12 @@ import {
     Link
 } from 'react-router-dom';
 import Image from '../../common/Image';
+import {Tabs} from 'antd';
+
+const TabPane = Tabs.TabPane;
 
 class ProjectDetail extends Component {
-    state = {activeTab: 0};
+    state = {activeTab: 0, reqActiveTab: "requirements"};
 
     componentDidMount() {
         const {id} = this.props.match.params;
@@ -41,7 +44,7 @@ class ProjectDetail extends Component {
 
     render() {
         const {project, dispatch} = this.props;
-        const {activeTab} = this.state;
+        const {activeTab, reqActiveTab} = this.state;
         const panes = [
             {
                 menuItem: <Menu.Item key="basicInfo">
@@ -146,25 +149,57 @@ class ProjectDetail extends Component {
                             </Grid.Column>
                         </Grid>
                         <Grid.Row className="grid-right-bottom">
-                            <Segment>
-                                <Requirement/>
-                            </Segment>
-                            <Segment>
-                                {hasAuth("MVPDashBoard", project.authCode) ?
-                                    <Link style={{border: '1px solid #1b1c1d'}} className="create-requirement-button"
-                                          to={`/home/MVPDashboard/${project.projectId}`}>
-                                        MVP Dashboard
-                                    </Link> : null}
-                                <Link style={{border: '1px solid #1b1c1d', marginLeft: '2em'}}
-                                      className="create-requirement-button"
-                                      to={`/home/MyMVPDashboard/${project.projectId}`}>
-                                    My MVP Dashboard
-                                </Link>
-                            </Segment>
+                            <Tabs type="card" className="requirement-tab" onChange={(key) => {
+                                this.setState({
+                                    reqActiveTab: key
+                                })
+                            }}>
+                                <TabPane tab={
+                                    <div className="detail-tab-title">
+                                        <Image
+                                            name={reqActiveTab === "requirements" ? "requirement_selected" : "requirement_unselected"}/>
+                                        <FormattedMessage
+                                            id='requirements'
+                                            defaultMessage='Requirements'
+                                        />
+                                    </div>
+                                } key="requirements">
+                                    <Requirement/>
+                                </TabPane>
+                                <TabPane tab={
+                                    <div className="detail-tab-title">
+                                        <Image
+                                            name={reqActiveTab === "dashboard" ? "dashboard_selected" : "dashboard_unselected"}/>
+                                        <FormattedMessage
+                                            id='dashboard'
+                                            defaultMessage='Dashboard'
+                                        />
+                                    </div>
+                                } key="dashboard" className="requirement-tab-menu">
+                                    <div className="requirement-pane">
+                                        <div className="tab-item-header">
+                                            <FormattedMessage
+                                                id='dashboard'
+                                                defaultMessage='Dashboard'
+                                            />
+                                        </div>
+                                        <div style={{marginTop: '20px'}}>
+                                            {hasAuth("MVPDashBoard", project.authCode) ?
+                                                <Link className="link-mvp-button"
+                                                      to={`/home/MVPDashboard/${project.projectId}`}>
+                                                    MVP Dashboard
+                                                </Link> : null}
+                                            <Link className="link-mvp-button"
+                                                  to={`/home/MyMVPDashboard/${project.projectId}`}>
+                                                My MVP Dashboard
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </TabPane>
+                            </Tabs>
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>
-
             </div>
         );
     }

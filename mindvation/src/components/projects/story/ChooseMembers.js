@@ -74,14 +74,13 @@ class ChooseMembers extends Component {
         const {requirement = {}, info = {}} = this.props;
         return (
             <div className="components-item item-horizontal align-right">
-
                 <div className='field-title'>
                     <FormattedMessage
                         id='Members'
                         defaultMessage='Members'
                     />
                 </div>
-                <Table basic='very' collapsing className="input-content">
+                <Table basic='very' collapsing className="input-content choose-member-table">
                     <Table.Body>
                         {(requirement.roles || info.requirementRoles || []).map((role, i) => {
                             return role.members && role.members.length > 0 ?
@@ -91,16 +90,14 @@ class ChooseMembers extends Component {
                                         {
                                             role.members.map((member, j) => {
                                                 return <div className="table-single-line" key={i + "_" + j}>
-                                                    {this.checkMemberStatus(this.state.chooseRoleMembers, role, member) ?
-                                                        <Icon name="check circle outline" color="green" size="large"
-                                                              className="selected-member-icon"
-                                                        /> : null}
-                                                    <Button compact
-                                                            onClick={() => this.toggleChooseMember(role, member)}>
+                                                    <div
+                                                        className={(this.checkMemberStatus(this.state.chooseRoleMembers, role, member) ? "member-selected " : "")
+                                                        + "choose-member-style"}
+                                                        onClick={() => this.toggleChooseMember(role, member)}>
                                                         <Image verticalAlign="middle" src={member.name.image.src}
                                                                avatar/>
                                                         {member.name.text}
-                                                    </Button>
+                                                    </div>
                                                 </div>
                                             })
                                         }

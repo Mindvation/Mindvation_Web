@@ -138,12 +138,10 @@ class AdditionalInfo extends Component {
                 <div className={isEdit ? "" : "model-container"}>
                     <div className={"components-item item-horizontal align-right"}>
                         <div className='field-title'>
-                            <div>
-                                <FormattedMessage
-                                    id='tags'
-                                    defaultMessage='Tags'
-                                />
-                            </div>
+                            <FormattedMessage
+                                id='tags'
+                                defaultMessage='Tags'
+                            />
                         </div>
                         <AddTags
                             ref={node => {

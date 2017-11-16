@@ -101,7 +101,7 @@ const en_US = {
     quantifierOfMember: " Member",
     pluralForEnglish: "s",
     noMember: "No Member",
-    chooseMembers: "Choose Members",
+    chooseMembers: "Choose {roleName} Members",
     "Name": "Name",
     "Contribution": "Contribution",
     "Rec.": "Rec.",
@@ -214,6 +214,7 @@ const en_US = {
     editAdditionalInfo: "Edit Additional Info",
     editBasicInfo: "Edit Basic Info",
     editOptionalItems: "Edit Optional Items",
-    Workload: "Workload"
+    Workload: "Workload",
+    search: "Search"
 };
 export default en_US;
