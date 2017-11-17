@@ -83,17 +83,15 @@ class ProcessLabelInfo extends Component {
 
     render() {
         const {labelData, expandedKeys} = this.state;
-        return (<div className={"model-label-cont item-horizontal components-item"}>
-                <Header as='h4'>
-                    <Header.Content>
-                        <FormattedMessage
-                            id='Process/Function Label'
-                            defaultMessage='Process/Function Label'
-                        />
-                    </Header.Content>
-                </Header>
-                <div className="model-label-main">
-                    <Button className="model-add-label" onClick={() => this.addLabel()}>
+        return (<div className={"model-label-cont components-item item-horizontal align-right"}>
+                <div className="field-title">
+                    <FormattedMessage
+                        id='Process/Function Label'
+                        defaultMessage='Process/Function Label'
+                    />
+                </div>
+                <div className="model-label-main input-content">
+                    <Button className="confirm-button" onClick={() => this.addLabel()}>
                         <FormattedMessage
                             id='addProcessLabel'
                             defaultMessage='Add Process/Function Label'
@@ -125,9 +123,13 @@ class ProcessLabelInfo extends Component {
                                                              defaultMessage='Add Sub Process/Function Label'
                                                          />
                                                      </Button>
-                                                     <Icon name="trash" size="big"
-                                                           className={"mode-remove-label pointer-cursor"}
-                                                           onClick={() => this.removeLabel(label)}/>
+                                                     <Button className="delete-button"
+                                                             onClick={() => this.removeLabel(label)}>
+                                                         <FormattedMessage
+                                                             id='delete'
+                                                             defaultMessage='Delete'
+                                                         />
+                                                     </Button>
                                                  </div>}>
                                     {label.subData && label.subData.length > 0 ?
                                         label.subData.map((subLabel) => {
@@ -142,9 +144,13 @@ class ProcessLabelInfo extends Component {
                                                             labelData: labelData
                                                         })
                                                     }}/>
-                                                <Icon name="trash" size="big"
-                                                      className={"mode-remove-label pointer-cursor"}
-                                                      onClick={() => this.removeSubLabel(labelData, label, subLabel)}/>
+                                                <Button className="delete-button"
+                                                        onClick={() => this.removeSubLabel(labelData, label, subLabel)}>
+                                                    <FormattedMessage
+                                                        id='delete'
+                                                        defaultMessage='Delete'
+                                                    />
+                                                </Button>
                                             </div>}/>
                                         }) : null}
                                 </TreeNode>
@@ -152,7 +158,6 @@ class ProcessLabelInfo extends Component {
                         }
                     </Tree>
                 </div>
-
             </div>
         );
     }

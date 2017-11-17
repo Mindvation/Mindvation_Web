@@ -215,6 +215,7 @@ const zh_CN = {
     editBasicInfo: "修改基础信息",
     editOptionalItems: "修改可选信息",
     Workload: "工作用时",
-    search: "搜索"
+    search: "搜索",
+    assign: "分配"
 };
 export default zh_CN;

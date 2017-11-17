@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Step, Button, Segment, Header, Icon} from 'semantic-ui-react';
+import {Step, Button, Segment} from 'semantic-ui-react';
 import BasicInfo from './BasicInfo';
 import DisplayRoles from './DisplayRoles';
 import IterationPlan from './IterationPlan';
@@ -8,6 +8,7 @@ import _ from 'lodash';
 import {FormattedMessage} from 'react-intl';
 import {createModel} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
+import Image from '../../common/Image';
 
 const steps = [
     {
@@ -142,48 +143,46 @@ class CreateModel extends Component {
         const {activeIndex, steps, modelInfo, showDetail} = this.state;
         return (
             <div className="project-content">
-                {!showDetail ? <div>
-                    <Header as='h3'>
-                        <Icon name='window maximize'/>
-                        <Header.Content className={"project-title underLine"}>
-                            <FormattedMessage
-                                id='createModel'
-                                defaultMessage='Create Model'
-                            />
-                        </Header.Content>
-                    </Header>
+                {!showDetail ? <div className="create-model">
+                    <div className="create-model-header">
+                        <Image name="model_create"/>
+                        <FormattedMessage
+                            id='createModel'
+                            defaultMessage='Create Model'
+                        />
+                    </div>
                     <Step.Group ordered items={steps}/>
-                    <Segment className="components-length" style={{display: activeIndex === 0 ? 'block' : 'none'}}>
+                    <Segment style={{display: activeIndex === 0 ? 'block' : 'none'}}>
                         <BasicInfo ref={node => this.basicNode = node}/>
                     </Segment>
                     {activeIndex === 1 ?
-                        <Segment className="components-length"><DisplayRoles modelInfo={modelInfo}/></Segment> : null}
-                    {activeIndex === 2 ? <Segment className="components-length">
+                        <Segment><DisplayRoles modelInfo={modelInfo}/></Segment> : null}
+                    {activeIndex === 2 ? <Segment>
                         <IterationPlan modelInfo={modelInfo} ref={node => this.iterationNode = node}/>
                     </Segment> : null}
-                    <Segment className="components-length" style={{display: activeIndex === 3 ? 'block' : 'none'}}>
+                    <Segment style={{display: activeIndex === 3 ? 'block' : 'none'}}>
                         <Attachments ref={node => this.attachNode = node}/>
                     </Segment>
-                    <div className={"create-model-footer components-length"}>
+                    <div className="create-model-footer">
                         <Button className="previous-button"
                                 style={{display: activeIndex > 0 ? 'block' : 'none'}}
-                                secondary onClick={() => this.previous()}>
+                                onClick={() => this.previous()}>
                             <FormattedMessage
                                 id='previous'
                                 defaultMessage='Previous'
                             />
                         </Button>
-                        <Button className="next-button"
+                        <Button className="next-button confirm-button"
                                 style={{display: activeIndex < steps.length - 1 ? 'block' : 'none'}}
-                                primary onClick={() => this.next()}>
+                                onClick={() => this.next()}>
                             <FormattedMessage
                                 id='next'
                                 defaultMessage='Next'
                             />
                         </Button>
-                        <Button className="next-button"
+                        <Button className="next-button confirm-button"
                                 style={{display: activeIndex === steps.length - 1 ? 'block' : 'none'}}
-                                primary onClick={() => this.newModel()}>
+                                onClick={() => this.newModel()}>
                             <FormattedMessage
                                 id='modelDone'
                                 defaultMessage='Done'

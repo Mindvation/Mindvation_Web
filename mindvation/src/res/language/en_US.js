@@ -215,6 +215,7 @@ const en_US = {
     editBasicInfo: "Edit Basic Info",
     editOptionalItems: "Edit Optional Items",
     Workload: "Workload",
-    search: "Search"
+    search: "Search",
+    assign: "Assign"
 };
 export default en_US;

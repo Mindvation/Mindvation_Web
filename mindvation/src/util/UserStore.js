@@ -11,9 +11,9 @@ export function getUser() {
 }
 
 export function checkUser(history) {
-    if (!getUser().staffId) {
+    /*if (!getUser().staffId) {
         history.push('/login')
-    }
+    }*/
 }
 
 export function removeUser() {

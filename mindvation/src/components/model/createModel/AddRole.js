@@ -30,17 +30,15 @@ class AddRole extends Component {
 
     render() {
         const {roleData} = this.state;
-        return (<div className={"model-label-cont item-horizontal components-item"}>
-            <Header as='h4'>
-                <Header.Content>
+        return (<div className={"model-label-cont components-item item-horizontal align-right"}>
+                <div className="field-title">
                     <FormattedMessage
                         id='role'
                         defaultMessage='Role'
                     />
-                </Header.Content>
-            </Header>
-            <div className="model-label-main">
-                <Button className="model-add-label" onClick={() => this.addRole()}>
+                </div>
+            <div className="model-label-main input-content">
+                <Button className="confirm-button" onClick={() => this.addRole()}>
                     <FormattedMessage
                         id='addRole'
                         defaultMessage='Add Role'

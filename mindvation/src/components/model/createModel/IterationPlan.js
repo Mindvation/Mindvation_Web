@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input, Header, Button, Icon, Modal, Segment, Label, List} from 'semantic-ui-react';
+import {Input, Button, Icon, Modal, Segment, List} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import _ from 'lodash';
 import {arrOrder} from '../../../util/CommUtil';
@@ -116,16 +116,14 @@ class IterationPlan extends Component {
     render() {
         const {planData, modalOpen, selectedLabels, leftLabels} = this.state;
         return (<div className="model-label-cont">
-            <Header as='h4'>
-                <Header.Content>
-                    <FormattedMessage
-                        id='iterationPlanModel'
-                        defaultMessage='Iteration Plan Model'
-                    />
-                </Header.Content>
-            </Header>
-            <div className="model-label-main">
-                <Button className="model-add-label" onClick={() => this.addIteration()}>
+            <div className="common-text">
+                <FormattedMessage
+                    id='iterationPlanModel'
+                    defaultMessage='Iteration Plan Model'
+                />
+            </div>
+            <div className="iteration-main">
+                <Button className="model-add-label confirm-button" onClick={() => this.addIteration()}>
                     <FormattedMessage
                         id='addIteration'
                         defaultMessage='Add Iteration'
@@ -137,23 +135,31 @@ class IterationPlan extends Component {
                             return <div key={iteration.key} className="iteration-item">
                                 {i === planData.length - 1 ? null : <Image className="iteration-arrow" name="arrow"/>}
                                 <div className="iteration-action">
-                                    <Icon name="trash" size="big" className={"mode-remove-label pointer-cursor"}
-                                          onClick={() => this.removeIteration(planData, iteration)}/>
-                                    <Icon name="pencil" size="big" className={"mode-remove-label pointer-cursor"}
-                                          onClick={() => this.updateIterationLabels(iteration)}
-                                    />
+                                    <Button className="remove-button compact-button"
+                                            onClick={() => this.removeIteration(planData, iteration)}>
+                                        <FormattedMessage
+                                            id='delete'
+                                            defaultMessage='Delete'
+                                        />
+                                    </Button>
+                                    <Button className="assign-button compact-button"
+                                            onClick={() => this.updateIterationLabels(iteration)}>
+                                        <FormattedMessage
+                                            id='assign'
+                                            defaultMessage='Assign'
+                                        />
+                                    </Button>
                                 </div>
                                 <div className="iteration-container">
                                     <div>
-                                        <Input autoFocus={true} onChange={(event, data) => {
+                                        <Input autoFocus={true} fluid onChange={(event, data) => {
                                             iteration.value = data.value;
                                         }}/>
                                     </div>
                                     {iteration.labels && iteration.labels.length > 0 ?
                                         iteration.labels.map((label) => {
                                             return <div key={label.key}>
-                                                <Label
-                                                    className="iteration-label">{label.value}</Label>
+                                                <div className="iteration-label">{label.value}</div>
                                             </div>
                                         }) : null
                                     }
@@ -167,37 +173,37 @@ class IterationPlan extends Component {
                 closeOnEscape={false}
                 closeOnRootNodeClick={false}
                 open={modalOpen}>
-                <Modal.Header>
+                <Modal.Header className="modal-title-border">
+                    <Image name="assign"/>
                     <FormattedMessage
                         id='assignLabel'
                         defaultMessage='Assign Progress/Function Label'
                     />
                 </Modal.Header>
                 <Modal.Content>
-                    <Segment className="all-tags-segment">
+                    <div className="all-tags-segment">
                         <List horizontal>
                             {leftLabels.map((label) => {
                                 return <List.Item key={label.key} style={{position: 'relative'}}>
-                                    {selectedLabels.indexOf(label) > -1 ?
-                                        <Icon name="check circle outline" color="green" size="large"
-                                              className="tags-icon"
-                                        /> : null}
-                                    <Button size="large" onClick={() => this.toggleLabels(selectedLabels, label)}>
+                                    <div
+                                        className={(selectedLabels.indexOf(label) > -1 ? "member-selected " : "")
+                                        + "choose-member-style"}
+                                        onClick={() => this.toggleLabels(selectedLabels, label)}>
                                         {label.value}
-                                    </Button>
+                                    </div>
                                 </List.Item>
                             })}
                         </List>
-                    </Segment>
+                    </div>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button secondary onClick={() => this.abandonAddLabel()}>
+                    <Button className="cancel-button" onClick={() => this.abandonAddLabel()}>
                         <FormattedMessage
                             id='cancel'
                             defaultMessage='Cancel'
                         />
                     </Button>
-                    <Button primary onClick={() => this.addLabelsToIteration()}>
+                    <Button className="confirm-button" onClick={() => this.addLabelsToIteration()}>
                         <FormattedMessage
                             id='confirm'
                             defaultMessage='Confirm'

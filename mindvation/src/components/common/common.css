@@ -3,6 +3,11 @@
     position: relative;
 }
 
+.common-text {
+    font-size: 14px;
+    color: #666666;
+}
+
 .components-length {
     width: 80% !important;
 }
@@ -462,6 +467,32 @@ img.ui.image.mv-image {
     color: #fffefe;
 }
 
+.previous-button.ui.button {
+    background-color: #eeeeee;
+    border: 2px solid #dddddd;
+    color: #666666;
+}
+
+.delete-button.ui.button {
+    background-color: #ffffff;
+    border: 2px solid #c35f5c;
+    color: #c35f5c;
+    margin-left: 20px;
+}
+
+.remove-button.ui.button {
+    background-color: #ffffff;
+    border: 2px solid #a85c90;
+    color: #a85c90;
+}
+
+.assign-button.ui.button {
+    background-color: #ffffff;
+    border: 2px solid #649fa7;
+    color: #649fa7;
+    margin-left: 20px;
+}
+
 .ui.modal .actions > .button {
     font-size: 14px;
     font-weight: normal;
@@ -633,4 +664,12 @@ img.ui.image.mv-image {
 .ui.comments .comment .author {
     font-size: 12px;
     color: #4481eb;
+}
+
+.compact-button.ui.button {
+    padding: 8px 20px;
+}
+
+.ui.button {
+    margin: 0;
 }

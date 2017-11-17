@@ -61,19 +61,17 @@ class SelectModel extends Component {
                        checked={checked}
                        placeHolder="modelNamePhDesc"
                 />
-                <Header as='h4'>
-                    <Icon name="cube"/>
-                    <Header.Content className="input-label">
+                <div className="components-item item-horizontal align-right">
+                    <div className="field-title">
                         <FormattedMessage
                             id='modelType'
                             defaultMessage='Model Type'
                         />
-                    </Header.Content>
-                </Header>
-                <Grid className={"select-model" + " " + (checked && !selectedKey ? "error" : "")} columns={3}>
-                    {
-                        models.map((model) => {
-                            return <Grid.Column className={"select-model-item"} key={model.key}>
+                    </div>
+                    <Grid className={"select-model input-content " + (checked && !selectedKey ? "error" : "")} columns={3}>
+                        {
+                            models.map((model) => {
+                                return <Grid.Column className="select-model-item" key={model.key}>
                                 <span className="pointer-cursor"
                                       onClick={() => this.setState({selectedKey: model.key})}>
                                     <Segment
@@ -85,10 +83,11 @@ class SelectModel extends Component {
                                         </div>
                                     </Segment>
                                 </span>
-                            </Grid.Column>
-                        })
-                    }
-                </Grid>
+                                </Grid.Column>
+                            })
+                        }
+                    </Grid>
+                </div>
             </Modal.Content>
         );
     }

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Button, List, Modal, Header, Icon} from 'semantic-ui-react';
-import {getTimeAndRandom, getRandomColor, checkCompleted} from '../../../util/CommUtil';
+import {Button, List, Modal} from 'semantic-ui-react';
+import {getTimeAndRandom, checkCompleted, getRandomStyle} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import SelectModel from '../../projects/story/SelectModel';
+import Image from '../../common/Image';
 
 let mandatoryFile = ["title", "modelType"];
 
@@ -38,12 +39,12 @@ class Attachments extends Component {
                     key: getTimeAndRandom(),
                     type: modelInfo.modelType,
                     title: modelInfo.title,
-                    color: getRandomColor()
+                    style: getRandomStyle()
                 }) : tempData = [{
                     key: getTimeAndRandom(),
                     type: modelInfo.modelType,
                     title: modelInfo.title,
-                    color: getRandomColor()
+                    style: getRandomStyle()
                 }];
             this.setState({
                 attachments: tempData
@@ -62,46 +63,40 @@ class Attachments extends Component {
         const {attachments, modalOpen} = this.state;
         return (
             <div className="model-label-cont">
-                <Header as='h4'>
-                    <Header.Content>
-                        <FormattedMessage
-                            id='taskAttachments'
-                            defaultMessage='Task Attachments'
-                        />
-                    </Header.Content>
-                </Header>
-                <div>
-                    <Button primary onClick={() => this.openModal()}>
+                <div className="common-text">
+                    <FormattedMessage
+                        id='taskAttachments'
+                        defaultMessage='Task Attachments'
+                    />
+                </div>
+                <div className="iteration-main">
+                    <Button className="confirm-button" onClick={() => this.openModal()}>
                         <FormattedMessage
                             id='add'
                             defaultMessage='Add'
                         />
                     </Button>
                 </div>
+
                 {
                     attachments && attachments.length > 0 ?
                         <List horizontal className="model-attach">
                             {attachments.map((attach) => {
                                 return <List.Item key={attach.key}>
-                                    <div className="list-content" style={{backgroundColor: attach.color}}>
+                                    <div className={"list-content tag-selected tag-style-" + (attach.style || 'default')}>
                                         <span className="list-text">{attach.title}</span>
                                         <div className="list-actions-content">
-                                            <span className="list-actions">
-                                                {/*<Icon name="pencil"
-                                                      className={"list-action-icon pointer-cursor"}
-                                                      onClick={() => this.editModel(attachments, attach)}
-                                                />*/}
-                                                <Icon name="trash"
-                                                      className={"list-action-icon pointer-cursor"}
-                                                      onClick={() => this.removeModel(attachments, attach)}
-                                                />
-                                            </span>
+                                            <div className="list-actions pointer-cursor"
+                                                 onClick={() => this.removeModel(attachments, attach)}>
+                                                <Image name="trash" style={{marginRight: 0}}/>
+                                            </div>
                                         </div>
                                     </div>
                                 </List.Item>
                             })}
                         </List> : null
                 }
+
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
@@ -121,7 +116,7 @@ class Attachments extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button className="confirm-button" onClick={() => this.update()}>
+                        <Button className="confirm-button" onClick={() => this.addModel()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'
