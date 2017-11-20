@@ -39,21 +39,21 @@ class MvSlider extends Component {
                         />
                     </div> : null
                 }
-                <div className="mv-slider-container input-content">
+                <div className="mv-slider-container input-content display-flex">
                     <div className="slider-container">
                         <Slider min={0} max={100} onChange={this.onChange} value={this.state.inputValue}
                                 defaultValue={value} disabled={disabled}/>
                     </div>
-                    <InputNumber
-                        disabled={disabled}
-                        min={0}
-                        max={100}
-                        style={{marginLeft: 16}}
-                        value={this.state.inputValue}
-                        onChange={this.onChange}
-                        size="large"
-                        defaultValue={value}
-                    />
+                    {disabled ? <span style={{paddingLeft: '10px'}}>{this.state.inputValue + '%'}</span> :
+                        <InputNumber
+                            min={0}
+                            max={100}
+                            style={{marginLeft: 16}}
+                            value={this.state.inputValue}
+                            onChange={this.onChange}
+                            size="large"
+                            defaultValue={value}
+                        />}
                 </div>
             </div>
         );

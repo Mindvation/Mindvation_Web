@@ -136,10 +136,8 @@ class StoryDetail extends Component {
                             />
                         </Segment>
                     </Grid.Column>
-                    <Grid.Column width={11} className="grid-component-right">
-                        <Segment>
-                            <TaskList story={story} dispatch={dispatch}/>
-                        </Segment>
+                    <Grid.Column width={11} className="grid-component-task">
+                        <TaskList story={story} dispatch={dispatch}/>
                         {hasAuth("createTask", story.authCode) ? <AddTask dispatch={dispatch} story={story}/> : null}
                     </Grid.Column>
                 </Grid>

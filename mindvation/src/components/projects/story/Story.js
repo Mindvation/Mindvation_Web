@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import StoryList from '../../../containers/stories_container';
 import CreateStory from '../../../containers/createStory_container';
-import {Header, Icon} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
+import Image from '../../common/Image';
 
 class Story extends Component {
     constructor() {
@@ -13,6 +13,7 @@ class Story extends Component {
         return (
             <div className="requirement-segment">
                 <div className="tab-item-header">
+                    <Image name="story"/>
                     <FormattedMessage
                         id='storyList'
                         defaultMessage='Story List'

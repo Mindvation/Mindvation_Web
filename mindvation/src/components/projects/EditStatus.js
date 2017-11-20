@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Label, Button} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Slider from '../common/Slider';
 import PropTypes from 'prop-types';
@@ -33,19 +33,18 @@ class EditStatus extends Component {
                         defaultMessage='Status'
                     />
                 </div>
-                <Label className="edit-status-rag"
-                       color={status.ragStatus === "R" ? "red" : status.ragStatus === "A" ? "yellow" : "green"}>
+                <div className={"edit-status-rag rag-color-" + status.ragStatus}>
                     {status.ragStatus === "R" ? "Red" : status.ragStatus === "A" ? "Amber" : "Green"}
-                </Label>
+                </div>
                 <div>
-                    <Button className={status.status === "new" ? "status-indicator" : "" + " status-button"}
+                    <Button className={(status.status === "new" ? "status-indicator" : "") + " status-button"}
                             disabled={true}>
                         <FormattedMessage
                             id='new'
                             defaultMessage='New'
                         />
                     </Button>
-                    <Button className={status.status === "inProgress" ? "status-indicator" : "" + " status-button"}
+                    <Button className={(status.status === "inProgress" ? "status-indicator" : "") + " status-button"}
                             onClick={() => this.changeStatus('inProgress')}
                             disabled={disabled || status.status === "done" || status.status === "close" || status.status === "hold"}>
                         <FormattedMessage
@@ -53,7 +52,7 @@ class EditStatus extends Component {
                             defaultMessage='In Progress'
                         />
                     </Button>
-                    <Button className={status.status === "done" ? "status-indicator" : "" + " status-button"}
+                    <Button className={(status.status === "done" ? "status-indicator" : "") + " status-button"}
                             disabled={disabled}
                             onClick={() => this.changeStatus('done')}>
                         <FormattedMessage
@@ -62,7 +61,7 @@ class EditStatus extends Component {
                         />
                     </Button>
                     {isStory ? <span>
-                        <Button className={status.status === "close" ? "status-indicator" : "" + " status-button"}
+                        <Button className={(status.status === "close" ? "status-indicator" : "") + " status-button"}
                                 disabled={disabled}
                                 onClick={() => this.changeStatus('close')}>
                             <FormattedMessage
@@ -79,7 +78,7 @@ class EditStatus extends Component {
                             />
                         </Button>
                     </span> : null}
-                    <Button className={status.status === "reopen" ? "status-indicator" : "" + " status-button"}
+                    <Button className={(status.status === "reopen" ? "status-indicator" : "") + " status-button"}
                             disabled={disabled}
                             onClick={() => this.changeStatus('reopen')}>
                         <FormattedMessage
@@ -90,16 +89,16 @@ class EditStatus extends Component {
                 </div>
                 {status.status === "inProgress" ? <div className="components-item edit-status-progress">
                     <Slider className="edit-status-slider"
-                            disabled={disabled}
+                            disabled={true}
                             value={status.percent}
                             ref={node => this.progressNode = node}/>
-                    {disabled ? null : <Button compact className="edit-status-confirm"
+                    {/*{disabled ? null : <Button compact className="edit-status-confirm"
                                                onClick={() => this.changeStatus('inProgress', this.progressNode.getValue())}>
                         <FormattedMessage
                             id='confirm'
                             defaultMessage='Confirm'
                         />
-                    </Button>}
+                    </Button>}*/}
                 </div> : null}
             </div>
         );

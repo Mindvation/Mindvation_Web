@@ -42,12 +42,12 @@ class CreateProject extends Component {
         const {dispatch} = this.props;
         return (
             <div className="model-main-container">
-                <div className="create-project-button" onClick={() => this.openModal()}>
+                <Button className="confirm-button create-project-button" onClick={() => this.openModal()}>
                     + <FormattedMessage
                     id='createProject'
                     defaultMessage='Create Project'
                 />
-                </div>
+                </Button>
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}

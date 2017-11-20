@@ -132,6 +132,7 @@ const zh_CN = {
     modelNamePh: "请输入模块名称",
     modelType: "模块类型",
     customModelTypeSelection: "自定义模块类型选择",
+    progress: "进度",
     editProgress: "修改进度",
     Comment: "备注",
     createModel: "创建模板",

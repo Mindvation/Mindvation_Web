@@ -289,21 +289,22 @@
 }
 
 .tag-footer {
-    position: relative;
+    position: static;
 }
 
 .tag-footer-text {
-    position: absolute;
     width: 100%;
     font-size: 12px;
     text-align: center;
     background: rgba(113, 129, 173, 0.5);
     color: #ffffff;
-    border-radius: 4px;
+    border-radius: 0 0 4px 4px;
+    margin-top: -4px;
+    padding-top: 4px;
 }
 
 .choose-members-search {
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
     width: 50%;
 }
 
@@ -337,8 +338,8 @@
 }
 
 .ui.button.upload-attach-button {
-    margin-right: 1em;
-    margin-bottom: 1em;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .custom-model-delete {
@@ -468,7 +469,12 @@
     box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2), 1px 3px 15px 2px rgba(0, 0, 0, .2);
 }
 
-.model-label {
+.select-model-desc {
+
+}
+
+.ui.divider.select-model-divider {
+    margin: 20px -10px;
 }
 
 .ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected,
@@ -609,6 +615,16 @@ i.icon.mode-remove-label {
 .ui.horizontal.list > .item {
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+.member-tag-list.ui.horizontal.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.ui.table tbody td.table-td-tags {
+    padding-bottom: 10px;
 }
 
 .model-attach .list-content {
@@ -753,7 +769,11 @@ i.icon.mode-remove-label {
 }
 
 .add-task-attach {
-    width: 30%;
+    width: 40%;
+}
+
+.add-task-attach .upload-multi .ant-carousel .slick-slider .slick-list {
+    height: calc(10vw);
 }
 
 .task-upload-file {
@@ -767,17 +787,18 @@ i.icon.mode-remove-label {
 .task-header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .task-id {
-    color: #000000;
-    font-size: 20px;
-    margin-right: 1em;
+    color: #333333;
+    font-size: 14px;
+    margin-right: 20px;
 }
 
 .task-model-name {
-    color: #000000;
-    font-size: 20px;
+    color: #333333;
+    font-size: 14px;
     float: right;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -785,11 +806,13 @@ i.icon.mode-remove-label {
 }
 
 .task-desc {
-    margin: 0.5em 0;
+    margin-bottom: 10px;
+    color: #999999;
+    font-size: 14px;
 }
 
 .task-member {
-    margin-bottom: 0.5em;
+    margin-bottom: 20px;
 }
 
 .edit-status-progress {
@@ -816,7 +839,22 @@ i.icon.mode-remove-label {
 .edit-status-rag {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -10px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    color: #ffffff;
+}
+
+.rag-color-R {
+    background: rgba(195, 95, 92, 0.5);
+}
+
+.rag-color-A {
+    background: rgba(212, 134, 91, 0.5);
+}
+
+.rag-color-G {
+    background: rgba(156, 190, 90, 0.5);
 }
 
 .status-indicator.ui.button {
@@ -982,7 +1020,7 @@ i.icon.mode-remove-label {
 .create-project-button {
     position: absolute;
     right: 20px;
-    top: -40px;
+    top: -50px;
     font-size: 14px;
     color: #577ca6;
     cursor: pointer;
@@ -1083,7 +1121,10 @@ i.icon.mode-remove-label {
     color: #999999;
 }
 
-.ui.grid > .column.grid-component-left,
+.ui.grid > .column.grid-component-left {
+    padding: 0 10px 10px 0;
+}
+
 .ui.grid > .column.grid-right-top-left {
     padding: 0 10px 0 0;
 }
@@ -1118,6 +1159,7 @@ i.icon.mode-remove-label {
 
 .ui.button.status-button {
     margin-top: 10px;
+    margin-right: 10px;
     background-color: #f5f5f5;
     border: 2px solid #eeeeee;
 }
@@ -1256,10 +1298,6 @@ i.icon.mode-remove-label {
     padding: 10px;
 }
 
-.ui.grid > .column:not(.row) {
-    padding: 10px;
-}
-
 .create-model-header {
     font-size: 18px;
     display: flex;
@@ -1276,4 +1314,12 @@ i.icon.mode-remove-label {
 
 .create-model .ui.segment {
     margin: 0;
+}
+
+.ui.grid > .column.task-list-item {
+    padding: 0 10px 10px 0;
+}
+
+.ui.grid > .column.grid-component-task {
+    padding: 0 0 10px 0;
 }

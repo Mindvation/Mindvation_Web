@@ -133,6 +133,7 @@ const en_US = {
     modelType: "Module Type",
     customModelTypeSelection: "Custom Model Type Selection",
     editProgress: "Edit Progress",
+    progress: "Progress",
     Comment: "Comment",
     createModel: "Create Model",
     previous: "Previous",

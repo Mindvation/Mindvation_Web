@@ -6,6 +6,7 @@ import UploadAndProgress from '../../common/UploadAndProgress';
 import EditProgress from './detail/EditProgress';
 import {updateTaskStatus} from '../../../actions/story_action';
 import {hasAuth} from '../../../util/AuthUtil';
+import MVImage from '../../common/Image';
 
 class TaskList extends Component {
     state = {
@@ -18,7 +19,6 @@ class TaskList extends Component {
     };
 
     updateProgress = (task) => {
-        console.info(task);
         this.props.dispatch(updateTaskStatus(task, () => {
             this.editProgressNode.closeModal();
         }));
@@ -46,16 +46,19 @@ class TaskList extends Component {
     render() {
         const {story} = this.props;
         return (
-            <div style={{margin: '-10px'}}>
+            <div>
                 {story && story.tasks && story.tasks.length > 0 ? <Grid className="upload-attach-content" columns={3}>
                     {
                         story.tasks.map((task, i) => {
-                            return <Grid.Column key={i}>
+                            return <Grid.Column key={i} className="task-list-item">
                                 <Segment className="task-upload-file">
                                     <div className="task-header">
-                                        <span className="task-id">
-                                            {task.idNumber}
-                                        </span>
+                                        <div className="display-flex">
+                                            <MVImage name="task"/>
+                                            <span className="task-id">
+                                                {task.idNumber}
+                                            </span>
+                                        </div>
                                         <span className="task-model-name">
                                             {task.model.title}
                                         </span>

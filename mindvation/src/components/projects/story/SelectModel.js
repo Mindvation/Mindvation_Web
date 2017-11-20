@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Modal, Segment, Image, Grid, Icon} from 'semantic-ui-react';
+import {Divider, Modal, Segment, Image, Grid} from 'semantic-ui-react';
 import Input from '../../common/Input';
 import {FormattedMessage} from 'react-intl';
 
@@ -68,7 +68,8 @@ class SelectModel extends Component {
                             defaultMessage='Model Type'
                         />
                     </div>
-                    <Grid className={"select-model input-content " + (checked && !selectedKey ? "error" : "")} columns={3}>
+                    <Grid className={"select-model input-content " + (checked && !selectedKey ? "error" : "")}
+                          columns={3}>
                         {
                             models.map((model) => {
                                 return <Grid.Column className="select-model-item" key={model.key}>
@@ -78,7 +79,8 @@ class SelectModel extends Component {
                                         className={selectedKey === model.key ? "selected" : ""}
                                         key={model.key}>
                                         <Image src={model.image}/>
-                                        <div>
+                                        <Divider className="select-model-divider"/>
+                                        <div className="select-model-desc">
                                             {model.desc}
                                         </div>
                                     </Segment>

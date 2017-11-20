@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {Upload, Carousel} from 'antd';
-import {Image, Button, Icon} from 'semantic-ui-react';
+import {Image, Icon} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Message from './Message';
 import PropTypes from 'prop-types';
 import {url} from '../../util/ServiceUrl';
 import {addFileToTask, removeFileFromTask} from '../../util/Service';
 import {getStaffId} from '../../util/UserStore';
+import MVImage from './Image';
 
 let messageNode;
 
@@ -81,13 +82,12 @@ class UploadMulti extends Component {
         const {fileList, displayFileList, uploading} = this.state;
         const {readOnly} = this.props;
         const uploadButton = (
-            <Button loading={uploading} disabled={readOnly}>
-                <Icon name="upload"/>
+            readOnly ? null : <div>
                 <FormattedMessage
                     id='uploadAttachment'
                     defaultMessage='Upload Attachment'
                 />
-            </Button>
+            </div>
         );
         const props = {
             name: 'mFile',
@@ -104,6 +104,13 @@ class UploadMulti extends Component {
         };
         return (
             <div className="upload-multi">
+                <div className="status-header upload-multi-title">
+                    <MVImage name="attachment"/>
+                    <FormattedMessage
+                        id='Attachments'
+                        defaultMessage='Attachments'
+                    />
+                </div>
                 <Carousel>
                     {displayFileList.length > 0 ? displayFileList.map((file) => {
                         return <div key={file.uid}>
@@ -128,13 +135,15 @@ class UploadMulti extends Component {
                         />
                     </div>}
                 </Carousel>
-                <Upload {...props}
-                        listType='picture'
-                        fileList={fileList}
-                        disabled={readOnly || uploading}
-                >
-                    {uploadButton}
-                </Upload>
+                <div className="upload-multi-button">
+                    <Upload {...props}
+                            listType='picture'
+                            fileList={fileList}
+                            disabled={readOnly || uploading}
+                    >
+                        {uploadButton}
+                    </Upload>
+                </div>
                 <Message ref={node => messageNode = node}/>
             </div>
         );

@@ -31,7 +31,7 @@ class TagListForMember extends Component {
     render() {
         const {tagList, shortTag} = this.props;
         return (
-            tagList.length === 0 ? null : <List horizontal>
+            tagList.length === 0 ? null : <List horizontal className="member-tag-list">
                 {tagList.map((tag) => {
                     return <List.Item key={tag.tagId} style={{position: 'relative'}}>
                         <div

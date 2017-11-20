@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
-import {Segment, Button, Header, Modal} from 'semantic-ui-react';
+import {Segment, Button, Modal} from 'semantic-ui-react';
 import Progress from '../../common/Progress';
 import UploadMulti from '../../common/UploadMulti';
 import UploadAndProgress from '../../common/UploadAndProgress';
 import {getTimeAndRandom, checkCompleted} from '../../../util/CommUtil';
 import SelectModel from './SelectModel';
 import {FormattedMessage} from 'react-intl';
+import Image from '../../common/Image';
 
 let mandatoryFile = ["title", "modelType"];
 
 class SelectAttach extends Component {
     state = {
         model: {},
-        modalOpen: false
+        modalOpen: false,
+        selectedCustom: false
     };
 
     fixBody = () => {
@@ -34,6 +36,7 @@ class SelectAttach extends Component {
         if (flag) {
             this.closeModal();
             this.setState({
+                selectedCustom: true,
                 model: {
                     key: getTimeAndRandom(),
                     type: modelInfo.modelType,
@@ -53,6 +56,7 @@ class SelectAttach extends Component {
             this.fixBody();
         } else {
             this.setState({
+                selectedCustom: false,
                 model: model.data
             })
         }
@@ -75,7 +79,7 @@ class SelectAttach extends Component {
     }
 
     render() {
-        const {modalOpen, model} = this.state;
+        const {modalOpen, model, selectedCustom} = this.state;
         const {taskDeliveries = []} = this.props;
         return (
             <div>
@@ -83,13 +87,11 @@ class SelectAttach extends Component {
                     {
                         taskDeliveries.map((item, i) => {
                             return <Button key={i}
-                                           basic
-                                           className="upload-attach-button"
+                                           className={"upload-attach-button " + (item.text === model.title ? "confirm-button" : "cancel-button")}
                                            onClick={() => this.SelectModel(item)}>{item.text}</Button>
                         })
                     }
-                    <Button basic
-                            className="upload-attach-button"
+                    <Button className={"upload-attach-button " + (selectedCustom ? "confirm-button" : "cancel-button")}
                             onClick={() => this.SelectModel({
                                 key: "custom",
                                 text: "自定义"
@@ -97,13 +99,11 @@ class SelectAttach extends Component {
                 </div>
 
                 {model.title ? <Segment className="story-upload-file add-task-attach">
-                    <Header as='h4'>
-                        <Header.Content>
-                            <span className="underLine">
-                                {model.title}
-                            </span>
-                        </Header.Content>
-                    </Header>
+                    <div className="task-header">
+                        <span className="task-id">
+                            {model.title}
+                        </span>
+                    </div>
                     {this.getComponent(model)}
                 </Segment> : null}
                 <Modal
@@ -111,7 +111,8 @@ class SelectAttach extends Component {
                     closeOnRootNodeClick={false}
                     open={modalOpen}
                     size='large'>
-                    <Modal.Header>
+                    <Modal.Header className="modal-title-border">
+                        <Image name="select_model"/>
                         <FormattedMessage
                             id='customModelTypeSelection'
                             defaultMessage='Custom Model Type Selection'

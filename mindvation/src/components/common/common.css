@@ -172,14 +172,17 @@
     color: #fff;
 }
 
-.list-no-file {
-    padding-top: 5em;
+.ant-carousel .slick-initialized .slick-slide.list-no-file {
+    display: flex;
+    align-items: center;
 }
 
-.upload-multi .ant-upload.ant-upload-select {
-    position: relative;
+.ant-carousel .slick-track {
+    height: 100%;
+}
+
+.ant-carousel .slick-initialized .slick-slide.list-no-file > span {
     width: 100%;
-    margin-top: 2em;
 }
 
 .upload-multi .ui.button {
@@ -195,7 +198,7 @@
 }
 
 .upload-multi .ant-carousel .slick-slider .slick-list {
-    height: calc(20vw - 5em);
+    height: calc(20vw - 3em);
 }
 
 .upload-multi .ant-carousel .slick-dots {
@@ -207,7 +210,7 @@
 }
 
 .upload-multi .ant-carousel .slick-slide img {
-    height: calc(20vw - 6em);
+    height: calc(20vw - 4em);
     width: 100%;
 }
 
@@ -296,18 +299,85 @@
 }
 
 .upload-progress-top {
+    position: relative;
 }
 
 .upload-progress-bar {
-    position: relative;
-    width: 100%;
-    margin-top: 1em;
+    margin-top: 25px;
 }
 
-.upload-progress-top .upload-multi .ant-upload.ant-upload-select {
-    position: relative;
+.ant-progress.ant-progress-circle {
+    margin-top: 20px;
+}
+
+.ant-progress-circle .ant-progress-inner {
+    width: 80% !important;
+    height: 80% !important;
+}
+
+.ant-progress {
     width: 100%;
-    margin-top: 2em;
+    text-align: center;
+}
+
+.ant-progress-bg {
+    background: linear-gradient(to right, #22315b, #577ca6);
+}
+
+.ant-progress-circle-path {
+    stroke: #577ca6;
+}
+
+.ant-progress-text {
+    color: #577ca6;
+    font-size: 36px;
+}
+
+.ant-progress-show-info .ant-progress-outer {
+    padding: 0;
+    margin: 0;
+}
+
+.ant-progress-line .ant-progress-text {
+    font-size: 14px;
+    margin-left: 10px;
+    width: auto;
+}
+
+.ant-progress-line > div {
+    display: flex;
+    align-items: center;
+}
+
+.ant-slider-rail {
+    height: 10px;
+    border-radius: 5px;
+    background-color: #cccccc;
+}
+
+.ant-slider-track,
+.ant-slider:hover .ant-slider-track {
+    height: 10px;
+    border-radius: 5px;
+    /*background-color: #577ca6;*/
+    background: linear-gradient(to right, #22315b, #577ca6);
+}
+
+.ant-slider-step {
+    height: 10px;
+}
+
+.ant-slider-handle,
+.ant-slider:hover .ant-slider-handle {
+    width: 20px;
+    height: 20px;
+    border: solid 2px #577ca6;
+}
+
+.upload-multi .ant-upload.ant-upload-select {
+    position: relative;
+    width: auto;
+    margin-top: 0;
 }
 
 .upload-progress-top .upload-multi .ant-carousel .slick-slide img {
@@ -316,6 +386,34 @@
 
 .upload-progress-top .upload-multi .ant-carousel .slick-slider .slick-list {
     height: calc(20vw - 8.5em);
+}
+
+.upload-multi-title {
+    margin-bottom: 10px;
+}
+
+.upload-multi {
+    position: relative;
+}
+
+.upload-multi-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #577ca6;
+    cursor: pointer;
+}
+
+.edit-progress {
+    position: relative;
+}
+
+.edit-progress-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #577ca6;
+    cursor: pointer;
 }
 
 .mv-slider-container {
@@ -504,6 +602,7 @@ img.ui.image.mv-image {
     font-size: 14px;
     cursor: pointer;
     border-radius: 4px;
+    position: relative;
 }
 
 .tag-style.tag-selected {

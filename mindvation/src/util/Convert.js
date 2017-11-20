@@ -1088,8 +1088,9 @@ export function convertStoryToLocal(res) {
     }
 
     if (res.sTasks && res.sTasks.length > 0) {
-        res.sTasks.map((task) => {
-            story.tasks.push(convertTaskToLocal(task))
+        res.sTasks.map((item) => {
+            const {task} = convertTaskToLocal(item);
+            story.tasks.push(task)
         })
     }
 
@@ -1373,6 +1374,20 @@ export function convertTaskToLocal(res) {
         progress: res.progress
     };
 
+    let story = {};
+    if (res.story) {
+        story = {
+            projectId: res.story.projId,
+            reqId: res.story.reqmntId,
+            storyId: res.story.storyId,
+            status: {
+                status: res.story.status,
+                percent: res.story.progress,
+                ragStatus: res.story.ragStatus
+            }
+        }
+    }
+
     if (!isEmpty(res.startTime)) {
         task.startDate = dateFormat(new Date(res.startTime), "yyyy-MM-dd");
     }
@@ -1410,7 +1425,7 @@ export function convertTaskToLocal(res) {
         })
     }*/
 
-    return task;
+    return {task, story};
 }
 
 export function convertTaskStatusToServer(statusInfo) {

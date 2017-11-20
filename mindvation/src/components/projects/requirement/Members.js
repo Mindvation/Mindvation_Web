@@ -186,6 +186,7 @@ class Members extends Component {
                                 {
                                     memberKey.map((key, j) => {
                                         return <Table.Cell
+                                            className={key === "tags" ? "table-td-tags" : ""}
                                             key={i + "_" + j}>
                                             {this.getMemberDesc(result, key)}
                                         </Table.Cell>

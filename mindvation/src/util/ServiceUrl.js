@@ -2,7 +2,7 @@ let url;
 const isProduction = true;
 
 if (isProduction) {
-    const gateWay = "http://47.100.100.211:";
+    const gateWay = "http://192.168.0.254:";
     url = {
         login: gateWay + '8080/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',

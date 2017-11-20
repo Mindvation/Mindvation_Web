@@ -8,6 +8,7 @@ import {addTask} from '../../../actions/story_action';
 import {FormattedMessage} from 'react-intl';
 import {retrieveStaff} from '../../../util/Service';
 import {getStaffId} from '../../../util/UserStore';
+import MVImage from "../../common/Image";
 
 class AddTask extends Component {
     state = {modalOpen: false, assignOption: []};
@@ -57,7 +58,7 @@ class AddTask extends Component {
         const {story} = this.props;
         return (
             <div>
-                <Button color='blue' onClick={() => this.openModal()}>
+                <Button className="confirm-button" onClick={() => this.openModal()}>
                     <FormattedMessage
                         id='addTask'
                         defaultMessage='Add Task'
@@ -67,7 +68,8 @@ class AddTask extends Component {
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
-                    <Modal.Header>
+                    <Modal.Header className="modal-title-border">
+                        <MVImage name="project"/>
                         <FormattedMessage
                             id='addTask'
                             defaultMessage='Add Task'
@@ -93,14 +95,12 @@ class AddTask extends Component {
                             />
                             <div className="components-item item-horizontal align-right">
                                 <div className='field-title'>
-                                    <div>
-                                        <FormattedMessage
-                                            id="taskAttachments"
-                                            defaultMessage='Task Attachments'
-                                        />
-                                    </div>
+                                    <FormattedMessage
+                                        id="taskAttachments"
+                                        defaultMessage='Task Attachments'
+                                    />
                                 </div>
-                                <div className="input-content">
+                                <div className="input-content add-task">
                                     <SelectAttach taskDeliveries={story.taskDeliveries}
                                                   ref={node => this.modelNode = node}/>
                                 </div>

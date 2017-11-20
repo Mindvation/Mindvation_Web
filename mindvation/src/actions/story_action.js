@@ -151,8 +151,9 @@ export function addTask(taskInfo, callback) {
         post(url.addTask, params)
             .then((res) => {
                 StaticLoad.remove("addTask");
-                const task = convertTaskToLocal(res.responseBody);
-                dispatch(addTaskToStory(task));
+                const {task, story} = convertTaskToLocal(res.responseBody);
+                dispatch(updateStoryTask(task));
+                dispatch(updateStory(story));
                 callback();
             })
             .catch((error) => {
@@ -170,8 +171,9 @@ export function updateTaskStatus(statusInfo, callback) {
         post(url.updateTask, params)
             .then((res) => {
                 StaticLoad.remove("updateTaskStatus");
-                const task = convertTaskToLocal(res.responseBody);
+                const {task, story} = convertTaskToLocal(res.responseBody);
                 dispatch(updateStoryTask(task));
+                dispatch(updateStory(story));
                 callback();
             })
             .catch((error) => {

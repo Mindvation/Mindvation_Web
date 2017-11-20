@@ -62,23 +62,23 @@ class StoryList extends Component {
     render() {
         const {stories, dispatch} = this.props;
         return (
-            <Table className="requirement-card">
-                <Table.Header>
-                    <Table.Row>
-                        {
-                            header.map((result, i) => {
-                                return <Table.HeaderCell className="requirement-cell-length" key={i}>
-                                    <FormattedMessage
-                                        id={result}
-                                    />
-                                </Table.HeaderCell>
-                            })
-                        }
-                    </Table.Row>
-                </Table.Header>
-                {
-                    stories.stories.map((result, i) => {
-                        return <Table.Body key={i}>
+            <div>
+                {stories.stories.map((result, i) => {
+                    return <Table key={i} className="requirement-card">
+                        <Table.Header>
+                            <Table.Row>
+                                {
+                                    header.map((result, i) => {
+                                        return <Table.HeaderCell className="requirement-cell-length" key={i}>
+                                            <FormattedMessage
+                                                id={result}
+                                            />
+                                        </Table.HeaderCell>
+                                    })
+                                }
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
                             <Table.Row>
                                 {
                                     rmKey.map((key, j) => {
@@ -96,19 +96,14 @@ class StoryList extends Component {
                                 </Table.Cell>
                             </Table.Row>
                         </Table.Body>
-                    })
-                }
+                    </Table>
+                })}
 
-                <Table.Footer>
-                    <Table.Row>
-                        <Table.HeaderCell colSpan={header.length}>
-                            <Pagination defaultCurrent={1} total={stories.totalElements}
-                                        showQuickJumper
-                                        onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
-                        </Table.HeaderCell>
-                    </Table.Row>
-                </Table.Footer>
-            </Table>
+                <div className="requirement-pagination">
+                    <Pagination defaultCurrent={1} total={stories.totalElements}
+                                onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
+                </div>
+            </div>
         );
     }
 }
