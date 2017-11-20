@@ -83,6 +83,7 @@
 
 .align-right {
     justify-content: flex-end;
+    padding-right: 10%;
 }
 
 /*.ui.selection.dropdown {
@@ -333,6 +334,10 @@
     font-size: 36px;
 }
 
+.ant-progress-status-success .ant-progress-bg {
+    background: #00a854;
+}
+
 .ant-progress-show-info .ant-progress-outer {
     padding: 0;
     margin: 0;
@@ -528,7 +533,7 @@ img.ui.image.logon-back-image {
 .input-content.ui.form,
 .input-content.ui.selection.dropdown,
 .input-content.ui.input {
-    width: 70%;
+    width: 80%;
 }
 
 .full-width.ui.selection.dropdown,

@@ -19,42 +19,40 @@ class CreateDepartment extends Component {
     render() {
         const {modalOpen} = this.state;
         return (
-            <div className="project-content">
-                <div>
-                    <Button color='blue' onClick={() => this.openModal()}>
+            <div className="model-main-container">
+                <Button className="confirm-button create-project-button" onClick={() => this.openModal()}>
+                    + <FormattedMessage
+                    id='createDepartment'
+                    defaultMessage='Create Department'
+                />
+                </Button>
+                <Modal
+                    closeOnEscape={false}
+                    closeOnRootNodeClick={false}
+                    open={modalOpen}
+                    size='large'>
+                    <Modal.Header>
                         <FormattedMessage
                             id='createDepartment'
                             defaultMessage='Create Department'
                         />
-                    </Button>
-                    <Modal
-                        closeOnEscape={false}
-                        closeOnRootNodeClick={false}
-                        open={modalOpen}
-                        size='large'>
-                        <Modal.Header>
+                    </Modal.Header>
+                    <DepartmentInfo ref={(node) => this.departmentInfoNode = node}/>
+                    <Modal.Actions>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
-                                id='createDepartment'
-                                defaultMessage='Create Department'
+                                id='cancel'
+                                defaultMessage='Cancel'
                             />
-                        </Modal.Header>
-                        <DepartmentInfo ref={(node) => this.departmentInfoNode = node}/>
-                        <Modal.Actions>
-                            <Button className="cancel-button" onClick={() => this.closeModal()}>
-                                <FormattedMessage
-                                    id='cancel'
-                                    defaultMessage='Cancel'
-                                />
-                            </Button>
-                            <Button className="confirm-button" onClick={() => this.newDepartment()}>
-                                <FormattedMessage
-                                    id='confirm'
-                                    defaultMessage='Confirm'
-                                />
-                            </Button>
-                        </Modal.Actions>
-                    </Modal>
-                </div>
+                        </Button>
+                        <Button className="confirm-button" onClick={() => this.newDepartment()}>
+                            <FormattedMessage
+                                id='confirm'
+                                defaultMessage='Confirm'
+                            />
+                        </Button>
+                    </Modal.Actions>
+                </Modal>
             </div>
         );
     }
