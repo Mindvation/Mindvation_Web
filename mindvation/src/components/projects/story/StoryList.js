@@ -64,7 +64,7 @@ class StoryList extends Component {
         return (
             <div>
                 {stories.stories.map((result, i) => {
-                    return <Table key={i} className="requirement-card">
+                    return <Table textAlign="center" key={i} className="requirement-card">
                         <Table.Header>
                             <Table.Row>
                                 {

@@ -226,19 +226,31 @@ export const positionLevelOptions = [
 
 export const modelOptions = [
     {
-        text: '软件',
+        text: <FormattedMessage
+            id='software'
+            defaultMessage='Software'
+        />,
         value: 'software'
     },
     {
-        text: '工程',
+        text: <FormattedMessage
+            id='engineering'
+            defaultMessage='Engineering'
+        />,
         value: 'engineering'
     },
     {
-        text: '业务需求',
+        text: <FormattedMessage
+            id='businessRequirements'
+            defaultMessage='Business Requirements'
+        />,
         value: 'business requirements'
     },
     {
-        text: '技术',
+        text: <FormattedMessage
+            id='technology'
+            defaultMessage='Technology'
+        />,
         value: 'technology'
     }
 ];

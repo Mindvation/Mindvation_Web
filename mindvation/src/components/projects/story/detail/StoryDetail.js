@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Header, Segment, Tab, Menu, Icon} from 'semantic-ui-react';
+import {Grid, Segment, Tab, Menu} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import {getStoryById, updateStoryStatus} from '../../../../actions/story_action';
 import EditBasicInfo from './EditBasicInfo';

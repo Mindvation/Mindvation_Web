@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import {Header, Icon, Table, Button, List, Image} from 'semantic-ui-react';
+import {Table, Button, Image, Modal} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {FormattedMessage} from 'react-intl';
 import {isEmpty} from '../../../util/CommUtil';
 import {getModels} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
 import {modelOptions} from '../../../res/data/dataOptions';
+import MVImage from '../../common/Image';
 
+const header = ["Ranking", "Templates Name", "Creator", "Vote", "Quoted", "Comment", "Detail"];
 const rmKey = ["sort", "name", "creatorInfo", "vote", "quoted", "comments"];
 
 class ModelList extends Component {
@@ -16,9 +18,10 @@ class ModelList extends Component {
             models: [],
             totalNumber: 1
         },
-        showDetail: false,
+        modalOpen: false,
         selectedModel: 'software',
-        currentPage: 1
+        currentPage: 1,
+        selectedModelId: null
     };
 
     componentWillMount() {
@@ -74,10 +77,9 @@ class ModelList extends Component {
 
     handleDisplayData = (data, key) => {
         if (key === "sort") {
-            return <div className={"display-flex sort-color-" + (data[key] < 4 ? data[key] : "other")}>
-                <Icon name="winner" size="huge"/>
-                <div className="sort-text">{data[key]}</div>
-            </div>
+            return data[key] < 4 ?
+                <MVImage name={"medal_" + data[key]} style={{marginRight: 0}}/> :
+                <div className="sort-text">data[key]</div>
         }
         if (key === "creatorInfo") {
             return <div className="display-flex">
@@ -93,20 +95,20 @@ class ModelList extends Component {
         }
 
         if (key === "vote") {
-            return <div>
-                <Icon name="thumbs up" size="big"/>{data.model[key] ? data.model[key] : 0}
+            return <div className="display-flex-center">
+                <MVImage name="like_withMe"/>{data.model[key] ? data.model[key] : 0}
             </div>
         }
 
         if (key === "quoted") {
-            return <div>
-                <Icon name="external share" size="big"/>{data.model[key] ? data.model[key] : 0}
+            return <div className="display-flex-center">
+                <MVImage name="quote"/>{data.model[key] ? data.model[key] : 0}
             </div>
         }
 
         if (key === "comments") {
-            return <div>
-                <Icon name="talk" size="big"/>{data.model[key] ? data.model[key] : 0}
+            return <div className="display-flex-center">
+                <MVImage name="comments"/>{data.model[key] ? data.model[key] : 0}
             </div>
         }
 
@@ -119,91 +121,110 @@ class ModelList extends Component {
 
     showModelDetail = (model) => {
         this.setState({
-            showDetail: true
-        }, () => {
-            this.modelDetailNode.initModelData(model.model.modelId);
+            modalOpen: true,
+            selectedModelId: model.model.modelId
         });
     };
 
-    showModelList = () => {
+    closeModal = () => {
         this.setState({
-            showDetail: false
+            modalOpen: false
         });
     };
 
     render() {
-        const {model, showDetail, selectedModel, currentPage} = this.state;
+        const {model, modalOpen, selectedModel, currentPage, selectedModelId} = this.state;
         return (
-            <div className="project-content">
-                <div style={{display: showDetail ? 'none' : 'block'}}>
-                    <Header as='h3'>
-                        <Icon name='file text outline'/>
-                        <Header.Content className={"project-title underLine"}>
-                            Models And Templates
-                        </Header.Content>
-                    </Header>
-                    <div>
-                        <List horizontal className="model-attach">
-                            {modelOptions.map((option) => {
-                                return <List.Item key={option.value}>
-                                    <Button primary={selectedModel === option.value}
-                                            onClick={() => {
-                                                this.getModelsByType(option.value)
-                                            }}>{option.text}</Button>
-                                </List.Item>
-                            })}
-                        </List>
+            <div>
+                <div>
+                    <div className="project-header">
+                        <MVImage name='templates'/>
+                        <FormattedMessage
+                            id='modelsAndTemplates'
+                            defaultMessage='Models And Templates'
+                        />
                     </div>
-                    <Table striped>
-                        <Table.Body>
-                            {
-                                model.models.map((result, i) => {
-                                    return <Table.Row key={i}>
-                                        {
-                                            rmKey.map((key, j) => {
-                                                return <Table.Cell
-                                                    key={i + "_" + j}>
-                                                    {this.handleDisplayData(result, key)}
-                                                </Table.Cell>
-                                            })
-                                        }
-                                        <Table.Cell className="checklist-action-cell">
-                                            <Button primary size="small" onClick={() => this.showModelDetail(result)}>
-                                                <FormattedMessage
-                                                    id='detail'
-                                                    defaultMessage='Detail'
-                                                />
-                                            </Button>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                })
-                            }
-                        </Table.Body>
+                    <div className="display-flex">
+                        {modelOptions.map((option) => {
+                            return <div key={option.value}
+                                        onClick={() => {
+                                            this.getModelsByType(option.value)
+                                        }}
+                                        className={"model-type-button " + (selectedModel === option.value ? "model-type-active" : "")}>
+                                <MVImage
+                                    name={option.value + (selectedModel === option.value ? "" : "_unselected")}/>{option.text}
+                            </div>
+                        })}
+                    </div>
+                    <div className="model-list-table">
+                        <Table textAlign="center">
+                            <Table.Header>
+                                <Table.Row>
+                                    {
+                                        header.map((result, i) => {
+                                            return <Table.HeaderCell className="checklist-table-cell-length" key={i}>
+                                                {result ? <FormattedMessage
+                                                    id={result}
+                                                /> : ""}
+                                            </Table.HeaderCell>
+                                        })
+                                    }
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {
+                                    model.models.map((result, i) => {
+                                        return <Table.Row key={i}>
+                                            {
+                                                rmKey.map((key, j) => {
+                                                    return <Table.Cell
+                                                        key={i + "_" + j}>
+                                                        {this.handleDisplayData(result, key)}
+                                                    </Table.Cell>
+                                                })
+                                            }
+                                            <Table.Cell>
+                                                <div className="table-action-detail"
+                                                     onClick={() => this.showModelDetail(result)}>
+                                                    <FormattedMessage
+                                                        id='Detail'
+                                                        defaultMessage='Detail'
+                                                    />
+                                                </div>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    })
+                                }
+                            </Table.Body>
 
-                        <Table.Footer>
-                            <Table.Row>
-                                <Table.HeaderCell colSpan={rmKey.length + 1}>
-                                    <Pagination defaultCurrent={1} total={model.totalNumber}
-                                                showQuickJumper pageSize={3}
-                                                current={currentPage}
-                                                onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
-                                </Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Footer>
-                    </Table>
+                            <Table.Footer>
+                                <Table.Row>
+                                    <Table.HeaderCell colSpan={rmKey.length + 1}>
+                                        <Pagination defaultCurrent={1} total={model.totalNumber}
+                                                    pageSize={3}
+                                                    current={currentPage}
+                                                    onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
+                                    </Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Footer>
+                        </Table>
+                    </div>
                 </div>
-                {showDetail ?
-                    <div>
-                        <ModelDetail ref={node => this.modelDetailNode = node}/>
-                        <Button primary size="small" onClick={() => this.showModelList()}
-                                style={{marginTop: '1em'}}>
+                <Modal
+                    size="large"
+                    closeOnEscape={false}
+                    closeOnRootNodeClick={false}
+                    open={modalOpen}>
+                    <ModelDetail modelId={selectedModelId}/>
+                    <Modal.Actions>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
                             <FormattedMessage
                                 id='back'
                                 defaultMessage='Back'
                             />
                         </Button>
-                    </div>
-                    : null}
+                    </Modal.Actions>
+                </Modal>
             </div>
         );
     }

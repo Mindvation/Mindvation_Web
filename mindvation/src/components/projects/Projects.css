@@ -349,7 +349,7 @@
 }
 
 .ui.grid.mvp-project-container {
-    padding: 1em;
+    padding: 0 20px;
 }
 
 .ui.divided.list .item.mvp-project-box {
@@ -364,21 +364,35 @@
 .mvp-sprint-title {
     text-align: center;
     width: 100%;
-    display: block;
-    height: 3.5em;
-    line-height: 3.5em;
-    border-bottom: 1px solid rgba(34, 36, 38, .15);
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 2px;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.sprint-title-new {
+    border-top: 4px solid #5c72ad;
+}
+
+.sprint-title-inProgress {
+    border-top: 4px solid #d4865b;
+}
+
+.sprint-title-done {
+    border-top: 4px solid #9cbe5a;
 }
 
 .mvp-sprint-action {
     position: absolute;
-    top: 0;
-    right: 1em;
+    top: 10px;
+    right: 20px;
 }
 
 .mvp-sprint-action .ui.dropdown .menu {
-    right: -1em;
+    right: -20px;
     left: auto;
+    top: 30px;
 }
 
 .mvp-sprint-action .ui.dropdown {
@@ -392,17 +406,24 @@
 
 .mvp-sprint-status {
     position: absolute;
-    top: 0;
-    left: 1em;
+    top: 20px;
+    left: 20px;
 }
 
 .mvp-sprint-title-text {
-    font-size: 1.5em;
-    font-weight: 700;
+    font-size: 14px;
+    color: #333333;
+}
+
+.mvp-task-AcceptBox {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .drop-container {
-    height: calc(100% - 3.5em);
+    height: calc(100% - 5.5em);
 }
 
 .component-container {
@@ -410,15 +431,9 @@
 }
 
 .mvp-story-info {
-    display: flex;
     cursor: move;
-}
-
-.mvp-story-info > span {
-    line-height: 1.5em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    color: #000000;
+    font-size: 14px;
+    color: #333333;
 }
 
 .mvp-story-priority {
@@ -426,20 +441,25 @@
     text-align: center;
 }
 
+.story-in-progress {
+    background-color: rgba(212, 134, 91, 0.5);
+}
+
 .mvp-story-point {
     width: 3em;
     text-align: center;
 }
 
-.mvp-story-id {
-    width: 4em;
-    text-align: center;
+.ui.grid.mvp-grid-column {
+    padding: 0 17px 20px 17px;
+}
+
+.ui.grid.mvp-grid-column > .column {
+    padding: 0 3px;
 }
 
 .mvp-story-desc {
-    flex: 1;
-    padding-left: 0.25em;
-    padding-right: 0.25em;
+    padding: 20px 26px 0 26px;
 }
 
 .ui.grid.select-model {
@@ -576,6 +596,7 @@ i.icon.mode-remove-label {
     margin-right: 50px;
     margin-top: 20px;
     max-width: 200px;
+    min-width: 150px;
 }
 
 .iteration-action {
@@ -588,13 +609,13 @@ i.icon.mode-remove-label {
 
 .iteration-arrow {
     position: absolute !important;
-    top: 60px;
+    top: 65px;
     left: 100%;
     margin-left: 10px;
 }
 
 .iteration-display .iteration-arrow {
-    top: 5px;
+    top: 10px;
 }
 
 .iteration-label {
@@ -625,6 +646,10 @@ i.icon.mode-remove-label {
 
 .ui.table tbody td.table-td-tags {
     padding-bottom: 10px;
+}
+
+.table-td-tags > .member-tag-list.ui.horizontal.list {
+    justify-content: center;
 }
 
 .model-attach .list-content {
@@ -703,69 +728,29 @@ i.icon.mode-remove-label {
     background-color: #ffffff;
 }
 
-.ui.list > .item.story-in-progress,
-.ui.list > .item.story-in-progress:first-child {
-    margin: 0.05em 0.25em 0.5em 0.25em;
-    border: 1px solid;
-    position: relative;
-    padding: 0;
-}
-
-.ui.list > .item.story-in-progress:before {
-    content: " ";
-    width: 0.5em;
-    height: 100%;
-    position: absolute;
-}
-
-.story-status-normal {
-    border-color: rgba(0, 128, 0, 1) !important;
-    -webkit-box-shadow: 0 5px 5px rgba(0, 128, 0, 0.35);
-    box-shadow: 0 5px 5px rgba(0, 128, 0, 0.35);
-}
-
-.ui.list > .item.story-in-progress.story-status-normal:before {
-    background-color: rgba(0, 128, 0, 1) !important;
-    -webkit-box-shadow: 0 5px 5px rgba(0, 128, 0, 0.35);
-    box-shadow: 0 5px 5px rgba(0, 128, 0, 0.35);
-}
-
-.story-status-delay {
-    border-color: rgba(255, 153, 0, 1) !important;
-    -webkit-box-shadow: 0 5px 5px rgba(255, 153, 0, 0.35);
-    box-shadow: 0 5px 5px rgba(255, 153, 0, 0.35);
-}
-
-.ui.list > .item.story-in-progress.story-status-delay:before {
-    background-color: rgba(255, 153, 0, 1) !important;
-    -webkit-box-shadow: 0 5px 5px rgba(255, 153, 0, 0.35);
-    box-shadow: 0 5px 5px rgba(255, 153, 0, 0.35);
-}
-
-.story-status-warning {
-    border-color: rgba(255, 0, 0, 1) !important;
-    -webkit-box-shadow: 0 5px 5px rgba(255, 0, 0, 0.35);
-    box-shadow: 0 5px 5px rgba(255, 0, 0, 0.35);
-}
-
-.ui.list > .item.story-in-progress.story-status-warning:before {
-    background-color: rgba(255, 0, 0, 1) !important;
-    -webkit-box-shadow: 0 5px 5px rgba(255, 0, 0, 0.35);
-    box-shadow: 0 5px 5px rgba(255, 0, 0, 0.35);
-}
-
-.story-summary {
-    background-color: #ffffff;
-}
-
 .summary-id {
-    color: #6a9abe;
+    padding: 12px 6px;
+    font-size: 12px;
+    color: #333333;
 }
 
 .summary-link {
     position: absolute;
-    right: 1em;
-    top: 0.5em;
+    right: 6px;
+    top: 12px;
+    cursor: pointer;
+    color: #577ca6;
+    font-size: 12px;
+}
+
+.task-summary {
+    padding: 10px 20px;
+    -webkit-box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -3px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.story-summary {
+    box-shadow: 0px -3px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
 .add-task-attach {
@@ -895,10 +880,6 @@ i.icon.mode-remove-label {
 
 .edit-detail-info {
     padding: 10px 20px 0 20px;
-}
-
-.story-summary .edit-detail-info {
-    padding: 0;
 }
 
 .detail-tab-title {
@@ -1185,8 +1166,8 @@ i.icon.mode-remove-label {
 
 .ui.table.requirement-card {
     margin-top: 20px;
-    -webkit-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
 .requirement-pagination {
@@ -1322,4 +1303,38 @@ i.icon.mode-remove-label {
 
 .ui.grid > .column.grid-component-task {
     padding: 0 0 10px 0;
+}
+
+.ui.table tbody td.checklist-action-cell {
+    display: flex;
+    justify-content: center;
+}
+
+.table-action-edit {
+    font-size: 12px;
+    color: #577ca6;
+    cursor: pointer;
+}
+
+.table-action-delete {
+    font-size: 12px;
+    color: #c35f57;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.table-action-detail {
+    font-size: 12px;
+    color: #22315b;
+    cursor: pointer;
+}
+
+.add-department-content {
+    display: flex;
+}
+
+.add-department-content > .full-width {
+    padding: 0;
+    margin: 0;
+    flex: 1;
 }

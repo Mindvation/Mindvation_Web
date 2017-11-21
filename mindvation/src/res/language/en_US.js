@@ -187,7 +187,7 @@ const en_US = {
     hr: "HR",
     employee: "Employee",
     department: "Department",
-    detail: "Detail",
+    Detail: "Detail",
     back: "Back",
     modelDetail: "Model Detail",
     modelName: "Model Name",
@@ -217,6 +217,17 @@ const en_US = {
     editOptionalItems: "Edit Optional Items",
     Workload: "Workload",
     search: "Search",
-    assign: "Assign"
+    assign: "Assign",
+    toDo: "To Do",
+    "Ranking": "Ranking",
+    "Creator": "Creator",
+    "Vote": "Vote",
+    "Quoted": "Quoted",
+    "Templates Name": "Templates Name",
+    software: "Software",
+    engineering: "Engineering",
+    businessRequirements: "Business Requirements",
+    technology: "Technology",
+    "Model ID": "Model ID"
 };
 export default en_US;

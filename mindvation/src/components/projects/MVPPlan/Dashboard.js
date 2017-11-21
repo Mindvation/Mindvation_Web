@@ -39,20 +39,17 @@ class Dashboard extends Component {
                     <StorySummary storyId={storyId} linkToStory={true}/>
                 </Sidebar>
                 <Sidebar.Pusher onClick={() => this.setState({visible: false})}>
-                    <div className="component-container">
-                        {
-                            (storyList && storyList.length > 0) ?
-                                storyList.map((story, i) => {
-                                    return <MoveProject key={i} storyList={story} storyDetail={(storyId) => {
-                                        this.checkDetail(storyId)
-                                    }}/>
-                                }) : null
-                        }
-
-                        {/*<DemoCalendar storyDetail={(storyId) => {
+                    {
+                        (storyList && storyList.length > 0) ?
+                            storyList.map((story, i) => {
+                                return <MoveProject key={i} storyList={story} storyDetail={(storyId) => {
+                                    this.checkDetail(storyId)
+                                }}/>
+                            }) : null
+                    }
+                    {/*<DemoCalendar storyDetail={(storyId) => {
                             this.checkDetail(storyId)
                         }}/>*/}
-                    </div>
                 </Sidebar.Pusher>
             </Sidebar.Pushable>
         );

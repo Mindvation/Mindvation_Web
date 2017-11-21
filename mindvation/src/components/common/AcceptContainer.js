@@ -30,19 +30,15 @@ class AcceptContainer extends Component {
         const {canDrop, isOver, connectDropTarget, style} = this.props;
         const isActive = canDrop && isOver;
         data = this.props.data;
-        let backgroundColor = '#ffffff';
+        let backgroundColor = '#f8f8f8';
         if (isActive) {
-            backgroundColor = '#ffffff';
+            backgroundColor = '#f8f8f8';
         } else if (canDrop) {
             backgroundColor = '#e8e8e8';
         }
 
         return connectDropTarget(
             <div style={{...style, backgroundColor}} className="drop-container">
-                {/*{isActive ?
-                    'Release to drop' :
-                    'Drag a box here'
-                }*/}
                 <div style={{overflow: 'hidden', clear: 'both'}}>
                     {
                         React.Children.map(this.props.children, function (child) {

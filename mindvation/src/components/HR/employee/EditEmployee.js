@@ -3,6 +3,7 @@ import {Button, Modal} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import EmployeeInfo from './EmployeeInfo';
 import {updateEmployee, rtrvStaffDetail} from '../../../actions/employee_action';
+import Image from '../../common/Image';
 
 class EditEmployee extends Component {
     state = {modalOpen: false, employeeInfo: {}};
@@ -43,7 +44,8 @@ class EditEmployee extends Component {
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
-                    <Modal.Header>
+                    <Modal.Header className="modal-title-border">
+                        <Image name="project"/>
                         <FormattedMessage
                             id='editEmployee'
                             defaultMessage='Edit Employee'

@@ -65,7 +65,7 @@ class RequirementList extends Component {
         return (
             <div>
                 {requirements.requirementInfos.map((requirement, i) => {
-                    return <Table key={i} className="requirement-card">
+                    return <Table textAlign="center" key={i} className="requirement-card">
                         <Table.Header>
                             <Table.Row>
                                 {

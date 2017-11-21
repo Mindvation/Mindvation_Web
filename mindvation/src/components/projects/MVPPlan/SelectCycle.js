@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Header, Modal} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import Select from '../../common/Select';
-import {FormattedMessage} from 'react-intl';
 import {iterationCycleOptions} from '../../../res/data/dataOptions';
 
 class SelectCycle extends Component {
@@ -18,14 +17,6 @@ class SelectCycle extends Component {
 
         return (
             <Modal.Content>
-                <Modal.Description>
-                    <Header as="h3" className="modal-header">
-                        <FormattedMessage
-                            id='chooseIterationCycle'
-                            defaultMessage='Choose Iteration Cycle'
-                        />
-                    </Header>
-                </Modal.Description>
                 <Select icon="recycle"
                         checked={this.state.checked}
                         horizontal={true}

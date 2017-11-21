@@ -3,6 +3,7 @@ import {Button, Modal} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import DepartmentInfo from './DepartmentInfo';
 import {updateDepartment} from '../../../actions/department_action';
+import Image from '../../common/Image';
 
 class EditDepartment extends Component {
     state = {modalOpen: false, departmentInfo: {}};
@@ -38,7 +39,8 @@ class EditDepartment extends Component {
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
                     open={modalOpen}>
-                    <Modal.Header>
+                    <Modal.Header className="modal-title-border">
+                        <Image name="project"/>
                         <FormattedMessage
                             id='editDepartment'
                             defaultMessage='Edit Department'

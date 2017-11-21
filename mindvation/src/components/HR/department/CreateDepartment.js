@@ -3,6 +3,7 @@ import {Modal, Button} from 'semantic-ui-react';
 import DepartmentInfo from './DepartmentInfo';
 import {FormattedMessage} from 'react-intl';
 import {createDepartment} from '../../../actions/department_action';
+import MVImage from "../../common/Image";
 
 class CreateDepartment extends Component {
     state = {modalOpen: false};
@@ -31,7 +32,8 @@ class CreateDepartment extends Component {
                     closeOnRootNodeClick={false}
                     open={modalOpen}
                     size='large'>
-                    <Modal.Header>
+                    <Modal.Header className="modal-title-border">
+                        <MVImage name="project"/>
                         <FormattedMessage
                             id='createDepartment'
                             defaultMessage='Create Department'

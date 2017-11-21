@@ -187,7 +187,7 @@ const zh_CN = {
     hr: "人事管理",
     employee: "员工",
     department: "部门",
-    detail: "详情",
+    Detail: "详情",
     back: "返回",
     modelDetail: "模板详情",
     modelName: "模板名称",
@@ -217,6 +217,17 @@ const zh_CN = {
     editOptionalItems: "修改可选信息",
     Workload: "工作用时",
     search: "搜索",
-    assign: "分配"
+    assign: "分配",
+    toDo: "新建",
+    "Ranking": "排名",
+    "Creator": "创建人",
+    "Vote": "赞",
+    "Quoted": "引用",
+    "Templates Name": "模板名称",
+    software: "软件",
+    engineering: "工程",
+    businessRequirements: "业务需求",
+    technology: "技术",
+    "Model ID": "模型编号"
 };
 export default zh_CN;

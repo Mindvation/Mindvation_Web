@@ -29,9 +29,9 @@ class DropContainer extends Component {
         const {canDrop, isOver, connectDropTarget, style} = this.props;
         const isActive = canDrop && isOver;
         data = this.props.data;
-        let backgroundColor = '#ffffff';
+        let backgroundColor = '#f8f8f8';
         if (isActive) {
-            backgroundColor = '#ffffff';
+            backgroundColor = '#f8f8f8';
         } else if (canDrop) {
             backgroundColor = '#e8e8e8';
         }

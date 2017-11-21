@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import {Header, Icon, Table, Button} from 'semantic-ui-react';
+import {Icon, Table, Button, Modal} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {FormattedMessage} from 'react-intl';
-import {getDesc, isEmpty} from '../../../util/CommUtil';
+import {isEmpty} from '../../../util/CommUtil';
 import {getModels} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
 import {getStaffId} from '../../../util/UserStore';
+import Image from '../../common/Image';
 
+const header = ["Model ID", "Templates Name", "Vote", "Quoted", "Comment", "Detail"];
 const rmKey = ["modelId", "name", "vote", "quoted", "comments"];
 
 class MyModelList extends Component {
@@ -16,7 +18,8 @@ class MyModelList extends Component {
             models: [],
             totalNumber: 1
         },
-        showDetail: false
+        modalOpen: false,
+        selectedModelId: null
     };
 
     componentDidMount() {
@@ -50,20 +53,20 @@ class MyModelList extends Component {
     handleDisplayData = (data, key) => {
 
         if (key === "vote") {
-            return <div>
-                <Icon name="thumbs up" size="big"/>{data[key] ? data[key] : 0}
+            return <div className="display-flex-center">
+                <Image name="like_withMe"/>{data[key] ? data[key] : 0}
             </div>
         }
 
         if (key === "quoted") {
-            return <div>
-                <Icon name="external share" size="big"/>{data[key] ? data[key] : 0}
+            return <div className="display-flex-center">
+                <Image name="quote"/>{data[key] ? data[key] : 0}
             </div>
         }
 
         if (key === "comments") {
-            return <div>
-                <Icon name="talk" size="big"/>{data[key] ? data[key] : 0}
+            return <div className="display-flex-center">
+                <Image name="comments"/>{data[key] ? data[key] : 0}
             </div>
         }
 
@@ -75,73 +78,97 @@ class MyModelList extends Component {
 
     showModelDetail = (model) => {
         this.setState({
-            showDetail: true
-        }, () => {
-            this.modelDetailNode.initModelData(model.model.modelId)
+            modalOpen: true,
+            selectedModelId: model.model.modelId
         });
     };
 
-    showModelList = () => {
+    closeModal = () => {
         this.setState({
-            showDetail: false
+            modalOpen: false
         });
     };
 
     render() {
-        const {model, showDetail} = this.state;
+        const {model, selectedModelId, modalOpen} = this.state;
         return (
-            <div className="project-content">
-                <div style={{display: showDetail ? 'none' : 'block'}}>
-                    <Header as='h3'>
-                        <Icon name='file text outline'/>
-                        <Header.Content className={"project-title underLine"}>
-                            My Models
-                        </Header.Content>
-                    </Header>
-                    <Table striped>
-                        <Table.Body>
-                            {
-                                model.models.map((result, i) => {
-                                    return <Table.Row key={i}>
-                                        {
-                                            rmKey.map((key, j) => {
-                                                return <Table.Cell
-                                                    key={i + "_" + j}>
-                                                    {this.handleDisplayData(result.model, key)}
-                                                </Table.Cell>
-                                            })
-                                        }
-                                        <Table.Cell className="checklist-action-cell">
-                                            <Button primary size="small" onClick={() => this.showModelDetail(result)}>
-                                                详情
-                                            </Button>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                })
-                            }
-                        </Table.Body>
-
-                        <Table.Footer>
-                            <Table.Row>
-                                <Table.HeaderCell colSpan={rmKey.length + 1}>
-                                    <Pagination defaultCurrent={1} total={model.totalNumber}
-                                                showQuickJumper pageSize={3}
-                                                onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
-                                </Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Footer>
-                    </Table>
-                </div>
-                {showDetail ?
-                    <div>
-                        <ModelDetail ref={node => this.modelDetailNode = node}/>
-                        <Button
-                            style={{marginTop: '1em'}}
-                            primary size="small" onClick={() => this.showModelList()}>
-                            返回
-                        </Button>
+            <div>
+                <div>
+                    <div className="project-header">
+                        <Image name='templates'/>
+                        <FormattedMessage
+                            id='myModels'
+                            defaultMessage='My Models'
+                        />
                     </div>
-                    : null}
+                    <div>
+                        <Table textAlign="center">
+                            <Table.Header>
+                                <Table.Row>
+                                    {
+                                        header.map((result, i) => {
+                                            return <Table.HeaderCell key={i}>
+                                                {result ? <FormattedMessage
+                                                    id={result}
+                                                /> : ""}
+                                            </Table.HeaderCell>
+                                        })
+                                    }
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {
+                                    model.models.map((result, i) => {
+                                        return <Table.Row key={i}>
+                                            {
+                                                rmKey.map((key, j) => {
+                                                    return <Table.Cell
+                                                        key={i + "_" + j}>
+                                                        {this.handleDisplayData(result.model, key)}
+                                                    </Table.Cell>
+                                                })
+                                            }
+                                            <Table.Cell className="checklist-action-cell">
+                                                <div className="table-action-detail"
+                                                     onClick={() => this.showModelDetail(result)}>
+                                                    <FormattedMessage
+                                                        id='Detail'
+                                                        defaultMessage='Detail'
+                                                    />
+                                                </div>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    })
+                                }
+                            </Table.Body>
+
+                            <Table.Footer>
+                                <Table.Row>
+                                    <Table.HeaderCell colSpan={rmKey.length + 1}>
+                                        <Pagination defaultCurrent={1} total={model.totalNumber}
+                                                    pageSize={3}
+                                                    onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
+                                    </Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Footer>
+                        </Table>
+                    </div>
+                </div>
+                <Modal
+                    size="large"
+                    closeOnEscape={false}
+                    closeOnRootNodeClick={false}
+                    open={modalOpen}>
+                    <ModelDetail modelId={selectedModelId}/>
+                    <Modal.Actions>
+                        <Button className="cancel-button" onClick={() => this.closeModal()}>
+                            <FormattedMessage
+                                id='back'
+                                defaultMessage='Back'
+                            />
+                        </Button>
+                    </Modal.Actions>
+                </Modal>
             </div>
         );
     }

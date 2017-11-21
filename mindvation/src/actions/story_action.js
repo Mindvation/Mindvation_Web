@@ -152,7 +152,7 @@ export function addTask(taskInfo, callback) {
             .then((res) => {
                 StaticLoad.remove("addTask");
                 const {task, story} = convertTaskToLocal(res.responseBody);
-                dispatch(updateStoryTask(task));
+                dispatch(addTaskToStory(task));
                 dispatch(updateStory(story));
                 callback();
             })

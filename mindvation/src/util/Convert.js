@@ -1493,7 +1493,7 @@ export function convertModelToServer(modelInfo) {
             params.taskDeliveries.push({
                 type: attach.type,
                 name: attach.title,
-                color: attach.color
+                style: attach.style
             })
         })
     }
@@ -1546,7 +1546,7 @@ export function convertModelDetailToLocal(res) {
                 key: delivery.uuId,
                 type: delivery.type,
                 title: delivery.name,
-                color: delivery.color
+                style: delivery.style
             })
         })
     }

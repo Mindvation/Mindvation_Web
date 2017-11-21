@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, Label, Segment, Header, Icon} from 'semantic-ui-react';
+import {List, Label, Segment, Header} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import {Tree} from 'antd';
 import DisplayRoles from './createModel/DisplayRoles';
@@ -19,6 +19,12 @@ class ModelDetail extends Component {
         }
     };
 
+    componentWillMount() {
+        if (this.props && this.props.modelId) {
+            this.initModelData(this.props.modelId)
+        }
+    }
+
     initModelData = (model) => {
         /*this.setState({
             model: model
@@ -34,48 +40,45 @@ class ModelDetail extends Component {
         const {model} = this.state;
         return (
             <div className="model-detail-display">
-                <Header as='h3'>
-                    <Icon name='window maximize'/>
-                    <Header.Content className={"project-title underLine"}>
-                        <FormattedMessage
-                            id='modelDetail'
-                            defaultMessage='Model Detail'
-                        />
-                    </Header.Content>
-                </Header>
-                <Segment className="components-length">
-                    <div className="item-horizontal">
-                        <Header as='h4'>
-                            <Header.Content>
-                                <FormattedMessage
-                                    id='modelName'
-                                    defaultMessage='Model Name'
-                                />
-                            </Header.Content>
-                        </Header>
-                        <span className="model-display-text">{model.basicInfo.modelName}</span>
+                <div className="project-header">
+                    <Image name='models'/>
+                    <FormattedMessage
+                        id='modelDetail'
+                        defaultMessage='Model Detail'
+                    />
+                </div>
+                <div className="model-detail-container">
+                    <div className="components-item item-horizontal align-right">
+                        <div className="display-filed-title">
+                            <FormattedMessage
+                                id='modelName'
+                                defaultMessage='Model Name'
+                            />
+                        </div>
+                        <div className="input-content">
+                            <span className="model-display-text">{model.basicInfo.modelName}</span>
+                        </div>
                     </div>
-                    <div className="item-horizontal">
-                        <Header as='h4'>
-                            <Header.Content>
-                                <FormattedMessage
-                                    id='Industry'
-                                    defaultMessage='Industry'
-                                />
-                            </Header.Content>
-                        </Header>
-                        <span className="model-display-text">{getDesc(modelOptions, model.basicInfo.business)}</span>
+                    <div className="components-item item-horizontal align-right">
+                        <div className="display-filed-title">
+                            <FormattedMessage
+                                id='Industry'
+                                defaultMessage='Industry'
+                            />
+                        </div>
+                        <div className="input-content">
+                            <span
+                                className="model-display-text">{getDesc(modelOptions, model.basicInfo.business)}</span>
+                        </div>
                     </div>
-                    <div className="item-horizontal">
-                        <Header as='h4'>
-                            <Header.Content>
-                                <FormattedMessage
-                                    id='Process/Function Label'
-                                    defaultMessage='Process/Function Label'
-                                />
-                            </Header.Content>
-                        </Header>
-                        <div className="model-label-main">
+                    <div className="components-item item-horizontal align-right">
+                        <div className="display-filed-title">
+                            <FormattedMessage
+                                id='Process/Function Label'
+                                defaultMessage='Process/Function Label'
+                            />
+                        </div>
+                        <div className="model-label-main input-content model-detail-label">
                             <Tree
                                 showLine
                             >
@@ -95,70 +98,74 @@ class ModelDetail extends Component {
                             </Tree>
                         </div>
                     </div>
-                    <Header as='h4'>
-                        <Header.Content>
+                    <div className="components-item item-horizontal align-right">
+                        <div className="display-filed-title">
                             <FormattedMessage
                                 id='role'
                                 defaultMessage='Role'
                             />
-                        </Header.Content>
-                    </Header>
-                    {model.basicInfo.roles ? <DisplayRoles modelInfo={model}/> : null}
-                    <Header as='h4'>
-                        <Header.Content>
+                        </div>
+                        <div className="input-content">
+                            {model.basicInfo.roles ? <DisplayRoles modelInfo={model}/> : null}
+                        </div>
+                    </div>
+                    <div className="components-item item-horizontal align-right">
+                        <div className="display-filed-title">
                             <FormattedMessage
                                 id='iterationPlanModel'
                                 defaultMessage='Iteration Plan Model'
                             />
-                        </Header.Content>
-                    </Header>
-                    <div>
-                        {
-                            model.iteration.map((iteration, i) => {
-                                return <div key={iteration.key} className="iteration-item iteration-display">
-                                    {i === model.iteration.length - 1 ? null :
-                                        <Image className="iteration-arrow" name="arrow"/>}
-                                    <div className="iteration-container">
-                                        <div className="iteration-value-text">
-                                            {iteration.value}
+                        </div>
+                        <div className="input-content">
+                            {
+                                model.iteration.map((iteration, i) => {
+                                    return <div key={iteration.key} className="iteration-item iteration-display">
+                                        {i === model.iteration.length - 1 ? null :
+                                            <Image className="iteration-arrow" name="arrow"/>}
+                                        <div className="iteration-container">
+                                            <div className="iteration-value-text">
+                                                {iteration.value}
+                                            </div>
+                                            {iteration.labels && iteration.labels.length > 0 ?
+                                                iteration.labels.map((label) => {
+                                                    return <div key={label.key}>
+                                                        <div
+                                                            className="iteration-label">{label.value}</div>
+                                                    </div>
+                                                }) : null
+                                            }
                                         </div>
-                                        {iteration.labels && iteration.labels.length > 0 ?
-                                            iteration.labels.map((label) => {
-                                                return <div key={label.key}>
-                                                    <Label
-                                                        className="iteration-label">{label.value}</Label>
-                                                </div>
-                                            }) : null
-                                        }
                                     </div>
-                                </div>
-                            })
-                        }
+                                })
+                            }
+                        </div>
                     </div>
 
-                    <Header as='h4'>
-                        <Header.Content>
+                    <div className="components-item item-horizontal align-right">
+                        <div className="display-filed-title">
                             <FormattedMessage
                                 id='taskAttachments'
                                 defaultMessage='Task Attachments'
                             />
-                        </Header.Content>
-                    </Header>
-                    <div>
-                        {
-                            model.attachments && model.attachments.length > 0 ?
-                                <List horizontal className="model-attach">
-                                    {model.attachments.map((attach) => {
-                                        return <List.Item key={attach.key}>
-                                            <div className="list-content" style={{backgroundColor: attach.color}}>
-                                                <span className="list-text">{attach.title}</span>
-                                            </div>
-                                        </List.Item>
-                                    })}
-                                </List> : 'N/A'
-                        }
+                        </div>
+                        <div className="input-content">
+                            {
+                                model.attachments && model.attachments.length > 0 ?
+                                    <List horizontal className="model-attach model-detail-attach">
+                                        {model.attachments.map((attach) => {
+                                            return <List.Item key={attach.key}>
+                                                <div
+                                                    className={"list-content tag-selected tag-style-" + (attach.style || 'default')}>
+                                                    <span className="list-text">{attach.title}</span>
+                                                </div>
+                                            </List.Item>
+                                        })}
+                                    </List> : 'N/A'
+                            }
+
+                        </div>
                     </div>
-                </Segment>
+                </div>
             </div>
         );
     }

@@ -58,7 +58,7 @@ class ProjectsList extends Component {
     render() {
         const {projectList} = this.props;
         return (
-            <Table>
+            <Table textAlign="center">
                 <Table.Header>
                     <Table.Row>
                         {

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import DropContainer from '../../common/DropContainer';
 import Box from '../../common/DragBox';
-import {Grid, List, Segment, Header, Icon, Dropdown, Modal, Button} from 'semantic-ui-react';
+import {Grid, Icon, Dropdown, Modal, Button} from 'semantic-ui-react';
 import {priorityOptions} from '../../../res/data/dataOptions';
 import {getDesc, checkCompleted} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import SelectCycle from './SelectCycle';
 import CompleteSprint from './CompleteSprint';
 import {updateDashboard, startIteration, closeIteration} from '../../../util/Service';
+import Image from '../../common/Image';
 
 let mandatoryFiled = ["iterationCycle"], iterationMandatoryFiled = ["moveToSprint"];
 
@@ -211,89 +212,92 @@ class MoveProject extends Component {
         const {sprints, cycleOpen, completeOpen, model, activeSprint} = this.state;
         return (
             <div>
-                <Header as='h3'>
-                    <Icon name='dashboard'/>
-                    <Header.Content>
-                        <FormattedMessage
-                            id="dashboard"
-                            defaultValue="Dashboard"
-                        />
-                         --- {model.name}
-                    </Header.Content>
-                </Header>
-                <Grid columns={3} className="mvp-project-container">
+                <div className="project-header">
+                    <Image name='dashboard'/>
+                    <FormattedMessage
+                        id='dashboard'
+                        defaultMessage='Dashboard'
+                    />
+                    <span> --- {model.name}</span>
+                </div>
+                <Grid columns={3} className="mvp-grid-column">
                     {
                         sprints.map((sprint, i) => {
                             return <Grid.Column key={i}>
-                                <Segment className="mvp-sprint-container">
-                                    <div className="mvp-sprint-title">
-                                        <span className="mvp-sprint-title-text">{sprint.text}({sprint.points})</span>
-                                        {sprint.text !== 'Product Backlogs' ? <div className="mvp-sprint-status">
-                                            {sprint.status === 'start' ?
-                                                <Icon name='video play outline' size="large" color="green"/> : null}
-                                            {sprint.status === 'start' ?
-                                                <Icon name='recycle' size="large" color="blue"/> : null}
-                                            {sprint.status === 'warning' ?
-                                                <Icon name='warning sign' size="large" color="orange"/> : null}
-                                            {sprint.status === 'close' ?
-                                                <Icon name='stop circle outline' size="large"/> : null}
+                                <div className="mvp-sprint-title">
+                                    <span className="mvp-sprint-title-text">{sprint.text}({sprint.points})</span>
+                                    {sprint.text !== 'Product Backlogs' ? <div className="mvp-sprint-status">
+                                        {sprint.status === 'start' ?
+                                            <Icon name='video play outline' size="large" color="green"/> : null}
+                                        {sprint.status === 'start' ?
+                                            <Icon name='recycle' size="large" color="blue"/> : null}
+                                        {sprint.status === 'warning' ?
+                                            <Icon name='warning sign' size="large" color="orange"/> : null}
+                                        {sprint.status === 'close' ?
+                                            <Icon name='stop circle outline' size="large"/> : null}
+                                    </div> : null}
+                                    {activeSprint === i ?
+                                        <div className="mvp-sprint-action">
+                                            <Dropdown>
+                                                <Dropdown.Menu>
+                                                    {sprint.status === 'notStart' ?
+                                                        <Dropdown.Item text={
+                                                            <FormattedMessage
+                                                                id="startSprint"
+                                                                defaultValue="Start Sprint"
+                                                            />
+                                                        } onClick={() => {
+                                                            this.startSprint(sprint)
+                                                        }}/> : null}
+                                                    {sprint.status === 'start' ?
+                                                        <Dropdown.Item text={
+                                                            <FormattedMessage
+                                                                id="closeSprint"
+                                                                defaultValue="Close Sprint"
+                                                            />
+                                                        } onClick={() => {
+                                                            this.closeSprint(sprint)
+                                                        }}/> : null}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
                                         </div> : null}
-                                        {activeSprint === i ?
-                                            <div className="mvp-sprint-action">
-                                                <Dropdown>
-                                                    <Dropdown.Menu>
-                                                        {sprint.status === 'notStart' ?
-                                                            <Dropdown.Item text={
-                                                                <FormattedMessage
-                                                                    id="startSprint"
-                                                                    defaultValue="Start Sprint"
-                                                                />
-                                                            } onClick={() => {
-                                                                this.startSprint(sprint)
-                                                            }}/> : null}
-                                                        {sprint.status === 'start' ?
-                                                            <Dropdown.Item text={
-                                                                <FormattedMessage
-                                                                    id="closeSprint"
-                                                                    defaultValue="Close Sprint"
-                                                                />
-                                                            } onClick={() => {
-                                                                this.closeSprint(sprint)
-                                                            }}/> : null}
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </div> : null}
-                                    </div>
-                                    <DropContainer data={sprint.key}>
-                                        <List divided>
-                                            {
-                                                sprint.stories.map((story, i) => {
-                                                    return <List.Item className="mvp-project-box" key={i}>
-                                                        <Box
-                                                            data={{
-                                                                'story': story,
-                                                                'lastSprint': sprint.key
-                                                            }}
-                                                            action={(handleData, sprint) => this.moveProjectToNext(handleData, sprint)}>
-                                                            <div
-                                                                onClick={(event) => this.checkDetail(event, story.storyId)}
-                                                                className="mvp-story-info">
-                                                                <span className="mvp-story-id">{story.storyId}</span>
-                                                                <span
-                                                                    className="mvp-story-desc">{story.description}</span>
-                                                                <span className="mvp-story-priority">
-                                                                    {getDesc(priorityOptions, story.priority)}
-                                                                </span>
-                                                                <span
-                                                                    className="mvp-story-point">{story.storyPoint}</span>
+                                </div>
+                                <DropContainer data={sprint.key}>
+                                    {
+                                        sprint.stories.map((story, i) => {
+                                            return <div className="mvp-task-AcceptBox" key={i}>
+                                                <Box
+                                                    data={{
+                                                        'story': story,
+                                                        'lastSprint': sprint.key
+                                                    }}
+                                                    action={(handleData, sprint) => this.moveProjectToNext(handleData, sprint)}>
+                                                    <div
+                                                        onClick={(event) => this.checkDetail(event, story.storyId)}
+                                                        className="mvp-story-info">
+                                                        <div className="mvp-story-id display-flex"
+                                                             style={{justifyContent: "space-between"}}>
+                                                            <div>
+                                                                <Image
+                                                                    name={story.priority ? "priority_" + story.priority : "priority_1"}/>
+                                                                {story.storyId}
                                                             </div>
-                                                        </Box>
-                                                    </List.Item>
-                                                })
-                                            }
-                                        </List>
-                                    </DropContainer>
-                                </Segment>
+                                                            <div className="display-flex">
+                                                                <div className="mvp-story-priority">
+                                                                    {getDesc(priorityOptions, story.priority)}
+                                                                </div>
+                                                                <div
+                                                                    className="mvp-story-point">{story.storyPoint}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="mvp-story-desc">{story.description}</div>
+
+                                                    </div>
+                                                </Box>
+                                            </div>
+                                        })
+                                    }
+                                </DropContainer>
                             </Grid.Column>
                         })
                     }
@@ -315,6 +319,12 @@ class MoveProject extends Component {
                     closeOnRootNodeClick={false}
                     open={cycleOpen}
                     size='small'>
+                    <Modal.Header className="modal-title-border">
+                        <FormattedMessage
+                            id='chooseIterationCycle'
+                            defaultMessage='Choose Iteration Cycle'
+                        />
+                    </Modal.Header>
                     <SelectCycle ref={node => this.selectCycleNode = node}/>
                     <Modal.Actions>
                         <Button secondary onClick={() => this.closeCycleModal()}>
@@ -336,6 +346,9 @@ class MoveProject extends Component {
                     closeOnRootNodeClick={false}
                     open={completeOpen}
                     size='small'>
+                    <Modal.Header className="modal-title-border">
+                        {this.handleSprint ? this.handleSprint.text : ''}
+                    </Modal.Header>
                     <CompleteSprint handleSprint={this.handleSprint}
                                     ref={node => this.completeSprintNode = node}/>
                     <Modal.Actions>

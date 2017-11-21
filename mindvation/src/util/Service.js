@@ -167,8 +167,8 @@ export function getTaskById(id, callback) {
         }
     )
         .then((res) => {
-            const taskDetail = convertTaskToLocal(res.responseBody);
-            callback(taskDetail);
+            const {task} = convertTaskToLocal(res.responseBody);
+            callback(task);
         })
         .catch((error) => {
             console.info(error);

@@ -136,7 +136,7 @@ class Members extends Component {
     render() {
         const {column, data, originData, direction} = this.state;
         return (
-            <Table striped>
+            <Table textAlign="center">
                 <Table.Header>
                     <Table.Row>
                         {

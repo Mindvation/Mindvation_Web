@@ -95,15 +95,8 @@ class CompleteSprint extends Component {
             checked
         } = this.state;
 
-        const {handleSprint} = this.props;
-
         return (
             <Modal.Content>
-                <Modal.Description>
-                    <Header as="h3" className="modal-header">
-                        {handleSprint.text}
-                    </Header>
-                </Modal.Description>
                 <div className="components-item">
                     <div>
                         <FormattedMessage
@@ -111,7 +104,7 @@ class CompleteSprint extends Component {
                             defaultValue="{doneNumber} issues were done ({donePoint} point)"
                             values={{
                                 doneNumber: doneNumber + '',
-                                donePoint: doneNumber + ''
+                                donePoint: donePoint + ''
                             }}
                         />
                     </div>

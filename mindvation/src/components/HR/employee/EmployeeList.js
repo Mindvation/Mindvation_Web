@@ -71,7 +71,7 @@ class EmployeeList extends Component {
         const {employee, dispatch, department} = this.props;
         return (
             <div>
-                <Table striped>
+                <Table textAlign="center">
                     <Table.Header>
                         <Table.Row>
                             {
@@ -99,18 +99,18 @@ class EmployeeList extends Component {
                                         })
                                     }
                                     <Table.Cell className="checklist-action-cell">
-                                        <Button primary size="small" onClick={() => this.edit(result)}>
+                                        <div className="table-action-edit" onClick={() => this.edit(result)}>
                                             <FormattedMessage
                                                 id='edit'
                                                 defaultMessage='Edit'
                                             />
-                                        </Button>
-                                        <Button color='red' size="small" onClick={() => this.remove(result)}>
+                                        </div>
+                                        <div className="table-action-delete" onClick={() => this.remove(result)}>
                                             <FormattedMessage
                                                 id='delete'
                                                 defaultMessage='Delete'
                                             />
-                                        </Button>
+                                        </div>
                                     </Table.Cell>
                                 </Table.Row>
                             })

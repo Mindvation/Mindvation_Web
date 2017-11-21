@@ -39,29 +39,29 @@ class TaskSummary extends Component {
         const {linkToStory = true} = this.props;
         const {task} = this.state;
         return (
-            <div className="project-detail story-summary">
-                <Header as='h4'>
-                    <Header.Content>
-                        <span className={"underLine summary-id"}>{task.idNumber}</span>
-                    </Header.Content>
-                </Header>
-                {linkToStory ? <Button className="summary-link" onClick={(() => this.goToStoryDetail(task.storyId))}>
+            <div>
+                <div className="summary-id">
+                    {task.idNumber}
+                </div>
+                {linkToStory ? <div className="summary-link" onClick={(() => this.goToStoryDetail(task.storyId))}>
                     <FormattedMessage
                         id='goToWorkflow'
                         defaultMessage='Go to Workflow'
                     />
-                </Button> : null}
-                <ReadOnly icon="book" title="Description"
-                          value={task.description}/>
-                <ReadOnly icon="clock" title="Start / End Date"
-                          value={task.startDate && task.endDate ? task.startDate + " ~ " + task.endDate : ""}/>
-                <ReadOnly icon="percent" title="Progress"
-                          value={task.progress}/>
-                <ReadOnly icon="attach" title="Attachments Type"
-                          value={task.model ? task.model.title : ""}/>
-                <ReadOnly icon="attach" title="Attachments"
-                          value={task.fileList && task.fileList.length > 0 ?
-                              <DisplayFile fileList={task.fileList}/> : ""}/>
+                </div> : null}
+                <div className="task-summary">
+                    <ReadOnly icon="book" title="Description"
+                              value={task.description}/>
+                    <ReadOnly icon="clock" title="Start / End Date"
+                              value={task.startDate && task.endDate ? task.startDate + " ~ " + task.endDate : ""}/>
+                    <ReadOnly icon="percent" title="Progress"
+                              value={task.progress}/>
+                    <ReadOnly icon="attach" title="Attachments Type"
+                              value={task.model ? task.model.title : ""}/>
+                    <ReadOnly icon="attach" title="Attachments"
+                              value={task.fileList && task.fileList.length > 0 ?
+                                  <DisplayFile fileList={task.fileList}/> : ""}/>
+                </div>
             </div>
         );
     }

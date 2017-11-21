@@ -142,54 +142,57 @@ class CreateModel extends Component {
     render() {
         const {activeIndex, steps, modelInfo, showDetail} = this.state;
         return (
-            <div className="project-content">
-                {!showDetail ? <div className="create-model">
-                    <div className="create-model-header">
-                        <Image name="model_create"/>
-                        <FormattedMessage
-                            id='createModel'
-                            defaultMessage='Create Model'
-                        />
-                    </div>
-                    <Step.Group ordered items={steps}/>
-                    <Segment style={{display: activeIndex === 0 ? 'block' : 'none'}}>
-                        <BasicInfo ref={node => this.basicNode = node}/>
-                    </Segment>
-                    {activeIndex === 1 ?
-                        <Segment><DisplayRoles modelInfo={modelInfo}/></Segment> : null}
-                    {activeIndex === 2 ? <Segment>
-                        <IterationPlan modelInfo={modelInfo} ref={node => this.iterationNode = node}/>
-                    </Segment> : null}
-                    <Segment style={{display: activeIndex === 3 ? 'block' : 'none'}}>
-                        <Attachments ref={node => this.attachNode = node}/>
-                    </Segment>
-                    <div className="create-model-footer">
-                        <Button className="previous-button"
-                                style={{display: activeIndex > 0 ? 'block' : 'none'}}
-                                onClick={() => this.previous()}>
-                            <FormattedMessage
-                                id='previous'
-                                defaultMessage='Previous'
-                            />
-                        </Button>
-                        <Button className="next-button confirm-button"
-                                style={{display: activeIndex < steps.length - 1 ? 'block' : 'none'}}
-                                onClick={() => this.next()}>
-                            <FormattedMessage
-                                id='next'
-                                defaultMessage='Next'
-                            />
-                        </Button>
-                        <Button className="next-button confirm-button"
-                                style={{display: activeIndex === steps.length - 1 ? 'block' : 'none'}}
-                                onClick={() => this.newModel()}>
-                            <FormattedMessage
-                                id='modelDone'
-                                defaultMessage='Done'
-                            />
-                        </Button>
-                    </div>
-                </div> : null}
+            <div>
+                {!showDetail ?
+                    <div className="project-content">
+                        <div className="create-model">
+                            <div className="create-model-header">
+                                <Image name="model_create"/>
+                                <FormattedMessage
+                                    id='createModel'
+                                    defaultMessage='Create Model'
+                                />
+                            </div>
+                            <Step.Group ordered items={steps}/>
+                            <Segment style={{display: activeIndex === 0 ? 'block' : 'none'}}>
+                                <BasicInfo ref={node => this.basicNode = node}/>
+                            </Segment>
+                            {activeIndex === 1 ?
+                                <Segment><DisplayRoles modelInfo={modelInfo}/></Segment> : null}
+                            {activeIndex === 2 ? <Segment>
+                                <IterationPlan modelInfo={modelInfo} ref={node => this.iterationNode = node}/>
+                            </Segment> : null}
+                            <Segment style={{display: activeIndex === 3 ? 'block' : 'none'}}>
+                                <Attachments ref={node => this.attachNode = node}/>
+                            </Segment>
+                            <div className="create-model-footer">
+                                <Button className="previous-button"
+                                        style={{display: activeIndex > 0 ? 'block' : 'none'}}
+                                        onClick={() => this.previous()}>
+                                    <FormattedMessage
+                                        id='previous'
+                                        defaultMessage='Previous'
+                                    />
+                                </Button>
+                                <Button className="next-button confirm-button"
+                                        style={{display: activeIndex < steps.length - 1 ? 'block' : 'none'}}
+                                        onClick={() => this.next()}>
+                                    <FormattedMessage
+                                        id='next'
+                                        defaultMessage='Next'
+                                    />
+                                </Button>
+                                <Button className="next-button confirm-button"
+                                        style={{display: activeIndex === steps.length - 1 ? 'block' : 'none'}}
+                                        onClick={() => this.newModel()}>
+                                    <FormattedMessage
+                                        id='modelDone'
+                                        defaultMessage='Done'
+                                    />
+                                </Button>
+                            </div>
+                        </div>
+                    </div> : null}
                 {showDetail ? <ModelDetail ref={node => this.modelDetailNode = node}/> : null}
             </div>
         );
