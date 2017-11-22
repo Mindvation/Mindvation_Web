@@ -416,7 +416,6 @@
 }
 
 .mvp-task-AcceptBox {
-    padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
@@ -434,6 +433,7 @@
     cursor: move;
     font-size: 14px;
     color: #333333;
+    padding: 20px;
 }
 
 .mvp-story-priority {
@@ -730,8 +730,9 @@ i.icon.mode-remove-label {
 
 .summary-id {
     padding: 12px 6px;
-    font-size: 12px;
+    font-size: 14px;
     color: #333333;
+    min-height: 45px;
 }
 
 .summary-link {
@@ -1365,4 +1366,19 @@ i.icon.mode-remove-label {
     color: #577ca6;
     font-size: 14px;
     cursor: pointer;
+}
+
+.summary-rail.ui.right.rail {
+    left: auto;
+    right: -400px;
+    background-color: #ffffff;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 0 20px rgba(34, 36, 38, .15);
+    width: 370px;
+}
+
+.visible.summary-rail.ui.right.rail {
+    right: 0;
 }

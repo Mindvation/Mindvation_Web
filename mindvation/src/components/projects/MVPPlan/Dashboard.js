@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import DragDropContext from '../../common/DragDropContext';
 import MoveProject from './MoveProject';
-import {Sidebar} from 'semantic-ui-react';
+import {Rail, Sticky} from 'semantic-ui-react';
 import StorySummary from '../../../containers/storySummary_container';
 import {rtrvStoryList} from '../../../util/Service';
+import $ from 'jquery';
 
 class Dashboard extends Component {
     state = {
-        visible: false,
         storyId: '',
         storyList: ''
     };
@@ -22,36 +22,35 @@ class Dashboard extends Component {
     };
 
     checkDetail = (storyId) => {
-        this.setState({visible: true, storyId: storyId})
+        let targetElm = document.getElementById("dashboardSticky");
+        $(targetElm).animate({right: 0}, 500);
+        this.setState({storyId: storyId})
+    };
+
+    closeSticky = () => {
+        let targetElm = document.getElementById("dashboardSticky");
+        $(targetElm).animate({right: -400}, 500);
     };
 
     render() {
-        const {visible, storyId, storyList} = this.state;
+        const {storyId, storyList} = this.state;
         return (
-            <Sidebar.Pushable>
-                <Sidebar
-                    animation='overlay'
-                    width='wide'
-                    direction='right'
-                    visible={visible}
-                    icon='labeled'
-                >
-                    <StorySummary storyId={storyId} linkToStory={true}/>
-                </Sidebar>
-                <Sidebar.Pusher onClick={() => this.setState({visible: false})}>
-                    {
-                        (storyList && storyList.length > 0) ?
-                            storyList.map((story, i) => {
-                                return <MoveProject key={i} storyList={story} storyDetail={(storyId) => {
-                                    this.checkDetail(storyId)
-                                }}/>
-                            }) : null
-                    }
-                    {/*<DemoCalendar storyDetail={(storyId) => {
-                            this.checkDetail(storyId)
-                        }}/>*/}
-                </Sidebar.Pusher>
-            </Sidebar.Pushable>
+            <div onClick={() => this.closeSticky()}>
+                {
+                    (storyList && storyList.length > 0) ?
+                        storyList.map((story, i) => {
+                            return <MoveProject key={i} storyList={story} storyDetail={(storyId) => {
+                                this.checkDetail(storyId)
+                            }}/>
+                        }) : null
+                }
+
+                <Rail id="dashboardSticky" position='right' className="summary-rail">
+                    <Sticky>
+                        <StorySummary storyId={storyId}/>
+                    </Sticky>
+                </Rail>
+            </div>
         );
     }
 }

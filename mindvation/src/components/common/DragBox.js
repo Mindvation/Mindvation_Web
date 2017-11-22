@@ -39,7 +39,7 @@ class DragBox extends Component {
 
         return (
             connectDragSource(
-                <div style={{...style, opacity}}>
+                <div style={{...style, opacity}} className={isDragging ? "drag-box-dragging" : ""}>
                     {
                         React.Children.map(this.props.children, function (child) {
                             return <div>{child}</div>;

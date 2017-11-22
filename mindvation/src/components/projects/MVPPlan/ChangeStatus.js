@@ -82,7 +82,6 @@ class MoveProject extends Component {
 
     render() {
         const {statuses} = this.state;
-        const {sprint} = this.props;
         return (
             <div>
                 <div className="project-header">

@@ -808,3 +808,12 @@ img.ui.image.mv-image {
 .simple-upload .ant-upload-list {
     display: none;
 }
+
+.drag-box-dragging {
+    border: 2px dashed #577ca6;
+    border-radius: 10px;
+}
+
+.ant-layout-content {
+    position: relative;
+}
