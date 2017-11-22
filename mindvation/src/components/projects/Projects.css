@@ -1311,20 +1311,20 @@ i.icon.mode-remove-label {
 }
 
 .table-action-edit {
-    font-size: 12px;
+    font-size: 14px;
     color: #577ca6;
     cursor: pointer;
 }
 
 .table-action-delete {
-    font-size: 12px;
+    font-size: 14px;
     color: #c35f57;
     margin-left: 20px;
     cursor: pointer;
 }
 
 .table-action-detail {
-    font-size: 12px;
+    font-size: 14px;
     color: #22315b;
     cursor: pointer;
 }
@@ -1337,4 +1337,32 @@ i.icon.mode-remove-label {
     padding: 0;
     margin: 0;
     flex: 1;
+}
+
+.mvp-arrange {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+}
+
+.mvp-cycle-text {
+    font-size: 14px;
+    color: #a3bb67;
+}
+
+.edit-password-button {
+    padding: 0 20px;
+    display: inline-block;
+    margin-top: 20px;
+    color: #577ca6;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.edit-photo-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #577ca6;
+    font-size: 14px;
+    cursor: pointer;
 }

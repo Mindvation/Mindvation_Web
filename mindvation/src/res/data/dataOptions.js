@@ -258,16 +258,16 @@ export const modelOptions = [
 export const iterationCycleOptions = [
     {
         text: '1周',
-        value: '1'
+        value: 1
     },
     {
         text: '2周',
-        value: '2'
+        value: 2
     }, {
         text: '3周',
-        value: '3'
+        value: 3
     }, {
         text: '4周',
-        value: '4'
+        value: 4
     },
 ];

@@ -150,7 +150,7 @@ const zh_CN = {
     taskAttachments: "任务交付件",
     add: "添加",
     loading: "加载中...",
-    goToWorkflow: "进入工作流",
+    goToWorkflow: "进入工作区",
     "Requirement Model": "需求模型",
     female: '女',
     male: '男',
@@ -228,6 +228,13 @@ const zh_CN = {
     engineering: "工程",
     businessRequirements: "业务需求",
     technology: "技术",
-    "Model ID": "模型编号"
+    "Model ID": "模型编号",
+    personalInfo: "个人信息",
+    editPassword: "修改密码",
+    "Original Password": "原密码",
+    "New Password": "新密码",
+    "Confirm New Password": "确认新密码",
+    confirmCurrentArrangement: "确认当前排列",
+    AIArrangement: "智能排列"
 };
 export default zh_CN;

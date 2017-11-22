@@ -12,6 +12,7 @@ import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
 import ModelList from '../model/Models/ModelList';
 import MyModelList from '../model/myModels/MyModelList';
+import PersonalInfo from '../personal/PersonalInfo';
 
 import {Layout, BackTop} from 'antd';
 import {
@@ -68,6 +69,10 @@ const routes = [
     {
         path: '/home/MyModelList',
         main: MyModelList
+    },
+    {
+        path: '/home/PersonalInfo',
+        main: PersonalInfo
     }
 ];
 

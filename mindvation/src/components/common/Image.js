@@ -16,7 +16,7 @@ class MVImage extends Component {
 }
 
 MVImage.propTypes = {
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     style: PropTypes.object,
     type: PropTypes.string,
     className: PropTypes.string

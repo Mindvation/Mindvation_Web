@@ -150,7 +150,7 @@ const en_US = {
     taskAttachments: "Task Attachments",
     add: "Add",
     loading: "Loading...",
-    goToWorkflow: "Go To Workflow",
+    goToWorkflow: "Go To Workspace",
     "Requirement Model": "Requirement Model",
     female: 'Female',
     male: 'Male',
@@ -228,6 +228,13 @@ const en_US = {
     engineering: "Engineering",
     businessRequirements: "Business Requirements",
     technology: "Technology",
-    "Model ID": "Model ID"
+    "Model ID": "Model ID",
+    personalInfo: "Personal Info",
+    editPassword: "Edit Password",
+    "Original Password": "Original Password",
+    "New Password": "New Password",
+    "Confirm New Password": "Confirm New Password",
+    confirmCurrentArrangement: "Confirm Current Arrangement",
+    AIArrangement: "AI Arrangement"
 };
 export default en_US;

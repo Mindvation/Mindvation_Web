@@ -75,7 +75,7 @@ class MVInput extends Component {
         };
         const {
             label, required, checked, placeHolder, defaultValue, type = "text",
-            step = "0.1", style, fullWidth, action, value, readOnly
+            step = "0.1", style, fullWidth, action, value, readOnly, name
         } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
@@ -101,7 +101,8 @@ class MVInput extends Component {
                     className={fullWidth ? "full-width" : "input-content"}
                     onChange={(event, data) => this.checkValue(event, data)}
                     defaultValue={defaultValue} value={value}
-                    type={type} step={step} action={action}
+                    type={type}
+                    step={type === "number" ? step : ''} action={action}
                 />
             </div>
         );

@@ -38,6 +38,10 @@ const keyPathMapping = [
         "key": '6',
         "path": '/home/MyModelList',
         "hostKey": "sub2"
+    },
+    {
+        "key": '7',
+        "path": '/home/PersonalInfo'
     }
 ];
 
@@ -123,6 +127,16 @@ class HomeMenu extends Component {
                         />
                     </Link></Menu.Item>
                 </SubMenu>
+                <Menu.Item key="7">
+                    <Link to="/home/PersonalInfo"/>
+                    <Icon type="user"/>
+                    <span>
+                        <FormattedMessage
+                            id='personalInfo'
+                            defaultMessage='Personal Info'
+                        />
+                    </span>
+                </Menu.Item>
                 {/*<SubMenu
                     key="sub2"
                     title={<span><Icon type="team"/><span>Team</span></span>}

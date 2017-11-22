@@ -4,17 +4,6 @@ import Select from '../../common/Select';
 import {FormattedMessage} from 'react-intl';
 import {getNextIterations} from '../../../util/Service';
 
-const dummyOptions = [
-    {
-        text: 'Sprint 3',
-        value: '3'
-    },
-    {
-        text: 'Sprint 4',
-        value: '4'
-    },
-];
-
 class CompleteSprint extends Component {
     state = {
         doneNumber: 0,

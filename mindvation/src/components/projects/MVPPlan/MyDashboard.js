@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import DragDropContext from '../../common/DragDropContext';
 import ChangeStatus from './ChangeStatus';
-import {Sidebar, Icon, Button} from 'semantic-ui-react';
+import {Sidebar} from 'semantic-ui-react';
 import TaskSummary from './TaskSummary';
 
 class MyDashboard extends Component {

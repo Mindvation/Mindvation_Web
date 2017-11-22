@@ -563,6 +563,13 @@ img.ui.image.mv-image {
     padding: 8px 20px 0 0;
     font-size: 14px;
     color: #666666;
+    max-width: 20%;
+}
+
+.disable-button.ui.button {
+    background-color: #eeeeee;
+    border: 2px solid #dddddd;
+    color: #999999;
 }
 
 .cancel-button.ui.button {
@@ -792,4 +799,12 @@ img.ui.image.mv-image {
 
 .ui.right.overlay.sidebar {
     background-color: #ffffff;
+}
+
+.simple-upload {
+    position: relative;
+}
+
+.simple-upload .ant-upload-list {
+    display: none;
 }

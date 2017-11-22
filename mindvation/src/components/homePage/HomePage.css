@@ -132,3 +132,19 @@ i.icon.remove-position-button {
     font-size: 14px;
     color: #999999;
 }
+
+.personal-photo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.edit-photo {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.personal-photo > img.ui.image {
+    width: 160px;
+    height: 160px;
+}

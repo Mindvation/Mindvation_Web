@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import DropContainer from '../../common/DropContainer';
 import Box from '../../common/DragBox';
 import {Grid, Icon, Dropdown, Modal, Button} from 'semantic-ui-react';
-import {priorityOptions} from '../../../res/data/dataOptions';
+import {priorityOptions, iterationCycleOptions} from '../../../res/data/dataOptions';
 import {getDesc, checkCompleted} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import SelectCycle from './SelectCycle';
@@ -18,7 +18,8 @@ class MoveProject extends Component {
         cycleOpen: false,
         completeOpen: false,
         model: {},
-        activeSprint: 1
+        activeSprint: 1,
+        isMoved: false
     };
 
     componentWillMount() {
@@ -37,6 +38,7 @@ class MoveProject extends Component {
                     stories: [],
                     labels: sprint.labelIds || [],
                     status: sprint.sprintInfo.status,
+                    iterationCycle: sprint.sprintInfo.iterationCycle,
                     points: 0
                 };
                 if (sprint.sprintInfo.status === "close") {
@@ -74,6 +76,7 @@ class MoveProject extends Component {
             }
         });
         this.setState({
+            isMoved: true,
             sprints: tempSprints
         })
     };
@@ -139,6 +142,7 @@ class MoveProject extends Component {
 
     updateSprintStatus = (iterationInfo) => {
         this.handleSprint.status = iterationInfo.status;
+        this.handleSprint.iterationCycle = iterationInfo.iterationCycle;
         this.setState({
             sprints: this.state.sprints
         });
@@ -179,6 +183,7 @@ class MoveProject extends Component {
         }
 
         this.setState({
+            isMoved: true,
             sprints: tempSprints
         })
     };
@@ -205,15 +210,17 @@ class MoveProject extends Component {
             })
         }
 
-        updateDashboard(params);
+        updateDashboard(params, () => this.setState({
+            isMoved: false
+        }));
     };
 
     render() {
-        const {sprints, cycleOpen, completeOpen, model, activeSprint} = this.state;
+        const {sprints, cycleOpen, completeOpen, model, activeSprint, isMoved} = this.state;
         return (
-            <div>
+            <div className="model-main-container">
                 <div className="project-header">
-                    <Image name='dashboard'/>
+                    <Image name='MVPDashboard'/>
                     <FormattedMessage
                         id='dashboard'
                         defaultMessage='Dashboard'
@@ -227,16 +234,19 @@ class MoveProject extends Component {
                                 <div className="mvp-sprint-title">
                                     <span className="mvp-sprint-title-text">{sprint.text}({sprint.points})</span>
                                     {sprint.text !== 'Product Backlogs' ? <div className="mvp-sprint-status">
+                                        {/*{sprint.status === 'start' ?
+                                            <Icon name='video play outline' size="large" color="green"/> : null}*/}
                                         {sprint.status === 'start' ?
-                                            <Icon name='video play outline' size="large" color="green"/> : null}
-                                        {sprint.status === 'start' ?
-                                            <Icon name='recycle' size="large" color="blue"/> : null}
-                                        {sprint.status === 'warning' ?
-                                            <Icon name='warning sign' size="large" color="orange"/> : null}
+                                            <div className="display-flex mvp-cycle-text">
+                                                <Image name="recycle"/>
+                                                {getDesc(iterationCycleOptions, sprint.iterationCycle)}
+                                            </div> : null}
+                                        {/*{sprint.status === 'warning' ?
+                                            <Icon name='warning sign' size="large" color="orange"/> : null}*/}
                                         {sprint.status === 'close' ?
                                             <Icon name='stop circle outline' size="large"/> : null}
                                     </div> : null}
-                                    {activeSprint === i ?
+                                    {activeSprint === i && !isMoved ?
                                         <div className="mvp-sprint-action">
                                             <Dropdown>
                                                 <Dropdown.Menu>
@@ -302,14 +312,22 @@ class MoveProject extends Component {
                         })
                     }
                 </Grid>
-                <div style={{marginBottom: '2em', justifyContent: 'space-evenly', display: 'flex'}}>
-                    <Button primary onClick={() => this.AIArrangement()}>
-                        AI Arrangement
-                    </Button>
-                    <Button primary onClick={() => this.confirmArrangement()}>
+
+                <div className="mvp-arrange">
+                    <Button className="confirm-button" onClick={() => this.AIArrangement()}>
                         <FormattedMessage
-                            id='confirm'
-                            defaultMessage='Confirm'
+                            id='AIArrangement'
+                            defaultMessage='AI Arrangement'
+                        />
+                    </Button>
+                    <Button
+                        disabled={!isMoved}
+                        className="confirm-button"
+                        style={{marginLeft: '20px'}}
+                        onClick={() => this.confirmArrangement()}>
+                        <FormattedMessage
+                            id='confirmCurrentArrangement'
+                            defaultMessage='Confirm Current Arrangement'
                         />
                     </Button>
                 </div>
@@ -320,6 +338,7 @@ class MoveProject extends Component {
                     open={cycleOpen}
                     size='small'>
                     <Modal.Header className="modal-title-border">
+                        <Image name="choose"/>
                         <FormattedMessage
                             id='chooseIterationCycle'
                             defaultMessage='Choose Iteration Cycle'
@@ -347,6 +366,7 @@ class MoveProject extends Component {
                     open={completeOpen}
                     size='small'>
                     <Modal.Header className="modal-title-border">
+                        <Image name="endMVP"/>
                         {this.handleSprint ? this.handleSprint.text : ''}
                     </Modal.Header>
                     <CompleteSprint handleSprint={this.handleSprint}

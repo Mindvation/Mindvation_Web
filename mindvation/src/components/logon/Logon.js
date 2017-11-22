@@ -53,6 +53,11 @@ class Logon extends Component {
                         ref={node => userName = node}
                         error={this.state.selfChecked && isEmpty(userName.inputRef.value)}
                         className="logon-input logon-user-name"
+                        onKeyUp={(e) => {
+                            if (e.keyCode === 13) {
+                                this.logonService();
+                            }
+                        }}
                     />
                     <Input
                         fluid
@@ -65,6 +70,11 @@ class Logon extends Component {
                         ref={node => passWord = node}
                         error={this.state.selfChecked && isEmpty(passWord.inputRef.value)}
                         className="logon-input logon-password"
+                        onKeyUp={(e) => {
+                            if (e.keyCode === 13) {
+                                this.logonService();
+                            }
+                        }}
                     />
 
                     {userInfo.responseCode && userInfo.responseCode !== "000" ?

@@ -122,11 +122,12 @@ export function rtrvStoryList(projectId, callback) {
         });
 }
 
-export function updateDashboard(params) {
+export function updateDashboard(params, callback) {
     StaticLoad.show("updateDashboard");
     post(url.updateDashboard, params)
         .then(() => {
             StaticLoad.remove("updateDashboard");
+            callback();
         })
         .catch((error) => {
             StaticLoad.remove("updateDashboard");
