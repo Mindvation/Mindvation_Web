@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Menu from './Menu';
+import {Image} from 'semantic-ui-react';
 import CreateModel from '../model/createModel/CreateModel';
 import Dashboard from '../projects/MVPPlan/Dashboard';
 import MyDashboard from '../projects/MVPPlan/MyDashboard';
+import AllDashboard from '../projects/MVPPlan/AllDashboard';
 import Employee from '../../containers/employee_container';
 import Department from '../../containers/department_container';
 import ProjectDetail from '../../containers/projectDetail_container';
@@ -13,7 +15,7 @@ import Projects from '../../containers/project_container';
 import ModelList from '../model/Models/ModelList';
 import MyModelList from '../model/myModels/MyModelList';
 import PersonalInfo from '../personal/PersonalInfo';
-
+import {getUser} from '../../util/UserStore';
 import {Layout, BackTop} from 'antd';
 import {
     Route,
@@ -37,6 +39,10 @@ const routes = [
     {
         path: '/home/MyMVPDashboard/:id',
         main: MyDashboard
+    },
+    {
+        path: '/home/AllDashboard/:id',
+        main: AllDashboard
     },
     {
         path: '/home/CreateModel',
@@ -109,15 +115,14 @@ class HomePage extends Component {
     render() {
         return (
             <Layout>
-                <Header><CommonHeader/></Header>
                 <Layout>
-                    <Sider collapsible
-                           collapsed={this.state.collapsed}
-                           onCollapse={this.onCollapse}
-                           className="sider-menu"
+                    <Sider
+                        className="sider-menu"
                     >
+                        <Image className="menu-user-avatar" src={getUser().avatar} avatar/>
                         <Menu/>
                     </Sider>
+                    <Header><CommonHeader/></Header>
                     <Content style={{minHeight: this.state.minHeight, overflowY: 'hidden'}}>
                         <BackTop/>
                         <Switch>
@@ -138,7 +143,6 @@ class HomePage extends Component {
                     </Content>
                 </Layout>
             </Layout>
-
         );
     }
 }

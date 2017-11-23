@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
 import createHistory from 'history/createBrowserHistory';
+import Image from '../common/Image';
 
 const history = createHistory();
 const location = history.location;
@@ -67,9 +68,9 @@ class HomeMenu extends Component {
             <Menu theme="dark" defaultSelectedKeys={[defaultKey]}
                   defaultOpenKeys={[hostKey]}
                   mode="inline">
-                <Menu.Item key="1">
+                <Menu.Item key="1" className="menu_text">
                     <Link to="/home/projects"/>
-                    <Icon type="pie-chart"/>
+                    <Image name="menu_project"/>
                     <span>
                         <FormattedMessage
                             id='menuProjects'
@@ -79,7 +80,7 @@ class HomeMenu extends Component {
                 </Menu.Item>
                 <SubMenu
                     key="sub2"
-                    title={<span><Icon type="desktop"/><span>
+                    title={<span className="menu_icon_text"><Image name="menu_model"/><span>
                         <FormattedMessage
                             id='model'
                             defaultMessage='Model'
@@ -107,7 +108,7 @@ class HomeMenu extends Component {
                 </SubMenu>
                 <SubMenu
                     key="sub1"
-                    title={<span><Icon type="user"/><span>
+                    title={<span className="menu_icon_text"><Image name="menu_hr"/><span>
                         <FormattedMessage
                             id='hr'
                             defaultMessage='HR'
@@ -127,16 +128,16 @@ class HomeMenu extends Component {
                         />
                     </Link></Menu.Item>
                 </SubMenu>
-                <Menu.Item key="7">
+                {/*<Menu.Item key="7" className="menu_icon_text">
                     <Link to="/home/PersonalInfo"/>
-                    <Icon type="user"/>
+                    <Image name="menu_personal"/>
                     <span>
                         <FormattedMessage
                             id='personalInfo'
                             defaultMessage='Personal Info'
                         />
                     </span>
-                </Menu.Item>
+                </Menu.Item>*/}
                 {/*<SubMenu
                     key="sub2"
                     title={<span><Icon type="team"/><span>Team</span></span>}

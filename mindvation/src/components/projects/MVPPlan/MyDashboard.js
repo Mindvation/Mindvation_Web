@@ -27,19 +27,20 @@ class MyDashboard extends Component {
         const {sprint, taskId} = this.state;
         const {id} = this.props.match.params;
         return (
-            <div onClick={() => this.closeSticky()}>
-                <ChangeStatus
-                    sprint={sprint} projectId={id}
-                    taskDetail={(taskId) => {
-                        this.checkDetail(taskId)
-                    }}
-                />
+            <div style={{height: '100%'}}>
+                <div style={{height: '100%'}} onClick={() => this.closeSticky()}>
+                    <ChangeStatus
+                        sprint={sprint} projectId={id}
+                        taskDetail={(taskId) => {
+                            this.checkDetail(taskId)
+                        }}
+                    />
+                </div>
 
-                <Rail id="myDashboardSticky" position='right' className="summary-rail">
-                    <Sticky>
-                        <TaskSummary taskId={taskId}/>
-                    </Sticky>
-                </Rail>
+                <div id="myDashboardSticky"
+                     className="summary-rail">
+                    <TaskSummary taskId={taskId}/>
+                </div>
             </div>
         );
     }

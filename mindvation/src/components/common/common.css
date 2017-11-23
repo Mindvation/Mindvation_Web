@@ -364,7 +364,6 @@
 .ant-slider:hover .ant-slider-track {
     height: 10px;
     border-radius: 5px;
-    /*background-color: #577ca6;*/
     background: linear-gradient(to right, #22315b, #577ca6);
 }
 
@@ -500,13 +499,31 @@
     width: 2em;
 }
 
-.ui.center.aligned.header.common-header {
-    width: 100%;
+.common-header {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0;
+    line-height: 1;
+}
+
+.header-product {
+    font-size: 24px;
+    color: #577ca6;
+    font-weight: bold;
+}
+
+.header-name {
+    font-size: 14px;
+    color: #999999;
+    margin-right: 40px;
+}
+
+.log-out-button {
+    font-size: 16px;
+    color: #000000;
+    cursor: pointer;
 }
 
 i.icon.select-delete-icon {
@@ -814,6 +831,17 @@ img.ui.image.mv-image {
     border-radius: 10px;
 }
 
-.ant-layout-content {
-    position: relative;
+.ant-carousel .slick-dots li button {
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+    width: 14px;
+    height: 14px;
+}
+
+.ant-carousel .slick-dots {
+    height: 14px;
 }

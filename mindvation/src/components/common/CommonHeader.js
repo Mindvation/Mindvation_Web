@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Button, Image, Popup} from 'semantic-ui-react';
+import {Header, Button} from 'semantic-ui-react';
 import {logOut} from '../../actions/logon_action';
 import {FormattedMessage} from 'react-intl';
 import {getUser} from '../../util/UserStore';
@@ -17,39 +17,25 @@ class CommonHeader extends Component {
             this.props.history.push('/login?language=login&redirect_uri=' + encodeURIComponent(redirect));
         }*/
         return (
-            <Header as='h2' textAlign='center' className="common-header">
-                {/*<span style={{float: 'left', color: '#f9f9f9'}}>
-                    {getUser().name}
-                </span>*/}
-                <div className="display-flex" style={{float: 'left'}}>
-                    <Popup
-                        className="pre-line"
-                        trigger={<Image verticalAlign="middle" src={getUser().avatar} avatar
-                                        className="header-avatar"/>}
-                        content={<Image verticalAlign="middle" src={getUser().avatar} avatar
-                                        style={{width: '10em', height: '10em'}}/>}
-                        position="bottom left"
-                    />
-
-                    <span style={{color: '#f9f9f9'}}>
-                        {getUser().name}
-                    </span>
-                </div>
-
-                <span style={{color: '#f9f9f9'}}>
+            <div className="common-header">
+                <div className="header-product">
                     <FormattedMessage
                         id='mindvations'
                         defaultMessage='Mindvations'
                     />
-                </span>
-
-                <Button floated='right' onClick={() => this.userLogOut()}>
-                    <FormattedMessage
-                        id='logOut'
-                        defaultMessage='Log out'
-                    />
-                </Button>
-            </Header>
+                </div>
+                <div className="display-flex">
+                    <div className="header-name">
+                        {getUser().name}
+                    </div>
+                    <div className="log-out-button" onClick={() => this.userLogOut()}>
+                        <FormattedMessage
+                            id='logOut'
+                            defaultMessage='Log out'
+                        />
+                    </div>
+                </div>
+            </div>
         );
     }
 }

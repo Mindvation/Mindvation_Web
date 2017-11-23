@@ -193,6 +193,10 @@ class ProjectDetail extends Component {
                                                   to={`/home/MyMVPDashboard/${project.projectId}`}>
                                                 My MVP Dashboard
                                             </Link>
+                                            <Link className="link-mvp-button"
+                                                  to={`/home/AllDashboard/${project.projectId}`}>
+                                                Dashboard
+                                            </Link>
                                         </div>
                                     </div>
                                 </TabPane>

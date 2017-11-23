@@ -80,7 +80,7 @@ class StorySummary extends Component {
             }
         ];
         return (
-            <div>
+            <div className="summary-container">
                 <div className="summary-id">
                     {story.storyId}
                 </div>

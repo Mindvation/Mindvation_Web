@@ -39,7 +39,7 @@ class TaskSummary extends Component {
         const {linkToStory = true} = this.props;
         const {task} = this.state;
         return (
-            <div>
+            <div className="summary-container">
                 <div className="summary-id">
                     {task.idNumber}
                 </div>

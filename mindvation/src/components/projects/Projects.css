@@ -1368,17 +1368,22 @@ i.icon.mode-remove-label {
     cursor: pointer;
 }
 
-.summary-rail.ui.right.rail {
+.summary-rail {
     left: auto;
     right: -400px;
     background-color: #ffffff;
     top: 0;
     padding: 0;
     margin: 0;
+    -webkit-box-shadow: 0 0 20px rgba(34, 36, 38, .15);
     box-shadow: 0 0 20px rgba(34, 36, 38, .15);
     width: 370px;
+    position: fixed;
+    bottom: 0;
+    overflow-y: auto;
 }
 
-.visible.summary-rail.ui.right.rail {
-    right: 0;
+.summary-container{
+    margin-top: 64px;
+    position: relative;
 }

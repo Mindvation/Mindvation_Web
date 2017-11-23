@@ -122,6 +122,19 @@ export function rtrvStoryList(projectId, callback) {
         });
 }
 
+export function rtrvAllDashboard(projectId, callback) {
+    post(url.rtrvAllDashboard, {
+            projId: projectId
+        }
+    )
+        .then((res) => {
+            callback(res.responseBody);
+        })
+        .catch((error) => {
+            console.info(error);
+        });
+}
+
 export function updateDashboard(params, callback) {
     StaticLoad.show("updateDashboard");
     post(url.updateDashboard, params)

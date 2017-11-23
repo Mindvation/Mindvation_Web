@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import DragDropContext from '../../common/DragDropContext';
-import MoveProject from './MoveProject';
+import DashboardStoryList from './DashboardStoryList';
 import {Rail, Sticky} from 'semantic-ui-react';
 import StorySummary from '../../../containers/storySummary_container';
-import {rtrvStoryList} from '../../../util/Service';
+import {rtrvAllDashboard} from '../../../util/Service';
 import $ from 'jquery';
 
 class Dashboard extends Component {
@@ -14,7 +13,7 @@ class Dashboard extends Component {
 
     componentWillMount() {
         const {id} = this.props.match.params;
-        rtrvStoryList(id, function (storyList) {
+        rtrvAllDashboard(id, function (storyList) {
             this.setState({
                 storyList: storyList
             })
@@ -40,19 +39,21 @@ class Dashboard extends Component {
                     {
                         (storyList && storyList.length > 0) ?
                             storyList.map((story, i) => {
-                                return <MoveProject key={i} storyList={story} storyDetail={(storyId) => {
+                                return <DashboardStoryList key={i} storyList={story} storyDetail={(storyId) => {
                                     this.checkDetail(storyId)
                                 }}/>
                             }) : null
                     }
                 </div>
 
-                <div id="dashboardSticky" className="summary-rail">
-                    <StorySummary storyId={storyId}/>
-                </div>
+                <Rail id="dashboardSticky" position='right' className="summary-rail">
+                    <Sticky>
+                        <StorySummary storyId={storyId}/>
+                    </Sticky>
+                </Rail>
             </div>
         );
     }
 }
 
-export default DragDropContext(Dashboard);
+export default Dashboard;
