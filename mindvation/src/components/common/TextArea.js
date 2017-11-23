@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, TextArea, Icon, Form} from 'semantic-ui-react';
+import {TextArea, Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {isEmpty} from '../../util/CommUtil';
 import {injectIntl, FormattedMessage} from 'react-intl';

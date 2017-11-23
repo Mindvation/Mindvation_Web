@@ -5,6 +5,8 @@ import 'semantic-ui-css/semantic.min.css';
 import 'antd/dist/antd.css';
 import './index.css';
 import './components/common/common.css';
+import 'simditor/styles/simditor.css';
+import 'simditor-emoji/styles/simditor-emoji.css';
 import App from './App.js';
 import {Provider} from 'react-redux';
 import zh_CN from './res/language/zh_CN';

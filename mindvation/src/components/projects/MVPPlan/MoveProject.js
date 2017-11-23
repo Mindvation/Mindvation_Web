@@ -346,13 +346,13 @@ class MoveProject extends Component {
                     </Modal.Header>
                     <SelectCycle ref={node => this.selectCycleNode = node}/>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeCycleModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeCycleModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.selectCycleInfo()}>
+                        <Button className="confirm-button" onClick={() => this.selectCycleInfo()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'
@@ -372,13 +372,13 @@ class MoveProject extends Component {
                     <CompleteSprint handleSprint={this.handleSprint}
                                     ref={node => this.completeSprintNode = node}/>
                     <Modal.Actions>
-                        <Button secondary onClick={() => this.closeCompleteModal()}>
+                        <Button className="cancel-button" onClick={() => this.closeCompleteModal()}>
                             <FormattedMessage
                                 id='cancel'
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button primary onClick={() => this.completeSprint()}>
+                        <Button className="confirm-button" onClick={() => this.completeSprint()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'

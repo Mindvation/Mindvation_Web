@@ -8,6 +8,7 @@
     color: #666666;
 }
 
+.simditor,
 .components-length {
     width: 80% !important;
 }
@@ -844,4 +845,12 @@ img.ui.image.mv-image {
 
 .ant-carousel .slick-dots {
     height: 14px;
+}
+
+.components-item .simditor .simditor-body {
+    line-height: 1.3;
+}
+
+.components-item .simditor .simditor-body p {
+    margin-bottom: 5px;
 }

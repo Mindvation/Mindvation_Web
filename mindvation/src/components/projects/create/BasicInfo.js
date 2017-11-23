@@ -4,6 +4,7 @@ import Input from '../../common/Input';
 import TextArea from '../../common/TextArea';
 import {FormattedMessage} from 'react-intl';
 import Image from '../../common/Image';
+import Simditor from '../../common/Simditor';
 
 let name;
 let projectDesc;
@@ -49,6 +50,7 @@ class BasicInfo extends Component {
                               checked={this.state.checked}
                               defaultValue={info.description}
                     />
+                    <Simditor label="Description" required={true} defaultValue="<p>asdadsd</p><br><p>13123123</p>"/>
                 </div>
             </Modal.Content>
         );

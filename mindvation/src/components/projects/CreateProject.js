@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, Divider} from 'semantic-ui-react';
+import {Button, Modal} from 'semantic-ui-react';
 import BasicInfo from './create/BasicInfo';
 import AdditionalInfo from './create/AdditionalInfo';
 import OptionalItem from './create/OptionalItem';

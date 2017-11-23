@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Header, Button} from 'semantic-ui-react';
 import {logOut} from '../../actions/logon_action';
 import {FormattedMessage} from 'react-intl';
 import {getUser} from '../../util/UserStore';
