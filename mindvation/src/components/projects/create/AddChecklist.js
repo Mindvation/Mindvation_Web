@@ -35,7 +35,7 @@ class AddChecklist extends Component {
             "description": checklistDesc.getWrappedInstance().getValue(),
             "assignee": assignTo.getWrappedInstance().getFullValue(),
             "assigner": {
-                text: getUser().name,
+                text: getUser().staffInfo.name,
                 value: getStaffId()
             },
             "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),

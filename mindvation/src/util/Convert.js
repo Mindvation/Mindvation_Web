@@ -892,8 +892,7 @@ export function convertReqStatusToServer(statusInfo) {
         reqmntInfo: {
             projId: statusInfo.projectId,
             reqmntId: statusInfo.reqId,
-            status: statusInfo.status,
-            progress: statusInfo.percent
+            status: statusInfo.status
         }
     };
 }
@@ -1189,8 +1188,7 @@ export function convertStoryStatusToServer(statusInfo) {
         creatorId: getStaffId(),
         storyInfo: {
             storyId: statusInfo.storyId,
-            status: statusInfo.status,
-            progress: statusInfo.percent
+            status: statusInfo.status
         }
     }
 }

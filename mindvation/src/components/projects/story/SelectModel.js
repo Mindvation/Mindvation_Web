@@ -58,7 +58,6 @@ class SelectModel extends Component {
                        ref={node => {
                            this.title = node
                        }}
-                       checked={checked}
                        placeHolder="modelNamePhDesc"
                 />
                 <div className="components-item item-horizontal align-right">

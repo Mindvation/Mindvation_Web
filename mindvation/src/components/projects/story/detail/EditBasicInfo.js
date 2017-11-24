@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button} from 'semantic-ui-react';
+import {Modal, Button} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../BasicInfo';
 import {checkCompleted} from '../../../../util/CommUtil';
 import {updateStoryBasic} from '../../../../actions/story_action';
 
-let basicModule;
 let mandatoryFile = ["summary", "description"];
 
 class EditBasicInfo extends Component {
@@ -22,7 +21,7 @@ class EditBasicInfo extends Component {
     };
 
     update = () => {
-        let basicInfo = basicModule.getInfo();
+        let basicInfo = this.basicModule.getInfo();
         let flag = checkCompleted(mandatoryFile, basicInfo);
         if (flag) {
             basicInfo.storyId = this.props.story.storyId;
@@ -35,21 +34,6 @@ class EditBasicInfo extends Component {
         const {story, disabled} = this.props;
         return (
             <div className="read-only-component">
-                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
-                    <FormattedMessage
-                        id='basicInfo'
-                        defaultMessage='Basic info'
-                    />
-                    {
-                        disabled ? null :
-                            <div className="edit-line-cont">
-                                <div className="edit-info-line"/>
-                                <div className="edit-info-icon" onClick={this.edit}>
-                                    <Icon name='pencil'/>
-                                </div>
-                            </div>
-                    }
-                </Header>*/}
                 {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
                     <FormattedMessage
                         id='editBasicInfo'
@@ -57,8 +41,8 @@ class EditBasicInfo extends Component {
                     />
                 </div>}
                 <div className="edit-detail-info">
-                    <ReadOnly icon="product hunt" title="Summary" value={story.summary}/>
-                    <ReadOnly icon="book" title="Description"
+                    <ReadOnly title="Summary" value={story.summary}/>
+                    <ReadOnly title="Description" type="html"
                               value={story.description}/>
                 </div>
                 <Modal
@@ -69,7 +53,7 @@ class EditBasicInfo extends Component {
                     <BasicInfo
                         info={story}
                         ref={node => {
-                            basicModule = node
+                            this.basicModule = node
                         }}
                         isEdit={true}
                     />

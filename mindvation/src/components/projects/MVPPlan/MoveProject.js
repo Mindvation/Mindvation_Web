@@ -275,7 +275,7 @@ class MoveProject extends Component {
                                 <DropContainer data={sprint.key}>
                                     {
                                         sprint.stories.map((story, i) => {
-                                            return <div className="mvp-task-AcceptBox" key={i}>
+                                            return <div className="mvp-story-AcceptBox" key={i}>
                                                 <Box
                                                     data={{
                                                         'story': story,
@@ -300,8 +300,12 @@ class MoveProject extends Component {
                                                                     className="mvp-story-point">{story.storyPoint}</div>
                                                             </div>
                                                         </div>
-                                                        <div className="mvp-story-desc">{story.description}</div>
-
+                                                        <div className="mvp-story-desc read-only-text">
+                                                            <div className="simditor">
+                                                                <div className="simditor-body"
+                                                                     dangerouslySetInnerHTML={{__html: story.description}}/>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </Box>
                                             </div>

@@ -36,18 +36,6 @@ class EditBasicInfo extends Component {
         const {requirement, disabled} = this.props;
         return (
             <div className="read-only-component">
-                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
-                    <FormattedMessage
-                        id='basicInfo'
-                        defaultMessage='Basic info'
-                    />
-                    {disabled ? null : <div className="edit-line-cont">
-                        <div className="edit-info-line"/>
-                        <div className="edit-info-icon" onClick={this.edit}>
-                            <Icon name='pencil'/>
-                        </div>
-                    </div>}
-                </Header>*/}
                 {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
                     <FormattedMessage
                         id='editBasicInfo'
@@ -55,8 +43,8 @@ class EditBasicInfo extends Component {
                     />
                 </div>}
                 <div className="edit-detail-info">
-                    <ReadOnly icon="product hunt" title="Summary" value={requirement.summary}/>
-                    <ReadOnly icon="book" title="Description"
+                    <ReadOnly title="Summary" value={requirement.summary}/>
+                    <ReadOnly title="Description" type="html"
                               value={requirement.description}/>
                 </div>
                 <Modal

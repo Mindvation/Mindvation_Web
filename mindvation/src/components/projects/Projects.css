@@ -419,6 +419,13 @@
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
+}
+
+.mvp-story-AcceptBox {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .drop-container {
@@ -434,6 +441,10 @@
     font-size: 14px;
     color: #333333;
     padding: 20px;
+}
+
+.host-mvp-story.mvp-story-info {
+    cursor: pointer;
 }
 
 .mvp-story-priority {
@@ -1381,9 +1392,37 @@ i.icon.mode-remove-label {
     position: fixed;
     bottom: 0;
     overflow-y: auto;
+    z-index: 2;
 }
 
-.summary-container{
+.summary-container {
     margin-top: 64px;
     position: relative;
+}
+
+.table-desc-text {
+    height: 18px;
+    overflow: hidden;
+}
+
+.table-desc-simditor.simditor,
+.read-only-text .simditor {
+    border: none;
+}
+
+.table-desc-simditor.simditor .simditor-body,
+.table-desc-simditor.simditor .simditor-body p,
+.table-desc-simditor.simditor .simditor-body div,
+.read-only-text .simditor .simditor-body,
+.read-only-text .simditor .simditor-body p,
+.read-only-text .simditor .simditor-body div {
+    padding: 0;
+    font-size: 14px;
+    color: #666666;
+}
+
+.table-desc-simditor.simditor .simditor-body,
+.read-only-text .simditor .simditor-body {
+    min-height: 0;
+    height: auto;
 }

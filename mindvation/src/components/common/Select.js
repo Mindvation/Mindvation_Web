@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Dropdown, Icon} from 'semantic-ui-react';
+import {Dropdown} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {isEmpty, getOption} from '../../util/CommUtil';
 import {injectIntl, FormattedMessage} from 'react-intl';
@@ -29,22 +29,19 @@ class MVSelect extends Component {
     checkDefaultValue = () => {
         const {defaultValue} = this.props;
         if (isEmpty(defaultValue)) {
-            this.setState({
-                isEmpty: true
-            })
+            if (!this.state.isEmpty) {
+                this.setState({
+                    isEmpty: true
+                });
+            }
+
         } else {
-            this.setState({
-                isEmpty: false
-            })
+            if (this.state.isEmpty) {
+                this.setState({
+                    isEmpty: false
+                })
+            }
         }
-
-        this.setState({
-            returnValue: defaultValue
-        });
-
-        /*if (this.props.onChange) {
-            this.props.onChange(defaultValue)
-        }*/
     };
 
     checkValue = (event, data) => {
@@ -53,15 +50,27 @@ class MVSelect extends Component {
         if (this.state.returnValue === inputValue) return;
 
         if (isEmpty(inputValue)) {
-            this.setState({
-                isEmpty: true,
-                selfChecked: true
-            })
+            if (!this.state.isEmpty) {
+                this.setState({
+                    isEmpty: true
+                })
+            }
+            if (!this.state.selfChecked) {
+                this.setState({
+                    selfChecked: true
+                })
+            }
         } else {
-            this.setState({
-                isEmpty: false,
-                selfChecked: true
-            })
+            if (this.state.isEmpty) {
+                this.setState({
+                    isEmpty: false
+                })
+            }
+            if (!this.state.selfChecked) {
+                this.setState({
+                    selfChecked: true
+                })
+            }
         }
 
         this.setState({
@@ -74,6 +83,9 @@ class MVSelect extends Component {
     };
 
     getValue = () => {
+        this.setState({
+            selfChecked: true
+        });
         return this.state.returnValue;
     };
 
@@ -95,7 +107,7 @@ class MVSelect extends Component {
             ...this.props
         };
         const {
-            label, options, required, checked, search, fullWidth, addOther,
+            label, options, required, search, fullWidth, addOther,
             multiple, placeHolder, defaultValue, disabled
         } = this.props;
         const {formatMessage} = this.props.intl;
@@ -142,7 +154,6 @@ class MVSelect extends Component {
             <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}>
                 {
                     label ? <div className='field-title'>
-                        {/*{icon ? <Icon name={icon}/> : null}*/}
                         <div className={required ? "input-label" : null}>
                             <FormattedMessage
                                 id={label}
@@ -155,7 +166,7 @@ class MVSelect extends Component {
                           multiple={multiple}
                           selection
                           options={selectOptions}
-                          className={fullWidth ? "full-width" : "input-content" + " " + (required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
+                          className={fullWidth ? "full-width" : "input-content" + " " + (required && this.state.selfChecked && this.state.isEmpty ? "components-error" : "")}
                           onChange={(event, data) => {
                               this.checkValue(event, data)
                           }}
@@ -171,7 +182,6 @@ MVSelect.propTypes = {
     label: PropTypes.string,
     options: PropTypes.array,
     required: PropTypes.bool,
-    checked: PropTypes.bool,
     placeHolder: PropTypes.string,
     search: PropTypes.bool,
     multiple: PropTypes.bool,

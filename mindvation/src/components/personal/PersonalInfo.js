@@ -4,15 +4,26 @@ import {FormattedMessage} from 'react-intl';
 import MVImage from '../common/Image';
 import SimpleUpload from '../common/SimpleUpload';
 import EditPassword from './EditPassword';
+import {getStaffId} from '../../util/UserStore';
+import {updateUser, getUserInfo} from '../../actions/user_action';
+import TagList from '../projects/create/TagList';
 
 class PersonalInfo extends Component {
+    componentWillMount() {
+        this.props.dispatch(getUserInfo(getStaffId()))
+    }
 
     updateUserPhoto = (file) => {
-        console.info(file);
+        this.props.dispatch(updateUser({
+            staffInfo: {
+                staffId: getStaffId(),
+                avatar: file.response.responseBody.url
+            }
+        }))
     };
 
     render() {
-        const {userInfo} = this.props;
+        const {userInfo = {}, dispatch} = this.props;
         return (
             <div className="project-content">
                 <div className="create-model-header">
@@ -37,7 +48,7 @@ class PersonalInfo extends Component {
                             />
                         </div>
                         <div>
-                            2222222
+                            {userInfo.position && userInfo.position.name}
                         </div>
                     </div>
                     <div className="components-item item-horizontal">
@@ -48,7 +59,7 @@ class PersonalInfo extends Component {
                             />
                         </div>
                         <div>
-                            2222222
+                            {userInfo.departmentDetail && userInfo.departmentDetail.name}
                         </div>
                     </div>
                     <div className="components-item item-horizontal">
@@ -59,7 +70,7 @@ class PersonalInfo extends Component {
                             />
                         </div>
                         <div>
-                            2222222
+                            {userInfo.staffInfo && userInfo.staffInfo.phoneNum}
                         </div>
                     </div>
                     <div className="components-item item-horizontal">
@@ -70,14 +81,14 @@ class PersonalInfo extends Component {
                             />
                         </div>
                         <div>
-                            2222222
+                            {userInfo.staffInfo && userInfo.staffInfo.emailAddr}
                         </div>
                     </div>
 
-                    <EditPassword/>
+                    <EditPassword dispatch={dispatch}/>
 
                     <div className="personal-photo">
-                        <Image src={require('../../res/image/photo.jpg')}/>
+                        <Image src={userInfo.staffInfo && userInfo.staffInfo.avatar}/>
                         <SimpleUpload
                             uploadButton={
                                 <div className="edit-photo-button">
@@ -100,8 +111,10 @@ class PersonalInfo extends Component {
                             defaultMessage='Additional Info'
                         />
                     </div>
+                    <div className="components-item">
+                        <TagList tagList={userInfo.tags || []} isSelected={true}/>
+                    </div>
                 </Segment>
-
             </div>
         );
     }

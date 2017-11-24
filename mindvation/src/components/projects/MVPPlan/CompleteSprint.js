@@ -11,8 +11,7 @@ class CompleteSprint extends Component {
         incompleteNumber: 0,
         incompletePoint: 0,
         incompleteStories: [],
-        nextIterations: [],
-        checked: false
+        nextIterations: []
     };
 
     componentWillMount() {
@@ -65,9 +64,6 @@ class CompleteSprint extends Component {
     };
 
     getInfo = () => {
-        this.setState({
-            checked: true
-        });
         return {
             moveToSprint: this.moveToNode.getWrappedInstance().getValue(),
             movedStories: this.state.incompleteStories
@@ -80,8 +76,7 @@ class CompleteSprint extends Component {
             donePoint,
             incompleteNumber,
             incompletePoint,
-            nextIterations,
-            checked
+            nextIterations
         } = this.state;
 
         return (
@@ -116,7 +111,6 @@ class CompleteSprint extends Component {
                                 />
                             </div>
                             <Select
-                                checked={checked}
                                 horizontal={true}
                                 required={true}
                                 options={nextIterations} label="Move To"

@@ -4,6 +4,7 @@ import Message from './Message';
 import PropTypes from 'prop-types';
 import {url} from '../../util/ServiceUrl';
 import {getStaffId} from '../../util/UserStore';
+import StaticLoad from './Loading';
 
 let messageNode;
 

@@ -23,9 +23,9 @@ class MVComment extends Component {
         if (isEmpty(text.trim())) return;
         const comment = {
             author: {
-                text: getUser().name,
-                value: getUser().staffId,
-                image: getUser().avatar
+                text: getUser().staffInfo.name,
+                value: getUser().staffInfo.staffId,
+                image: getUser().staffInfo.avatar
             },
             time: dateFormat(new Date(), 'yyyy-MM-dd hh:mm:ss'),
             text: text,

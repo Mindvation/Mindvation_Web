@@ -14,7 +14,7 @@ import CommonHeader from '../../containers/header_container';
 import Projects from '../../containers/project_container';
 import ModelList from '../model/Models/ModelList';
 import MyModelList from '../model/myModels/MyModelList';
-import PersonalInfo from '../personal/PersonalInfo';
+import PersonalInfo from '../../containers/personal_container';
 import {getUser} from '../../util/UserStore';
 import {Layout, BackTop} from 'antd';
 import {
@@ -119,7 +119,7 @@ class HomePage extends Component {
                     <Sider
                         className="sider-menu"
                     >
-                        <Image className="menu-user-avatar" src={getUser().avatar} avatar/>
+                        <Image className="menu-user-avatar" src={getUser().staffInfo.avatar} avatar/>
                         <Menu/>
                     </Sider>
                     <Header><CommonHeader/></Header>

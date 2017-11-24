@@ -84,7 +84,7 @@ class MoveProject extends Component {
                                 <div data={sprint.key}>
                                     {
                                         sprint.stories.map((story, i) => {
-                                            return <div className="mvp-task-AcceptBox" key={i}>
+                                            return <div className="mvp-story-AcceptBox" key={i}>
                                                 <div
                                                     onClick={(event) => this.checkDetail(event, story.storyId)}
                                                     className="mvp-story-info">
@@ -103,7 +103,12 @@ class MoveProject extends Component {
                                                                 className="mvp-story-point">{story.storyPoint}</div>
                                                         </div>
                                                     </div>
-                                                    <div className="mvp-story-desc">{story.description}</div>
+                                                    <div className="mvp-story-desc read-only-text">
+                                                        <div className="simditor">
+                                                            <div className="simditor-body"
+                                                                 dangerouslySetInnerHTML={{__html: story.description}}/>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         })

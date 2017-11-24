@@ -1,23 +1,15 @@
 import React, {Component} from 'react';
 import {Modal} from 'semantic-ui-react';
 import Input from '../../common/Input';
-import TextArea from '../../common/TextArea';
 import {FormattedMessage} from 'react-intl';
 import Image from '../../common/Image';
 import Simditor from '../../common/Simditor';
 
-let name;
-let projectDesc;
-
 class BasicInfo extends Component {
-    state = {checked: false};
     getInfo = () => {
-        this.setState({
-            checked: true
-        });
         return {
-            "projectName": name.getWrappedInstance().getValue(),
-            "description": projectDesc.getWrappedInstance().getValue()
+            "projectName": this.nameNode.getWrappedInstance().getValue(),
+            "description": this.projectDescNode.getValue()
         }
     };
 
@@ -37,20 +29,18 @@ class BasicInfo extends Component {
                 <div className={isEdit ? "" : "model-container"}>
                     <Input label="Project Name" required={true}
                            ref={node => {
-                               name = node
+                               this.nameNode = node
                            }}
-                           checked={this.state.checked}
                            placeHolder="projectNamePlaceHolderDesc"
                            defaultValue={info.projectName}
                     />
-                    <TextArea label="Description" required={true}
-                              ref={node => {
-                                  projectDesc = node
-                              }}
-                              checked={this.state.checked}
-                              defaultValue={info.description}
-                    />
-                    <Simditor label="Description" required={true} defaultValue="<p>asdadsd</p><br><p>13123123</p>"/>
+                    <Simditor
+                        label="Description"
+                        required={true}
+                        ref={node => {
+                            this.projectDescNode = node
+                        }}
+                        defaultValue={info.description}/>
                 </div>
             </Modal.Content>
         );

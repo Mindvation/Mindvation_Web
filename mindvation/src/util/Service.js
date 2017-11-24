@@ -165,9 +165,9 @@ export function getMyTaskList(projectId, callback) {
 export function updateTaskStatus(params, callback) {
     StaticLoad.show("updateTaskStatus");
     post(url.updateTaskStatus, params)
-        .then(() => {
+        .then((res) => {
             StaticLoad.remove("updateTaskStatus");
-            callback();
+            callback(res.responseBody);
         })
         .catch((error) => {
             StaticLoad.remove("updateTaskStatus");

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button} from 'semantic-ui-react';
+import {Modal, Button} from 'semantic-ui-react';
 import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../create/BasicInfo';
@@ -43,8 +43,8 @@ class EditBasicInfo extends Component {
                     />
                 </div>}
                 <div className="edit-detail-info">
-                    <ReadOnly icon="product hunt" title="Project Name" value={project.projectName}/>
-                    <ReadOnly icon="book" title="Description"
+                    <ReadOnly title="Project Name" value={project.projectName}/>
+                    <ReadOnly title="Description" type="html"
                               value={project.description}/>
                 </div>
                 <Modal

@@ -128,7 +128,7 @@ class HomeMenu extends Component {
                         />
                     </Link></Menu.Item>
                 </SubMenu>
-                {/*<Menu.Item key="7" className="menu_icon_text">
+                <Menu.Item key="7" className="menu_icon_text">
                     <Link to="/home/PersonalInfo"/>
                     <Image name="menu_personal"/>
                     <span>
@@ -137,7 +137,7 @@ class HomeMenu extends Component {
                             defaultMessage='Personal Info'
                         />
                     </span>
-                </Menu.Item>*/}
+                </Menu.Item>
                 {/*<SubMenu
                     key="sub2"
                     title={<span><Icon type="team"/><span>Team</span></span>}

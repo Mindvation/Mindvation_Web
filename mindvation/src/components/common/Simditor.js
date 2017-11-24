@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl';
 import {isEmpty} from '../../util/CommUtil';
 
 class MVSimditor extends Component {
-    state = {value: ''};
+    state = {selfChecked: false};
 
     componentDidMount() {
         this.editor = new Simditor({
@@ -17,7 +17,6 @@ class MVSimditor extends Component {
                     'italic',
                     'underline',
                     'strikethrough',
-                    'fontScale',
                     'color',
                     'ol',
                     'ul',
@@ -33,11 +32,51 @@ class MVSimditor extends Component {
         });
 
         if (!isEmpty(this.props.defaultValue)) {
+            if (this.state.isEmpty) {
+                this.setState({
+                    isEmpty: false
+                })
+            }
             this.editor.setValue(this.props.defaultValue)
+        } else {
+            if (!this.state.isEmpty) {
+                this.setState({
+                    isEmpty: true
+                });
+            }
         }
+
+
+        this.editor.on("valuechanged", (event) => {
+            let inputValue = event.target.getValue();
+            if (isEmpty(inputValue)) {
+                if (!this.state.isEmpty) {
+                    this.setState({
+                        isEmpty: true
+                    })
+                }
+                if (!this.state.selfChecked) {
+                    this.setState({
+                        selfChecked: true
+                    })
+                }
+            } else {
+                if (this.state.isEmpty) {
+                    this.setState({
+                        isEmpty: false
+                    })
+                }
+                if (!this.state.selfChecked) {
+                    this.setState({
+                        selfChecked: true
+                    })
+                }
+            }
+        });
     }
 
     getValue = () => {
+        this.setState({selfChecked: true});
         return this.editor.getValue();
     };
 
@@ -54,7 +93,10 @@ class MVSimditor extends Component {
                         </div>
                     </div> : null
                 }
-                <textarea ref="textArea"/>
+                <div
+                    className={(required && this.state.selfChecked && this.state.isEmpty ? "components-error " : "") + "input-content"}>
+                    <textarea ref="textArea"/>
+                </div>
             </div>
         );
     }
@@ -63,7 +105,6 @@ class MVSimditor extends Component {
 MVSimditor.propTypes = {
     label: PropTypes.string,
     required: PropTypes.bool,
-    checked: PropTypes.bool,
     placeHolder: PropTypes.string,
     defaultValue: PropTypes.string
 };

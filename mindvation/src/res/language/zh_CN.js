@@ -4,7 +4,7 @@ const zh_CN = {
     passWord: "密码",
     logIn: "登录",
     mindvations: "Mindvations",
-    logOut: '登出',
+    logOut: '退出',
     projectsUpper: "项目",
     "Project ID": "项目编号",
     "Project Name": "项目名称",
@@ -235,6 +235,7 @@ const zh_CN = {
     "New Password": "新密码",
     "Confirm New Password": "确认新密码",
     confirmCurrentArrangement: "确认当前排列",
-    AIArrangement: "智能排列"
+    AIArrangement: "智能排列",
+    passwordNotMatch: "新密码与确认密码不一致"
 };
 export default zh_CN;

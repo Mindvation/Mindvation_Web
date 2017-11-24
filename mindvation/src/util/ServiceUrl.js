@@ -50,10 +50,11 @@ if (isProduction) {
         rtrvStaffListByName: gateWay + '8080/mdvn-staff-papi/staff/rtrvStaffListByName',
         createComment: gateWay + '8080/mdvn-comment-papi/comments/createCommentInfo',
         voteComment: gateWay + '8080/mdvn-comment-papi/comments/likeOrDislike',
-        rtrvAllDashboard: gateWay + '8080/mdvn-dashboard-papi/dashboard/rtrvAllDashboard'
+        rtrvAllDashboard: gateWay + '8080/mdvn-dashboard-papi/dashboard/rtrvAllDashboard',
+        changePassword: gateWay + '8080/mdvn-staff-papi/staff/updateStaffPassword'
     };
 } else {
-    const gateWay = "http://192.168.0.105:";
+    const gateWay = "http://192.168.0.108:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -101,7 +102,8 @@ if (isProduction) {
         rtrvStaffListByName: gateWay + '10014/mdvn-staff-papi/staff/rtrvStaffListByName',
         createComment: gateWay + '10026/mdvn-comment-papi/comments/createCommentInfo',
         voteComment: gateWay + '10026/mdvn-comment-papi/comments/likeOrDislike',
-        rtrvAllDashboard: gateWay + '10018/mdvn-dashboard-papi/dashboard/rtrvAllDashboard'
+        rtrvAllDashboard: gateWay + '10018/mdvn-dashboard-papi/dashboard/rtrvAllDashboard',
+        changePassword: gateWay + '10014/mdvn-staff-papi/staff/updateStaffPassword'
     };
 }
 

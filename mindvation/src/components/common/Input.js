@@ -28,37 +28,46 @@ class MVInput extends Component {
     checkDefaultValue = () => {
         const {defaultValue} = this.props;
         if (isEmpty(defaultValue)) {
-            this.setState({
-                isEmpty: true
-            })
-        } else {
-            this.setState({
-                isEmpty: false
-            })
-        }
+            if (!this.state.isEmpty) {
+                this.setState({
+                    isEmpty: true
+                });
+            }
 
-        this.setState({
-            returnValue: defaultValue
-        })
+        } else {
+            if (this.state.isEmpty) {
+                this.setState({
+                    isEmpty: false
+                })
+            }
+        }
     };
 
     checkValue = (event, data) => {
         let inputValue = data.value;
         if (isEmpty(inputValue)) {
-            this.setState({
-                isEmpty: true,
-                selfChecked: true
-            })
+            if (!this.state.isEmpty) {
+                this.setState({
+                    isEmpty: true
+                })
+            }
+            if (!this.state.selfChecked) {
+                this.setState({
+                    selfChecked: true
+                })
+            }
         } else {
-            this.setState({
-                isEmpty: false,
-                selfChecked: true
-            })
+            if (this.state.isEmpty) {
+                this.setState({
+                    isEmpty: false
+                })
+            }
+            if (!this.state.selfChecked) {
+                this.setState({
+                    selfChecked: true
+                })
+            }
         }
-
-        this.setState({
-            returnValue: inputValue
-        });
 
         if (this.props.onChange) {
             this.props.onChange(inputValue)
@@ -66,7 +75,10 @@ class MVInput extends Component {
     };
 
     getValue = () => {
-        return this.state.returnValue;
+        this.setState({
+            selfChecked: true
+        });
+        return this.inputNode.inputRef.value;
     };
 
     render() {
@@ -74,8 +86,8 @@ class MVInput extends Component {
             ...this.props
         };
         const {
-            label, required, checked, placeHolder, defaultValue, type = "text",
-            step = "0.1", style, fullWidth, action, value, readOnly, name
+            label, required, placeHolder, defaultValue, type = "text",
+            step = "0.1", style, fullWidth, action, value, readOnly
         } = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
@@ -86,7 +98,6 @@ class MVInput extends Component {
                  style={style}>
                 {
                     label ? <div className="field-title">
-                        {/*{icon ? <Icon name={icon}/> : null}*/}
                         <div className={required ? "input-label" : null}>
                             <FormattedMessage
                                 id={label}
@@ -97,12 +108,13 @@ class MVInput extends Component {
                 <Input
                     disabled={readOnly}
                     placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
-                    error={required && (checked || this.state.selfChecked) && this.state.isEmpty}
+                    error={required && this.state.selfChecked && this.state.isEmpty}
                     className={fullWidth ? "full-width" : "input-content"}
                     onChange={(event, data) => this.checkValue(event, data)}
                     defaultValue={defaultValue} value={value}
                     type={type}
                     step={type === "number" ? step : ''} action={action}
+                    ref={node => this.inputNode = node}
                 />
             </div>
         );
@@ -112,7 +124,6 @@ class MVInput extends Component {
 MVInput.propTypes = {
     label: PropTypes.string,
     required: PropTypes.bool,
-    checked: PropTypes.bool,
     placeHolder: PropTypes.string,
     defaultValue: PropTypes.string,
     type: PropTypes.string,

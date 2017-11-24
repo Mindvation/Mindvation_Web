@@ -30,10 +30,6 @@ class ProjectDetail extends Component {
     };
 
     changeStatus = (project, status, percent = 0) => {
-        /*Object.assign(project.status, {
-            status,
-            percent
-        });*/
         const statusInfo = {
             projectId: project.projectId,
             status,

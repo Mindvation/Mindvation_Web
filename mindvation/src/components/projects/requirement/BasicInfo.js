@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
 import {Modal} from 'semantic-ui-react';
 import Input from '../../common/Input';
-import TextArea from '../../common/TextArea';
+import Simditor from '../../common/Simditor';
 import {FormattedMessage} from 'react-intl';
 import Image from '../../common/Image';
 
 class BasicInfo extends Component {
-    state = {checked: false};
     getInfo = () => {
-        this.setState({
-            checked: true
-        });
         return {
             "summary": this.summary.getWrappedInstance().getValue(),
-            "description": this.desc.getWrappedInstance().getValue()
+            "description": this.desc.getValue()
         }
     };
 
@@ -35,14 +31,12 @@ class BasicInfo extends Component {
                            ref={node => {
                                this.summary = node
                            }}
-                           checked={this.state.checked}
                            defaultValue={info.summary}
                     />
-                    <TextArea label="Description" icon="book" required={true}
+                    <Simditor label="Description" required={true}
                               ref={node => {
                                   this.desc = node
                               }}
-                              checked={this.state.checked}
                               defaultValue={info.description}
                     />
                 </div>

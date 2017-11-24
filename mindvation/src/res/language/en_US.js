@@ -23,7 +23,7 @@ const en_US = {
     "CR Cost": "CR Cost",
     "SPs Cost": "SPs Cost",
     "CR Rate": "CR Rate",
-    createProject: "+ Create Project",
+    createProject: "Create Project",
     createNewProject: "Create New Project",
     basicInfo: "Basic Info",
     projectNamePlaceHolder: "Please enter detail name",
@@ -235,6 +235,7 @@ const en_US = {
     "New Password": "New Password",
     "Confirm New Password": "Confirm New Password",
     confirmCurrentArrangement: "Confirm Current Arrangement",
-    AIArrangement: "AI Arrangement"
+    AIArrangement: "AI Arrangement",
+    passwordNotMatch: "Password doesn't match the confirmation"
 };
 export default en_US;

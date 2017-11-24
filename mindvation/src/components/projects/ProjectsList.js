@@ -39,10 +39,12 @@ class ProjectsList extends Component {
         if (key === "description") {
             return <Popup
                 className="pre-line"
-                trigger={<span>{data[key]}</span>}
-                content={data[key]}
+                trigger={<div className="table-desc-text" dangerouslySetInnerHTML={{__html: data[key]}}/>}
+                content={<div className="simditor table-desc-simditor">
+                    <div className="simditor-body" dangerouslySetInnerHTML={{__html: data[key]}}/>
+                </div>}
                 basic
-                position="bottom left"
+                position="bottom center"
                 style={{maxWidth: '50%'}}
             />
         }
@@ -80,7 +82,7 @@ class ProjectsList extends Component {
                                 {
                                     projectKey.map((key, j) => {
                                         return <Table.Cell
-                                            className={"table-cell-length " + (key === "description" ? "text-ellipsis" : "")}
+                                            className={"table-cell-length"}
                                             key={i + "_" + j}>
                                             {this.handleDisplayData(result, key)}
                                         </Table.Cell>

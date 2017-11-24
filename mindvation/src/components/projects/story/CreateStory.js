@@ -57,14 +57,14 @@ class CreateRequirement extends Component {
                             defaultMessage='Create Story'
                         />
                         </div> : null}
-                    {hasAuth("createStory", requirement.authCode) ?
+                    {/*{hasAuth("createStory", requirement.authCode) ?
                         <div className="create-button"
                              onClick={() => this.createTempStory('cr')}>
                             + <FormattedMessage
                             id='createChangeRequest'
                             defaultMessage='Create Change Request'
                         />
-                        </div> : null}
+                        </div> : null}*/}
                 </div>
                 <Modal
                     closeOnEscape={false}

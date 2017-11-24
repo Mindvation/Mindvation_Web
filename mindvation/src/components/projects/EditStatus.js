@@ -10,15 +10,6 @@ class EditStatus extends Component {
     changeStatus = (status, progress) => {
         if (status !== "inProgress" && status === this.props.status.status) return;
         if (status === "inProgress" && progress === this.props.status.percent) return;
-        if (status === "done") {
-            progress = 100;
-        }
-        if (status === "reopen") {
-            progress = 0;
-        }
-        if (progress === 100) {
-            status = "done";
-        }
         this.props.changeStatus && this.props.changeStatus(status, progress);
     };
 

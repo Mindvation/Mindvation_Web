@@ -1,10 +1,10 @@
-import {LOGON_SUCCESS, LOG_OUT} from '../actions/logon_action';
+import {SET_USER, REMOVE_USER} from '../actions/user_action';
 
 function userInfo(state = {}, action) {
     switch (action.type) {
-        case LOGON_SUCCESS:
+        case SET_USER:
             return action.userInfo;
-        case LOG_OUT:
+        case REMOVE_USER:
             return {};
         default:
             return state;

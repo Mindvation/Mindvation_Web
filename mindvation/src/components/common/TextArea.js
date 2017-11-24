@@ -28,47 +28,60 @@ class MVTextArea extends Component {
     checkDefaultValue = () => {
         const {defaultValue} = this.props;
         if (isEmpty(defaultValue)) {
-            this.setState({
-                isEmpty: true
-            })
-        } else {
-            this.setState({
-                isEmpty: false
-            })
-        }
+            if (!this.state.isEmpty) {
+                this.setState({
+                    isEmpty: true
+                });
+            }
 
-        this.setState({
-            returnValue: defaultValue
-        })
+        } else {
+            if (this.state.isEmpty) {
+                this.setState({
+                    isEmpty: false
+                })
+            }
+        }
     };
 
     checkValue = (event, data) => {
         let inputValue = data.value;
         if (isEmpty(inputValue)) {
-            this.setState({
-                isEmpty: true,
-                selfChecked: true
-            })
+            if (!this.state.isEmpty) {
+                this.setState({
+                    isEmpty: true
+                })
+            }
+            if (!this.state.selfChecked) {
+                this.setState({
+                    selfChecked: true
+                })
+            }
         } else {
-            this.setState({
-                isEmpty: false,
-                selfChecked: true
-            })
+            if (this.state.isEmpty) {
+                this.setState({
+                    isEmpty: false
+                })
+            }
+            if (!this.state.selfChecked) {
+                this.setState({
+                    selfChecked: true
+                })
+            }
         }
-        this.setState({
-            returnValue: inputValue
-        })
     };
 
     getValue = () => {
-        return this.state.returnValue;
+        this.setState({
+            selfChecked: true
+        });
+        return this.textAreaNode.ref.value;
     };
 
     render() {
         let props = {
             ...this.props
         };
-        const {label, required, checked, placeHolder, defaultValue} = this.props;
+        const {label, required, placeHolder, defaultValue} = this.props;
         const {formatMessage} = this.props.intl;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
@@ -76,7 +89,6 @@ class MVTextArea extends Component {
         return (
             <div className="components-item item-horizontal align-right">
                 <div className='field-title'>
-                    {/*{icon ? <Icon name={icon}/> : null}*/}
                     <div className={required ? "input-label" : null}>
                         <FormattedMessage
                             id={label}
@@ -87,9 +99,10 @@ class MVTextArea extends Component {
                 <TextArea
                     autoHeight style={{minHeight: 100}}
                     placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
-                    className={(required && (checked || this.state.selfChecked) && this.state.isEmpty ? "components-error" : "")}
+                    className={required && this.state.selfChecked && this.state.isEmpty ? "components-error" : ""}
                     onChange={(event, data) => this.checkValue(event, data)}
                     defaultValue={defaultValue}
+                    ref={node => this.textAreaNode = node}
                 />
                 </Form>
             </div>
@@ -100,7 +113,6 @@ class MVTextArea extends Component {
 MVTextArea.propTypes = {
     label: PropTypes.string,
     required: PropTypes.bool,
-    checked: PropTypes.bool,
     placeHolder: PropTypes.string,
     defaultValue: PropTypes.string
 };

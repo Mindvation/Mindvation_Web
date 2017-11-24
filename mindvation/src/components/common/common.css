@@ -8,7 +8,6 @@
     color: #666666;
 }
 
-.simditor,
 .components-length {
     width: 80% !important;
 }
@@ -21,7 +20,8 @@
 
 .ui.form textarea.components-error,
 .ui.selection.dropdown.components-error,
-.components-error .ant-calendar-picker-input {
+.components-error .ant-calendar-picker-input,
+.components-item .components-error .simditor{
     background-color: #fff6f6;
     border-color: #e0b4b4;
     color: #9f3a38;
@@ -853,4 +853,17 @@ img.ui.image.mv-image {
 
 .components-item .simditor .simditor-body p {
     margin-bottom: 5px;
+}
+
+.components-item .simditor {
+    border-radius: 4px;
+    border: 1px solid rgba(34, 36, 38, .15);
+}
+
+.components-item .simditor .simditor-wrapper {
+    border-radius: 4px;
+}
+
+.components-item .simditor .simditor-toolbar {
+    border-radius: 4px 4px 0 0;
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {logOut} from '../../actions/logon_action';
+import {logOut} from '../../actions/user_action';
 import {FormattedMessage} from 'react-intl';
 import {getUser} from '../../util/UserStore';
 
@@ -25,7 +25,7 @@ class CommonHeader extends Component {
                 </div>
                 <div className="display-flex">
                     <div className="header-name">
-                        {getUser().name}
+                        {getUser().staffInfo.name}
                     </div>
                     <div className="log-out-button" onClick={() => this.userLogOut()}>
                         <FormattedMessage
