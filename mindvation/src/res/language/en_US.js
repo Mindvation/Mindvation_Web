@@ -230,7 +230,7 @@ const en_US = {
     technology: "Technology",
     "Model ID": "Model ID",
     personalInfo: "Personal Info",
-    editPassword: "Edit Password",
+    changePassword: "Change Password",
     "Original Password": "Original Password",
     "New Password": "New Password",
     "Confirm New Password": "Confirm New Password",

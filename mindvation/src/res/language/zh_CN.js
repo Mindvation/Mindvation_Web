@@ -230,7 +230,7 @@ const zh_CN = {
     technology: "技术",
     "Model ID": "模型编号",
     personalInfo: "个人信息",
-    editPassword: "修改密码",
+    changePassword: "修改密码",
     "Original Password": "原密码",
     "New Password": "新密码",
     "Confirm New Password": "确认新密码",

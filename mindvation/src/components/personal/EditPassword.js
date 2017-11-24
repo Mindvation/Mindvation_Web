@@ -50,8 +50,8 @@ class EditEmployee extends Component {
             <div>
                 <div className="edit-password-button" onClick={() => this.openModal()}>
                     <FormattedMessage
-                        id='editPassword'
-                        defaultMessage='Edit Password'
+                        id='changePassword'
+                        defaultMessage='Change Password'
                     />
                 </div>
                 <Modal
