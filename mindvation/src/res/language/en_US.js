@@ -236,6 +236,8 @@ const en_US = {
     "Confirm New Password": "Confirm New Password",
     confirmCurrentArrangement: "Confirm Current Arrangement",
     AIArrangement: "AI Arrangement",
-    passwordNotMatch: "Password doesn't match the confirmation"
+    passwordNotMatch: "Password doesn't match the confirmation",
+    editMinute: "Edit Minute",
+    minuteInfo: "Minute"
 };
 export default en_US;

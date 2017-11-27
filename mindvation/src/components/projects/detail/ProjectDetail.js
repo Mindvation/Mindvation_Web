@@ -52,8 +52,7 @@ class ProjectDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
+                pane: <Tab.Pane key="edit-basicInfo" attached={false}>
                         <EditBasicInfo project={project} dispatch={dispatch}
                                        disabled={!hasAuth("updateProject", project.authCode)}/>
                     </Tab.Pane>
@@ -68,8 +67,7 @@ class ProjectDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
+                pane: <Tab.Pane attached={false} key="edit-additionalInfo">
                         <EditAdditionalInfo project={project} dispatch={dispatch}
                                             disabled={!hasAuth("updateProject", project.authCode)}/>
                     </Tab.Pane>
@@ -84,8 +82,7 @@ class ProjectDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
+                pane: <Tab.Pane attached={false} key="edit-optionalItems">
                         <EditOptionalInfo project={project} dispatch={dispatch}
                                           disabled={!hasAuth("updateProject", project.authCode)}/>
                     </Tab.Pane>
@@ -118,6 +115,7 @@ class ProjectDetail extends Component {
                                          activeTab: data.activeIndex
                                      })
                                  }}
+                                 renderActiveOnly={false}
                             />
                         </Segment>
                     </Grid.Column>

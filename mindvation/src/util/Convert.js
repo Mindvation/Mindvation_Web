@@ -812,11 +812,11 @@ export const convertReqAdditionalToServer = (optionalInfo) => {
     };
 
     if (optionalInfo.startDate) {
-        params.startDate = new Date(optionalInfo.startDate).getTime()
+        params.reqmntInfo.startDate = new Date(optionalInfo.startDate).getTime()
     }
 
     if (optionalInfo.endDate) {
-        params.endDate = new Date(optionalInfo.endDate).getTime()
+        params.reqmntInfo.endDate = new Date(optionalInfo.endDate).getTime()
     }
 
     if (optionalInfo.roles && optionalInfo.roles.length > 0) {
@@ -1017,7 +1017,8 @@ export function convertStoryToLocal(res) {
             percent: res.storyInfo.progress,
             ragStatus: res.storyInfo.ragStatus
         },
-        taskDeliveries: []
+        taskDeliveries: [],
+        storyNote: res.storyNote || {}
     };
 
     if (!isEmpty(res.storyInfo.storyPoint)) {
@@ -1162,6 +1163,15 @@ export function convertStoryOptionalToLocal(res) {
     }
 
     return story;
+}
+
+export function convertStoryRemarkToLocal(res) {
+    return {
+        projectId: res.storyInfo.projId,
+        reqId: res.storyInfo.reqmntId,
+        storyId: res.storyInfo.storyId,
+        storyNote: res.storyNote || {}
+    };
 }
 
 export function convertStoryBasicToServer(basicInfo) {

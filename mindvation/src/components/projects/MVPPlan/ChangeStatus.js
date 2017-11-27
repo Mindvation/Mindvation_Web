@@ -79,7 +79,7 @@ class MoveProject extends Component {
     render() {
         const {statuses} = this.state;
         return (
-            <div>
+            <div className="mvp-dashboard">
                 <div className="project-header">
                     <Image name='dashboard'/>
                     <FormattedMessage

@@ -50,11 +50,10 @@ class RequirementDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
-                        <EditBasicInfo requirement={requirement} dispatch={dispatch}
-                                       disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
-                    </Tab.Pane>
+                pane: <Tab.Pane attached={false} key="edit-basicInfo">
+                    <EditBasicInfo requirement={requirement} dispatch={dispatch}
+                                   disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
+                </Tab.Pane>
             },
             {
                 menuItem: <Menu.Item key="additionalInfo">
@@ -66,11 +65,10 @@ class RequirementDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
-                        <EditAdditionalInfo requirement={requirement} dispatch={dispatch}
-                                            disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
-                    </Tab.Pane>
+                pane: <Tab.Pane attached={false} key="edit-additionalInfo">
+                    <EditAdditionalInfo requirement={requirement} dispatch={dispatch}
+                                        disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
+                </Tab.Pane>
             },
             {
                 menuItem: <Menu.Item key="optionalItems">
@@ -82,11 +80,10 @@ class RequirementDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
-                        <EditOptionalInfo requirement={requirement} dispatch={dispatch}
-                                          disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
-                    </Tab.Pane>
+                pane: <Tab.Pane attached={false} key="edit-optionalItems">
+                    <EditOptionalInfo requirement={requirement} dispatch={dispatch}
+                                      disabled={!hasAuth("updateRequirement", requirement.authCode)}/>
+                </Tab.Pane>
             }
         ];
 
@@ -124,6 +121,7 @@ class RequirementDetail extends Component {
                                          activeTab: data.activeIndex
                                      })
                                  }}
+                                 renderActiveOnly={false}
                             />
                         </Segment>
                     </Grid.Column>

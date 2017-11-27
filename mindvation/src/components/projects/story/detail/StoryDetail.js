@@ -5,6 +5,7 @@ import {getStoryById, updateStoryStatus} from '../../../../actions/story_action'
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
+import StoryRemark from './StoryRemark';
 import TaskList from '../TaskList';
 import AddTask from '../AddTask';
 import {
@@ -51,11 +52,10 @@ class StoryDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
-                        <EditBasicInfo story={story} dispatch={dispatch}
-                                       disabled={!hasAuth("updateStory", story.authCode)}/>
-                    </Tab.Pane>
+                pane: <Tab.Pane attached={false} key="edit-basicInfo">
+                    <EditBasicInfo story={story} dispatch={dispatch}
+                                   disabled={!hasAuth("updateStory", story.authCode)}/>
+                </Tab.Pane>
             },
             {
                 menuItem: <Menu.Item key="additionalInfo">
@@ -67,11 +67,10 @@ class StoryDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
-                        <EditAdditionalInfo story={story} dispatch={dispatch}
-                                            disabled={!hasAuth("updateStory", story.authCode)}/>
-                    </Tab.Pane>
+                pane: <Tab.Pane attached={false} key="edit-additionalInfo">
+                    <EditAdditionalInfo story={story} dispatch={dispatch}
+                                        disabled={!hasAuth("updateStory", story.authCode)}/>
+                </Tab.Pane>
             },
             {
                 menuItem: <Menu.Item key="optionalItems">
@@ -83,11 +82,25 @@ class StoryDetail extends Component {
                         />
                     </div>
                 </Menu.Item>,
-                render: () =>
-                    <Tab.Pane attached={false}>
-                        <EditOptionalInfo story={story} dispatch={dispatch}
-                                          disabled={!hasAuth("updateStory", story.authCode)}/>
-                    </Tab.Pane>
+                pane: <Tab.Pane attached={false} key="edit-optionalItems">
+                    <EditOptionalInfo story={story} dispatch={dispatch}
+                                      disabled={!hasAuth("updateStory", story.authCode)}/>
+                </Tab.Pane>
+            },
+            {
+                menuItem: <Menu.Item key="remarks">
+                    <div className="detail-tab-title">
+                        <Image name={activeTab === 3 ? "minute_selected" : "minute_unselected"}/>
+                        <FormattedMessage
+                            id='minuteInfo'
+                            defaultMessage='Minute'
+                        />
+                    </div>
+                </Menu.Item>,
+                pane: <Tab.Pane attached={false} key="edit-remarks">
+                    <StoryRemark story={story} dispatch={dispatch}
+                                 disabled={!hasAuth("updateStory", story.authCode)}/>
+                </Tab.Pane>
             }
         ];
 
@@ -133,6 +146,7 @@ class StoryDetail extends Component {
                                          activeTab: data.activeIndex
                                      })
                                  }}
+                                 renderActiveOnly={false}
                             />
                         </Segment>
                     </Grid.Column>

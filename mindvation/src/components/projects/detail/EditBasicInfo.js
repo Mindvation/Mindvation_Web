@@ -35,7 +35,6 @@ class EditBasicInfo extends Component {
         const {project, disabled} = this.props;
         return (
             <div className="read-only-component">
-
                 {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
                     <FormattedMessage
                         id='editBasicInfo'

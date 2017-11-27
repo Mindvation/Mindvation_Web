@@ -81,9 +81,9 @@ class MVSimditor extends Component {
     };
 
     render() {
-        const {label, required} = this.props;
+        const {label, required, fullWidth} = this.props;
         return (
-            <div className="components-item item-horizontal align-right">
+            <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}>
                 {
                     label ? <div className='field-title'>
                         <div className={required ? "input-label" : null}>
@@ -94,7 +94,8 @@ class MVSimditor extends Component {
                     </div> : null
                 }
                 <div
-                    className={(required && this.state.selfChecked && this.state.isEmpty ? "components-error " : "") + "input-content"}>
+                    className={(required && this.state.selfChecked && this.state.isEmpty ? "components-error " : "")
+                    + (fullWidth ? "full-width" : "input-content")}>
                     <textarea ref="textArea"/>
                 </div>
             </div>
@@ -106,7 +107,8 @@ MVSimditor.propTypes = {
     label: PropTypes.string,
     required: PropTypes.bool,
     placeHolder: PropTypes.string,
-    defaultValue: PropTypes.string
+    defaultValue: PropTypes.string,
+    fullWidth: PropTypes.bool
 };
 
 export default MVSimditor;

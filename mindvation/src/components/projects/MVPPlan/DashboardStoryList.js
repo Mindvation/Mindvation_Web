@@ -56,7 +56,7 @@ class MoveProject extends Component {
     render() {
         const {sprints, model} = this.state;
         return (
-            <div className="model-main-container">
+            <div className="model-main-container all-dashboard mvp-dashboard">
                 <div className="project-header">
                     <Image name='MVPDashboard'/>
                     <FormattedMessage

@@ -1400,9 +1400,17 @@ i.icon.mode-remove-label {
     position: relative;
 }
 
-.table-desc-text {
+.table-desc-text,
+.table-desc-text > * {
     height: 18px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.table-desc-text {
+    width: 100%;
 }
 
 .table-desc-simditor.simditor,
@@ -1421,8 +1429,48 @@ i.icon.mode-remove-label {
     color: #666666;
 }
 
-.table-desc-simditor.simditor .simditor-body,
-.read-only-text .simditor .simditor-body {
+.read-only-text .simditor .simditor-body,
+.table-desc-simditor.simditor .simditor-body {
     min-height: 0;
     height: auto;
+}
+
+.mvp-dashboard .read-only-text .simditor {
+    height: 22px;
+    min-height: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.mvp-dashboard .read-only-text .simditor .simditor-body,
+.mvp-dashboard .read-only-text .simditor .simditor-body > * {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mvp-dashboard .read-only-text .simditor .simditor-body {
+    width: 100%;
+}
+
+.mvp-dashboard .read-only-text .simditor .simditor-body,
+.all-dashboard .mvp-story-info,
+.all-dashboard .simditor .simditor-body {
+    cursor: pointer;
+}
+
+.edit-remark-action {
+    padding: 10px 20px;
+    text-align: right;
+}
+
+.story-remark-time {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999999;
+}
+
+.story-remark-text {
+    padding: 20px 0;
 }

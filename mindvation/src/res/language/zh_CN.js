@@ -236,6 +236,8 @@ const zh_CN = {
     "Confirm New Password": "确认新密码",
     confirmCurrentArrangement: "确认当前排列",
     AIArrangement: "智能排列",
-    passwordNotMatch: "新密码与确认密码不一致"
+    passwordNotMatch: "新密码与确认密码不一致",
+    editMinute: "修改会议记录",
+    minuteInfo: "会议记录"
 };
 export default zh_CN;

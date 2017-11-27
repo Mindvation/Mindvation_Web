@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import DashboardStoryList from './DashboardStoryList';
-import {Rail, Sticky} from 'semantic-ui-react';
 import StorySummary from '../../../containers/storySummary_container';
 import {rtrvAllDashboard} from '../../../util/Service';
 import $ from 'jquery';
@@ -46,11 +45,9 @@ class Dashboard extends Component {
                     }
                 </div>
 
-                <Rail id="dashboardSticky" position='right' className="summary-rail">
-                    <Sticky>
-                        <StorySummary storyId={storyId}/>
-                    </Sticky>
-                </Rail>
+                <div id="dashboardSticky" className="summary-rail">
+                    <StorySummary storyId={storyId}/>
+                </div>
             </div>
         );
     }
