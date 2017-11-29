@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal} from 'semantic-ui-react';
+import {Header, Modal} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
 import AddTags from "../../../containers/tag_container";
@@ -38,16 +38,16 @@ class OtherInfo extends Component {
 
     getInfo = () => {
         return {
-            "priority": priority.getWrappedInstance().getValue(),
-            "leaders": leaders.getWrappedInstance().getValue(),
-            "startDate": startEndDate.getValue() ? startEndDate.getValue()[0] : "",
-            "endDate": startEndDate.getValue() ? startEndDate.getValue()[1] : "",
-            "softwareModel": softwareModel.getWrappedInstance().getValue(),
-            "engineeringModel": engineeringModel.getWrappedInstance().getValue(),
-            "businessModel": businessModel.getWrappedInstance().getValue(),
-            "techniqueModel": techniqueModel.getWrappedInstance().getValue(),
-            "contingency": contingency.getWrappedInstance().getValue(),
-            "tags": addTagsNode.getWrappedInstance().getValue()
+            priority: priority.getWrappedInstance().getValue(),
+            leaders: leaders.getWrappedInstance().getValue(),
+            startDate: startEndDate.getValue() ? startEndDate.getValue()[0] : "",
+            endDate: startEndDate.getValue() ? startEndDate.getValue()[1] : "",
+            softwareModel: softwareModel.getWrappedInstance().getValue(),
+            engineeringModel: engineeringModel.getWrappedInstance().getValue(),
+            businessModel: businessModel.getWrappedInstance().getValue(),
+            techniqueModel: techniqueModel.getWrappedInstance().getValue(),
+            contingency: contingency.getWrappedInstance().getValue(),
+            tags: addTagsNode.getWrappedInstance().getValue()
         }
     };
 
@@ -86,7 +86,7 @@ class OtherInfo extends Component {
                             }}
                             defaultValue={info.priority}
                     />
-                    <Select icon="user" options={assignOption} multiple={true} label="Leaders"
+                    <Select options={assignOption} multiple={true} label="Leaders"
                             search={true}
                             placeHolder="leadersPlaceHolderDesc"
                             ref={node => {

@@ -1454,10 +1454,20 @@ i.icon.mode-remove-label {
     width: 100%;
 }
 
-.mvp-dashboard .read-only-text .simditor .simditor-body,
+
 .all-dashboard .mvp-story-info,
-.all-dashboard .simditor .simditor-body {
+.all-dashboard .simditor .simditor-body,
+.unmovable-dashboard .mvp-story-info,
+.unmovable-dashboard .simditor .simditor-body {
     cursor: pointer;
+}
+
+.mvp-dashboard .read-only-text .simditor .simditor-body{
+    cursor: move;
+}
+
+.unmovable-dashboard .mvp-story-AcceptBox{
+    background-color: #eeeeee;
 }
 
 .edit-remark-action {

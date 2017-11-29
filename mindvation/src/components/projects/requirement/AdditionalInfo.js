@@ -22,11 +22,10 @@ class AdditionalInfo extends Component {
 
     getInfo = () => {
         let addInfo = {
-            "priority": this.priority.getWrappedInstance().getValue(),
-            "startDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
-            "endDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
-            "tags": this.addTagsNode.getWrappedInstance().getValue(),
-            "model": this.state.model
+            priority: this.priority.getWrappedInstance().getValue(),
+            startDate: this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
+            endDate: this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
+            tags: this.addTagsNode.getWrappedInstance().getValue()
         };
 
         if (this.rolesNode) {
@@ -39,6 +38,10 @@ class AdditionalInfo extends Component {
 
         if (this.functionLabelOtherNode) {
             addInfo.otherFunctionLabel = this.functionLabelOtherNode.getWrappedInstance().getValue()
+        }
+
+        if (this.modelNode) {
+            addInfo.model = this.modelNode.getWrappedInstance().getValue()
         }
 
         return addInfo;
@@ -155,25 +158,31 @@ class AdditionalInfo extends Component {
                             }}
                         />
                     </div>
-                    <Select icon="flag" options={priorityOptions} label="Priority"
+                    <Select options={priorityOptions} label="Priority"
                             placeHolder="priorityPlaceHolderDesc"
                             ref={node => {
                                 this.priority = node
                             }}
+                            required={true}
                             defaultValue={requirement.priority}
                     />
-                    {isEdit ? null : <Select icon="file" options={modelOptions}
+                    {isEdit ? null : <Select options={modelOptions}
                                              label="Requirement Model"
                                              defaultValue={requirement.Model}
+                                             required={true}
+                                             ref={node => {
+                                                 this.modelNode = node
+                                             }}
                                              onChange={(value) => this.handleModelChange(value)}
                     />}
-                    {(!isEdit && model) ? <Select icon="sitemap" options={functionOptions}
+                    {(!isEdit && model) ? <Select options={functionOptions}
                                                   disabled={functionOptions.length === 1}
                                                   label="Process/Function Label"
                                                   placeHolder="functionLabelPlaceHolderDesc"
                                                   ref={node => {
                                                       this.functionLabelNode = node
                                                   }}
+                                                  required={true}
                                                   defaultValue={requirement.functionLabel}
                                                   onChange={(value) => this.handleLabelChange(value)}
                     /> : null}
@@ -191,19 +200,13 @@ class AdditionalInfo extends Component {
                         model={this.getModelInfo(model)}
                     /> : null}
 
-                    <DatePicker icon="clock" label="Start / End Date"
+                    <DatePicker label="Start / End Date"
                                 range={true}
                                 ref={node => {
                                     this.startEndDate = node
                                 }}
                                 defaultValue={[requirement.startDate, requirement.endDate]}
                     />
-                    {/*<Input label="Story Points" icon="database" type="number"
-                       ref={node => {
-                           storyPointsNode = node
-                       }}
-                       defaultValue={requirement.storyPoints}
-                />*/}
                 </div>
             </Modal.Content>
         );

@@ -4,6 +4,7 @@ import {FormattedMessage} from 'react-intl';
 import DepartmentInfo from './DepartmentInfo';
 import {updateDepartment} from '../../../actions/department_action';
 import Image from '../../common/Image';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 class EditDepartment extends Component {
     state = {modalOpen: false, departmentInfo: {}};
@@ -28,7 +29,11 @@ class EditDepartment extends Component {
     updateDepartmentDetail = () => {
         let departmentInfo = this.departmentInfoNode.getInfo();
         departmentInfo.id = this.state.departmentInfo.id;
-        this.props.dispatch(updateDepartment(departmentInfo, this.closeModal));
+        let flag = checkValid(departmentInfo);
+        if (flag) {
+            departmentInfo = getDataInfo(departmentInfo);
+            this.props.dispatch(updateDepartment(departmentInfo, this.closeModal));
+        }
     };
 
     render() {

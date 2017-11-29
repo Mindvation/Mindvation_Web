@@ -3,10 +3,8 @@ import {Modal, Button} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../BasicInfo';
-import {checkCompleted} from '../../../../util/CommUtil';
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 import {updateStoryBasic} from '../../../../actions/story_action';
-
-let mandatoryFile = ["summary", "description"];
 
 class EditBasicInfo extends Component {
 
@@ -22,8 +20,9 @@ class EditBasicInfo extends Component {
 
     update = () => {
         let basicInfo = this.basicModule.getInfo();
-        let flag = checkCompleted(mandatoryFile, basicInfo);
+        let flag = checkValid(basicInfo);
         if (flag) {
+            basicInfo = getDataInfo(basicInfo);
             basicInfo.storyId = this.props.story.storyId;
             this.props.dispatch(updateStoryBasic(basicInfo, this.closeModal));
         }

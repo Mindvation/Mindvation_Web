@@ -7,11 +7,10 @@ import OptionalItem from '../create/OptionalItem';
 import {clearTempRequirement} from '../../../actions/requirement_action';
 import {createRequirement} from '../../../actions/requirements_action';
 import {clearTempChecklist} from '../../../actions/checklist_action';
-import {checkCompleted} from '../../../util/CommUtil';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 import {hasAuth} from '../../../util/AuthUtil';
 
 let basicModule, optionalModule, AdditionalModule;
-let mandatoryFile = ["summary", "description"];
 
 class CreateRequirement extends Component {
     state = {modalOpen: false};
@@ -35,13 +34,9 @@ class CreateRequirement extends Component {
         let additionalInfo = AdditionalModule.getInfo();
         let requirementInfo = Object.assign(basicInfo, additionalInfo, optionalInfo);
         requirementInfo.comments = [];
-        let flag = checkCompleted(mandatoryFile, requirementInfo);
+        let flag = checkValid(requirementInfo);
         if (flag) {
-            /*this.props.dispatch(createRequirements(requirementInfo));
-            let timer = setTimeout(() => {
-                this.closeModal();
-                timer && clearTimeout(timer);
-            }, 0);*/
+            requirementInfo = getDataInfo(requirementInfo);
             requirementInfo.projectId = this.props.project.projectId;
             this.props.dispatch(createRequirement(requirementInfo, this.closeModal));
         }

@@ -8,7 +8,9 @@ import {messages} from '../../res/language/defineMessages';
 class MVInput extends Component {
     state = {
         isEmpty: true,
-        selfChecked: false
+        selfChecked: false,
+        isInvalid: false,
+        errorMsg: ''
     };
 
     componentDidMount() {
@@ -74,11 +76,31 @@ class MVInput extends Component {
         }
     };
 
+    checkRegular = () => {
+        const {regular} = this.props;
+        if (this.state.isEmpty || !regular || !regular.regularEx) return;
+        let flag = false, errorMsg = '';
+        if (!regular.regularEx.test(this.inputNode.inputRef.value)) {
+            flag = true;
+            errorMsg = regular.message || <FormattedMessage
+                id='invalidInput'
+                defaultMessage='Invalid Input'
+            />
+        }
+        this.setState({
+            isInvalid: flag,
+            errorMsg: errorMsg
+        })
+    };
+
     getValue = () => {
         this.setState({
             selfChecked: true
         });
-        return this.inputNode.inputRef.value;
+        return {
+            error: this.state.isInvalid || (this.state.isEmpty && this.props.required),
+            componentValue: this.inputNode.inputRef.value
+        }
     };
 
     render() {
@@ -108,14 +130,18 @@ class MVInput extends Component {
                 <Input
                     disabled={readOnly}
                     placeholder={messages[placeHolder] ? formatMessage(messages[placeHolder]) : placeHolder}
-                    error={required && this.state.selfChecked && this.state.isEmpty}
+                    error={(required && this.state.selfChecked && this.state.isEmpty) || this.state.isInvalid}
                     className={fullWidth ? "full-width" : "input-content"}
                     onChange={(event, data) => this.checkValue(event, data)}
                     defaultValue={defaultValue} value={value}
                     type={type}
                     step={type === "number" ? step : ''} action={action}
                     ref={node => this.inputNode = node}
+                    onBlur={() => this.checkRegular()}
                 />
+                {this.state.isInvalid ? <div className="components-error-message">{
+                    this.state.errorMsg
+                }</div> : null}
             </div>
         );
     }
@@ -132,7 +158,8 @@ MVInput.propTypes = {
     fullWidth: PropTypes.bool,
     action: PropTypes.object,
     readOnly: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    regular: PropTypes.object
 };
 
 export default injectIntl(MVInput, {withRef: true});

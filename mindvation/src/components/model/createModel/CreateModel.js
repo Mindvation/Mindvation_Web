@@ -9,6 +9,7 @@ import {FormattedMessage} from 'react-intl';
 import {createModel} from '../../../util/Service';
 import ModelDetail from '../ModelDetail';
 import Image from '../../common/Image';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 const steps = [
     {
@@ -102,6 +103,10 @@ class CreateModel extends Component {
         let tempInfo = this.state.modelInfo;
         if (tempIndex === 0) {
             tempInfo.basicInfo = this.basicNode.getInfo();
+            let flag = checkValid(tempInfo.basicInfo);
+            if (flag) {
+                tempInfo.basicInfo = getDataInfo(tempInfo.basicInfo);
+            }
         }
         if (tempIndex === 2) {
             tempInfo.iteration = this.iterationNode.getInfo();

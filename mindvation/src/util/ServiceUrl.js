@@ -2,7 +2,7 @@ let url;
 const isProduction = true;
 
 if (isProduction) {
-    const gateWay = "http://47.100.100.211:";
+    const gateWay = "http://192.168.0.254:";
     url = {
         login: gateWay + '8080/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -30,7 +30,7 @@ if (isProduction) {
         getModelDetail: gateWay + '8080/mdvn-model-papi/model/findModelDetailById',
         addFileToTask: gateWay + '8080/mdvn-task-papi/task/addAttachForTask',
         removeFileFromTask: gateWay + '8080/mdvn-task-papi/task/deleteAttachForTask',
-        rtrvStoryList: gateWay + '8080/mdvn-dashboard-papi/dashboard/rtrvStoryList',
+        rtrvStoryList: gateWay + '8080/mdvn-dashboard-papi/dashboard/rtrvAllMVPDashboard',
         updateDashboard: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateDashboard',
         getMyTaskList: gateWay + '8080/mdvn-dashboard-papi/dashboard/getMyDashboardInfos',
         updateTaskStatus: gateWay + '8080/mdvn-dashboard-papi/dashboard/updateMyDashboard',
@@ -54,7 +54,7 @@ if (isProduction) {
         changePassword: gateWay + '8080/mdvn-staff-papi/staff/updateStaffPassword'
     };
 } else {
-    const gateWay = "http://192.168.0.108:";
+    const gateWay = "http://192.168.0.107:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -82,7 +82,7 @@ if (isProduction) {
         getModelDetail: gateWay + '10010/mdvn-model-papi/model/findModelDetailById',
         addFileToTask: gateWay + '10003/mdvn-task-papi/task/addAttachForTask',
         removeFileFromTask: gateWay + '10003/mdvn-task-papi/task/deleteAttachForTask',
-        rtrvStoryList: gateWay + '10018/mdvn-dashboard-papi/dashboard/rtrvStoryList',
+        rtrvStoryList: gateWay + '10018/mdvn-dashboard-papi/dashboard/rtrvAllMVPDashboard',
         updateDashboard: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateDashboard',
         getMyTaskList: gateWay + '10018/mdvn-dashboard-papi/dashboard/getMyDashboardInfos',
         updateTaskStatus: gateWay + '10018/mdvn-dashboard-papi/dashboard/updateMyDashboard',

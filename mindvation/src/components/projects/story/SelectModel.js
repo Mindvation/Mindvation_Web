@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Divider, Modal, Segment, Image, Grid} from 'semantic-ui-react';
 import Input from '../../common/Input';
 import {FormattedMessage} from 'react-intl';
+import {isEmpty} from '../../../util/CommUtil';
 
 const models = [{
     key: 'protoAndProgress',
@@ -46,7 +47,10 @@ class SelectModel extends Component {
         });
         return {
             "title": this.title.getWrappedInstance().getValue(),
-            "modelType": this.state.selectedKey
+            "modelType": {
+                error: isEmpty(this.state.selectedKey),
+                componentValue: this.state.selectedKey
+            }
         }
     };
 

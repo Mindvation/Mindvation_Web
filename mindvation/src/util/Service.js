@@ -214,9 +214,8 @@ export function startIteration(params, callback) {
         });
 }
 
-export function getNextIterations(iterationKey, callback) {
-    post(url.getNextIterations, {uuId: iterationKey}
-    )
+export function getNextIterations(iterationInfo, callback) {
+    post(url.getNextIterations, iterationInfo)
         .then((res) => {
             callback(res.responseBody);
         })

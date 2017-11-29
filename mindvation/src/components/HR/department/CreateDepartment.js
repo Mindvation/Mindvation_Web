@@ -4,6 +4,7 @@ import DepartmentInfo from './DepartmentInfo';
 import {FormattedMessage} from 'react-intl';
 import {createDepartment} from '../../../actions/department_action';
 import MVImage from "../../common/Image";
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 class CreateDepartment extends Component {
     state = {modalOpen: false};
@@ -14,7 +15,11 @@ class CreateDepartment extends Component {
 
     newDepartment = () => {
         let departmentInfo = this.departmentInfoNode.getInfo();
-        this.props.dispatch(createDepartment(departmentInfo, this.closeModal));
+        let flag = checkValid(departmentInfo);
+        if (flag) {
+            departmentInfo = getDataInfo(departmentInfo);
+            this.props.dispatch(createDepartment(departmentInfo, this.closeModal));
+        }
     };
 
     render() {

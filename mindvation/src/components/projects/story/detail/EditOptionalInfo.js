@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button, List} from 'semantic-ui-react';
+import {Modal, Button} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import OptionalItem from '../OptionalItem';
 import {updateStoryOptional} from '../../../../actions/story_action';
 import DisplayFile from '../../../common/DisplayFile';
-
-let optionalModule;
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 
 class EditOptionalInfo extends Component {
 
@@ -23,11 +22,15 @@ class EditOptionalInfo extends Component {
     };
 
     update = () => {
-        let optionalInfo = optionalModule.getInfo();
-        optionalInfo.storyId = this.props.story.storyId;
-        this.props.dispatch(updateStoryOptional(optionalInfo, function () {
-            this.closeModal();
-        }.bind(this)));
+        let optionalInfo = this.optionalModule.getInfo();
+        let flag = checkValid(optionalInfo);
+        if (flag) {
+            optionalInfo = getDataInfo(optionalInfo);
+            optionalInfo.storyId = this.props.story.storyId;
+            this.props.dispatch(updateStoryOptional(optionalInfo, function () {
+                this.closeModal();
+            }.bind(this)));
+        }
     };
 
     render() {
@@ -70,7 +73,7 @@ class EditOptionalInfo extends Component {
                         info={story}
                         dispatch={dispatch}
                         ref={node => {
-                            optionalModule = node
+                            this.optionalModule = node
                         }}
                         showAction={true}
                         isEdit={true}

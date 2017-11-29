@@ -21,7 +21,7 @@
 .ui.form textarea.components-error,
 .ui.selection.dropdown.components-error,
 .components-error .ant-calendar-picker-input,
-.components-item .components-error .simditor{
+.components-item .components-error .simditor {
     background-color: #fff6f6;
     border-color: #e0b4b4;
     color: #9f3a38;
@@ -860,10 +860,19 @@ img.ui.image.mv-image {
     border: 1px solid rgba(34, 36, 38, .15);
 }
 
- .simditor .simditor-wrapper {
+.simditor .simditor-wrapper {
     border-radius: 4px;
 }
 
 .simditor .simditor-toolbar {
     border-radius: 4px 4px 0 0;
+}
+
+.components-error-message {
+    position: absolute;
+    top: 100%;
+    left: 20%;
+    margin-left: -15px;
+    color: #9f3a38;
+    font-size: 12px;
 }

@@ -34,7 +34,6 @@ class MVSelect extends Component {
                     isEmpty: true
                 });
             }
-
         } else {
             if (this.state.isEmpty) {
                 this.setState({
@@ -42,6 +41,10 @@ class MVSelect extends Component {
                 })
             }
         }
+
+        this.setState({
+            returnValue: defaultValue
+        });
     };
 
     checkValue = (event, data) => {
@@ -86,7 +89,10 @@ class MVSelect extends Component {
         this.setState({
             selfChecked: true
         });
-        return this.state.returnValue;
+        return {
+            error: this.state.isEmpty && this.props.required,
+            componentValue: this.state.returnValue
+        }
     };
 
     getFullValue = () => {
@@ -99,7 +105,10 @@ class MVSelect extends Component {
         } else {
             returnOption = getOption(options, this.state.returnValue);
         }
-        return returnOption;
+        return {
+            error: this.state.isEmpty && this.props.required,
+            componentValue: returnOption
+        }
     };
 
     render() {

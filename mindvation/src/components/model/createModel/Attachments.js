@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Button, List, Modal} from 'semantic-ui-react';
-import {getTimeAndRandom, checkCompleted, getRandomStyle} from '../../../util/CommUtil';
+import {getTimeAndRandom, checkValid, getDataInfo, getRandomStyle} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import SelectModel from '../../projects/story/SelectModel';
 import Image from '../../common/Image';
-
-let mandatoryFile = ["title", "modelType"];
 
 class Attachments extends Component {
     state = {
@@ -30,8 +28,9 @@ class Attachments extends Component {
 
     addModel = () => {
         let modelInfo = this.SelectModelNode.getInfo();
-        let flag = checkCompleted(mandatoryFile, modelInfo);
+        let flag = checkValid(modelInfo);
         if (flag) {
+            modelInfo = getDataInfo(modelInfo);
             this.closeModal();
             let tempData = this.state.attachments;
             tempData ?
@@ -83,7 +82,8 @@ class Attachments extends Component {
                         <List horizontal className="model-attach">
                             {attachments.map((attach) => {
                                 return <List.Item key={attach.key}>
-                                    <div className={"list-content tag-selected tag-style-" + (attach.style || 'default')}>
+                                    <div
+                                        className={"list-content tag-selected tag-style-" + (attach.style || 'default')}>
                                         <span className="list-text">{attach.title}</span>
                                         <div className="list-actions-content">
                                             <div className="list-actions pointer-cursor"

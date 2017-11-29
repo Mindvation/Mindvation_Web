@@ -53,9 +53,9 @@ class ProjectDetail extends Component {
                     </div>
                 </Menu.Item>,
                 pane: <Tab.Pane key="edit-basicInfo" attached={false}>
-                        <EditBasicInfo project={project} dispatch={dispatch}
-                                       disabled={!hasAuth("updateProject", project.authCode)}/>
-                    </Tab.Pane>
+                    <EditBasicInfo project={project} dispatch={dispatch}
+                                   disabled={!hasAuth("updateProject", project.authCode)}/>
+                </Tab.Pane>
             },
             {
                 menuItem: <Menu.Item key="additionalInfo">
@@ -68,9 +68,9 @@ class ProjectDetail extends Component {
                     </div>
                 </Menu.Item>,
                 pane: <Tab.Pane attached={false} key="edit-additionalInfo">
-                        <EditAdditionalInfo project={project} dispatch={dispatch}
-                                            disabled={!hasAuth("updateProject", project.authCode)}/>
-                    </Tab.Pane>
+                    <EditAdditionalInfo project={project} dispatch={dispatch}
+                                        disabled={!hasAuth("updateProject", project.authCode)}/>
+                </Tab.Pane>
             },
             {
                 menuItem: <Menu.Item key="optionalItems">
@@ -83,9 +83,9 @@ class ProjectDetail extends Component {
                     </div>
                 </Menu.Item>,
                 pane: <Tab.Pane attached={false} key="edit-optionalItems">
-                        <EditOptionalInfo project={project} dispatch={dispatch}
-                                          disabled={!hasAuth("updateProject", project.authCode)}/>
-                    </Tab.Pane>
+                    <EditOptionalInfo project={project} dispatch={dispatch}
+                                      disabled={!hasAuth("updateProject", project.authCode)}/>
+                </Tab.Pane>
             }
         ];
 
@@ -178,19 +178,23 @@ class ProjectDetail extends Component {
                                             />
                                         </div>
                                         <div style={{marginTop: '20px'}}>
-                                            {hasAuth("MVPDashBoard", project.authCode) ?
+                                            {/*{hasAuth("MVPDashBoard", project.authCode) ?
                                                 <Link className="link-mvp-button"
                                                       to={`/home/MVPDashboard/${project.projectId}`}>
                                                     MVP Dashboard
-                                                </Link> : null}
+                                                </Link> : null}*/}
+                                            <Link className="link-mvp-button"
+                                                  to={`/home/MVPDashboard/${project.projectId}`}>
+                                                MVP Dashboard
+                                            </Link>
                                             <Link className="link-mvp-button"
                                                   to={`/home/MyMVPDashboard/${project.projectId}`}>
                                                 My MVP Dashboard
                                             </Link>
-                                            <Link className="link-mvp-button"
+                                            {/*<Link className="link-mvp-button"
                                                   to={`/home/AllDashboard/${project.projectId}`}>
                                                 Dashboard
-                                            </Link>
+                                            </Link>*/}
                                         </div>
                                     </div>
                                 </TabPane>

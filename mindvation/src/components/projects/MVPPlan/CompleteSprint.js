@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Modal} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import {FormattedMessage} from 'react-intl';
 import {getNextIterations} from '../../../util/Service';
@@ -42,14 +42,16 @@ class CompleteSprint extends Component {
             incompleteStories
         });
 
+        let {mvpInfo} = this.props;
+        mvpInfo.name = sprint.key;
         if (incompleteNumber > 0) {
-            getNextIterations(sprint.key, (iterations) => {
+            getNextIterations(mvpInfo, (iterations) => {
                 let tempIterations = [];
                 if (iterations && iterations.length > 0) {
                     iterations.map((item) => {
                         if (!item) return;
                         tempIterations.push({
-                            value: item.uuId,
+                            value: item.name,
                             text: item.name
                         })
                     })

@@ -24,15 +24,15 @@ class AdditionalInfo extends Component {
 
     getInfo = () => {
         return {
-            "priority": this.priority.getWrappedInstance().getValue(),
-            "startDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
-            "endDate": this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
-            "tags": this.addTagsNode.getWrappedInstance().getValue(),
-            "storyPoints": this.storyPointsNode.getWrappedInstance().getValue(),
-            "functionLabel": this.subFunctionLabel ? this.subFunctionLabel.getWrappedInstance().getValue() : '',
-            "functionOtherLabel": this.subFunctionOtherLabel ? this.subFunctionOtherLabel.getWrappedInstance().getValue() : '',
-            "functionTextLabel": this.subFunctionTextLabel ? this.subFunctionTextLabel.getWrappedInstance().getValue() : '',
-            "roles": this.chooseMembersNode.getValue()
+            priority: this.priority.getWrappedInstance().getValue(),
+            startDate: this.startEndDate.getValue() ? this.startEndDate.getValue()[0] : "",
+            endDate: this.startEndDate.getValue() ? this.startEndDate.getValue()[1] : "",
+            tags: this.addTagsNode.getWrappedInstance().getValue(),
+            storyPoints: this.storyPointsNode.getWrappedInstance().getValue(),
+            functionLabel: this.subFunctionLabel ? this.subFunctionLabel.getWrappedInstance().getValue() : '',
+            functionOtherLabel: this.subFunctionOtherLabel ? this.subFunctionOtherLabel.getWrappedInstance().getValue() : '',
+            functionTextLabel: this.subFunctionTextLabel ? this.subFunctionTextLabel.getWrappedInstance().getValue() : '',
+            roles: this.chooseMembersNode.getValue()
         }
     };
 
@@ -168,6 +168,7 @@ class AdditionalInfo extends Component {
                             ref={node => {
                                 this.priority = node
                             }}
+                            required={true}
                             defaultValue={info.priority}
                     />
                     <ChooseMembers

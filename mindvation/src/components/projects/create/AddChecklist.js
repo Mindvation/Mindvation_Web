@@ -7,6 +7,7 @@ import {dateFormat} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {getStaffId, getUser} from '../../../util/UserStore';
 import Image from '../../common/Image';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 let checklistDesc, assignTo;
 
@@ -31,19 +32,23 @@ class AddChecklist extends Component {
     closeModal = () => this.setState({modalOpen: false});
 
     createChecklist = () => {
-        const checklist = {
-            "description": checklistDesc.getWrappedInstance().getValue(),
-            "assignee": assignTo.getWrappedInstance().getFullValue(),
-            "assigner": {
+        let checklist = {
+            description: checklistDesc.getWrappedInstance().getValue(),
+            assignee: assignTo.getWrappedInstance().getFullValue(),
+            assigner: {
                 text: getUser().staffInfo.name,
                 value: getStaffId()
             },
-            "createDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-            "lastUpdateDate": dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
-            "status": "new"
+            createDate: dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
+            lastUpdateDate: dateFormat(new Date(), "yyyy-MM-dd hh:mm"),
+            status: "new"
         };
-        this.setState({modalOpen: false});
-        this.props.dispatch(addChecklist(checklist));
+        let flag = checkValid(checklist);
+        if (flag) {
+            checklist = getDataInfo(checklist);
+            this.setState({modalOpen: false});
+            this.props.dispatch(addChecklist(checklist));
+        }
     };
 
     render() {

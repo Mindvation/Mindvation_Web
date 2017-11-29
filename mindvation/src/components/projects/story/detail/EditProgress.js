@@ -3,6 +3,7 @@ import {Modal, Button} from 'semantic-ui-react';
 import TextArea from '../../../common/TextArea';
 import Slider from '../../../common/Slider';
 import {FormattedMessage} from 'react-intl';
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 
 class EditProgress extends Component {
 
@@ -16,8 +17,12 @@ class EditProgress extends Component {
         let tempTask = this.state.task;
         tempTask.model.percent = this.percentNode.getValue();
         tempTask.remark = this.comment.getWrappedInstance().getValue();
-        if (this.props.updateProgress) {
-            this.props.updateProgress(tempTask);
+        let flag = checkValid(tempTask);
+        if (flag) {
+            tempTask = getDataInfo(tempTask);
+            if (this.props.updateProgress) {
+                this.props.updateProgress(tempTask);
+            }
         }
     };
 

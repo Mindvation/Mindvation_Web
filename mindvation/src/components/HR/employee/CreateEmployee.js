@@ -4,6 +4,7 @@ import EmployeeInfo from './EmployeeInfo';
 import {FormattedMessage} from 'react-intl';
 import {createEmployee} from '../../../actions/employee_action';
 import Image from '../../common/Image';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 class CreateEmployee extends Component {
     state = {modalOpen: false};
@@ -14,7 +15,11 @@ class CreateEmployee extends Component {
 
     newEmployee = () => {
         let employeeInfo = this.employeeInfoNode.getInfo();
-        this.props.dispatch(createEmployee(employeeInfo, this.closeModal));
+        let flag = checkValid(employeeInfo);
+        if (flag) {
+            employeeInfo = getDataInfo(employeeInfo);
+            this.props.dispatch(createEmployee(employeeInfo, this.closeModal));
+        }
     };
 
     render() {

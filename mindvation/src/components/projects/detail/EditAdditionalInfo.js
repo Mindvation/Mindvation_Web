@@ -6,6 +6,7 @@ import AdditionalInfo from '../create/AdditionalInfo';
 import {updateProjectAdditional} from '../../../actions/project_action';
 import TagList from '../create/TagList';
 import {priorityOptions, contingencyOptions} from '../../../res/data/dataOptions';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 let AdditionalModule;
 
@@ -23,8 +24,12 @@ class EditAdditionalInfo extends Component {
 
     update = () => {
         let additionalInfo = AdditionalModule.getInfo();
-        additionalInfo.projectId = this.props.project.projectId;
-        this.props.dispatch(updateProjectAdditional(additionalInfo, () => this.closeModal()));
+        let flag = checkValid(additionalInfo);
+        if (flag) {
+            additionalInfo = getDataInfo(additionalInfo);
+            additionalInfo.projectId = this.props.project.projectId;
+            this.props.dispatch(updateProjectAdditional(additionalInfo, () => this.closeModal()));
+        }
     };
 
     render() {
@@ -82,18 +87,6 @@ class EditAdditionalInfo extends Component {
         }];
         return (
             <div className="read-only-component">
-                {/*<Header as="h3" className="underLine" style={{display: 'flex'}}>
-                    <FormattedMessage
-                        id='additionalInfo'
-                        defaultMessage='additional Info'
-                    />
-                    {disabled ? null : <div className="edit-line-cont">
-                        <div className="edit-info-line"/>
-                        <div className="edit-info-icon" onClick={this.edit}>
-                            <Icon name='pencil'/>
-                        </div>
-                    </div>}
-                </Header>*/}
                 {disabled ? null : <div className="edit-detail-button" onClick={this.edit}>
                     <FormattedMessage
                         id='editAdditionalInfo'

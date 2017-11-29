@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button} from 'semantic-ui-react';
+import {Modal, Button} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../BasicInfo';
-import {checkCompleted} from '../../../../util/CommUtil';
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 import {updateRequirementBasic} from '../../../../actions/requirement_action';
 
 let basicModule;
@@ -23,8 +23,9 @@ class EditBasicInfo extends Component {
 
     update = () => {
         let basicInfo = basicModule.getInfo();
-        let flag = checkCompleted(mandatoryFile, basicInfo);
+        let flag = checkValid(basicInfo);
         if (flag) {
+            basicInfo = getDataInfo(basicInfo);
             basicInfo.projectId = this.props.requirement.projectId;
             basicInfo.reqId = this.props.requirement.reqId;
             this.props.dispatch(updateRequirementBasic(basicInfo, this.closeModal));

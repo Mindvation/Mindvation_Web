@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table, Button} from 'semantic-ui-react';
+import {Table} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
@@ -120,7 +120,6 @@ class EmployeeList extends Component {
                         <Table.Row>
                             <Table.HeaderCell colSpan={header.length}>
                                 <Pagination defaultCurrent={1} total={employee.totalElements}
-                                            showQuickJumper
                                             onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
                             </Table.HeaderCell>
                         </Table.Row>

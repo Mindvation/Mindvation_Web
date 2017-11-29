@@ -9,6 +9,7 @@ import {FormattedMessage} from 'react-intl';
 import {retrieveStaff} from '../../../util/Service';
 import {getStaffId} from '../../../util/UserStore';
 import MVImage from "../../common/Image";
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 class AddTask extends Component {
     state = {modalOpen: false, assignOption: []};
@@ -39,7 +40,7 @@ class AddTask extends Component {
     closeModal = () => this.setState({modalOpen: false});
 
     createTask = () => {
-        const task = {
+        let task = {
             projectId: this.props.story.projectId,
             storyId: this.props.story.storyId,
             description: this.taskDesc.getWrappedInstance().getValue(),
@@ -49,8 +50,11 @@ class AddTask extends Component {
             assigner: getStaffId(),
             model: this.modelNode.getInfo(),
         };
-        this.props.dispatch(addTask(task, this.closeModal))
-
+        let flag = checkValid(task);
+        if (flag) {
+            task = getDataInfo(task);
+            this.props.dispatch(addTask(task, this.closeModal))
+        }
     };
 
     render() {
@@ -78,10 +82,10 @@ class AddTask extends Component {
                     <Modal.Content>
                         <div className="model-container">
                             <TextArea label="Description"
+                                      required={true}
                                       ref={node => {
                                           this.taskDesc = node
                                       }}/>
-
                             <DatePicker label="Start / End Date"
                                         range={true}
                                         ref={node => {

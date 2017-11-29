@@ -238,6 +238,8 @@ const zh_CN = {
     AIArrangement: "智能排列",
     passwordNotMatch: "新密码与确认密码不一致",
     editMinute: "修改会议记录",
-    minuteInfo: "会议记录"
+    minuteInfo: "会议记录",
+    invalidMail: "邮箱地址不合法",
+    invalidInput: "输入不合法"
 };
 export default zh_CN;

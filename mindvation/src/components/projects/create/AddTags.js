@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, Segment, Header, Input} from 'semantic-ui-react';
-import {isEmpty, getRandomStyle} from '../../../util/CommUtil';
+import {isEmpty, getRandomStyle,getRandomColor} from '../../../util/CommUtil';
 import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
 import {retrieveTags, createTag as createTagAction} from '../../../actions/tags_action';
@@ -93,7 +93,8 @@ class AddTags extends Component {
                 this.props.dispatch(createTagAction({
                     name: tag,
                     creatorId: getStaffId(),
-                    tagStyle: getRandomStyle()
+                    tagStyle: getRandomStyle(),
+                    color: getRandomColor()
                 }, function (res) {
                     createTagNode.inputRef.value = "";
                     allTagsNode.selectTag(res);

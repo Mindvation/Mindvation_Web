@@ -6,11 +6,10 @@ import AdditionalInfo from './AdditionalInfo';
 import OptionalItem from './OptionalItem';
 import {addStoryToList} from '../../../actions/stories_action';
 import {clearTempTask} from '../../../actions/task_action';
-import {checkCompleted} from '../../../util/CommUtil';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 import {hasAuth} from '../../../util/AuthUtil';
 
 let basicModule, optionalModule, AdditionalModule;
-let mandatoryFile = ["summary", "description"];
 
 class CreateRequirement extends Component {
     state = {modalOpen: false, storyType: 'story'};
@@ -33,9 +32,9 @@ class CreateRequirement extends Component {
         let additionalInfo = AdditionalModule.getInfo();
         let storyInfo = Object.assign(basicInfo, additionalInfo, optionalInfo);
         storyInfo.comments = [];
-        let flag = checkCompleted(mandatoryFile, storyInfo);
+        let flag = checkValid(storyInfo);
         if (flag) {
-            //this.formatStory(storyInfo);
+            storyInfo = getDataInfo(storyInfo);
             storyInfo.projectId = this.props.requirement.projectId;
             storyInfo.reqId = this.props.requirement.reqId;
             storyInfo.type = this.state.storyType;

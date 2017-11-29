@@ -34,13 +34,14 @@ class Dashboard extends Component {
 
     render() {
         const {storyId, storyList} = this.state;
+        const {id} = this.props.match.params;
         return (
             <div style={{height: '100%'}}>
                 <div style={{height: '100%'}} onClick={() => this.closeSticky()}>
                     {
                         (storyList && storyList.length > 0) ?
                             storyList.map((story, i) => {
-                                return <MoveProject key={i} storyList={story} storyDetail={(storyId) => {
+                                return <MoveProject key={i} projectId={id} storyList={story} storyDetail={(storyId) => {
                                     this.checkDetail(storyId)
                                 }}/>
                             }) : null

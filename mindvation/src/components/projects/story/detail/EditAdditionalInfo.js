@@ -8,8 +8,7 @@ import TagList from '../../create/TagList';
 import Display from '../../../common/Display';
 import {priorityOptions} from '../../../../res/data/dataOptions';
 import MVImage from '../../../common/Image';
-
-let AdditionalModule;
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 
 class EditAdditionalInfo extends Component {
 
@@ -24,10 +23,14 @@ class EditAdditionalInfo extends Component {
     };
 
     update = () => {
-        let additionalInfo = AdditionalModule.getInfo();
-        additionalInfo.storyId = this.props.story.storyId;
-        additionalInfo.projectId = this.props.story.projectId;
-        this.props.dispatch(updateStoryAdditional(additionalInfo, this.closeModal));
+        let additionalInfo = this.additionalModule.getInfo();
+        let flag = checkValid(additionalInfo);
+        if (flag) {
+            additionalInfo = getDataInfo(additionalInfo);
+            additionalInfo.storyId = this.props.story.storyId;
+            additionalInfo.projectId = this.props.story.projectId;
+            this.props.dispatch(updateStoryAdditional(additionalInfo, this.closeModal));
+        }
     };
 
     render() {
@@ -133,7 +136,7 @@ class EditAdditionalInfo extends Component {
                     <AdditionalInfo
                         info={story}
                         ref={node => {
-                            AdditionalModule = node
+                            this.additionalModule = node
                         }}
                         isEdit={true}
                     />

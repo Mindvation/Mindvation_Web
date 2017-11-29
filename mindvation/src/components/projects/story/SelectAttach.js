@@ -3,12 +3,10 @@ import {Segment, Button, Modal} from 'semantic-ui-react';
 import Progress from '../../common/Progress';
 import UploadMulti from '../../common/UploadMulti';
 import UploadAndProgress from '../../common/UploadAndProgress';
-import {getTimeAndRandom, checkCompleted} from '../../../util/CommUtil';
+import {getTimeAndRandom, checkValid, getDataInfo} from '../../../util/CommUtil';
 import SelectModel from './SelectModel';
 import {FormattedMessage} from 'react-intl';
 import Image from '../../common/Image';
-
-let mandatoryFile = ["title", "modelType"];
 
 class SelectAttach extends Component {
     state = {
@@ -32,8 +30,9 @@ class SelectAttach extends Component {
 
     addModel = () => {
         let modelInfo = this.SelectModelNode.getInfo();
-        let flag = checkCompleted(mandatoryFile, modelInfo);
+        let flag = checkValid(modelInfo);
         if (flag) {
+            modelInfo = getDataInfo(modelInfo);
             this.closeModal();
             this.setState({
                 selectedCustom: true,

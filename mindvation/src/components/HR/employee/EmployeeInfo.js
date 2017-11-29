@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Modal, Icon} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Input from '../../common/Input';
 import Select from '../../common/Select';
@@ -58,24 +58,24 @@ class EmployeeInfo extends Component {
         const positionOption = this.getPositionOption(selectedDepartment);
         return (
             <Modal.Content>
-                <Input label="Employee Name" horizontal={true} icon="user"
+                <Input label="Employee Name"
                        ref={node => this.nameNode = node}
                        defaultValue={info.name}
                        readOnly={isEdit}
                 />
-                <Input label="Logon Name" horizontal={true} icon="user"
+                <Input label="Logon Name"
                        ref={node => this.logonNameNode = node}
                        defaultValue={info.logonName}
                        readOnly={isEdit}
                 />
-                {isEdit ? null : <Input label="Initial Password" horizontal={true} icon="user"
+                {isEdit ? null : <Input label="Initial Password"
                                         ref={node => this.initialPasswordNode = node}
                 />}
                 <Select options={genderOptions} label="Gender" horizontal={true} icon="heterosexual"
                         ref={node => this.genderNode = node}
                         defaultValue={info.gender}
                 />
-                <Select options={this.getDepartmentOption()} label="Department" horizontal={true} icon="home"
+                <Select options={this.getDepartmentOption()} label="Department"
                         ref={node => this.departmentNode = node}
                         onChange={(selectedDepartment) => {
                             this.setState({
@@ -86,19 +86,26 @@ class EmployeeInfo extends Component {
                 />
                 {selectedDepartment ?
                     <Select options={positionOption}
-                            label="Position" horizontal={true} icon="id card"
+                            label="Position"
                             ref={node => this.positionNode = node}
                             defaultValue={info.position}
                     /> : null}
-                <Select options={positionLevelOptions} label="Position Level" horizontal={true} icon="setting"
+                <Select options={positionLevelOptions} label="Position Level"
                         ref={node => this.positionLevelNode = node}
                         defaultValue={info.positionLevel}
                 />
-                <Input label="Mail" horizontal={true} icon="mail"
+                <Input label="Mail"
                        ref={node => this.mailNode = node}
                        defaultValue={info.mail}
+                       regular={{
+                           regularEx: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+                           message: <FormattedMessage
+                               id='invalidMail'
+                               defaultMessage='Invalid E-Mail Address'
+                           />
+                       }}
                 />
-                <Input label="Phone" horizontal={true} icon="phone"
+                <Input label="Phone"
                        ref={node => this.phoneNode = node}
                        defaultValue={info.phone}
                 />
@@ -111,7 +118,7 @@ class EmployeeInfo extends Component {
                     </div>
                     <AddTags ref={node => this.skillTagsNode = node} defaultValue={info.skillTags}/>
                 </div>
-                {isEdit ? <Select options={staffStatusOptions} label="Status" horizontal={true} icon="id badge"
+                {isEdit ? <Select options={staffStatusOptions} label="Status"
                                   ref={node => this.statusNode = node}
                                   defaultValue={info.status}
                 /> : null}

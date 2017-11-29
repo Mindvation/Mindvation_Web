@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button, List} from 'semantic-ui-react';
+import {Modal, Button, List} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import OptionalItem from '../../create/OptionalItem';
 import {updateRequirementOptional} from '../../../../actions/requirement_action';
 import {clearTempChecklist} from '../../../../actions/checklist_action';
 import DisplayFile from '../../../common/DisplayFile';
-
-let optionalModule;
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 
 class EditOptionalInfo extends Component {
 
@@ -25,13 +24,17 @@ class EditOptionalInfo extends Component {
     };
 
     update = () => {
-        let optionalInfo = optionalModule.getInfo();
-        optionalInfo.projectId = this.props.requirement.projectId;
-        optionalInfo.reqId = this.props.requirement.reqId;
-        this.props.dispatch(updateRequirementOptional(optionalInfo, function () {
-            this.props.dispatch(clearTempChecklist());
-            this.closeModal();
-        }.bind(this)));
+        let optionalInfo = this.optionalModule.getInfo();
+        let flag = checkValid(optionalInfo);
+        if (flag) {
+            optionalInfo = getDataInfo(optionalInfo);
+            optionalInfo.projectId = this.props.requirement.projectId;
+            optionalInfo.reqId = this.props.requirement.reqId;
+            this.props.dispatch(updateRequirementOptional(optionalInfo, function () {
+                this.props.dispatch(clearTempChecklist());
+                this.closeModal();
+            }.bind(this)));
+        }
     };
 
     formatChecklists = () => {
@@ -90,7 +93,7 @@ class EditOptionalInfo extends Component {
                         info={requirement}
                         dispatch={dispatch}
                         ref={node => {
-                            optionalModule = node
+                            this.optionalModule = node
                         }}
                         showAction={true}
                         isEdit={true}

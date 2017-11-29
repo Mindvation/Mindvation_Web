@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal, Button, Table, Image} from 'semantic-ui-react';
+import {Modal, Button, Table, Image} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import AdditionalInfo from '../AdditionalInfo';
 import {updateRequirementAdditional} from '../../../../actions/requirement_action';
 import TagList from '../../create/TagList';
 import {priorityOptions} from '../../../../res/data/dataOptions';
-
-let AdditionalModule;
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 
 class EditAdditionalInfo extends Component {
 
@@ -22,10 +21,14 @@ class EditAdditionalInfo extends Component {
     };
 
     update = () => {
-        let additionalInfo = AdditionalModule.getInfo();
-        additionalInfo.projectId = this.props.requirement.projectId;
-        additionalInfo.reqId = this.props.requirement.reqId;
-        this.props.dispatch(updateRequirementAdditional(additionalInfo, this.closeModal));
+        let additionalInfo = this.additionalModule.getInfo();
+        let flag = checkValid(additionalInfo);
+        if (flag) {
+            additionalInfo = getDataInfo(additionalInfo);
+            additionalInfo.projectId = this.props.requirement.projectId;
+            additionalInfo.reqId = this.props.requirement.reqId;
+            this.props.dispatch(updateRequirementAdditional(additionalInfo, this.closeModal));
+        }
     };
 
     render() {
@@ -122,7 +125,7 @@ class EditAdditionalInfo extends Component {
                     <AdditionalInfo
                         requirement={requirement}
                         ref={node => {
-                            AdditionalModule = node
+                            this.additionalModule = node
                         }}
                         isEdit={true}
                     />

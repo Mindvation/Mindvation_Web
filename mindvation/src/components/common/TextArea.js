@@ -74,7 +74,10 @@ class MVTextArea extends Component {
         this.setState({
             selfChecked: true
         });
-        return this.textAreaNode.ref.value;
+        return {
+            error: this.state.isEmpty && this.props.required,
+            componentValue: this.textAreaNode.ref.value
+        }
     };
 
     render() {

@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import {Button, Modal, Message} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Input from '../common/Input';
-import {checkCompleted} from '../../util/CommUtil';
 import {changePassword} from '../../actions/user_action';
 import {getStaffId} from '../../util/UserStore';
-
-const mandatoryFile = ["originalPwd", "newPwd", "confirmPwd"];
+import {checkValid, getDataInfo} from '../../util/CommUtil';
 
 class EditEmployee extends Component {
     state = {modalOpen: false, errorMessage: ''};
@@ -16,14 +14,14 @@ class EditEmployee extends Component {
     closeModal = () => this.setState({modalOpen: false});
 
     editPassword = () => {
-        const passwordInfo = {
+        let passwordInfo = {
             originalPwd: this.originalPwdNode.getWrappedInstance().getValue(),
             newPwd: this.newPwdNode.getWrappedInstance().getValue(),
             confirmPwd: this.confirmPwdNode.getWrappedInstance().getValue()
         };
-        let flag = checkCompleted(mandatoryFile, passwordInfo);
-        /*&& passwordInfo.newPwd === passwordInfo.confirmPwd;*/
+        let flag = checkValid(passwordInfo);
         if (flag) {
+            passwordInfo = getDataInfo(passwordInfo);
             if (passwordInfo.newPwd !== passwordInfo.confirmPwd) {
                 this.setState({
                     errorMessage: <FormattedMessage
@@ -37,9 +35,9 @@ class EditEmployee extends Component {
                 errorMessage: ''
             });
             this.props.dispatch(changePassword({
-                "staffId": getStaffId(),
-                "beforePassword": passwordInfo.originalPwd,
-                "afterPassword": passwordInfo.newPwd
+                staffId: getStaffId(),
+                beforePassword: passwordInfo.originalPwd,
+                afterPassword: passwordInfo.newPwd
             }, this.closeModal))
         }
     };
@@ -60,8 +58,8 @@ class EditEmployee extends Component {
                     open={modalOpen}>
                     <Modal.Header className="modal-title-border">
                         <FormattedMessage
-                            id='editPassword'
-                            defaultMessage='Edit Password'
+                            id='changePassword'
+                            defaultMessage='Change Password'
                         />
                     </Modal.Header>
                     <Modal.Content>

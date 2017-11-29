@@ -238,6 +238,8 @@ const en_US = {
     AIArrangement: "AI Arrangement",
     passwordNotMatch: "Password doesn't match the confirmation",
     editMinute: "Edit Minute",
-    minuteInfo: "Minute"
+    minuteInfo: "Minute",
+    invalidMail: "Invalid E-Mail Address",
+    invalidInput: "Invalid Input"
 };
 export default en_US;

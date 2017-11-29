@@ -4,6 +4,7 @@ import {FormattedMessage} from 'react-intl';
 import EmployeeInfo from './EmployeeInfo';
 import {updateEmployee, rtrvStaffDetail} from '../../../actions/employee_action';
 import Image from '../../common/Image';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 
 class EditEmployee extends Component {
     state = {modalOpen: false, employeeInfo: {}};
@@ -31,8 +32,12 @@ class EditEmployee extends Component {
 
     updateEmployeeInfo = () => {
         let employeeInfo = this.employeeInfoNode.getInfo();
-        employeeInfo.id = this.state.employeeInfo.id;
-        this.props.dispatch(updateEmployee(employeeInfo, this.closeModal));
+        employeeInfo.id = this.state.employeeInfo.staffId;
+        let flag = checkValid(employeeInfo);
+        if (flag) {
+            employeeInfo = getDataInfo(employeeInfo);
+            this.props.dispatch(updateEmployee(employeeInfo, this.closeModal));
+        }
     };
 
     render() {

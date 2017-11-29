@@ -3,14 +3,13 @@ import DropContainer from '../../common/DropContainer';
 import Box from '../../common/DragBox';
 import {Grid, Icon, Dropdown, Modal, Button} from 'semantic-ui-react';
 import {priorityOptions, iterationCycleOptions} from '../../../res/data/dataOptions';
-import {getDesc, checkCompleted} from '../../../util/CommUtil';
+import {getDesc, checkValid, getDataInfo} from '../../../util/CommUtil';
+import {getStaffId} from '../../../util/UserStore';
 import {FormattedMessage} from 'react-intl';
 import SelectCycle from './SelectCycle';
 import CompleteSprint from './CompleteSprint';
 import {updateDashboard, startIteration, closeIteration} from '../../../util/Service';
 import Image from '../../common/Image';
-
-let mandatoryFiled = ["iterationCycle"], iterationMandatoryFiled = ["moveToSprint"];
 
 class MoveProject extends Component {
     state = {
@@ -33,7 +32,7 @@ class MoveProject extends Component {
         if (storyList.sprintStoryLists && storyList.sprintStoryLists.length > 0) {
             storyList.sprintStoryLists.map((sprint, i) => {
                 let tempIteration = {
-                    key: sprint.sprintInfo.uuId,
+                    key: sprint.sprintInfo.name,
                     text: sprint.sprintInfo.name,
                     stories: [],
                     labels: sprint.labelIds || [],
@@ -47,6 +46,7 @@ class MoveProject extends Component {
                 if (sprint.stories && sprint.stories.length > 0) {
                     sprint.stories.map((story) => {
                         story.story.functionLabelId = story.labelId;
+                        story.story.isMoveable = story.isRemove;
                         tempIteration.stories.push(story.story);
                         tempIteration.points += Number(story.story.storyPoint)
                     })
@@ -109,12 +109,16 @@ class MoveProject extends Component {
     };
 
     selectCycleInfo = () => {
-        const cycleInfo = this.selectCycleNode.getInfo();
-        let flag = checkCompleted(mandatoryFiled, cycleInfo);
+        let cycleInfo = this.selectCycleNode.getInfo();
+        let flag = checkValid(cycleInfo);
         if (flag) {
+            cycleInfo = getDataInfo(cycleInfo);
             startIteration({
-                "uuId": this.handleSprint.key,
-                "iterationCycle": cycleInfo.iterationCycle
+                projId: this.props.projectId,
+                creatorId: getStaffId(),
+                modelId: this.state.model.modelId,
+                name: this.handleSprint.key,
+                iterationCycle: cycleInfo.iterationCycle
             }, (iterationInfo) => this.updateSprintStatus(iterationInfo));
         }
     };
@@ -126,13 +130,17 @@ class MoveProject extends Component {
     };
 
     completeSprint = () => {
-        const iterationInfo = this.completeSprintNode.getInfo();
-        let flag = checkCompleted(iterationMandatoryFiled, iterationInfo);
+        let iterationInfo = this.completeSprintNode.getInfo();
+        let flag = checkValid(iterationInfo);
         if (flag) {
+            iterationInfo = getDataInfo(iterationInfo);
             closeIteration({
-                "beforUuId": this.handleSprint.key,
-                "afterUuId": iterationInfo.moveToSprint,
-                "stories": iterationInfo.movedStories
+                projId: this.props.projectId,
+                creatorId: getStaffId(),
+                modelId: this.state.model.modelId,
+                beforeName: this.handleSprint.key,
+                afterName: iterationInfo.moveToSprint,
+                stories: iterationInfo.movedStories
             }, (storyList) => {
                 this.formatSprintsData(storyList);
                 this.closeCompleteModal();
@@ -155,9 +163,15 @@ class MoveProject extends Component {
         let allLabels = [];
         tempSprints.map((item) => {
             if (item.text === 'Product Backlogs') {
-                allStories = item.stories;
-                item.stories = [];
-                item.points = 0;
+                if (item.stories && item.stories.length > 0) {
+                    item.stories.map((story) => {
+                        if (story.isMoveable) {
+                            allStories.push(story);
+                            item.stories.splice(item.stories.indexOf(story), 1);
+                            item.points -= Number(story.storyPoint)
+                        }
+                    })
+                }
             }
 
             if (item.labels && item.labels.length > 0) {
@@ -165,22 +179,21 @@ class MoveProject extends Component {
             }
         });
 
-        if (allStories.length > 0) {
-            allStories.map((story) => {
-                if (allLabels.indexOf(story.functionLabelId) === -1) {
-                    tempSprints[0].stories.push(story);
-                    tempSprints[0].points += Number(story.storyPoint);
-                } else {
-                    tempSprints.some((item) => {
-                        if (item.labels.indexOf(story.functionLabelId) > -1) {
-                            item.stories.push(story);
-                            item.points += Number(story.storyPoint);
-                            return true;
-                        }
-                    })
-                }
-            })
-        }
+        if (allStories.length === 0) return;
+        allStories.map((story) => {
+            if (allLabels.indexOf(story.functionLabelId) === -1) {
+                tempSprints[0].stories.push(story);
+                tempSprints[0].points += Number(story.storyPoint);
+            } else {
+                tempSprints.some((item) => {
+                    if (item.labels.indexOf(story.functionLabelId) > -1) {
+                        item.stories.push(story);
+                        item.points += Number(story.storyPoint);
+                        return true;
+                    }
+                })
+            }
+        });
 
         this.setState({
             isMoved: true,
@@ -191,6 +204,8 @@ class MoveProject extends Component {
     confirmArrangement = () => {
         const {sprints, model} = this.state;
         const params = {
+            projId: this.props.projectId,
+            creatorId: getStaffId(),
             modelId: model.modelId,
             sprintAndStoryArrays: []
         };
@@ -198,7 +213,7 @@ class MoveProject extends Component {
         if (sprints && sprints.length > 0) {
             sprints.map((sprint) => {
                 let tempSprint = {
-                    uuId: sprint.key,
+                    name: sprint.key,
                     stories: []
                 };
                 if (sprint.stories && sprint.stories.length > 0) {
@@ -275,7 +290,7 @@ class MoveProject extends Component {
                                 <DropContainer data={sprint.key}>
                                     {
                                         sprint.stories.map((story, i) => {
-                                            return <div className="mvp-story-AcceptBox" key={i}>
+                                            return story.isMoveable ? <div className="mvp-story-AcceptBox" key={i}>
                                                 <Box
                                                     data={{
                                                         'story': story,
@@ -308,6 +323,34 @@ class MoveProject extends Component {
                                                         </div>
                                                     </div>
                                                 </Box>
+                                            </div> : <div className="unmovable-dashboard" key={i}>
+                                                <div className="mvp-story-AcceptBox">
+                                                    <div
+                                                        onClick={(event) => this.checkDetail(event, story.storyId)}
+                                                        className="mvp-story-info">
+                                                        <div className="mvp-story-id display-flex"
+                                                             style={{justifyContent: "space-between"}}>
+                                                            <div>
+                                                                <Image
+                                                                    name={story.priority ? "priority_" + story.priority : "priority_1"}/>
+                                                                {story.storyId}
+                                                            </div>
+                                                            <div className="display-flex">
+                                                                <div className="mvp-story-priority">
+                                                                    {getDesc(priorityOptions, story.priority)}
+                                                                </div>
+                                                                <div
+                                                                    className="mvp-story-point">{story.storyPoint}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="mvp-story-desc read-only-text">
+                                                            <div className="simditor">
+                                                                <div className="simditor-body"
+                                                                     dangerouslySetInnerHTML={{__html: story.description}}/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         })
                                     }
@@ -374,6 +417,13 @@ class MoveProject extends Component {
                         {this.handleSprint ? this.handleSprint.text : ''}
                     </Modal.Header>
                     <CompleteSprint handleSprint={this.handleSprint}
+                                    mvpInfo={
+                                        {
+                                            projId: this.props.projectId,
+                                            creatorId: getStaffId(),
+                                            modelId: model.modelId
+                                        }
+                                    }
                                     ref={node => this.completeSprintNode = node}/>
                     <Modal.Actions>
                         <Button className="cancel-button" onClick={() => this.closeCompleteModal()}>

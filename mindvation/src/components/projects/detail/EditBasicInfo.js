@@ -3,11 +3,8 @@ import {Modal, Button} from 'semantic-ui-react';
 import ReadOnly from '../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../create/BasicInfo';
-import {checkCompleted} from '../../../util/CommUtil';
+import {checkValid, getDataInfo} from '../../../util/CommUtil';
 import {updateProjectBasic} from '../../../actions/project_action';
-
-let basicModule;
-let mandatoryFile = ["projectName", "description"];
 
 class EditBasicInfo extends Component {
 
@@ -22,9 +19,10 @@ class EditBasicInfo extends Component {
     };
 
     update = () => {
-        let basicInfo = basicModule.getInfo();
-        let flag = checkCompleted(mandatoryFile, basicInfo);
+        let basicInfo = this.basicModule.getInfo();
+        let flag = checkValid(basicInfo);
         if (flag) {
+            basicInfo = getDataInfo(basicInfo);
             basicInfo.projectId = this.props.project.projectId;
             this.props.dispatch(updateProjectBasic(basicInfo, () => this.closeModal()));
         }
@@ -54,7 +52,7 @@ class EditBasicInfo extends Component {
                     <BasicInfo
                         info={project}
                         ref={node => {
-                            basicModule = node
+                            this.basicModule = node
                         }}
                         isEdit={true}
                     />

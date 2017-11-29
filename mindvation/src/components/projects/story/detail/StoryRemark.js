@@ -5,6 +5,7 @@ import Simditor from '../../../common/Simditor';
 import {updateStoryRemark} from '../../../../actions/story_action';
 import {getStaffId} from '../../../../util/UserStore';
 import {dateFormat} from '../../../../util/CommUtil';
+import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 
 class StoryRemark extends Component {
 
@@ -19,14 +20,18 @@ class StoryRemark extends Component {
     };
 
     update = () => {
-        const remarkInfo = {
+        let remarkInfo = {
             creatorId: getStaffId(),
             storyInfo: {
                 storyId: this.props.story.storyId
             },
             noteDesc: this.remarksNode.getValue()
         };
-        this.props.dispatch(updateStoryRemark(remarkInfo, this.closeModal));
+        let flag = checkValid(remarkInfo);
+        if (flag) {
+            remarkInfo = getDataInfo(remarkInfo);
+            this.props.dispatch(updateStoryRemark(remarkInfo, this.closeModal));
+        }
     };
 
     render() {

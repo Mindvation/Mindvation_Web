@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl';
 import {isEmpty} from '../../util/CommUtil';
 
 class MVSimditor extends Component {
-    state = {selfChecked: false};
+    state = {selfChecked: false, isEmpty: false};
 
     componentDidMount() {
         this.editor = new Simditor({
@@ -77,7 +77,10 @@ class MVSimditor extends Component {
 
     getValue = () => {
         this.setState({selfChecked: true});
-        return this.editor.getValue();
+        return {
+            error: this.state.isEmpty && this.props.required,
+            componentValue: this.editor.getValue()
+        }
     };
 
     render() {

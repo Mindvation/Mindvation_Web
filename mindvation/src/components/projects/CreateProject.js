@@ -5,12 +5,11 @@ import AdditionalInfo from './create/AdditionalInfo';
 import OptionalItem from './create/OptionalItem';
 import {createProject} from '../../actions/projects_action';
 import {clearTempChecklist} from '../../actions/checklist_action';
-import {checkCompleted} from '../../util/CommUtil';
+import {checkValid, getDataInfo} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import Image from '../common/Image';
 
 let basicModule, optionalModule, AdditionalModule;
-let mandatoryFile = ["projectName", "description"];
 
 class CreateProject extends Component {
     state = {modalOpen: false};
@@ -27,9 +26,10 @@ class CreateProject extends Component {
         let optionalInfo = optionalModule.getInfo();
         let additionalInfo = AdditionalModule.getInfo();
         let projectInfo = Object.assign(basicInfo, additionalInfo, optionalInfo);
-        let flag = checkCompleted(mandatoryFile, projectInfo);
+        let flag = checkValid(projectInfo);
         if (flag) {
             //this.handleProjectInfo(projectInfo);
+            projectInfo = getDataInfo(projectInfo);
             this.props.dispatch(createProject(projectInfo, function () {
                 this.props.dispatch(clearTempChecklist());
                 this.setState({modalOpen: false});
