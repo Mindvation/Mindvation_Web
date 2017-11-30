@@ -141,7 +141,7 @@ class ModelList extends Component {
                         <MVImage name='templates'/>
                         <FormattedMessage
                             id='modelsAndTemplates'
-                            defaultMessage='Models And Templates'
+                            defaultMessage='Template'
                         />
                     </div>
                     <div className="display-flex">

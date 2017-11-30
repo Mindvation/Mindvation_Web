@@ -5,7 +5,6 @@ import ProcessLabelInfo from './ProcessLabelInfo';
 import AddRole from './AddRole';
 import {modelOptions} from '../../../res/data/dataOptions';
 
-
 class BasicInfo extends Component {
 
     getInfo = () => {

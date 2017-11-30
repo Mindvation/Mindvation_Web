@@ -23,6 +23,13 @@ class StoryDetail extends Component {
         this.props.dispatch(getStoryById(id));
     };
 
+    componentWillReceiveProps(nextProps) {
+        const {id} = nextProps.match.params;
+        if (id !== this.props.match.params.id) {
+            this.props.dispatch(getStoryById(id));
+        }
+    }
+
     changeStatus = (story, status, percent = 0) => {
         /*Object.assign(story.status, {
             status,

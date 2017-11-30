@@ -31,12 +31,12 @@ class AddRole extends Component {
     render() {
         const {roleData} = this.state;
         return (<div className={"model-label-cont components-item item-horizontal align-right"}>
-                <div className="field-title">
-                    <FormattedMessage
-                        id='role'
-                        defaultMessage='Role'
-                    />
-                </div>
+            <div className="field-title">
+                <FormattedMessage
+                    id='role'
+                    defaultMessage='Role'
+                />
+            </div>
             <div className="model-label-main input-content">
                 <Button className="confirm-button" onClick={() => this.addRole()}>
                     <FormattedMessage
@@ -56,8 +56,13 @@ class AddRole extends Component {
                                         roleData: roleData
                                     })
                                 }}/>
-                            <Icon name="trash" size="big" className={"mode-remove-label pointer-cursor"}
-                                  onClick={() => this.removeRole(roleData, role)}/>
+                            <Button className="delete-button"
+                                    onClick={() => this.removeRole(roleData, role)}>
+                                <FormattedMessage
+                                    id='delete'
+                                    defaultMessage='Delete'
+                                />
+                            </Button>
                         </div>
                     })
                 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Menu, Icon} from 'antd';
+import {Menu} from 'antd';
 import {
     Link
 } from 'react-router-dom';
@@ -7,13 +7,27 @@ import {FormattedMessage} from 'react-intl';
 import createHistory from 'history/createBrowserHistory';
 import Image from '../common/Image';
 
-const history = createHistory();
-const location = history.location;
 const SubMenu = Menu.SubMenu;
 const keyPathMapping = [
     {
         "key": '1',
         "path": '/home/projects'
+    },
+    {
+        "key": '1',
+        "path": '/home/requirement'
+    },
+    {
+        "key": '1',
+        "path": '/home/story'
+    },
+    {
+        "key": '1',
+        "path": '/home/MVPDashboard'
+    },
+    {
+        "key": '1',
+        "path": '/home/MyMVPDashboard'
     },
     {
         "key": '2',
@@ -51,6 +65,16 @@ let defaultKey = '1', hostKey;
 class HomeMenu extends Component {
 
     componentWillMount() {
+        this.resetMenu();
+    }
+
+    componentWillUpdate() {
+        this.resetMenu();
+    }
+
+    resetMenu = () => {
+        const history = createHistory();
+        const location = history.location;
         if (!location.pathname) {
             return;
         }
@@ -61,11 +85,11 @@ class HomeMenu extends Component {
                 return true;
             }
         });
-    }
+    };
 
     render() {
         return (
-            <Menu theme="dark" defaultSelectedKeys={[defaultKey]}
+            <Menu theme="dark" selectedKeys={[defaultKey]}
                   defaultOpenKeys={[hostKey]}
                   mode="inline">
                 <Menu.Item key="1" className="menu_text">
@@ -83,26 +107,26 @@ class HomeMenu extends Component {
                     title={<span className="menu_icon_text"><Image name="menu_model"/><span>
                         <FormattedMessage
                             id='model'
-                            defaultMessage='Model'
+                            defaultMessage='Template'
                         />
                     </span></span>}
                 >
                     <Menu.Item key="2"><Link to="/home/CreateModel">
                         <FormattedMessage
                             id='createModel'
-                            defaultMessage='Create Model'
+                            defaultMessage='Create Template'
                         />
                     </Link></Menu.Item>
                     <Menu.Item key="5"><Link to="/home/ModelList">
                         <FormattedMessage
                             id='modelsAndTemplates'
-                            defaultMessage='Models And Templates'
+                            defaultMessage='Template'
                         />
                     </Link></Menu.Item>
                     <Menu.Item key="6"><Link to="/home/MyModelList">
                         <FormattedMessage
                             id='myModels'
-                            defaultMessage='My Models'
+                            defaultMessage='My Template'
                         />
                     </Link></Menu.Item>
                 </SubMenu>

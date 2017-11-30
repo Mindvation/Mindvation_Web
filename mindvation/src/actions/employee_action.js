@@ -115,9 +115,9 @@ export function deleteEmployee(employee) {
         get(url.deleteStaff, {
             staffId: employee.staffId
         })
-            .then(() => {
+            .then((res) => {
                 StaticLoad.remove("deleteEmployee");
-                dispatch(deletedEmployee(employee));
+                dispatch(updatedEmployee(res.responseBody.staffInfo));
             })
             .catch((error) => {
                 StaticLoad.remove("deleteEmployee");

@@ -155,7 +155,7 @@ class CreateModel extends Component {
                                 <Image name="model_create"/>
                                 <FormattedMessage
                                     id='createModel'
-                                    defaultMessage='Create Model'
+                                    defaultMessage='Create Template'
                                 />
                             </div>
                             <Step.Group ordered items={steps}/>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {logOut} from '../../actions/user_action';
 import {FormattedMessage} from 'react-intl';
 import {getUser} from '../../util/UserStore';
+import {Input} from 'semantic-ui-react';
 
 class CommonHeader extends Component {
 
@@ -9,6 +10,26 @@ class CommonHeader extends Component {
         this.props.dispatch(logOut());
         this.props.history.push('/');
     }
+
+    searchInfo = () => {
+        const searchId = this.searchNode.inputRef.value.toUpperCase().trim();
+        if (!searchId || ["P", "R", "S"].indexOf(searchId.substr(0, 1)) === -1) return;
+        this.goToPage(searchId);
+    };
+
+    goToPage = (searchId) => {
+        switch (searchId.substr(0, 1)) {
+            case "P":
+                this.props.history.push(`/home/projects/${searchId}`);
+                break;
+            case "R":
+                this.props.history.push(`/home/requirement/${searchId}`);
+                break;
+            case "S":
+                this.props.history.push(`/home/story/${searchId}`);
+                break;
+        }
+    };
 
     render() {
         /*if (!this.props.userInfo.language) {
@@ -24,6 +45,21 @@ class CommonHeader extends Component {
                     />
                 </div>
                 <div className="display-flex">
+                    <Input
+                        className="header-search"
+                        icon={{
+                            name: 'search',
+                            circular: true,
+                            link: true,
+                            onClick: () => this.searchInfo()
+                        }}
+                        onKeyUp={(e) => {
+                            if (e.keyCode === 13) {
+                                this.searchInfo();
+                            }
+                        }}
+                        ref={node => this.searchNode = node}
+                    />
                     <div className="header-name">
                         {getUser().staffInfo.name}
                     </div>

@@ -9,6 +9,7 @@ function requirements(state = {
         case CREATED_REQUIREMENT:
             let temp = {...state};
             temp.requirementInfos.push(action.requirement);
+            //temp.requirementInfos = [action.requirement].concat(temp.requirementInfos);
             return temp;
         case SET_REQUIREMENT:
             return action.requirements || {

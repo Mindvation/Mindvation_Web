@@ -73,7 +73,7 @@ class EditEmployee extends Component {
                                required={true}
                                ref={node => this.newPwdNode = node}
                         />
-                        <Input label="Confirm New Password"
+                        <Input label="Confirm Password"
                                type='password'
                                required={true}
                                ref={node => this.confirmPwdNode = node}

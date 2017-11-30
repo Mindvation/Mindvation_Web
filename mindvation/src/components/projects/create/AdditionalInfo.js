@@ -106,12 +106,12 @@ class OtherInfo extends Component {
                     <Header.Content>
                         <FormattedMessage
                             id='chooseProjectModels'
-                            defaultMessage='Choose Project Models'
+                            defaultMessage='Choose Project Template'
                         />
                     </Header.Content>
                 </div>
                 <div className="model-container">
-                    <Select options={modelOption.softwareOption} label="Software Model"
+                    <Select options={modelOption.softwareOption} label="Software Template"
                             placeHolder="softwareModelPlaceHolderDesc"
                             horizontal={true}
                             ref={node => {
@@ -119,7 +119,7 @@ class OtherInfo extends Component {
                             }}
                             defaultValue={info.softwareModel ? info.softwareModel.value : ''}
                     />
-                    <Select options={modelOption.engineeringOption} label="Engineering Model"
+                    <Select options={modelOption.engineeringOption} label="Engineering Template"
                             placeHolder="engineeringModelPlaceHolderDesc"
                             horizontal={true}
                             ref={node => {
@@ -127,7 +127,7 @@ class OtherInfo extends Component {
                             }}
                             defaultValue={info.engineeringModel ? info.engineeringModel.value : ''}
                     />
-                    <Select options={modelOption.businessOption} label="Business Requirement Model"
+                    <Select options={modelOption.businessOption} label="Business Requirement Template"
                             placeHolder="businessRequirementModelPlaceHolderDesc"
                             horizontal={true}
                             ref={node => {
@@ -135,7 +135,7 @@ class OtherInfo extends Component {
                             }}
                             defaultValue={info.businessModel ? info.businessModel.value : ''}
                     />
-                    <Select options={modelOption.techniqueOption} label="Technique Model"
+                    <Select options={modelOption.techniqueOption} label="Technique Template"
                             placeHolder="techniqueModelPlaceHolderDesc"
                             horizontal={true}
                             ref={node => {

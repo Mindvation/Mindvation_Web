@@ -21,6 +21,13 @@ class RequirementDetail extends Component {
         this.props.dispatch(getRequirementById(id));
     };
 
+    componentWillReceiveProps(nextProps) {
+        const {id} = nextProps.match.params;
+        if (id !== this.props.match.params.id) {
+            this.props.dispatch(getRequirementById(id));
+        }
+    }
+
     changeStatus = (requirement, status, percent = 0) => {
         /* Object.assign(requirement.status, {
              status,

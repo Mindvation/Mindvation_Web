@@ -233,7 +233,7 @@ const zh_CN = {
     changePassword: "修改密码",
     "Original Password": "原密码",
     "New Password": "新密码",
-    "Confirm New Password": "确认新密码",
+    "Confirm Password": "确认新密码",
     confirmCurrentArrangement: "确认当前排列",
     AIArrangement: "智能排列",
     passwordNotMatch: "新密码与确认密码不一致",

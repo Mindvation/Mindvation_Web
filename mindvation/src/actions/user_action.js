@@ -57,16 +57,16 @@ export function updateUser(params) {
 
 export function getUserInfo(staffId) {
     return dispatch => {
-        StaticLoad.show("getUserInfo");
+        //StaticLoad.show("getUserInfo");
         get(url.rtrvStaffDetail, {
             staffId: staffId
         })
             .then((res) => {
-                StaticLoad.remove("getUserInfo");
+                //StaticLoad.remove("getUserInfo");
                 dispatch(setUserInfo(res.responseBody))
             })
             .catch((error) => {
-                StaticLoad.remove("getUserInfo");
+                //StaticLoad.remove("getUserInfo");
                 StaticDialog.show("getUserInfo-error", error.responseCode, error.message);
             });
     }

@@ -5,11 +5,13 @@ import {isEmpty, getOption} from '../../util/CommUtil';
 import {injectIntl, FormattedMessage} from 'react-intl';
 import {messages} from '../../res/language/defineMessages';
 import _ from 'lodash';
+import $ from 'jquery';
 
 class MVSelect extends Component {
     state = {
         isEmpty: true,
-        selfChecked: false
+        selfChecked: false,
+        isTopPosition: false
     };
 
     componentDidMount() {
@@ -111,6 +113,33 @@ class MVSelect extends Component {
         }
     };
 
+    checkPosition = (options) => {
+        const flag = this.getPositionFlag(options);
+        this.setState({
+            isTopPosition: flag
+        })
+    };
+
+    getPositionFlag = (options) => {
+        const optionPanel = $(".menu", $(this.dropDownNode.ref));
+        if (!optionPanel[0]) return false;
+        if (!options || options.length === 0) {
+            optionPanel[0].style.top = '100%';
+            return false;
+        }
+        const optionCont = options.length > 6 ? 6 : options.length;
+        const optionsHeight = 37 * optionCont;
+        const dropDownPosition = this.dropDownNode.ref.getBoundingClientRect();
+        const hostPanel = $("body");
+        const hostPanelPosition = hostPanel[0].getBoundingClientRect();
+        if (dropDownPosition.bottom + optionsHeight > hostPanelPosition.height) {
+            optionPanel[0].style.top = -optionsHeight - 1 + "px";
+            return true;
+        }
+        optionPanel[0].style.top = '100%';
+        return false;
+    };
+
     render() {
         let props = {
             ...this.props
@@ -160,7 +189,8 @@ class MVSelect extends Component {
 
 
         return (
-            <div className={fullWidth ? "full-width" : "components-item item-horizontal align-right"}>
+            <div className={(fullWidth ? "full-width " : "components-item item-horizontal align-right ")
+            + (this.state.isTopPosition ? "select-top-position" : "")}>
                 {
                     label ? <div className='field-title'>
                         <div className={required ? "input-label" : null}>
@@ -181,6 +211,8 @@ class MVSelect extends Component {
                           }}
                           defaultValue={defaultValue}
                           disabled={disabled}
+                          ref={node => this.dropDownNode = node}
+                          onOpen={() => this.checkPosition(selectOptions)}
                 />
             </div>
         );

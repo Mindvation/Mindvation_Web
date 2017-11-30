@@ -29,6 +29,13 @@ class ProjectDetail extends Component {
         this.props.dispatch(getProjectById(id));
     };
 
+    componentWillReceiveProps(nextProps) {
+        const {id} = nextProps.match.params;
+        if (id !== this.props.match.params.id) {
+            this.props.dispatch(getProjectById(id));
+        }
+    }
+
     changeStatus = (project, status, percent = 0) => {
         const statusInfo = {
             projectId: project.projectId,

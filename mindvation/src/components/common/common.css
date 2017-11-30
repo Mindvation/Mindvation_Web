@@ -430,7 +430,7 @@
 }
 
 .link {
-    color: blue;
+    /*color: blue;*/
     cursor: pointer !important;
 }
 
@@ -875,4 +875,24 @@ img.ui.image.mv-image {
     margin-left: -15px;
     color: #9f3a38;
     font-size: 12px;
+}
+
+.header-search {
+    margin-right: 50px;
+}
+
+.select-top-position > .ui.active.selection.dropdown {
+    border-radius: 0 0 4px 4px !important;
+}
+
+.ui.selection.dropdown .menu {
+    border-radius: 0 0 4px 4px;
+    max-height: 224px !important;
+}
+
+.select-top-position > .ui.selection.dropdown .menu {
+    border-radius: 4px 4px 0 0 !important;
+    border-bottom-width: 0 !important;
+    border-top-width: 1px !important;
+    box-shadow: 0 -2px 3px 0 rgba(34, 36, 38, .15) !important;
 }
