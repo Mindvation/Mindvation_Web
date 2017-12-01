@@ -8,6 +8,7 @@ import {clearTempChecklist} from '../../actions/checklist_action';
 import {checkValid, getDataInfo} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import Image from '../common/Image';
+import SuccessAlert from './SuccessAlert';
 
 let basicModule, optionalModule, AdditionalModule;
 
@@ -30,11 +31,15 @@ class CreateProject extends Component {
         if (flag) {
             //this.handleProjectInfo(projectInfo);
             projectInfo = getDataInfo(projectInfo);
-            this.props.dispatch(createProject(projectInfo, function () {
-                this.props.dispatch(clearTempChecklist());
-                this.setState({modalOpen: false});
-            }.bind(this)));
+            this.props.dispatch(createProject(projectInfo, (id) => {
+                this.successAlert(id)
+            }));
         }
+    };
+
+    successAlert = (id) => {
+        this.closeModal();
+        this.successAlertNode.openModal(id);
     };
 
     render() {
@@ -84,6 +89,7 @@ class CreateProject extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
+                <SuccessAlert ref={node => this.successAlertNode = node}/>
             </div>
         );
     }

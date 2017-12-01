@@ -26,6 +26,7 @@ export const UPDATE_STORY = 'UPDATE_STORY';
 export const GET_STORY_BY_ID = 'GET_STORY_BY_ID';
 export const ADD_TASK_TO_STORY = 'ADD_TASK_TO_STORY';
 export const UPDATE_STORY_TASK = 'UPDATE_STORY_TASK';
+export const CLEAR_STORY = 'CLEAR_STORY';
 
 /*
  * action 创建函数
@@ -45,6 +46,10 @@ function addTaskToStory(task) {
 
 function updateStoryTask(task) {
     return {type: UPDATE_STORY_TASK, task}
+}
+
+export function clearStory() {
+    return {type: CLEAR_STORY}
 }
 
 export function getStoryById(id) {

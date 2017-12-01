@@ -240,6 +240,8 @@ const en_US = {
     editMinute: "Edit Minute",
     minuteInfo: "Minute",
     invalidMail: "Invalid E-Mail Address",
-    invalidInput: "Invalid Input"
+    invalidInput: "Invalid Input",
+    successfullyCreated: " successfully created",
+    goToDetail: "Go To Detail"
 };
 export default en_US;

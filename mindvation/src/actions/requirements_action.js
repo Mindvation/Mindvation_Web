@@ -32,7 +32,7 @@ export function createRequirement(requirement, callback) {
             .then((res) => {
                 StaticLoad.remove("createRequirement");
                 dispatch(createdRequirement(res.responseBody));
-                callback();
+                callback(res.responseBody.reqmntId);
             })
             .catch((error) => {
                 StaticLoad.remove("createRequirement");

@@ -8,10 +8,10 @@ import {
     Redirect,
     Switch
 } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
+/*import createHistory from 'history/createBrowserHistory';*/
 import {checkUser} from './util/UserStore';
-
-const history = createHistory();
+import history from './util/history';
+/*const history = createHistory();*/
 
 class App extends Component {
     constructor() {

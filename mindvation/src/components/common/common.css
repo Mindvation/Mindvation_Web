@@ -896,3 +896,11 @@ img.ui.image.mv-image {
     border-top-width: 1px !important;
     box-shadow: 0 -2px 3px 0 rgba(34, 36, 38, .15) !important;
 }
+
+.display-nothing {
+    width: 0;
+    height: 0;
+    border: none;
+    margin: 0;
+    padding: 0;
+}

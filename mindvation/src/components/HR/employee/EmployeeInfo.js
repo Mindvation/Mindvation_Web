@@ -62,14 +62,17 @@ class EmployeeInfo extends Component {
                        ref={node => this.nameNode = node}
                        defaultValue={info.name}
                        readOnly={isEdit}
+                       required={true}
                 />
                 <Input label="Logon Name"
                        ref={node => this.logonNameNode = node}
                        defaultValue={info.logonName}
                        readOnly={isEdit}
+                       required={true}
                 />
                 {isEdit ? null : <Input label="Initial Password"
                                         ref={node => this.initialPasswordNode = node}
+                                        required={true}
                 />}
                 <Select options={genderOptions} label="Gender" horizontal={true} icon="heterosexual"
                         ref={node => this.genderNode = node}
@@ -83,12 +86,14 @@ class EmployeeInfo extends Component {
                             })
                         }}
                         defaultValue={info.department}
+                        required={true}
                 />
                 {selectedDepartment ?
                     <Select options={positionOption}
                             label="Position"
                             ref={node => this.positionNode = node}
                             defaultValue={info.position}
+                            required={true}
                     /> : null}
                 <Select options={positionLevelOptions} label="Position Level"
                         ref={node => this.positionLevelNode = node}

@@ -1,7 +1,5 @@
-import createHistory from 'history/createBrowserHistory';
+import history from '../util/history';
 import errorMsg from '../res/data/errorMessage.json';
-
-const history = createHistory();
 
 // Get the current location.
 const location = history.location;

@@ -33,7 +33,7 @@ export function addStoryToList(story, callback) {
             .then((res) => {
                 StaticLoad.remove("createStory");
                 dispatch(createdStory(res.responseBody));
-                callback();
+                callback(res.responseBody.storyId);
             })
             .catch((error) => {
                 StaticLoad.remove("createStory");

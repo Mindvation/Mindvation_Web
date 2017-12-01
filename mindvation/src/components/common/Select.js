@@ -121,6 +121,7 @@ class MVSelect extends Component {
     };
 
     getPositionFlag = (options) => {
+        if (!this.dropDownNode) return;
         const optionPanel = $(".menu", $(this.dropDownNode.ref));
         if (!optionPanel[0]) return false;
         if (!options || options.length === 0) {

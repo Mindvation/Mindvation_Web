@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Grid, Segment, Tab, Menu} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
-import {getStoryById, updateStoryStatus} from '../../../../actions/story_action';
+import {getStoryById, updateStoryStatus, clearStory} from '../../../../actions/story_action';
 import EditBasicInfo from './EditBasicInfo';
 import EditAdditionalInfo from './EditAdditionalInfo';
 import EditOptionalInfo from './EditOptionalInfo';
@@ -26,8 +26,13 @@ class StoryDetail extends Component {
     componentWillReceiveProps(nextProps) {
         const {id} = nextProps.match.params;
         if (id !== this.props.match.params.id) {
+            this.props.dispatch(clearStory());
             this.props.dispatch(getStoryById(id));
         }
+    }
+
+    componentWillUnmount() {
+        this.props.dispatch(clearStory());
     }
 
     changeStatus = (story, status, percent = 0) => {

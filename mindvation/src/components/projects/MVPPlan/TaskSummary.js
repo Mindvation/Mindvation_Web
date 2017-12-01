@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Header, Button} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import ReadOnly from '../../common/ReadOnly';
 import DisplayFile from '../../common/DisplayFile';

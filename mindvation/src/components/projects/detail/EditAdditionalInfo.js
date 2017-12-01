@@ -64,19 +64,19 @@ class EditAdditionalInfo extends Component {
             title: "projectModels",
             hasSubItem: true
         }, {
-            title: "Software Model",
+            title: "Software Template",
             value: project.softwareModel ? project.softwareModel.text : '',
             isSubItem: true
         }, {
-            title: "Engineering Model",
+            title: "Engineering Template",
             value: project.engineeringModel ? project.engineeringModel.text : '',
             isSubItem: true
         }, {
-            title: "Business Requirement Model",
+            title: "Business Requirement Template",
             value: project.businessModel ? project.businessModel.text : '',
             isSubItem: true
         }, {
-            title: "Technique Model",
+            title: "Technique Template",
             value: project.techniqueModel ? project.techniqueModel.text : '',
             isSubItem: true
         }, {

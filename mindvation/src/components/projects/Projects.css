@@ -1454,7 +1454,6 @@ i.icon.mode-remove-label {
     width: 100%;
 }
 
-
 .all-dashboard .mvp-story-info,
 .all-dashboard .simditor .simditor-body,
 .unmovable-dashboard .mvp-story-info,
@@ -1462,11 +1461,11 @@ i.icon.mode-remove-label {
     cursor: pointer;
 }
 
-.mvp-dashboard .read-only-text .simditor .simditor-body{
+.mvp-dashboard .read-only-text .simditor .simditor-body {
     cursor: move;
 }
 
-.unmovable-dashboard .mvp-story-AcceptBox{
+.unmovable-dashboard .mvp-story-AcceptBox {
     background-color: #eeeeee;
 }
 
@@ -1483,4 +1482,12 @@ i.icon.mode-remove-label {
 
 .story-remark-text {
     padding: 20px 0;
+}
+
+.alert-content {
+    padding: 20px;
+}
+
+.id-text {
+    font-weight: bold;
 }

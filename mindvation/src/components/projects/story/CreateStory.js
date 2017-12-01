@@ -8,6 +8,7 @@ import {addStoryToList} from '../../../actions/stories_action';
 import {clearTempTask} from '../../../actions/task_action';
 import {checkValid, getDataInfo} from '../../../util/CommUtil';
 import {hasAuth} from '../../../util/AuthUtil';
+import SuccessAlert from '../SuccessAlert';
 
 let basicModule, optionalModule, AdditionalModule;
 
@@ -38,8 +39,15 @@ class CreateRequirement extends Component {
             storyInfo.projectId = this.props.requirement.projectId;
             storyInfo.reqId = this.props.requirement.reqId;
             storyInfo.type = this.state.storyType;
-            this.props.dispatch(addStoryToList(storyInfo, this.closeModal));
+            this.props.dispatch(addStoryToList(storyInfo, (id) => {
+                this.successAlert(id)
+            }));
         }
+    };
+
+    successAlert = (id) => {
+        this.closeModal();
+        this.successAlertNode.openModal(id);
     };
 
     render() {
@@ -108,6 +116,7 @@ class CreateRequirement extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
+                <SuccessAlert ref={node => this.successAlertNode = node}/>
             </div>
         );
     }

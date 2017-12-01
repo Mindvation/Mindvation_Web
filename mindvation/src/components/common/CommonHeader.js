@@ -45,6 +45,7 @@ class CommonHeader extends Component {
                     />
                 </div>
                 <div className="display-flex">
+
                     <Input
                         className="header-search"
                         icon={{
@@ -60,6 +61,7 @@ class CommonHeader extends Component {
                         }}
                         ref={node => this.searchNode = node}
                     />
+                    <input className="display-nothing"/>
                     <div className="header-name">
                         {getUser().staffInfo.name}
                     </div>

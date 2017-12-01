@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, Icon} from 'semantic-ui-react';
+import {Button, Modal} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from './BasicInfo';
 import AdditionalInfo from './AdditionalInfo';
@@ -9,6 +9,7 @@ import {createRequirement} from '../../../actions/requirements_action';
 import {clearTempChecklist} from '../../../actions/checklist_action';
 import {checkValid, getDataInfo} from '../../../util/CommUtil';
 import {hasAuth} from '../../../util/AuthUtil';
+import SuccessAlert from '../SuccessAlert';
 
 let basicModule, optionalModule, AdditionalModule;
 
@@ -38,8 +39,15 @@ class CreateRequirement extends Component {
         if (flag) {
             requirementInfo = getDataInfo(requirementInfo);
             requirementInfo.projectId = this.props.project.projectId;
-            this.props.dispatch(createRequirement(requirementInfo, this.closeModal));
+            this.props.dispatch(createRequirement(requirementInfo, (id) => {
+                this.successAlert(id)
+            }));
         }
+    };
+
+    successAlert = (id) => {
+        this.closeModal();
+        this.successAlertNode.openModal(id);
     };
 
     render() {
@@ -58,8 +66,7 @@ class CreateRequirement extends Component {
                 <Modal
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}
-                    open={modalOpen}
-                    size='large'>
+                    open={modalOpen}>
                     <Modal.Header>
                         <FormattedMessage
                             id='createRequirement'
@@ -98,6 +105,7 @@ class CreateRequirement extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
+                <SuccessAlert ref={node => this.successAlertNode = node}/>
             </div>
         );
     }

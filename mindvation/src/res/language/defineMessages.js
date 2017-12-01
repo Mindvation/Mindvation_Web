@@ -23,19 +23,19 @@ export const messages = defineMessages({
     },
     softwareModelPlaceHolderDesc: {
         id: 'softwareModelPlaceHolder',
-        defaultMessage: 'Software Model'
+        defaultMessage: 'Software Template'
     },
     engineeringModelPlaceHolderDesc: {
         id: 'engineeringModelPlaceHolder',
-        defaultMessage: 'Engineering Model'
+        defaultMessage: 'Engineering Template'
     },
     businessRequirementModelPlaceHolderDesc: {
         id: 'businessRequirementModelPlaceHolder',
-        defaultMessage: 'Business Requirement Model'
+        defaultMessage: 'Business Requirement Template'
     },
     techniqueModelPlaceHolderDesc: {
         id: 'techniqueModelPlaceHolder',
-        defaultMessage: 'Technique Model'
+        defaultMessage: 'Technique Template'
     },
     ContingencyPlaceHolderDesc: {
         id: 'ContingencyPlaceHolder',

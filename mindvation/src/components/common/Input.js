@@ -78,7 +78,14 @@ class MVInput extends Component {
 
     checkRegular = () => {
         const {regular} = this.props;
-        if (this.state.isEmpty || !regular || !regular.regularEx) return;
+        if (!regular || !regular.regularEx) return;
+        if (this.state.isEmpty) {
+            this.setState({
+                isInvalid: false,
+                errorMsg: ''
+            });
+            return;
+        }
         let flag = false, errorMsg = '';
         if (!regular.regularEx.test(this.inputNode.inputRef.value)) {
             flag = true;

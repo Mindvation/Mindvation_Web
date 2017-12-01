@@ -32,7 +32,7 @@ export function createProject(project, callback) {
             .then((res) => {
                 StaticLoad.remove("createProject");
                 dispatch(createdProject(res.responseBody));
-                callback();
+                callback(res.responseBody.projId);
             })
             .catch((error) => {
                 StaticLoad.remove("createProject");

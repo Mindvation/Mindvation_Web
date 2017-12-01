@@ -35,10 +35,10 @@ const zh_CN = {
     Leaders: "负责人",
     "Start / End Date": "开始 / 结束日期",
     chooseProjectModels: "选择项目模型",
-    "Software Model": "软件模型",
-    "Engineering Model": "工程模型",
-    "Business Requirement Model": "业务需求模型",
-    "Technique Model": "技术模型",
+    "Software Template": "软件模型",
+    "Engineering Template": "工程模型",
+    "Business Requirement Template": "业务需求模型",
+    "Technique Template": "技术模型",
     softwareModelPlaceHolder: "软件模型",
     engineeringModelPlaceHolder: "工程模型",
     businessRequirementModelPlaceHolder: "业务需求模型",
@@ -240,6 +240,8 @@ const zh_CN = {
     editMinute: "修改会议记录",
     minuteInfo: "会议记录",
     invalidMail: "邮箱地址不合法",
-    invalidInput: "输入不合法"
+    invalidInput: "输入不合法",
+    successfullyCreated: "创建成功",
+    goToDetail: "查看详情"
 };
 export default zh_CN;
