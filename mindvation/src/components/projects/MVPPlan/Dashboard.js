@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import DragDropContext from '../../common/DragDropContext';
 import MoveProject from './MoveProject';
-import {Rail, Sticky} from 'semantic-ui-react';
 import StorySummary from '../../../containers/storySummary_container';
 import {rtrvStoryList} from '../../../util/Service';
 import $ from 'jquery';

@@ -3,13 +3,14 @@ import DropContainer from '../../common/DropContainer';
 import Box from '../../common/DragBox';
 import {Grid, Icon, Dropdown, Modal, Button} from 'semantic-ui-react';
 import {priorityOptions, iterationCycleOptions} from '../../../res/data/dataOptions';
-import {getDesc, checkValid, getDataInfo} from '../../../util/CommUtil';
+import {getDesc, checkValid, getDataInfo, parseNumber} from '../../../util/CommUtil';
 import {getStaffId} from '../../../util/UserStore';
 import {FormattedMessage} from 'react-intl';
 import SelectCycle from './SelectCycle';
 import CompleteSprint from './CompleteSprint';
 import {updateDashboard, startIteration, closeIteration} from '../../../util/Service';
 import Image from '../../common/Image';
+import {hasAuth} from '../../../util/AuthUtil';
 
 class MoveProject extends Component {
     state = {
@@ -18,7 +19,8 @@ class MoveProject extends Component {
         completeOpen: false,
         model: {},
         activeSprint: 1,
-        isMoved: false
+        isMoved: false,
+        authCode: []
     };
 
     componentWillMount() {
@@ -58,7 +60,8 @@ class MoveProject extends Component {
         this.setState({
             sprints: tempSprints,
             model: storyList.model,
-            activeSprint: activeSprint
+            activeSprint: activeSprint,
+            authCode: storyList.staffAuthInfo
         })
     }
 
@@ -231,7 +234,7 @@ class MoveProject extends Component {
     };
 
     render() {
-        const {sprints, cycleOpen, completeOpen, model, activeSprint, isMoved} = this.state;
+        const {sprints, cycleOpen, completeOpen, model, activeSprint, isMoved, authCode} = this.state;
         return (
             <div className="model-main-container mvp-dashboard">
                 <div className="project-header">
@@ -247,7 +250,7 @@ class MoveProject extends Component {
                         sprints.map((sprint, i) => {
                             return <Grid.Column key={i}>
                                 <div className="mvp-sprint-title">
-                                    <span className="mvp-sprint-title-text">{sprint.text}({sprint.points})</span>
+                                    <span className="mvp-sprint-title-text">{sprint.text}({parseNumber(sprint.points)})</span>
                                     {sprint.text !== 'Product Backlogs' ? <div className="mvp-sprint-status">
                                         {/*{sprint.status === 'start' ?
                                             <Icon name='video play outline' size="large" color="green"/> : null}*/}
@@ -261,7 +264,7 @@ class MoveProject extends Component {
                                         {sprint.status === 'close' ?
                                             <Icon name='stop circle outline' size="large"/> : null}
                                     </div> : null}
-                                    {activeSprint === i && !isMoved ?
+                                    {hasAuth("MVPDashBoard", authCode) && activeSprint === i && !isMoved ?
                                         <div className="mvp-sprint-action">
                                             <Dropdown>
                                                 <Dropdown.Menu>
@@ -360,7 +363,7 @@ class MoveProject extends Component {
                     }
                 </Grid>
 
-                <div className="mvp-arrange">
+                {hasAuth("MVPDashBoard", authCode) ? <div className="mvp-arrange">
                     <Button className="confirm-button" onClick={() => this.AIArrangement()}>
                         <FormattedMessage
                             id='AIArrangement'
@@ -377,7 +380,7 @@ class MoveProject extends Component {
                             defaultMessage='Confirm Current Arrangement'
                         />
                     </Button>
-                </div>
+                </div> : null}
 
                 <Modal
                     closeOnEscape={false}
