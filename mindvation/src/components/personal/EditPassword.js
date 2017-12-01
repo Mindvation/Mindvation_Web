@@ -63,6 +63,7 @@ class EditEmployee extends Component {
                         />
                     </Modal.Header>
                     <Modal.Content>
+                        <input className="display-nothing"/>
                         <Input label="Original Password"
                                type='password'
                                required={true}
@@ -78,6 +79,7 @@ class EditEmployee extends Component {
                                required={true}
                                ref={node => this.confirmPwdNode = node}
                         />
+
                         {errorMessage ?
                             <div className="components-item item-horizontal align-right">
                                 <Message className="input-content" style={{textAlign: 'left'}} error>
