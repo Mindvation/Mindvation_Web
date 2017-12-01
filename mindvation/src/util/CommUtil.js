@@ -147,3 +147,7 @@ export const arrOrder = (arr, indicator = 'key') => {
     });
     return arr;
 };
+
+export const parseNumber = (number, decimal = 2) => {
+    return Number(parseFloat(number).toFixed(decimal));
+};
