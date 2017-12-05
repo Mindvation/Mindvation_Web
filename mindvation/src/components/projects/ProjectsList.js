@@ -8,6 +8,7 @@ import {
     Link
 } from 'react-router-dom';
 import {priorityOptions} from '../../res/data/dataOptions';
+import Image from '../common/Image';
 
 const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Checklist Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
 const projectKey = ['projId', 'name', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPointQty', 'checklistQty', 'crStoryQty', 'crStoryPointQty', 'crCost', 'cost', 'crRate'];
@@ -60,48 +61,57 @@ class ProjectsList extends Component {
     render() {
         const {projectList} = this.props;
         return (
-            <Table textAlign="center">
-                <Table.Header>
-                    <Table.Row>
+            projectList && projectList.totalElements === 0 ? <div className="display-center">
+                    <div>
+                        <Image name="no_element" style={{marginRight: 0}}/>
+                        <div className="no-element-alert">
+                            <div className="no-element-title">当前页面什么都没有</div>
+                            <div className="no-element-text">快去创建点内容吧</div>
+                        </div>
+                    </div>
+                </div> :
+                <Table textAlign="center">
+                    <Table.Header>
+                        <Table.Row>
+                            {
+                                header.map((result, i) => {
+                                    return <Table.HeaderCell className="table-cell-length" key={i}>
+                                        <FormattedMessage
+                                            id={result}
+                                        />
+                                    </Table.HeaderCell>
+                                })
+                            }
+                        </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
                         {
-                            header.map((result, i) => {
-                                return <Table.HeaderCell className="table-cell-length" key={i}>
-                                    <FormattedMessage
-                                        id={result}
-                                    />
-                                </Table.HeaderCell>
+                            projectList.projects.map((result, i) => {
+                                return <Table.Row key={i}>
+                                    {
+                                        projectKey.map((key, j) => {
+                                            return <Table.Cell
+                                                className={"table-cell-length"}
+                                                key={i + "_" + j}>
+                                                {this.handleDisplayData(result, key)}
+                                            </Table.Cell>
+                                        })
+                                    }
+                                </Table.Row>
                             })
                         }
-                    </Table.Row>
-                </Table.Header>
+                    </Table.Body>
 
-                <Table.Body>
-                    {
-                        projectList.projects.map((result, i) => {
-                            return <Table.Row key={i}>
-                                {
-                                    projectKey.map((key, j) => {
-                                        return <Table.Cell
-                                            className={"table-cell-length"}
-                                            key={i + "_" + j}>
-                                            {this.handleDisplayData(result, key)}
-                                        </Table.Cell>
-                                    })
-                                }
-                            </Table.Row>
-                        })
-                    }
-                </Table.Body>
-
-                <Table.Footer>
-                    <Table.Row>
-                        <Table.HeaderCell colSpan={header.length}>
-                            <Pagination defaultCurrent={1} total={projectList.totalElements}
-                                        onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
-                        </Table.HeaderCell>
-                    </Table.Row>
-                </Table.Footer>
-            </Table>
+                    <Table.Footer>
+                        <Table.Row>
+                            <Table.HeaderCell colSpan={header.length}>
+                                <Pagination defaultCurrent={1} total={projectList.totalElements}
+                                            onChange={(page, pageSize) => this.pageChange(page, pageSize)}/>
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Footer>
+                </Table>
         );
     }
 }

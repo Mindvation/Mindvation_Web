@@ -100,6 +100,7 @@ class OtherInfo extends Component {
                                     startEndDate = node
                                 }}
                                 defaultValue={[info.startDate, info.endDate]}
+                                required={true}
                     />
                 </div>
                 <div className="sub-model-header">

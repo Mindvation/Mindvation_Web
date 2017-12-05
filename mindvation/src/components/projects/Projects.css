@@ -470,6 +470,7 @@
 }
 
 .mvp-story-desc {
+    position: relative;
     padding: 20px 26px 0 26px;
 }
 
@@ -852,6 +853,18 @@ i.icon.mode-remove-label {
 
 .rag-color-G {
     background: rgba(156, 190, 90, 0.5);
+}
+
+.rag-text-color-R {
+    color: #c35f5a;
+}
+
+.rag-text-color-A {
+    color: #d4865b;
+}
+
+.rag-text-color-G {
+    color: #9cbe5a;
 }
 
 .status-indicator.ui.button {
@@ -1465,6 +1478,10 @@ i.icon.mode-remove-label {
     cursor: move;
 }
 
+.mvp-dashboard .unmovable-dashboard .read-only-text .simditor .simditor-body {
+    cursor: pointer;
+}
+
 .unmovable-dashboard .mvp-story-AcceptBox {
     background-color: #eeeeee;
 }
@@ -1490,4 +1507,72 @@ i.icon.mode-remove-label {
 
 .id-text {
     font-weight: bold;
+}
+
+.mvp-story-progress {
+    position: relative;
+    padding: 0 10px;
+}
+
+.plan-progress {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    position: relative;
+    bottom: -8px;
+}
+
+.plan-progress-outer {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-align: left;
+}
+
+.plan-progress-inner {
+    display: inline-block;
+    text-align: center;
+}
+
+.plan-progress-text {
+    font-size: 14px;
+    margin-left: 10px;
+    width: auto;
+    opacity: 0;
+}
+
+.plan-progress-scale {
+    margin-left: -100%;
+}
+
+.plan-progress-place {
+    width: 12px;
+}
+
+.display-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.no-element-alert {
+    margin-top: 20px;
+    text-align: center;
+    color: #999999;
+}
+
+.no-element-title {
+    font-size: 18px;
+}
+
+.no-element-text {
+    font-size: 14px;
+    margin-top: 10px;
 }

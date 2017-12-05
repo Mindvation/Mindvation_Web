@@ -54,7 +54,7 @@ if (isProduction) {
         changePassword: gateWay + '8080/mdvn-staff-papi/staff/updateStaffPassword'
     };
 } else {
-    const gateWay = "http://192.168.0.107:";
+    const gateWay = "http://192.168.0.105:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',

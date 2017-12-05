@@ -206,6 +206,7 @@ class AdditionalInfo extends Component {
                                     this.startEndDate = node
                                 }}
                                 defaultValue={[requirement.startDate, requirement.endDate]}
+                                required={true}
                     />
                 </div>
             </Modal.Content>

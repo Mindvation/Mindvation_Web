@@ -53,13 +53,14 @@ class MVDatePicker extends Component {
 
     checkDefaultValue = () => {
         const {defaultValue} = this.props;
-        if (isEmpty(defaultValue)) {
+        const {range} = this.props;
+        if (isEmpty(defaultValue) ||
+            (range && (isEmpty(defaultValue[0]) || isEmpty(defaultValue[1])))) {
             if (!this.state.isEmpty) {
                 this.setState({
                     isEmpty: true
-                });
+                })
             }
-
         } else {
             if (this.state.isEmpty) {
                 this.setState({
@@ -77,7 +78,21 @@ class MVDatePicker extends Component {
         this.setState({
             selfChecked: true
         });
-        return this.state.returnValue;
+        if (this.props.range) {
+            return [{
+                error: this.state.isEmpty && this.props.required,
+                componentValue: this.state.returnValue[0]
+            }, {
+                error: this.state.isEmpty && this.props.required,
+                componentValue: this.state.returnValue[1]
+            }]
+        } else {
+            return {
+                error: this.state.isEmpty && this.props.required,
+                componentValue: this.state.returnValue
+            }
+        }
+
     };
 
     disabledDate = (current) => {

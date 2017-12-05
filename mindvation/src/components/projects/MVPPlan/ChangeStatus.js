@@ -76,6 +76,18 @@ class MoveProject extends Component {
         StoryDetail && StoryDetail(taskId);
     };
 
+    checkHasStory = (statuses) => {
+        if (statuses.length === 0) return true;
+        let flag = false;
+        statuses.some((item) => {
+            if (item.tasks && item.tasks.length > 0) {
+                flag = true;
+                return true;
+            }
+        });
+        return flag;
+    };
+
     render() {
         const {statuses} = this.state;
         return (
@@ -87,77 +99,87 @@ class MoveProject extends Component {
                         defaultMessage='Dashboard'
                     />
                 </div>
-                <Grid columns={3} className="mvp-grid-column">
-                    {
-                        statuses.map((status, i) => {
-                            return <Grid.Column key={i}>
-                                <div className={"mvp-sprint-title sprint-title-" + status.key}>
+                {
+                    this.checkHasStory(statuses) ? <Grid columns={3} className="mvp-grid-column">
+                        {
+                            statuses.map((status, i) => {
+                                return <Grid.Column key={i}>
+                                    <div className={"mvp-sprint-title sprint-title-" + status.key}>
                                     <span
                                         className="mvp-sprint-title-text">{status.text}</span>
-                                </div>
-                                <AcceptContainer data={status.key} accepts={status.accepts}>
-                                    {
-                                        status.tasks.map((task, j) => {
-                                            return <div key={j}>
-                                                <div className="mvp-story-AcceptBox">
-                                                    <div
-                                                        onClick={(event) => this.checkStoryDetail(event, task.story.storyId)}
-                                                        className="mvp-story-info host-mvp-story">
-                                                        <div className="mvp-story-id display-flex"
-                                                             style={{justifyContent: "space-between"}}>
-                                                            <div>
-                                                                <Image
-                                                                    name={task.story.priority ? "priority_" + task.story.priority : "priority_1"}/>
-                                                                {task.story.storyId}
-                                                            </div>
-                                                            <div className="display-flex">
-                                                                <div className="mvp-story-priority">
-                                                                    {getDesc(priorityOptions, task.story.priority)}
-                                                                </div>
-                                                                <div
-                                                                    className="mvp-story-point">{task.story.storyPoint}</div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mvp-story-desc read-only-text">
-                                                            <div className="simditor">
-                                                                <div className="simditor-body"
-                                                                     dangerouslySetInnerHTML={{__html: task.story.description}}/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {task.tasks.map((task, i) => {
-                                                    return <div
-                                                        className={"mvp-task-AcceptBox " + (task.status === "inProgress" ? "story-in-progress " : "")}
-                                                        key={i}>
-                                                        <AcceptBox
-                                                            data={{
-                                                                'task': task,
-                                                                'lastStatus': status.key
-                                                            }}
-                                                            type={task.status}
-                                                            action={(handleData, status) => this.moveProjectToNext(handleData, status)}>
-                                                            <div className="mvp-story-info"
-                                                                 onClick={(event) => this.checkTaskDetail(event, task.taskId)}>
-                                                                <div className="mvp-story-id display-flex">
+                                    </div>
+                                    <AcceptContainer data={status.key} accepts={status.accepts}>
+                                        {
+                                            status.tasks.map((task, j) => {
+                                                return <div key={j}>
+                                                    <div className="mvp-story-AcceptBox">
+                                                        <div
+                                                            onClick={(event) => this.checkStoryDetail(event, task.story.storyId)}
+                                                            className="mvp-story-info host-mvp-story">
+                                                            <div className="mvp-story-id display-flex"
+                                                                 style={{justifyContent: "space-between"}}>
+                                                                <div>
                                                                     <Image
-                                                                        name={task.priority ? "priority_" + task.priority : "priority_1"}/>
-                                                                    {task.taskId}
+                                                                        name={task.story.priority ? "priority_" + task.story.priority : "priority_1"}/>
+                                                                    {task.story.storyId}
                                                                 </div>
-                                                                <div className="mvp-story-desc">{task.description}</div>
+                                                                <div className="display-flex">
+                                                                    <div className="mvp-story-priority">
+                                                                        {getDesc(priorityOptions, task.story.priority)}
+                                                                    </div>
+                                                                    <div
+                                                                        className="mvp-story-point">{task.story.storyPoint}</div>
+                                                                </div>
                                                             </div>
-                                                        </AcceptBox>
+                                                            <div className="mvp-story-desc read-only-text">
+                                                                <div className="simditor">
+                                                                    <div className="simditor-body"
+                                                                         dangerouslySetInnerHTML={{__html: task.story.description}}/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                })}
-                                            </div>
-                                        })
-                                    }
+                                                    {task.tasks.map((task, i) => {
+                                                        return <div
+                                                            className={"mvp-task-AcceptBox " + (task.status === "inProgress" ? "story-in-progress " : "")}
+                                                            key={i}>
+                                                            <AcceptBox
+                                                                data={{
+                                                                    'task': task,
+                                                                    'lastStatus': status.key
+                                                                }}
+                                                                type={task.status}
+                                                                action={(handleData, status) => this.moveProjectToNext(handleData, status)}>
+                                                                <div className="mvp-story-info"
+                                                                     onClick={(event) => this.checkTaskDetail(event, task.taskId)}>
+                                                                    <div className="mvp-story-id display-flex">
+                                                                        <Image
+                                                                            name={task.priority ? "priority_" + task.priority : "priority_1"}/>
+                                                                        {task.taskId}
+                                                                    </div>
+                                                                    <div
+                                                                        className="mvp-story-desc">{task.description}</div>
+                                                                </div>
+                                                            </AcceptBox>
+                                                        </div>
+                                                    })}
+                                                </div>
+                                            })
+                                        }
 
-                                </AcceptContainer>
-                            </Grid.Column>
-                        })
-                    }
-                </Grid>
+                                    </AcceptContainer>
+                                </Grid.Column>
+                            })
+                        }
+                    </Grid> : <div className="display-center">
+                        <div>
+                            <Image name="no_dashboard" style={{marginRight: 0}}/>
+                            <div className="no-element-alert">
+                                <div className="no-element-title">当前看板没有内容</div>
+                                <div className="no-element-text">快去创建任务吧</div>
+                            </div>
+                        </div>
+                    </div>}
             </div>
         );
     }

@@ -183,6 +183,7 @@ class AdditionalInfo extends Component {
                                     this.startEndDate = node
                                 }}
                                 defaultValue={[info.startDate, info.endDate]}
+                                required={true}
                     />
                     <Input label="Story Points" type="number"
                            ref={node => {

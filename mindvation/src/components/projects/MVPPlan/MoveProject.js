@@ -11,6 +11,7 @@ import CompleteSprint from './CompleteSprint';
 import {updateDashboard, startIteration, closeIteration} from '../../../util/Service';
 import Image from '../../common/Image';
 import {hasAuth} from '../../../util/AuthUtil';
+import {Progress} from 'antd';
 
 class MoveProject extends Component {
     state = {
@@ -233,6 +234,57 @@ class MoveProject extends Component {
         }));
     };
 
+    getStoryBox = (sprint, story) => {
+        return <div className="mvp-story-AcceptBox">
+            <div
+                onClick={(event) => this.checkDetail(event, story.storyId)}
+                className="mvp-story-info">
+                <div className="mvp-story-id display-flex"
+                     style={{justifyContent: "space-between"}}>
+                    <div>
+                        <Image
+                            name={story.priority ? "priority_" + story.priority : "priority_1"}/>
+                        {story.storyId}
+                    </div>
+                    <div className="display-flex">
+                        <div className="mvp-story-priority">
+                            {getDesc(priorityOptions, story.priority)}
+                        </div>
+                        <div
+                            className="mvp-story-point">{story.storyPoint}</div>
+                    </div>
+                </div>
+                <div className="mvp-story-desc read-only-text">
+                    <div className="simditor">
+                        <div className="simditor-body"
+                             dangerouslySetInnerHTML={{__html: story.description}}/>
+                    </div>
+                </div>
+                {sprint.status === "start" ? <div className="mvp-story-progress">
+                    {story.progress === 100 ? null : <div className="plan-progress">
+                        <div className="display-flex">
+                            <div className="plan-progress-outer">
+                                <div className="plan-progress-inner"
+                                     style={{marginLeft: story.expectProgress + '%'}}>
+                                    <div className="plan-progress-scale">
+                                        <div
+                                            className={"rag-text-color-" + story.ragStatus}>{story.expectProgress + '%'}</div>
+                                        <Image
+                                            name={"arrow-" + (story.ragStatus || 'G')}
+                                            style={{marginRight: 0}}/>
+                                    </div>
+                                </div>
+                            </div>
+                            <span
+                                className="plan-progress-text">{story.progress + '%'}</span>
+                        </div>
+                    </div>}
+                    <Progress percent={story.progress} type={"line"}/>
+                </div> : null}
+            </div>
+        </div>
+    };
+
     render() {
         const {sprints, cycleOpen, completeOpen, model, activeSprint, isMoved, authCode} = this.state;
         return (
@@ -250,7 +302,8 @@ class MoveProject extends Component {
                         sprints.map((sprint, i) => {
                             return <Grid.Column key={i}>
                                 <div className="mvp-sprint-title">
-                                    <span className="mvp-sprint-title-text">{sprint.text}({parseNumber(sprint.points)})</span>
+                                    <span
+                                        className="mvp-sprint-title-text">{sprint.text}({parseNumber(sprint.points)})</span>
                                     {sprint.text !== 'Product Backlogs' ? <div className="mvp-sprint-status">
                                         {/*{sprint.status === 'start' ?
                                             <Icon name='video play outline' size="large" color="green"/> : null}*/}
@@ -300,60 +353,10 @@ class MoveProject extends Component {
                                                         'lastSprint': sprint.key
                                                     }}
                                                     action={(handleData, sprint) => this.moveProjectToNext(handleData, sprint)}>
-                                                    <div
-                                                        onClick={(event) => this.checkDetail(event, story.storyId)}
-                                                        className="mvp-story-info">
-                                                        <div className="mvp-story-id display-flex"
-                                                             style={{justifyContent: "space-between"}}>
-                                                            <div>
-                                                                <Image
-                                                                    name={story.priority ? "priority_" + story.priority : "priority_1"}/>
-                                                                {story.storyId}
-                                                            </div>
-                                                            <div className="display-flex">
-                                                                <div className="mvp-story-priority">
-                                                                    {getDesc(priorityOptions, story.priority)}
-                                                                </div>
-                                                                <div
-                                                                    className="mvp-story-point">{story.storyPoint}</div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mvp-story-desc read-only-text">
-                                                            <div className="simditor">
-                                                                <div className="simditor-body"
-                                                                     dangerouslySetInnerHTML={{__html: story.description}}/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {this.getStoryBox(sprint, story)}
                                                 </Box>
                                             </div> : <div className="unmovable-dashboard" key={i}>
-                                                <div className="mvp-story-AcceptBox">
-                                                    <div
-                                                        onClick={(event) => this.checkDetail(event, story.storyId)}
-                                                        className="mvp-story-info">
-                                                        <div className="mvp-story-id display-flex"
-                                                             style={{justifyContent: "space-between"}}>
-                                                            <div>
-                                                                <Image
-                                                                    name={story.priority ? "priority_" + story.priority : "priority_1"}/>
-                                                                {story.storyId}
-                                                            </div>
-                                                            <div className="display-flex">
-                                                                <div className="mvp-story-priority">
-                                                                    {getDesc(priorityOptions, story.priority)}
-                                                                </div>
-                                                                <div
-                                                                    className="mvp-story-point">{story.storyPoint}</div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mvp-story-desc read-only-text">
-                                                            <div className="simditor">
-                                                                <div className="simditor-body"
-                                                                     dangerouslySetInnerHTML={{__html: story.description}}/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {this.getStoryBox(sprint, story)}
                                             </div>
                                         })
                                     }
