@@ -137,15 +137,37 @@
     cursor: pointer !important;
 }
 
-.discussion-comment-link {
-    color: blue;
-    padding: 20px 14px;
-    display: inline-block;
+.discussion-comment-header {
+    padding: 20px 24px;
+    background-color: #ffffff;
+    width: 100%;
+}
+
+.comment-component {
+    margin-top: -0.5em;
+}
+
+.comment-author {
+    display: flex;
+    padding: 20px;
+}
+
+.ui.comments .comment .text {
+    margin: 0;
+    padding: 0 20px 20px 20px;
+}
+
+.comment-author-right {
+    margin-left: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 .comment-footer {
-    margin-top: 1.5em;
+    padding: 20px;
     text-align: right;
+    background-color: #ffffff;
 }
 
 .ui.button.comment-action-button {
@@ -200,7 +222,7 @@
 }
 
 .upload-multi .ant-carousel .slick-slider .slick-list {
-    height: calc(20vw - 3em);
+    height: calc(20vw - 1em);
 }
 
 .upload-multi .ant-carousel .slick-dots {
@@ -232,6 +254,11 @@
 
 .upload-multi .list-content {
     position: relative;
+}
+
+.list-file-name {
+    padding: 5px 0;
+    color: #333333;
 }
 
 .upload-multi .list-action-icon {
@@ -390,7 +417,7 @@
 }
 
 .upload-progress-top .upload-multi .ant-carousel .slick-slider .slick-list {
-    height: calc(20vw - 8.5em);
+    height: calc(20vw - 6.5em);
 }
 
 .upload-multi-title {
@@ -413,11 +440,19 @@
     position: relative;
 }
 
-.edit-progress-button {
+.progress-action {
     position: absolute;
     top: 0;
     right: 0;
-    color: #577ca6;
+    display: flex;
+}
+
+.edit-progress-button {
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.progress-history-button {
     cursor: pointer;
 }
 
@@ -763,20 +798,21 @@ img.ui.image.mv-image {
 
 .ui.comments {
     margin: 0;
-    padding: 10px;
     max-width: none;
     border-top: 1px solid #eeeeee;
 }
 
-.ui.comments .comment {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eeeeee;
+.ui.comments .comment,
+.ui.comments .comment:first-child {
+    margin: 2px 0 8px 0;
+    padding: 0;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
 }
 
 .ui.comments .comment .actions {
-    position: absolute;
-    right: 0;
-    bottom: 10px;
+    border-top: 1px solid #eeeeee;
+    padding: 9px 24px;
 }
 
 .ui.comments .comment .actions a {
@@ -800,11 +836,25 @@ img.ui.image.mv-image {
     margin-left: 0;
     font-size: 12px;
     color: #999999;
+    margin-top: 6px;
 }
 
 .ui.comments .comment .author {
     font-size: 12px;
-    color: #4481eb;
+    color: #577ca6;
+}
+
+.comment-toggle-img {
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    transform: rotate(0deg);
+    transition: All 0.3s ease-in-out;
+}
+
+.comment-toggle-img.toggle-visible {
+    transform: rotate(180deg);
+    transition: All 0.3s ease-in-out;
 }
 
 .compact-button.ui.button {
@@ -904,3 +954,4 @@ img.ui.image.mv-image {
     margin: 0;
     padding: 0;
 }
+

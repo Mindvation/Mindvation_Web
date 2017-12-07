@@ -12,7 +12,9 @@ import {
     convertReqAdditionalToServer,
     convertReqAdditionalToLocal,
     convertReqStatusToServer,
-    convertReqStatusToLocal
+    convertReqStatusToLocal,
+    convertReqCommentToServer,
+    convertCommentToLocal
 } from '../util/Convert';
 import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
@@ -146,6 +148,48 @@ export function updateRequirementStatus(statusInfo) {
                 StaticLoad.remove("updateReqStatus");
                 StaticDialog.show("updateReqStatus-error", error.responseCode, error.message);
                 console.info(error);
+            });
+    }
+}
+
+
+export function createRequirementComment(requirement, comment, callback) {
+    return dispatch => {
+        const params = convertReqCommentToServer(requirement, comment);
+        post(url.createComment, params)
+            .then((res) => {
+                if (!requirement.comments) requirement.comments = [];
+                const comment = convertCommentToLocal(res.responseBody);
+                requirement.comments.push(comment);
+                dispatch(updateRequirement(requirement));
+                callback && callback();
+            })
+            .catch((error) => {
+                StaticDialog.show("createRequirementComment-error", error.responseCode, error.message);
+            });
+    }
+}
+
+export function voteRequirementComment(requirement, comment, action) {
+    return dispatch => {
+        const params = {
+            commentId: comment.commentId,
+            remark: action === "upVote" ? "like" : "dislike",
+            creatorId: getStaffId()
+        };
+        post(url.voteComment, params)
+            .then((res) => {
+                const comment = convertCommentToLocal(res.responseBody);
+                requirement.comments.some((item) => {
+                    if (item.commentId === comment.commentId) {
+                        Object.assign(item, comment);
+                        return true;
+                    }
+                });
+                dispatch(updateRequirement(requirement));
+            })
+            .catch((error) => {
+                StaticDialog.show("voteRequirementComment-error", error.responseCode, error.message);
             });
     }
 }

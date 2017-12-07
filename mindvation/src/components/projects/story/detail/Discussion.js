@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Transition, Segment} from 'semantic-ui-react';
-import Comment from '../../common/Comment';
-import {createStoryComment, voteStoryComment} from '../../../actions/stories_action';
-import Image from '../../common/Image';
+import {Transition} from 'semantic-ui-react';
+import Comment from '../../../common/Comment';
+import {createStoryComment, voteStoryComment} from '../../../../actions/story_action';
+import Image from '../../../common/Image';
+import {FormattedMessage} from 'react-intl';
 
 class Discussion extends Component {
     state = {
@@ -30,9 +31,19 @@ class Discussion extends Component {
         const {comments = [], dispatch} = this.props.story;
         return (
             <div>
-                <div className={"discussion-comment-link pointer-cursor"} onClick={this.toggleVisibility}>
+                <div className="discussion-comment-header display-flex">
                     <Image name="comment"/>
-                    {comments.length}
+                    <div className="task-id">
+                        <FormattedMessage
+                            id='comment'
+                            defaultMessage='Comment'
+                        />
+                        {/*{comments.length}*/}
+                    </div>
+                    <div className={"comment-toggle-img pointer-cursor" + (visible ? " toggle-visible" : "")}
+                         onClick={this.toggleVisibility}>
+                        <Image name="drop_down_ic" style={{marginRight: 0}}/>
+                    </div>
                 </div>
                 <Transition visible={visible} animation='slide down' duration={250}>
                     <div>

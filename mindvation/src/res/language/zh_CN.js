@@ -242,6 +242,8 @@ const zh_CN = {
     invalidMail: "邮箱地址不合法",
     invalidInput: "输入不合法",
     successfullyCreated: "创建成功",
-    goToDetail: "查看详情"
+    goToDetail: "查看详情",
+    comment: "评论",
+    taskHistory: "任务历史"
 };
 export default zh_CN;

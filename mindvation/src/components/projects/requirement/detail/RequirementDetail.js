@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Header, Segment, Tab, Menu} from 'semantic-ui-react';
+import {Grid, Segment, Tab, Menu} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import {getRequirementById, updateRequirementStatus} from '../../../../actions/requirement_action';
 import EditBasicInfo from './EditBasicInfo';
@@ -12,6 +12,7 @@ import {
     Link
 } from 'react-router-dom';
 import Image from '../../../common/Image';
+import Discussion from './Discussion';
 
 class RequirementDetail extends Component {
     state = {activeTab: 0};
@@ -116,7 +117,7 @@ class RequirementDetail extends Component {
                 </div>
                 <Grid columns={2}>
                     <Grid.Column width={5} className="grid-component-left">
-                        <Segment padded>
+                        <Segment>
                             <EditStatus status={requirement.status}
                                         disabled={!hasAuth("updateRequirementStatus", requirement.authCode)}
                                         changeStatus={(status, percent) => this.changeStatus(requirement, status, percent)}/>
@@ -131,6 +132,10 @@ class RequirementDetail extends Component {
                                  renderActiveOnly={false}
                             />
                         </Segment>
+                        <Segment className="component-detail">
+                            <Discussion requirement={requirement} dispatch={dispatch}/>
+                        </Segment>
+
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
                         <Segment>

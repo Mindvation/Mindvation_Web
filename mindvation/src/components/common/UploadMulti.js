@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Upload, Carousel} from 'antd';
-import {Image, Icon} from 'semantic-ui-react';
+import {Image, Icon, Popup} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Message from './Message';
 import PropTypes from 'prop-types';
@@ -81,12 +81,17 @@ class UploadMulti extends Component {
         const {fileList, displayFileList, uploading} = this.state;
         const {readOnly} = this.props;
         const uploadButton = (
-            readOnly ? null : <div>
-                <FormattedMessage
+            readOnly ? null : <Popup
+                trigger={<div><MVImage name="upload" style={{marginRight: 0}}/></div>}
+                content={<FormattedMessage
                     id='uploadAttachment'
                     defaultMessage='Upload Attachment'
-                />
-            </div>
+                />}
+                position='bottom center'
+                inverted
+                className="mode-desc-popup"
+                size="mini"
+            />
         );
         const props = {
             name: 'mFile',
@@ -126,6 +131,7 @@ class UploadMulti extends Component {
                                 </span>
                                 </div>
                             </div>
+                            <div className="list-file-name text-ellipsis">{file.name}</div>
                         </div>
                     }) : <div className="list-no-file">
                         <FormattedMessage

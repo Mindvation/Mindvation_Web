@@ -55,9 +55,16 @@ class MVComment extends Component {
                 {
                     comments.map((item, i) => {
                         return <Comment key={i}>
-                            <Comment.Avatar src={item.author.image}/>
+                            <div className="comment-author">
+                                <Comment.Avatar src={item.author.image}/>
+                                <div className="comment-author-right">
+                                    <Comment.Author>{item.author.text}</Comment.Author>
+                                    <Comment.Metadata>
+                                        {item.time}
+                                    </Comment.Metadata>
+                                </div>
+                            </div>
                             <Comment.Content>
-                                <Comment.Author>{item.author.text}</Comment.Author>
                                 <Comment.Text>
                                     <div className="pre-line">
                                         {item.replyInfo && item.replyInfo.replyStaff ?
@@ -70,25 +77,22 @@ class MVComment extends Component {
                                         {item.text}
                                     </div>
                                 </Comment.Text>
-                                <Comment.Metadata>
-                                    {item.time}
-                                </Comment.Metadata>
-                                <Comment.Actions>
-                                    <Comment.Action onClick={() => this.approve(item)}>
-                                        {item.approve.indexOf(getStaffId()) > -1 ? <Image name="like_withMe"/> :
-                                            <Image name="like"/>}
-                                        {item.approve.length}
-                                    </Comment.Action>
-                                    <Comment.Action onClick={() => this.disagree(item)}>
-                                        {item.disagree.indexOf(getStaffId()) > -1 ? <Image name="dislike_withMe"/> :
-                                            <Image name="dislike"/>}
-                                        {item.disagree.length}
-                                    </Comment.Action>
-                                    <Comment.Action onClick={() => this.reply(item)}>
-                                        <Image name="reply" style={{marginRight: 0}}/>
-                                    </Comment.Action>
-                                </Comment.Actions>
                             </Comment.Content>
+                            <Comment.Actions>
+                                <Comment.Action onClick={() => this.approve(item)}>
+                                    {item.approve.indexOf(getStaffId()) > -1 ? <Image name="like_withMe"/> :
+                                        <Image name="like"/>}
+                                    {item.approve.length}
+                                </Comment.Action>
+                                <Comment.Action onClick={() => this.disagree(item)}>
+                                    {item.disagree.indexOf(getStaffId()) > -1 ? <Image name="dislike_withMe"/> :
+                                        <Image name="dislike"/>}
+                                    {item.disagree.length}
+                                </Comment.Action>
+                                <Comment.Action onClick={() => this.reply(item)}>
+                                    <Image name="reply" style={{marginRight: 0}}/>
+                                </Comment.Action>
+                            </Comment.Actions>
                         </Comment>
                     })
                 }

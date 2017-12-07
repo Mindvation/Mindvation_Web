@@ -242,6 +242,8 @@ const en_US = {
     invalidMail: "Invalid E-Mail Address",
     invalidInput: "Invalid Input",
     successfullyCreated: " successfully created",
-    goToDetail: "Go To Detail"
+    goToDetail: "Go To Detail",
+    comment: "Comment",
+    taskHistory: "Task History"
 };
 export default en_US;

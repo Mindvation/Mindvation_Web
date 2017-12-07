@@ -108,7 +108,7 @@ export const convertProjectToLocal = (res) => {
         });
     }
 
-    if (project.requirementInfo.requirementInfos && project.requirementInfo.requirementInfos.length > 0) {
+    /*if (project.requirementInfo.requirementInfos && project.requirementInfo.requirementInfos.length > 0) {
         project.requirementInfo.requirementInfos.map((req) => {
             let tempComments = [];
             if (req.commentDetails && req.commentDetails.length > 0) {
@@ -118,7 +118,7 @@ export const convertProjectToLocal = (res) => {
             }
             req.comments = tempComments;
         })
-    }
+    }*/
 
     return project;
 };
@@ -685,7 +685,7 @@ export function convertRequirementToLocal(res) {
         });
     }
 
-    if (requirement.stories.stories && requirement.stories.stories.length > 0) {
+    /*if (requirement.stories.stories && requirement.stories.stories.length > 0) {
         requirement.stories.stories.map((story) => {
             let tempComments = [];
             if (story.commentDetails && story.commentDetails.length > 0) {
@@ -694,6 +694,12 @@ export function convertRequirementToLocal(res) {
                 })
             }
             story.comments = tempComments;
+        })
+    }*/
+
+    if (res.commentDetails && res.commentDetails.length > 0) {
+        res.commentDetails.map((comm) => {
+            requirement.comments.push(convertCommentToLocal(comm))
         })
     }
 
@@ -911,8 +917,8 @@ export function convertReqStatusToLocal(res) {
 
 export function convertReqCommentToServer(reqInfo, commentInfo) {
     let params = {
-        projId: reqInfo.projId,
-        subjectId: reqInfo.reqmntId,
+        projId: reqInfo.projectId,
+        subjectId: reqInfo.reqId,
         creatorId: getStaffId(),
         content: commentInfo.text,
         passiveAts: []
@@ -1120,6 +1126,12 @@ export function convertStoryToLocal(res) {
         });
     }
 
+    if (res.commentDetails && res.commentDetails.length > 0) {
+        res.commentDetails.map((comm) => {
+            story.comments.push(convertCommentToLocal(comm))
+        })
+    }
+
     return story;
 }
 
@@ -1269,7 +1281,7 @@ export function convertStoryAdditionalToServer(additionalInfo) {
 
 export function convertStoryCommentToServer(storyInfo, commentInfo) {
     let params = {
-        projId: storyInfo.projId,
+        projId: storyInfo.projectId,
         subjectId: storyInfo.storyId,
         creatorId: getStaffId(),
         content: commentInfo.text,

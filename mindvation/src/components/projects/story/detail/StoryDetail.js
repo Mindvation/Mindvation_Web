@@ -14,6 +14,7 @@ import {
 import {hasAuth} from '../../../../util/AuthUtil';
 import EditStatus from "../../EditStatus";
 import Image from '../../../common/Image';
+import Discussion from './Discussion';
 
 class StoryDetail extends Component {
     state = {activeTab: 0};
@@ -161,6 +162,9 @@ class StoryDetail extends Component {
                                  renderActiveOnly={false}
                             />
                         </Segment>
+                        <div className="comment-component">
+                            <Discussion story={story} dispatch={dispatch}/>
+                        </div>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-task">
                         <TaskList story={story} dispatch={dispatch}/>

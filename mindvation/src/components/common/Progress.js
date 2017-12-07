@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
 import Image from './Image';
 import {Progress} from 'antd';
+import {Popup} from 'semantic-ui-react';
 
 class MvProgress extends Component {
 
@@ -19,15 +20,37 @@ class MvProgress extends Component {
                 </div>
                 <div className="display-flex">
                     <Progress percent={percent} type={mode === "charts" ? "circle" : "line"}/>
-                    {!readOnly && editProgress ?
-                        <div className="edit-progress-button" onClick={() => {
-                            editProgress()
-                        }}>
-                            <FormattedMessage
-                                id='editProgress'
-                                defaultMessage='Edit Progress'
+                    <div className="progress-action">
+                        <div className="progress-history-button">
+                            <Popup
+                                trigger={<div><Image name="history" style={{marginRight: 0}}/></div>}
+                                content={<FormattedMessage
+                                    id='taskHistory'
+                                    defaultMessage='Task History'
+                                />}
+                                position='bottom center'
+                                inverted
+                                className="mode-desc-popup"
+                                size="mini"
                             />
-                        </div> : null}
+                        </div>
+                        {!readOnly && editProgress ?
+                            <div className="edit-progress-button" onClick={() => {
+                                editProgress()
+                            }}>
+                                <Popup
+                                    trigger={<div><Image name="edit" style={{marginRight: 0}}/></div>}
+                                    content={<FormattedMessage
+                                        id='editProgress'
+                                        defaultMessage='Edit Progress'
+                                    />}
+                                    position='bottom center'
+                                    inverted
+                                    className="mode-desc-popup"
+                                    size="mini"
+                                />
+                            </div> : null}
+                    </div>
                 </div>
             </div>
         );
