@@ -236,3 +236,15 @@ export function closeIteration(params, callback) {
             StaticDialog.show("closeIteration-error", error.responseCode, error.message);
         });
 }
+
+export function getTaskHistory(id, callback) {
+    post(url.getTaskHistory, {
+        taskId: id
+    })
+        .then((res) => {
+            callback(res.responseBody);
+        })
+        .catch((error) => {
+            StaticDialog.show("closeIteration-error", error.responseCode, error.message);
+        });
+}

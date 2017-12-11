@@ -4,9 +4,11 @@ import Progress from '../../common/Progress';
 import UploadMulti from '../../common/UploadMulti';
 import UploadAndProgress from '../../common/UploadAndProgress';
 import EditProgress from './detail/EditProgress';
+import TaskHistory from './TaskHistory';
 import {updateTaskStatus} from '../../../actions/story_action';
 import {hasAuth} from '../../../util/AuthUtil';
 import MVImage from '../../common/Image';
+import {FormattedMessage} from 'react-intl';
 
 class TaskList extends Component {
     state = {
@@ -24,21 +26,28 @@ class TaskList extends Component {
         }));
     };
 
+    checkTaskHistory = (task) => {
+        this.taskHistoryNode.openModal(task)
+    };
+
     getComponent = (task) => {
         const modelItem = task.model;
         if (modelItem.type === 'progress') {
             return <Progress percent={modelItem.percent} mode="charts" domKey={modelItem.key}
                              editProgress={() => this.editProgress(task)}
+                             checkHistory={() => this.checkTaskHistory(task)}
                              readOnly={!hasAuth("updateTask", task.authCode)}/>
         }
         if (modelItem.type === 'protoAndProgress') {
             return <UploadAndProgress percent={modelItem.percent} domKey={modelItem.key}
                                       task={task}
                                       editProgress={() => this.editProgress(task)}
+                                      checkHistory={() => this.checkTaskHistory(task)}
                                       readOnly={!hasAuth("updateTask", task.authCode)}/>
         }
         if (modelItem.type === 'proto') {
             return <UploadMulti task={task}
+                                checkHistory={() => this.checkTaskHistory(task)}
                                 readOnly={!hasAuth("updateTask", task.authCode)}/>
         }
     };
@@ -67,7 +76,10 @@ class TaskList extends Component {
                                         {task.description}
                                     </div>
                                     <div className="task-member">
-                                        Member
+                                        <FormattedMessage
+                                            id='member'
+                                            defaultMessage='Member'
+                                        />
                                         {task.assignee ?
                                             <div className="table-single-line" key={i}>
                                                 <Image verticalAlign="middle" src={task.assignee.avatar}
@@ -86,6 +98,7 @@ class TaskList extends Component {
                 </Grid> : null}
                 <EditProgress updateProgress={(model) => this.updateProgress(model)}
                               ref={node => this.editProgressNode = node}/>
+                <TaskHistory ref={node => this.taskHistoryNode = node}/>
             </div>
         );
     }

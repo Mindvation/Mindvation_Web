@@ -244,6 +244,12 @@ const zh_CN = {
     successfullyCreated: "创建成功",
     goToDetail: "查看详情",
     comment: "评论",
-    taskHistory: "任务历史"
+    taskHistory: "任务历史",
+    member: "成员",
+    updateTaskHistory: "更新进度",
+    uploadTaskHistory: "上传附件",
+    removeTaskHistory: "删除附件",
+    createTaskHistory: "创建任务",
+    updateTaskProgress: "更新进度到"
 };
 export default zh_CN;

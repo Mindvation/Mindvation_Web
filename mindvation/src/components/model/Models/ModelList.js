@@ -79,7 +79,7 @@ class ModelList extends Component {
         if (key === "sort") {
             return data[key] < 4 ?
                 <MVImage name={"medal_" + data[key]} style={{marginRight: 0}}/> :
-                <div className="sort-text">data[key]</div>
+                <div className="sort-text">{data[key]}</div>
         }
         if (key === "creatorInfo") {
             return <div className="display-flex">

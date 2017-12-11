@@ -64,52 +64,6 @@ export const contingencyOptions = [
     },
 ];
 
-export const softModelOptions = [
-    {
-        text: 'Agile',
-        value: 'model01'
-    },
-    {
-        text: 'Waterfall',
-        value: 'waterfall'
-    }];
-
-export const businessModelOptions = [
-    {
-        text: 'Business Canvas',
-        value: 'model03'
-    },
-    {
-        text: 'EPICs',
-        value: 'epics'
-    },
-    {
-        text: 'SWOT',
-        value: 'swot'
-    }];
-
-export const engineeringModelOptions = [
-    {
-        text: '8D',
-        value: 'model02'
-    },
-    {
-        text: '6 Sigma',
-        value: 'sigma6'
-    }
-];
-
-export const techniqueModelOptions = [
-    {
-        text: 'DevOps',
-        value: 'model04'
-    },
-    {
-        text: 'Technique Platform',
-        value: 'tp'
-    }
-];
-
 export const statusOptions = [{
     text: <FormattedMessage
         id='new'
@@ -129,33 +83,6 @@ export const statusOptions = [{
     />,
     value: "done"
 }];
-
-export const functionOptions = [
-    {
-        text: 'Market Analysis',
-        value: 'marketAnalysis'
-    }, {
-        text: 'Requirement Analysis',
-        value: 'requirementAnalysis'
-    }, {
-        text: 'Register',
-        value: 'register'
-    }, {
-        text: 'Sign In',
-        value: 'signIn'
-    }, {
-        text: 'Main Function Flow',
-        value: 'mainFunctionFlow'
-    }, {
-        text: 'Feedback Function',
-        value: 'feedbackFunction'
-    }, {
-        text: 'Data Driven',
-        value: 'dataDriven'
-    }, {
-        text: 'Defect Fixing',
-        value: 'defectFixing'
-    }];
 
 export const genderOptions = [
     {
@@ -269,5 +196,5 @@ export const iterationCycleOptions = [
     }, {
         text: '4周',
         value: 4
-    },
+    }
 ];

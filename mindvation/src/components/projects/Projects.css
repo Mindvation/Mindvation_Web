@@ -1576,3 +1576,28 @@ i.icon.mode-remove-label {
     font-size: 14px;
     margin-top: 10px;
 }
+
+.task-history-item {
+    padding: 30px 30px 0 30px;
+    color: #333333;
+}
+
+.task-history-detail {
+    padding: 0 20px;
+}
+
+.task-history-detail .ui.grid > .row {
+    padding: 20px 0 0 0;
+}
+
+.task-history-remark {
+    padding-top: 10px;
+}
+
+.task-history-time {
+    color: #999999;
+}
+
+.task-progress-text {
+    color: #d4865b;
+}

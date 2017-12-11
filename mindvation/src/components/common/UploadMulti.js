@@ -79,7 +79,7 @@ class UploadMulti extends Component {
 
     render() {
         const {fileList, displayFileList, uploading} = this.state;
-        const {readOnly} = this.props;
+        const {readOnly, checkHistory} = this.props;
         const uploadButton = (
             readOnly ? null : <Popup
                 trigger={<div><MVImage name="upload" style={{marginRight: 0}}/></div>}
@@ -140,6 +140,24 @@ class UploadMulti extends Component {
                         />
                     </div>}
                 </Carousel>
+                {checkHistory ?
+                    <div className="upload-check-history"
+                         style={{right: readOnly ? '0' : '30px'}}
+                         onClick={() => {
+                             checkHistory()
+                         }}>
+                        <Popup
+                            trigger={<div><MVImage name="history" style={{marginRight: 0}}/></div>}
+                            content={<FormattedMessage
+                                id='taskHistory'
+                                defaultMessage='Task History'
+                            />}
+                            position='bottom center'
+                            inverted
+                            className="mode-desc-popup"
+                            size="mini"
+                        />
+                    </div> : null}
                 <div className="upload-multi-button">
                     <Upload {...props}
                             listType='picture'
@@ -157,7 +175,8 @@ class UploadMulti extends Component {
 
 UploadMulti.propTypes = {
     readOnly: PropTypes.bool,
-    defaultFileList: PropTypes.array
+    defaultFileList: PropTypes.array,
+    checkHistory: PropTypes.func
 };
 
 export default UploadMulti;

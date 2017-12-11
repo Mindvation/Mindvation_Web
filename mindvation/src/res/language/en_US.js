@@ -244,6 +244,12 @@ const en_US = {
     successfullyCreated: " successfully created",
     goToDetail: "Go To Detail",
     comment: "Comment",
-    taskHistory: "Task History"
+    taskHistory: "Task History",
+    member: "Member",
+    updateTaskHistory: "Update Progress",
+    uploadTaskHistory: "Upload Attachment",
+    removeTaskHistory: "Remove Attachment",
+    createTaskHistory: "Create Task",
+    updateTaskProgress: "Updated progress to "
 };
 export default en_US;

@@ -955,3 +955,8 @@ img.ui.image.mv-image {
     padding: 0;
 }
 
+.upload-check-history{
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+}
