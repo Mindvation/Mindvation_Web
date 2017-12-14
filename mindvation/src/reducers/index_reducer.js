@@ -13,6 +13,7 @@ import checklist from './checklist_reducer';
 import tags from './tags_reducer';
 import employee from './employee_reducer';
 import department from './department_reducer';
+import information from './information_reducer';
 
 const mindvationApp = combineReducers({
     projects,
@@ -28,7 +29,8 @@ const mindvationApp = combineReducers({
     checklist,
     tags,
     employee,
-    department
+    department,
+    information
 });
 
 export default mindvationApp;

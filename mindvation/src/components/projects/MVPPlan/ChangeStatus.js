@@ -143,6 +143,8 @@ class MoveProject extends Component {
                                                         return <div
                                                             className={"mvp-task-AcceptBox " + (task.status === "inProgress" ? "story-in-progress " : "")}
                                                             key={i}>
+                                                            <Image name="rope" className="story-task-link-left"/>
+                                                            <Image name="rope" className="story-task-link-right"/>
                                                             <AcceptBox
                                                                 data={{
                                                                     'task': task,

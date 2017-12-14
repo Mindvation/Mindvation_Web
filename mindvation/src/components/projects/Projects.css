@@ -419,13 +419,19 @@
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-    margin-left: 20px;
+    margin: 5px 20px 0 20px;
+    position: relative;
+}
+
+.mvp-task-AcceptBox:last-child {
+    margin-bottom: 10px;
 }
 
 .mvp-story-AcceptBox {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+    margin: 0 1px;
 }
 
 .drop-container {
@@ -1600,4 +1606,18 @@ i.icon.mode-remove-label {
 
 .task-progress-text {
     color: #d4865b;
+}
+
+img.ui.image.story-task-link-left {
+    position: absolute;
+    left: 15px;
+    top: -18px;
+    margin: 0;
+}
+
+img.ui.image.story-task-link-right {
+    position: absolute;
+    right: 15px;
+    top: -18px;
+    margin: 0;
 }

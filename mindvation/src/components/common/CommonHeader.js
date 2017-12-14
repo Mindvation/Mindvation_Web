@@ -66,7 +66,6 @@ class CommonHeader extends Component {
                     <div className="notify-info">
                         <Information/>
                     </div>
-
                     <div className="header-name">
                         {getUser().staffInfo.name}
                     </div>
