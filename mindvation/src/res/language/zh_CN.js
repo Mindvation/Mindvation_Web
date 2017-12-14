@@ -250,6 +250,7 @@ const zh_CN = {
     uploadTaskHistory: "上传附件",
     removeTaskHistory: "删除附件",
     createTaskHistory: "创建任务",
-    updateTaskProgress: "更新进度到"
+    updateTaskProgress: "更新进度到",
+    check: "查看"
 };
 export default zh_CN;

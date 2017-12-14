@@ -3,6 +3,8 @@ import {logOut} from '../../actions/user_action';
 import {FormattedMessage} from 'react-intl';
 import {getUser} from '../../util/UserStore';
 import {Input} from 'semantic-ui-react';
+import Notification from '../common/Notification';
+import Information from './Information';
 
 class CommonHeader extends Component {
 
@@ -61,6 +63,9 @@ class CommonHeader extends Component {
                         }}
                         ref={node => this.searchNode = node}
                     />
+                    <div className="notify-info">
+                        <Information/>
+                    </div>
 
                     <div className="header-name">
                         {getUser().staffInfo.name}
@@ -72,6 +77,7 @@ class CommonHeader extends Component {
                         />
                     </div>
                 </div>
+                <Notification history={this.props.history}/>
             </div>
         );
     }

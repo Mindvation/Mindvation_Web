@@ -82,7 +82,7 @@ class ModelList extends Component {
                 <div className="sort-text">{data[key]}</div>
         }
         if (key === "creatorInfo") {
-            return <div className="display-flex">
+            return <div className="display-flex-center">
                 <Image verticalAlign="middle" src={data[key].avatar}
                        className="model-creator-avatar"
                        avatar/>

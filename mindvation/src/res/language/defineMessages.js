@@ -68,5 +68,13 @@ export const messages = defineMessages({
     modelNamePhDesc: {
         id: 'modelNamePh',
         defaultMessage: 'Please input module name'
+    },
+    checkDesc: {
+        id: 'check',
+        defaultMessage: 'Check'
+    },
+    closeDesc: {
+        id: 'close',
+        defaultMessage: 'Close'
     }
 });

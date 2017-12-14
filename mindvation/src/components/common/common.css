@@ -955,8 +955,139 @@ img.ui.image.mv-image {
     padding: 0;
 }
 
-.upload-check-history{
+.upload-check-history {
     position: absolute;
     top: 0;
+    cursor: pointer;
+}
+
+.ant-notification-notice-message,
+.ant-notification-notice-close {
+    display: none;
+}
+
+.ant-notification-notice {
+    background: #577ca6;
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+img.ui.image.notify-avatar {
+    height: 40px;
+    width: 40px;
+}
+
+.notify-content {
+    display: flex;
+    line-height: 1;
+}
+
+.notify-left {
+    padding: 20px;
+    display: flex;
+    border-right: 1px solid #415d87;
+    flex: 1;
+}
+
+.notify-message-content {
+    padding: 0 20px;
+}
+
+.notify-name {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.notify-message {
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.notify-button {
+    padding: 16px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #415d87;
+}
+
+.notify-button:last-child {
+    border-bottom: none;
+}
+
+.notify-check-button {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.notify-close-button {
+    color: #22315b;
+    font-size: 12px;
+}
+
+.info-content {
+    position: relative;
+}
+
+.notify-info {
+    margin-right: 40px;
+}
+
+.info-down-content {
+    position: absolute;
+    top: 42px;
+    right: -60px;
+    z-index: 1020;
+    display: block;
+    float: left;
+    min-width: 386px;
+    padding: 15px;
+    margin: 9px 0 0;
+    text-align: left;
+    line-height: 1.6;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    background-clip: padding-box;
+    -webkit-animation-duration: .15s;
+    animation-duration: .15s;
+}
+
+.info-down-content:after, .info-down-content:before {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 0;
+    height: 0;
+    border: 10px dashed transparent;
+    z-index: 1;
+}
+
+.info-down-content:after, .info-down-content:before {
+    border-bottom-style: solid;
+    border-width: 0 10px 10px;
+}
+
+.info-down-content:before {
+    border-bottom-color: #ddd;
+    bottom: 0;
+}
+
+.info-down-content:after, .info-down-content:before {
+    right: 60px;
+    top: -10px;
+    pointer-events: none;
+}
+
+.info-down-content:after {
+    border-bottom-color: #fff;
+    bottom: -1px;
+}
+
+.info-down-content:after {
+    top: -9px;
+}
+
+.info-badge {
     cursor: pointer;
 }

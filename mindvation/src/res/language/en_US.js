@@ -250,6 +250,7 @@ const en_US = {
     uploadTaskHistory: "Upload Attachment",
     removeTaskHistory: "Remove Attachment",
     createTaskHistory: "Create Task",
-    updateTaskProgress: "Updated progress to "
+    updateTaskProgress: "Updated progress to ",
+    check: "Check"
 };
 export default en_US;
