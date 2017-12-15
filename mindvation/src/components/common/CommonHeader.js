@@ -4,7 +4,7 @@ import {FormattedMessage} from 'react-intl';
 import {getUser} from '../../util/UserStore';
 import {Input} from 'semantic-ui-react';
 import Notification from '../common/Notification';
-import Information from './Information';
+import Information from '../../containers/information_container';
 
 class CommonHeader extends Component {
 
@@ -64,7 +64,7 @@ class CommonHeader extends Component {
                         ref={node => this.searchNode = node}
                     />
                     <div className="notify-info">
-                        <Information/>
+                        <Information history={this.props.history}/>
                     </div>
                     <div className="header-name">
                         {getUser().staffInfo.name}

@@ -7,7 +7,7 @@ import {FormattedMessage} from 'react-intl';
 
 class Discussion extends Component {
     state = {
-        visible: false
+        visible: true
     };
 
     toggleVisibility = () => {
@@ -24,19 +24,6 @@ class Discussion extends Component {
             dispatch(voteRequirementComment(requirement, comment, action));
         }
     };
-
-    /*updateRequirement = (comment, action) => {
-        const {requirement, dispatch} = this.props;
-        if (action === 'add') {
-            if (!requirement.comments) requirement.comments = [];
-            requirement.comments.push(comment);
-        } else {
-            Object.assign(requirement.comments, comment);
-            dispatch(updateRequirements(requirement));
-        }
-        dispatch(updateRequirements(requirement));
-    };*/
-
 
     render() {
         const {visible} = this.state;

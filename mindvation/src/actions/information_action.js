@@ -5,8 +5,8 @@ import {post} from '../util/request';
 import {url} from '../util/ServiceUrl';
 import {getStaffId} from '../util/UserStore';
 
-export const GET_INFORMATION_LIST = 'CREATED_REQUIREMENT';
-export const REMOVE_INFORMATION = 'UPDATE_REQUIREMENTS';
+export const GET_INFORMATION_LIST = 'GET_INFORMATION_LIST';
+export const REMOVE_INFORMATION = 'REMOVE_INFORMATION';
 
 /*
  * action 创建函数
@@ -16,12 +16,12 @@ function setInformation(information) {
     return {type: GET_INFORMATION_LIST, information}
 }
 
-export function getInformationList(page, pageSize) {
+export function getInformationList(startNum, size) {
     return dispatch => {
         const params = {
-            "staffId": getStaffId(),
-            "page": page,
-            "pageSize": pageSize
+            "recipientId": getStaffId(),
+            "startNum": startNum,
+            "size": size
         };
 
         post(url.getInformationList, params)

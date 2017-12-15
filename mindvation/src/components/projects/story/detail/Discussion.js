@@ -7,7 +7,7 @@ import {FormattedMessage} from 'react-intl';
 
 class Discussion extends Component {
     state = {
-        visible: false
+        visible: true
     };
 
     toggleVisibility = () => {
