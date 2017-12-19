@@ -23,9 +23,14 @@ class TagList extends Component {
     };
 
     selectTag(tag) {
+        const {singleSelect} = this.props;
         let tempTags = this.state.selectedTags;
         if (this.getTagIndex(tempTags, tag) === -1) {
-            tempTags.push(tag);
+            if (singleSelect) {
+                tempTags = [tag];
+            } else {
+                tempTags.push(tag);
+            }
             this.setState({
                 selectedTags: tempTags
             })
@@ -33,12 +38,17 @@ class TagList extends Component {
     }
 
     toggleTag(tag) {
+        const {singleSelect} = this.props;
         let tempTags = this.state.selectedTags;
         let index = this.getTagIndex(tempTags, tag);
         if (index > -1) {
             tempTags.splice(index, 1);
         } else {
-            tempTags.push(tag);
+            if (singleSelect) {
+                tempTags = [tag];
+            } else {
+                tempTags.push(tag);
+            }
         }
         this.setState({
             selectedTags: tempTags
@@ -89,7 +99,8 @@ TagList.propTypes = {
     toggle: PropTypes.bool,
     selected: PropTypes.array,
     className: PropTypes.string,
-    isSelected: PropTypes.bool
+    isSelected: PropTypes.bool,
+    singleSelect: PropTypes.bool
 };
 
 export default TagList;

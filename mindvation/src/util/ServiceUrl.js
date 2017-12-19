@@ -1,5 +1,5 @@
 let url;
-const isProduction = false;
+const isProduction = true;
 
 if (isProduction) {
     const gateWay = "http://192.168.0.254:";
@@ -53,10 +53,11 @@ if (isProduction) {
         rtrvAllDashboard: gateWay + '8080/mdvn-dashboard-papi/dashboard/rtrvAllDashboard',
         changePassword: gateWay + '8080/mdvn-staff-papi/staff/updateStaffPassword',
         getTaskHistory: gateWay + '8080/mdvn-task-papi/task/retrieveTaskHistoryInfo',
-        getInformationList: gateWay + '8080/mdvn-websocket-papi/websocket/rtrvServerPushInfoList'
+        getInformationList: gateWay + '8080/mdvn-websocket-papi/websocket/rtrvServerPushInfoList',
+        deleteInformation: gateWay + '8080/mdvn-websocket-papi/websocket/deleteServerPushInfo'
     };
 } else {
-    const gateWay = "http://192.168.0.105:";
+    const gateWay = "http://192.168.0.111:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -107,7 +108,8 @@ if (isProduction) {
         rtrvAllDashboard: gateWay + '10018/mdvn-dashboard-papi/dashboard/rtrvAllDashboard',
         changePassword: gateWay + '10014/mdvn-staff-papi/staff/updateStaffPassword',
         getTaskHistory: gateWay + '10003/mdvn-task-papi/task/retrieveTaskHistoryInfo',
-        getInformationList: gateWay + '10028/mdvn-websocket-papi/websocket/rtrvServerPushInfoList'
+        getInformationList: gateWay + '10028/mdvn-websocket-papi/websocket/rtrvServerPushInfoList',
+        deleteInformation: gateWay + '10028/mdvn-websocket-papi/websocket/deleteServerPushInfo'
     };
 }
 

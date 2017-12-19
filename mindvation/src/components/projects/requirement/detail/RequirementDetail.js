@@ -13,9 +13,10 @@ import {
 } from 'react-router-dom';
 import Image from '../../../common/Image';
 import Discussion from './Discussion';
+import Reward from '../../../reward/Reward';
 
 class RequirementDetail extends Component {
-    state = {activeTab: 0};
+    state = {activeTab: 0, activeTab2: 0};
 
     componentDidMount() {
         const {id} = this.props.match.params;
@@ -46,7 +47,7 @@ class RequirementDetail extends Component {
 
     render() {
         const {requirement, dispatch} = this.props;
-        const {activeTab} = this.state;
+        const {activeTab, activeTab2} = this.state;
         const panes = [
             {
                 menuItem: <Menu.Item key="basicInfo">
@@ -95,6 +96,34 @@ class RequirementDetail extends Component {
             }
         ];
 
+        const panes2 = [
+            {
+                menuItem: <Menu.Item key="discussion">
+                    <div className="detail-tab-title">
+                        <Image name={activeTab2 === 0 ? "comment" : "comment_unselected"}/>
+                        <FormattedMessage
+                            id='comment'
+                            defaultMessage='Comment'
+                        />
+                    </div>
+                </Menu.Item>,
+                pane: <Tab.Pane attached={false} key="check-discussion">
+                    <Discussion requirement={requirement} dispatch={dispatch}/>
+                </Tab.Pane>
+            },
+            {
+                menuItem: <Menu.Item key="reward">
+                    <div className="detail-tab-title">
+                        <Image name={activeTab2 === 1 ? "knowledge_selected" : "knowledge_unselected"}/>
+                        求助
+                    </div>
+                </Menu.Item>,
+                pane: <Tab.Pane attached={false} key="check-reward">
+                    <Reward active={activeTab2 === 1}/>
+                </Tab.Pane>
+            }
+        ];
+
         return (
             <div className="project-detail">
                 <div className="header-project">
@@ -133,9 +162,16 @@ class RequirementDetail extends Component {
                             />
                         </Segment>
                         <Segment className="component-detail">
-                            <Discussion requirement={requirement} dispatch={dispatch}/>
+                            {/*<Discussion requirement={requirement} dispatch={dispatch}/>*/}
+                            <Tab menu={{secondary: true, pointing: true}} panes={panes2}
+                                 onTabChange={(event, data) => {
+                                     this.setState({
+                                         activeTab2: data.activeIndex
+                                     })
+                                 }}
+                                 renderActiveOnly={false}
+                            />
                         </Segment>
-
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-right">
                         <Segment>

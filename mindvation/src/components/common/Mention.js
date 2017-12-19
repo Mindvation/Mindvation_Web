@@ -27,7 +27,7 @@ class MVMention extends Component {
     }
 
     componentDidMount() {
-        this.mentionRefNode.focus();
+        //this.mentionRefNode.focus();
     }
 
     fetchSuggestions = (value, callback) => {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, Segment, Header, Input} from 'semantic-ui-react';
-import {isEmpty, getRandomStyle,getRandomColor} from '../../../util/CommUtil';
+import {isEmpty, getRandomStyle, getRandomColor} from '../../../util/CommUtil';
 import TagList from './TagList';
 import {FormattedMessage} from 'react-intl';
 import {retrieveTags, createTag as createTagAction} from '../../../actions/tags_action';
@@ -126,9 +126,14 @@ class AddTags extends Component {
     };
 
     updateProjectTags = (tag) => {
+        const {singleSelect} = this.props;
         if (this.getTagIndex(this.state.projectTags, tag) === -1) {
             let tempTags = this.state.projectTags;
-            tempTags.push(tag);
+            if (singleSelect) {
+                tempTags = [tag];
+            } else {
+                tempTags.push(tag);
+            }
             this.setState({
                 projectTags: tempTags
             });
@@ -156,16 +161,18 @@ class AddTags extends Component {
             ...this.props
         };
         const {modalOpen, projectTags} = this.state;
-        const {allTags} = this.props;
+        const {allTags, singleSelect} = this.props;
         if (this.props.withRef) {
             props.ref = this.setWrappedInstance;
         }
         return (
             <div style={{marginBottom: '10px'}} className="input-content">
                 <Segment className="select-tag-segment">
-                    <TagList className="selected-tag-list"
-                             isSelected={true}
-                             tagList={projectTags} handleClick={(tag) => {
+                    <TagList
+                        singleSelect={singleSelect}
+                        className="selected-tag-list"
+                        isSelected={true}
+                        tagList={projectTags} handleClick={(tag) => {
                         this.removeProjectTags(tag)
                     }}/>
                     {projectTags.length > 0 ? <div className="tag-divider"/> : null}
@@ -176,6 +183,7 @@ class AddTags extends Component {
                         />
                     </div>
                     <TagList
+                        singleSelect={singleSelect}
                         className="all-tag-list"
                         tagList={allTags.slice(0, 6)}
                         handleClick={(tag) => {
@@ -209,6 +217,7 @@ class AddTags extends Component {
                     <Modal.Content>
                         <div className="all-tags-segment">
                             <TagList
+                                singleSelect={singleSelect}
                                 className="all-tag-list"
                                 tagList={this.props.allTags}
                                 toggle={true}

@@ -1,7 +1,7 @@
 /*
  * action 类型
  */
-import {post} from '../util/request';
+import {post, get} from '../util/request';
 import {url} from '../util/ServiceUrl';
 import {getStaffId} from '../util/UserStore';
 
@@ -16,7 +16,7 @@ function setInformation(information) {
     return {type: GET_INFORMATION_LIST, information}
 }
 
-export function getInformationList(startNum, size) {
+export function getInformationList(startNum, size, callback) {
     return dispatch => {
         const params = {
             "recipientId": getStaffId(),
@@ -26,7 +26,8 @@ export function getInformationList(startNum, size) {
 
         post(url.getInformationList, params)
             .then((res) => {
-                dispatch(setInformation(res.responseBody))
+                dispatch(setInformation(res.responseBody));
+                callback();
             })
             .catch((error) => {
                 console.info(error);
@@ -34,6 +35,18 @@ export function getInformationList(startNum, size) {
     }
 }
 
-export function removeInfomation(info) {
-    return {type: REMOVE_INFORMATION, info}
+function removedInformation(id) {
+    return {type: REMOVE_INFORMATION, id}
+}
+
+export function removeInformation(id) {
+    return dispatch => {
+        get(url.deleteInformation, {id: id})
+            .then(() => {
+                dispatch(removedInformation(id))
+            })
+            .catch((error) => {
+                console.info(error);
+            });
+    }
 }

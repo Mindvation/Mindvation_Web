@@ -3,9 +3,9 @@ import {Badge} from 'antd';
 import MVImage from './Image';
 import {Image} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
-import {getInformationList} from '../../actions/information_action';
+import {getInformationList, removeInformation} from '../../actions/information_action';
+import $ from 'jquery';
 
-let startNum = 0;
 const size = 3;
 
 class Information extends Component {
@@ -14,11 +14,11 @@ class Information extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(getInformationList(startNum, size));
+        this.props.dispatch(getInformationList(this.props.information.infoList.length, size, this.scrollToBottom));
     }
 
     checkMoreInfo = () => {
-
+        this.props.dispatch(getInformationList(this.props.information.infoList.length, size, this.scrollToBottom));
     };
 
     toggleInfo = () => {
@@ -28,20 +28,48 @@ class Information extends Component {
     };
 
     hiddenInfo = () => {
-        /*this.setState({
+        this.setState({
             showInfo: false
-        })*/
+        })
     };
 
     formatInfo = (res) => {
         let info = {};
+        info.id = res.uuId;
         info.avatar = res.initiator.avatar;
         info.name = res.initiator.name;
-        if (res.type === 'update' && res.subjectType === "project") {
-            info.message = "更新了" + res.subjectId;
-            info.searchId = res.subjectId;
+        if (res.subjectType === "project" || res.subjectType === "requirement" || res.subjectType === "story") {
+            if (res.type === 'update') {
+                info.message = "更新了" + res.subjectId;
+                info.searchId = res.subjectId;
+            } else if (res.type === 'create') {
+                info.message = "创建了" + res.subjectId;
+                info.searchId = res.subjectId;
+            }
+        } else if (res.subjectType === "task") {
+            if (res.type === 'update') {
+                info.message = "更新了" + res.subjectId;
+                info.searchId = res.taskByStoryId;
+            } else if (res.type === 'create') {
+                info.message = "创建了" + res.subjectId;
+                info.searchId = res.taskByStoryId;
+            } else if (res.type === "update progress") {
+                info.message = "更新" + res.subjectId + "进度: " + res.oldProgress + "% -- " + res.newProgress + "%";
+                info.searchId = res.taskByStoryId;
+            }
+        } else if (res.subjectType === "comment") {
+            if (res.type === 'at') {
+                info.message = "给你留言了";
+                info.searchId = res.subjectId;
+            }
         }
         return info;
+    };
+
+    checkDetail = (info) => {
+        this.props.dispatch(removeInformation(info.id));
+        this.hiddenInfo();
+        this.goToPage(info.searchId);
     };
 
     goToPage = (searchId) => {
@@ -56,6 +84,20 @@ class Information extends Component {
                 this.props.history.push(`/home/story/${searchId}`);
                 break;
         }
+    };
+
+    deleteInformation = (info) => {
+        this.props.dispatch(removeInformation(info.id));
+    };
+
+    scrollToBottom = () => {
+        let timer = setTimeout(() => {
+            let targetElm = this.refs.infoContent;
+            let tempScrollTop = targetElm.scrollHeight - targetElm.offsetHeight;
+            $(targetElm).animate({scrollTop: tempScrollTop}, 400);
+            timer && clearTimeout(timer);
+            return false;
+        }, 0);
     };
 
     getInfoContent = (information) => {
@@ -74,14 +116,16 @@ class Information extends Component {
                         </div>
                     </div>
                     <div className="notify-right">
-                        <div className="information-button information-close-button">
+                        <div className="information-button information-close-button"
+                             onClick={() => this.deleteInformation(info)}
+                        >
                             <FormattedMessage
                                 id='close'
                                 defaultMessage='Close'
                             />
                         </div>
                         <div className="information-button information-check-button"
-                             onClick={() => this.goToPage(info.searchId)}>
+                             onClick={() => this.checkDetail(info)}>
                             <FormattedMessage
                                 id='check'
                                 defaultMessage='Check'
@@ -106,7 +150,7 @@ class Information extends Component {
                     </Badge>
                 </div>
                 <div className={"info-down-content"}>
-                    <div className="info-top">
+                    <div className="info-top" ref="infoContent">
                         {this.getInfoContent(information)}
                     </div>
                     <div className="info-bottom">

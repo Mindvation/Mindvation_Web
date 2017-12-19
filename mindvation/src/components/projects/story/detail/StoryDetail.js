@@ -15,9 +15,10 @@ import {hasAuth} from '../../../../util/AuthUtil';
 import EditStatus from "../../EditStatus";
 import Image from '../../../common/Image';
 import Discussion from './Discussion';
+import Reward from '../../../reward/Reward';
 
 class StoryDetail extends Component {
-    state = {activeTab: 0};
+    state = {activeTab: 0, activeTab2: 0};
 
     componentDidMount() {
         const {id} = this.props.match.params;
@@ -52,8 +53,7 @@ class StoryDetail extends Component {
 
     render() {
         const {story, dispatch} = this.props;
-
-        const {activeTab} = this.state;
+        const {activeTab, activeTab2} = this.state;
         const panes = [
             {
                 menuItem: <Menu.Item key="basicInfo">
@@ -117,6 +117,34 @@ class StoryDetail extends Component {
             }
         ];
 
+        const panes2 = [
+            {
+                menuItem: <Menu.Item key="discussion">
+                    <div className="detail-tab-title">
+                        <Image name={activeTab2 === 0 ? "comment" : "comment_unselected"}/>
+                        <FormattedMessage
+                            id='comment'
+                            defaultMessage='Comment'
+                        />
+                    </div>
+                </Menu.Item>,
+                pane: <Tab.Pane attached={false} key="check-discussion">
+                    <Discussion story={story} dispatch={dispatch}/>
+                </Tab.Pane>
+            },
+            {
+                menuItem: <Menu.Item key="reward">
+                    <div className="detail-tab-title">
+                        <Image name={activeTab2 === 1 ? "knowledge_selected" : "knowledge_unselected"}/>
+                        求助
+                    </div>
+                </Menu.Item>,
+                pane: <Tab.Pane attached={false} key="check-reward">
+                    <Reward active={activeTab2 === 1}/>
+                </Tab.Pane>
+            }
+        ];
+
         return (
             <div className="project-detail">
                 <div className="header-project">
@@ -162,9 +190,19 @@ class StoryDetail extends Component {
                                  renderActiveOnly={false}
                             />
                         </Segment>
-                        <div className="comment-component">
+                        {/*<div className="comment-component">
                             <Discussion story={story} dispatch={dispatch}/>
-                        </div>
+                        </div>*/}
+                        <Segment className="component-detail">
+                            <Tab menu={{secondary: true, pointing: true}} panes={panes2}
+                                 onTabChange={(event, data) => {
+                                     this.setState({
+                                         activeTab2: data.activeIndex
+                                     })
+                                 }}
+                                 renderActiveOnly={false}
+                            />
+                        </Segment>
                     </Grid.Column>
                     <Grid.Column width={11} className="grid-component-task">
                         <TaskList story={story} dispatch={dispatch}/>

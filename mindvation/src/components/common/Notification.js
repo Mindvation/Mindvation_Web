@@ -9,7 +9,7 @@ let webSocket;
 
 class Notification extends Component {
     componentDidMount() {
-        webSocket = new WebSocket("ws://192.168.0.105:10027/mdvn-websocket-sapi/websocket/" + getStaffId());
+        webSocket = new WebSocket("ws://192.168.0.254:8080/mdvn-websocket-sapi/websocket/" + getStaffId());
         webSocket.onopen = () => {
             console.info('webSocket connected')
         };
@@ -50,10 +50,32 @@ class Notification extends Component {
         let info = {};
         info.avatar = res.initiator.avatar;
         info.name = res.initiator.name;
-        if (res.type === 'update' && res.subjectType === "project") {
-            info.message = "更新了" + res.subjectId;
-            info.searchId = res.subjectId;
+        if (res.subjectType === "project" || res.subjectType === "requirement" || res.subjectType === "story") {
+            if (res.type === 'update') {
+                info.message = "更新了" + res.subjectId;
+                info.searchId = res.subjectId;
+            } else if (res.type === 'create') {
+                info.message = "创建了" + res.subjectId;
+                info.searchId = res.subjectId;
+            }
+        } else if (res.subjectType === "task") {
+            if (res.type === 'update') {
+                info.message = "更新了" + res.subjectId;
+                info.searchId = res.taskByStoryId;
+            } else if (res.type === 'create') {
+                info.message = "创建了" + res.subjectId;
+                info.searchId = res.taskByStoryId;
+            } else if (res.type === "update progress") {
+                info.message = "更新" + res.subjectId + "进度: " + res.oldProgress + "% -- " + res.newProgress + "%";
+                info.searchId = res.taskByStoryId;
+            }
+        } else if (res.subjectType === "comment") {
+            if (res.type === 'at') {
+                info.message = "给你留言了";
+                info.searchId = res.subjectId;
+            }
         }
+
         return info;
     };
 
