@@ -14,6 +14,7 @@ import tags from './tags_reducer';
 import employee from './employee_reducer';
 import department from './department_reducer';
 import information from './information_reducer';
+import reward from './reward_reducer';
 
 const mindvationApp = combineReducers({
     projects,
@@ -30,7 +31,8 @@ const mindvationApp = combineReducers({
     tags,
     employee,
     department,
-    information
+    information,
+    reward
 });
 
 export default mindvationApp;

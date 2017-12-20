@@ -4,12 +4,15 @@ import {Image} from 'semantic-ui-react';
 import {injectIntl} from 'react-intl';
 import {messages} from '../../res/language/defineMessages';
 import {getStaffId} from '../../util/UserStore';
+import {getProjectById} from '../../actions/project_action';
+import {getRequirementById} from '../../actions/requirement_action';
+import {getStoryById, clearStory} from '../../actions/story_action';
 
 let webSocket;
 
 class Notification extends Component {
     componentDidMount() {
-        webSocket = new WebSocket("ws://192.168.0.254:8080/mdvn-websocket-sapi/websocket/" + getStaffId());
+        webSocket = new WebSocket("ws://192.168.0.254:8080/mdvn-websocket/websocket/" + getStaffId());
         webSocket.onopen = () => {
             console.info('webSocket connected')
         };
@@ -34,13 +37,26 @@ class Notification extends Component {
     goToPage = (searchId) => {
         switch (searchId.substr(0, 1)) {
             case "P":
-                this.props.history.push(`/home/projects/${searchId}`);
+                if (this.props.history.location.pathname === `/home/projects/${searchId}`) {
+                    this.props.dispatch(getProjectById(searchId));
+                } else {
+                    this.props.history.push(`/home/projects/${searchId}`);
+                }
                 break;
             case "R":
-                this.props.history.push(`/home/requirement/${searchId}`);
+                if (this.props.history.location.pathname === `/home/requirement/${searchId}`) {
+                    this.props.dispatch(getRequirementById(searchId));
+                } else {
+                    this.props.history.push(`/home/requirement/${searchId}`);
+                }
                 break;
             case "S":
-                this.props.history.push(`/home/story/${searchId}`);
+                if (this.props.history.location.pathname === `/home/story/${searchId}`) {
+                    this.props.dispatch(clearStory());
+                    this.props.dispatch(getStoryById(searchId));
+                } else {
+                    this.props.history.push(`/home/story/${searchId}`);
+                }
                 break;
         }
     };

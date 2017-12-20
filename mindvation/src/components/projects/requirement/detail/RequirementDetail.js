@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom';
 import Image from '../../../common/Image';
 import Discussion from './Discussion';
-import Reward from '../../../reward/Reward';
+import Reward from '../../../../containers/reward_container';
 
 class RequirementDetail extends Component {
     state = {activeTab: 0, activeTab2: 0};

@@ -31,14 +31,16 @@ class Discussion extends Component {
         const {comments = [], dispatch} = this.props.story;
         return (
             <div>
-                <div className="discussion-comment-header display-flex">
+                <Comment comments={comments} dispatch={dispatch}
+                         changeComment={(comment, action, callback) => this.updateStory(comment, action, callback)}/>
+                {/*<div className="discussion-comment-header display-flex">
                     <Image name="comment"/>
                     <div className="task-id">
                         <FormattedMessage
                             id='comment'
                             defaultMessage='Comment'
                         />
-                        {/*{comments.length}*/}
+                        {comments.length}
                     </div>
                     <div className={"comment-toggle-img pointer-cursor" + (visible ? " toggle-visible" : "")}
                          onClick={this.toggleVisibility}>
@@ -50,7 +52,7 @@ class Discussion extends Component {
                         <Comment comments={comments} dispatch={dispatch}
                                  changeComment={(comment, action, callback) => this.updateStory(comment, action, callback)}/>
                     </div>
-                </Transition>
+                </Transition>*/}
             </div>
         );
     }

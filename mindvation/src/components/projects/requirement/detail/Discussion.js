@@ -30,14 +30,16 @@ class Discussion extends Component {
         const {comments = []} = this.props.requirement;
         return (
             <div>
-                <div className="discussion-comment-header display-flex">
+                <Comment comments={comments}
+                         changeComment={(comment, action, callback) => this.updateRequirement(comment, action, callback)}/>
+                {/*<div className="discussion-comment-header display-flex">
                     <Image name="comment"/>
                     <div className="task-id">
                         <FormattedMessage
                             id='comment'
                             defaultMessage='Comment'
                         />
-                        {/*{comments.length}*/}
+                        {comments.length}
                     </div>
                     <div className={"comment-toggle-img pointer-cursor" + (visible ? " toggle-visible" : "")}
                          onClick={this.toggleVisibility}>
@@ -49,7 +51,7 @@ class Discussion extends Component {
                         <Comment comments={comments}
                                  changeComment={(comment, action, callback) => this.updateRequirement(comment, action, callback)}/>
                     </div>
-                </Transition>
+                </Transition>*/}
             </div>
         );
     }

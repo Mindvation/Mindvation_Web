@@ -76,7 +76,7 @@ class CommonHeader extends Component {
                         />
                     </div>
                 </div>
-                <Notification history={this.props.history}/>
+                <Notification history={this.props.history} dispatch={this.props.dispatch}/>
             </div>
         );
     }

@@ -15,7 +15,7 @@ import {hasAuth} from '../../../../util/AuthUtil';
 import EditStatus from "../../EditStatus";
 import Image from '../../../common/Image';
 import Discussion from './Discussion';
-import Reward from '../../../reward/Reward';
+import Reward from '../../../../containers/reward_container';
 
 class StoryDetail extends Component {
     state = {activeTab: 0, activeTab2: 0};

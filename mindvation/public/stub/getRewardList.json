@@ -1,0 +1,98 @@
+{
+  "rewards": [
+    {
+      "rewardId": "R1",
+      "author": {
+        "text": "Frank",
+        "value": "E8",
+        "image": "http://47.100.100.211:8080/mdvn-file-papi/f19f3e92-2be6-49e4-b086-d96d6a4d6e711470057469574862.jpg"
+      },
+      "time": "2017-11-11 06:07:26",
+      "text": "怎样实现垂直居中？",
+      "reward": 50,
+      "tag": {
+        "tagId": "T8",
+        "name": "React",
+        "quoteCnt": 0,
+        "creatorId": "E1",
+        "color": "#b0e063",
+        "createTime": 1509624490000,
+        "tagStyle": 5
+      },
+      "answers": [
+        {
+          "answerId": "A1",
+          "author": {
+            "text": "Bob",
+            "value": "E8",
+            "image": "http://47.100.100.211:8080/mdvn-file-papi/f19f3e92-2be6-49e4-b086-d96d6a4d6e711470057469574862.jpg"
+          },
+          "time": "2017-11-11 08:07:26",
+          "text": "使用Flex布局",
+          "approve": [
+            "E2",
+            "E8",
+            "E3",
+            "E4"
+          ],
+          "disagree": [],
+          "isAdopt": true,
+          "comments": [
+            {
+              "commentId": "C7",
+              "author": {
+                "text": "Frank",
+                "value": "E8",
+                "image": "http://47.100.100.211:8080/mdvn-file-papi/f19f3e92-2be6-49e4-b086-d96d6a4d6e711470057469574862.jpg"
+              },
+              "time": "2017-11-11 06:07:26",
+              "text": "怎样使用Flex布局",
+              "approve": [
+                "E8"
+              ],
+              "disagree": []
+            },
+            {
+              "commentId": "C6",
+              "author": {
+                "text": "Bob",
+                "value": "E3",
+                "image": "http://47.100.100.211:8080/mdvn-file-papi/8d39e77c-10f8-4a3a-ad0e-ff5b326f2671114842724943480.jpg"
+              },
+              "time": "2017-11-10 08:44:33",
+              "text": "参考这个：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html",
+              "approve": [
+                "E3",
+                "E2",
+                "E8",
+                "E4"
+              ],
+              "disagree": []
+            }
+          ]
+        },
+        {
+          "answerId": "A2",
+          "author": {
+            "text": "Darcy",
+            "value": "E6",
+            "image": "http://47.100.100.211:8080/mdvn-file-papi/8d39e77c-10f8-4a3a-ad0e-ff5b326f2671114842724943480.jpg"
+          },
+          "time": "2017-11-11 09:07:26",
+          "text": "使用绝对定位",
+          "isAdopt": false,
+          "approve": [
+            "E2"
+          ],
+          "disagree": [
+            "E8",
+            "E3",
+            "E4"
+          ],
+          "comments": []
+        }
+      ]
+    }
+  ],
+  "totalElements": 6
+}

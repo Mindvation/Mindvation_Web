@@ -5,6 +5,9 @@ import {Image} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import {getInformationList, removeInformation} from '../../actions/information_action';
 import $ from 'jquery';
+import {getProjectById} from '../../actions/project_action';
+import {getRequirementById} from '../../actions/requirement_action';
+import {getStoryById, clearStory} from '../../actions/story_action';
 
 const size = 3;
 
@@ -75,13 +78,26 @@ class Information extends Component {
     goToPage = (searchId) => {
         switch (searchId.substr(0, 1)) {
             case "P":
-                this.props.history.push(`/home/projects/${searchId}`);
+                if (this.props.history.location.pathname === `/home/projects/${searchId}`) {
+                    this.props.dispatch(getProjectById(searchId));
+                } else {
+                    this.props.history.push(`/home/projects/${searchId}`);
+                }
                 break;
             case "R":
-                this.props.history.push(`/home/requirement/${searchId}`);
+                if (this.props.history.location.pathname === `/home/requirement/${searchId}`) {
+                    this.props.dispatch(getRequirementById(searchId));
+                } else {
+                    this.props.history.push(`/home/requirement/${searchId}`);
+                }
                 break;
             case "S":
-                this.props.history.push(`/home/story/${searchId}`);
+                if (this.props.history.location.pathname === `/home/story/${searchId}`) {
+                    this.props.dispatch(clearStory());
+                    this.props.dispatch(getStoryById(searchId));
+                } else {
+                    this.props.history.push(`/home/story/${searchId}`);
+                }
                 break;
         }
     };

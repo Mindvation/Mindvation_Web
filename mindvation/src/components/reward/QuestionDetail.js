@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import Comment from '../common/Comment';
 import {Button, Image, Transition} from 'semantic-ui-react';
 import MVImage from "../common/Image";
-import {Affix, Anchor} from 'antd';
+import {Anchor} from 'antd';
 import {FormattedMessage} from 'react-intl';
 import Mention from '../common/Mention';
+import {getStaffId} from '../../util/UserStore';
 
 const {Link} = Anchor;
 
@@ -40,54 +41,41 @@ class QuestionDetail extends Component {
         })
     };
 
+    updateAnswerComment = (comment, action, callback) => {
+        const {question, dispatch} = this.props;
+        if (action === 'add') {
+        } else {
+        }
+        callback && callback();
+    };
+
     render() {
-        const comments = [{
-            "commentId": "C7",
-            "author": {
-                "text": "Frank",
-                "value": "E8",
-                "image": "http://47.100.100.211:8080/mdvn-file-papi/f19f3e92-2be6-49e4-b086-d96d6a4d6e711470057469574862.jpg"
-            },
-            "time": "2017-11-11 06:07:26",
-            "text": "怎样使用Flex布局",
-            "approve": ["E8"],
-            "disagree": []
-        }, {
-            "commentId": "C6",
-            "author": {
-                "text": "Bob",
-                "value": "E3",
-                "image": "http://47.100.100.211:8080/mdvn-file-papi/8d39e77c-10f8-4a3a-ad0e-ff5b326f2671114842724943480.jpg"
-            },
-            "time": "2017-11-10 08:44:33",
-            "text": "参考这个：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html",
-            "approve": ["E3", "E2", "E8", "E4"],
-            "disagree": []
-        }];
+        const {question} = this.props;
 
         return (
-            <div>
+            question ? <div>
                 <div className="reward-question">
                     <div className="question-author">
                         <div className="question-avatar">
                             <Image className="question-avatar-img"
-                                   src={"http://47.100.100.211:8080/mdvn-file-papi/f19f3e92-2be6-49e4-b086-d96d6a4d6e711470057469574862.jpg"}/>
+                                   src={question.author.image}/>
                         </div>
                         <div className="question-author-right">
-                            <div className="author-name">{'Frank'}</div>
-                            <div className="question-time">{"2017-11-11 06:07:26"}</div>
+                            <div className="author-name">{question.author.name}</div>
+                            <div className="question-time">{question.time}</div>
                         </div>
                     </div>
                     <div className="question-content">
-                        怎样实现垂直居中？
+                        {question.text}
                     </div>
                     <div className="question-bottom">
                         <div className="reward-score">
                             <MVImage name="welfare_ic"/>
-                            {50}
+                            {question.reward}
                         </div>
-                        <div className={"tag-selected " + "tag-style tag-style-" + (1 || 'default')}>
-                            {"React Native"}
+                        <div
+                            className={"tag-selected " + "tag-style tag-style-" + (question.tag.tagStyle || 'default')}>
+                            {question.tag.name}
                         </div>
                     </div>
                     {this.props.active ?
@@ -101,84 +89,57 @@ class QuestionDetail extends Component {
                             </Anchor>
                         </div> : null}
                 </div>
-                <div className="reward-answers">
-                    <div className="reward-answer">
-                        <div className="question-author">
-                            <div className="question-avatar">
-                                <Image className="question-avatar-img"
-                                       src={"http://47.100.100.211:8080/mdvn-file-papi/f19f3e92-2be6-49e4-b086-d96d6a4d6e711470057469574862.jpg"}/>
+                {question.answers && question.answers.length > 0 ?
+                    <div className="reward-answers">
+                        {question.answers.map((answer, i) => {
+                            return <div className="reward-answer" key={i}>
+                                <div className="question-author">
+                                    <div className="question-avatar">
+                                        <Image className="question-avatar-img"
+                                               src={answer.author.image}/>
+                                    </div>
+                                    <div className="question-author-right">
+                                        <div className="author-name">{answer.author.name}</div>
+                                        <div className="question-time">{answer.time}</div>
+                                    </div>
+                                </div>
+                                <div className="answer-adopt">
+                                    <MVImage name={answer.isAdopt ? "adopt_ic_pre" : "adopt_ic"}
+                                             style={{marginRight: 0}}/>
+                                </div>
+                                <div className="question-content">
+                                    {answer.text}
+                                </div>
+                                <div className="answer-bottom">
+                                    <div>
+                                        {answer.approve.indexOf(getStaffId()) > -1 ?
+                                            <MVImage name="like_withMe"/> :
+                                            <MVImage name="like"/>}
+                                        {answer.approve.length}
+                                    </div>
+                                    <div>
+                                        {answer.disagree.indexOf(getStaffId()) > -1 ? <MVImage name="dislike_withMe"/> :
+                                            <MVImage name="dislike"/>}
+                                        {answer.disagree.length}
+                                    </div>
+                                    <div onClick={() => {
+                                        this.changeCommentIndex(i)
+                                    }}>
+                                        <MVImage name="reply"/>{answer.comments.length}
+                                    </div>
+                                </div>
+                                <Transition visible={this.state.commentIndex === i} animation='slide down'
+                                            duration={250}>
+                                    <div className="reward-comment">
+                                        <Comment comments={answer.comments}
+                                                 changeComment={(comment, action, callback) => {
+                                                     this.updateAnswerComment(comment, action, callback)
+                                                 }}/>
+                                    </div>
+                                </Transition>
                             </div>
-                            <div className="question-author-right">
-                                <div className="author-name">{'Bob'}</div>
-                                <div className="question-time">{"2017-11-11 06:07:26"}</div>
-                            </div>
-                        </div>
-                        <div className="answer-adopt">
-                            <MVImage name="adopt_ic_pre" style={{marginRight: 0}}/>
-                        </div>
-                        <div className="question-content">
-                            使用Flex布局
-                        </div>
-                        <div className="answer-bottom">
-                            <div>
-                                <MVImage name="like_withMe"/>
-                                {5}
-                            </div>
-                            <div>
-                                <MVImage name="dislike"/>
-                                {0}
-                            </div>
-                            <div onClick={() => {
-                                this.changeCommentIndex(1)
-                            }}>
-                                <MVImage name="reply"/>{2}
-                            </div>
-                        </div>
-                        <Transition visible={this.state.commentIndex === 1} animation='slide down' duration={250}>
-                            <div className="reward-comment">
-                                <Comment comments={comments}/>
-                            </div>
-                        </Transition>
-                    </div>
-                    <div className="reward-answer">
-                        <div className="question-author">
-                            <div className="question-avatar">
-                                <Image className="question-avatar-img"
-                                       src={"http://47.100.100.211:8080/mdvn-file-papi/8d39e77c-10f8-4a3a-ad0e-ff5b326f2671114842724943480.jpg"}/>
-                            </div>
-                            <div className="question-author-right">
-                                <div className="author-name">{'Darcy'}</div>
-                                <div className="question-time">{"2017-11-11 06:07:26"}</div>
-                            </div>
-                        </div>
-                        <div className="answer-adopt">
-                            <MVImage name="adopt_ic" style={{marginRight: 0}}/>
-                        </div>
-                        <div className="question-content">
-                            使用绝对定位
-                        </div>
-                        <div className="answer-bottom">
-                            <div>
-                                <MVImage name="like_withMe"/>
-                                {1}
-                            </div>
-                            <div>
-                                <MVImage name="dislike"/>
-                                {1}
-                            </div>
-                            <div onClick={() => {
-                                this.changeCommentIndex(2)
-                            }}>
-                                <MVImage name="reply"/>{0}
-                            </div>
-                        </div>
-                        <Transition visible={this.state.commentIndex === 2} animation='slide down' duration={250}>
-                            <div className="reward-comment">
-                                <Comment comments={[]}/>
-                            </div>
-                        </Transition>
-                    </div>
-                </div>
+                        })}
+                    </div> : null}
                 {this.state.showAnswerBox ? <div className="comment-footer" id="answe-question">
                     <div style={{textAlign: 'left'}}>
                         <Mention wrappedComponentRef={node => this.mentionNode = node}/>
@@ -198,7 +159,7 @@ class QuestionDetail extends Component {
                         />
                     </Button>
                 </div> : null}
-            </div>
+            </div> : null
         );
     }
 }

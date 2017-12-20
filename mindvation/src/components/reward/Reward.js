@@ -5,10 +5,11 @@ import CreateReward from './CreateReward';
 class Reward extends Component {
 
     render() {
+        const {reward, dispatch, active} = this.props;
         return (
             <div>
-                <CreateReward/>
-                <QuestionList active={this.props.active}/>
+                <CreateReward dispatch={dispatch}/>
+                <QuestionList dispatch={dispatch} active={active} reward={reward}/>
             </div>
         );
     }
