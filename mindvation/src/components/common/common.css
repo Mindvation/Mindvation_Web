@@ -1166,7 +1166,7 @@ img.ui.image.notify-avatar {
     color: #999999;
 }
 
-.reward-question {
+.issue-question {
     padding: 20px;
     border-bottom: 2px solid #eeeeee;
     position: relative;
@@ -1238,22 +1238,22 @@ img.ui.image.notify-avatar {
     align-items: center;
 }
 
-.reward-score {
+.issue-score {
     margin-right: 20px;
     color: #d4865b;
 }
 
-.reward-answers {
+.issue-answers {
     padding: 0 20px;
 }
 
-.reward-answer {
+.issue-answer {
     padding: 20px 0 20px 20px;
     border-bottom: 1px solid #eeeeee;
     position: relative;
 }
 
-.reward-answer:last-child {
+.issue-answer:last-child {
     border-bottom: none;
 }
 
@@ -1262,27 +1262,27 @@ img.ui.image.notify-avatar {
     cursor: pointer;
 }
 
-.reward-comment {
+.issue-comment {
     padding-left: 20px;
     margin-top: 20px;
 }
 
-.reward-comment .ui.comments {
+.issue-comment .ui.comments {
     border-top: none;
 }
 
-.reward-comment .ui.comments .comment,
-.reward-comment .ui.comments .comment:first-child {
+.issue-comment .ui.comments .comment,
+.issue-comment .ui.comments .comment:first-child {
     box-shadow: none;
     border-top: 1px solid #eeeeee;
     margin: 0;
 }
 
-.reward-comment .ui.comments .comment .actions {
+.issue-comment .ui.comments .comment .actions {
     border-top: none;
 }
 
-.reward-comment .comment-footer {
+.issue-comment .comment-footer {
     padding: 20px 0 0 0;
 }
 

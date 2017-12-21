@@ -54,14 +54,14 @@ class QuestionDetail extends Component {
 
         return (
             question ? <div>
-                <div className="reward-question">
+                <div className="issue-question">
                     <div className="question-author">
                         <div className="question-avatar">
                             <Image className="question-avatar-img"
                                    src={question.author.image}/>
                         </div>
                         <div className="question-author-right">
-                            <div className="author-name">{question.author.name}</div>
+                            <div className="author-name">{question.author.text}</div>
                             <div className="question-time">{question.time}</div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ class QuestionDetail extends Component {
                         {question.text}
                     </div>
                     <div className="question-bottom">
-                        <div className="reward-score">
+                        <div className="issue-score">
                             <MVImage name="welfare_ic"/>
                             {question.reward}
                         </div>
@@ -81,7 +81,7 @@ class QuestionDetail extends Component {
                     {this.props.active ?
                         <div className="answer-btn-anchor">
                             <Anchor offsetTop={84}>
-                                <Link href="#answe-question" title={
+                                <Link href="#answer-question" title={
                                     <div className="answer-btn-img" onClick={() => this.answerQuestion()}>
                                         <MVImage name="answer_btn"/>
                                     </div>}
@@ -90,16 +90,16 @@ class QuestionDetail extends Component {
                         </div> : null}
                 </div>
                 {question.answers && question.answers.length > 0 ?
-                    <div className="reward-answers">
+                    <div className="issue-answers">
                         {question.answers.map((answer, i) => {
-                            return <div className="reward-answer" key={i}>
+                            return <div className="issue-answer" key={i}>
                                 <div className="question-author">
                                     <div className="question-avatar">
                                         <Image className="question-avatar-img"
                                                src={answer.author.image}/>
                                     </div>
                                     <div className="question-author-right">
-                                        <div className="author-name">{answer.author.name}</div>
+                                        <div className="author-name">{answer.author.text}</div>
                                         <div className="question-time">{answer.time}</div>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@ class QuestionDetail extends Component {
                                 </div>
                                 <Transition visible={this.state.commentIndex === i} animation='slide down'
                                             duration={250}>
-                                    <div className="reward-comment">
+                                    <div className="issue-comment">
                                         <Comment comments={answer.comments}
                                                  changeComment={(comment, action, callback) => {
                                                      this.updateAnswerComment(comment, action, callback)
@@ -140,7 +140,7 @@ class QuestionDetail extends Component {
                             </div>
                         })}
                     </div> : null}
-                {this.state.showAnswerBox ? <div className="comment-footer" id="answe-question">
+                {this.state.showAnswerBox ? <div className="comment-footer" id="answer-question">
                     <div style={{textAlign: 'left'}}>
                         <Mention wrappedComponentRef={node => this.mentionNode = node}/>
                     </div>

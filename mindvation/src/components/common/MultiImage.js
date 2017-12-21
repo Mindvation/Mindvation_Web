@@ -20,10 +20,9 @@ class MultiImage extends Component {
             previewImage: file.url || file.thumbUrl,
             previewVisible: true,
         });
-    }
+    };
 
     handleChange = ({file, fileList}) => {
-        console.info(file.status);
         this.setState({fileList})
     };
 

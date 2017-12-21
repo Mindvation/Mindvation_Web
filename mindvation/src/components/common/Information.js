@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {Badge} from 'antd';
 import MVImage from './Image';
 import {Image} from 'semantic-ui-react';
-import {FormattedMessage} from 'react-intl';
+import {injectIntl, FormattedMessage} from 'react-intl';
 import {getInformationList, removeInformation} from '../../actions/information_action';
 import $ from 'jquery';
 import {getProjectById} from '../../actions/project_action';
 import {getRequirementById} from '../../actions/requirement_action';
 import {getStoryById, clearStory} from '../../actions/story_action';
+import {messages} from '../../res/language/defineMessages';
 
 const size = 3;
 
@@ -37,35 +38,37 @@ class Information extends Component {
     };
 
     formatInfo = (res) => {
+        const {formatMessage} = this.props.intl;
         let info = {};
-        info.id = res.uuId;
         info.avatar = res.initiator.avatar;
         info.name = res.initiator.name;
         if (res.subjectType === "project" || res.subjectType === "requirement" || res.subjectType === "story") {
             if (res.type === 'update') {
-                info.message = "更新了" + res.subjectId;
+                info.message = formatMessage(messages.notifyUpdated) + res.subjectId;
                 info.searchId = res.subjectId;
             } else if (res.type === 'create') {
-                info.message = "创建了" + res.subjectId;
+                info.message = formatMessage(messages.notifyCreated) + res.subjectId;
                 info.searchId = res.subjectId;
             }
         } else if (res.subjectType === "task") {
             if (res.type === 'update') {
-                info.message = "更新了" + res.subjectId;
+                info.message = formatMessage(messages.notifyUpdated) + res.subjectId;
                 info.searchId = res.taskByStoryId;
             } else if (res.type === 'create') {
-                info.message = "创建了" + res.subjectId;
+                info.message = formatMessage(messages.notifyCreated) + res.subjectId;
                 info.searchId = res.taskByStoryId;
             } else if (res.type === "update progress") {
-                info.message = "更新" + res.subjectId + "进度: " + res.oldProgress + "% -- " + res.newProgress + "%";
+                info.message = formatMessage(messages.notifyUpdated) + res.subjectId
+                    + formatMessage(messages.notifyProgress) + ": " + res.oldProgress + "% -- " + res.newProgress + "%";
                 info.searchId = res.taskByStoryId;
             }
         } else if (res.subjectType === "comment") {
             if (res.type === 'at') {
-                info.message = "给你留言了";
+                info.message = formatMessage(messages.notifyLeaveMessage);
                 info.searchId = res.subjectId;
             }
         }
+
         return info;
     };
 
@@ -171,7 +174,10 @@ class Information extends Component {
                     </div>
                     <div className="info-bottom">
                         <div className="info-check-more" onClick={() => this.checkMoreInfo()}>
-                            点击查看更多
+                            <FormattedMessage
+                                id='clickForMore'
+                                defaultMessage='Click For More'
+                            />
                         </div>
                     </div>
                 </div>
@@ -180,4 +186,4 @@ class Information extends Component {
     }
 }
 
-export default Information;
+export default injectIntl(Information);

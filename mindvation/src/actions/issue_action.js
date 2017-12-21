@@ -2,23 +2,23 @@
  * action 类型
  */
 
-export const SET_REWARDS = 'SET_REWARDS';
+export const SET_ISSUES = 'SET_ISSUES';
 
 /*
  * action 创建函数
  */
-export function setRewards(rewards) {
-    return {type: SET_REWARDS, rewards}
+export function setIssues(issues) {
+    return {type: SET_ISSUES, issues}
 }
 
-export function getRewardList() {
+export function getIssueList() {
     return dispatch => {
-        fetch('/stub/getRewardList.json')
+        fetch('/stub/getIssueList.json')
             .then((res) => {
                 return res.json();
             })
             .then((data) => {
-                dispatch(setRewards(data));
+                dispatch(setIssues(data));
             })
             .catch((e) => {
                 console.log(e.message);

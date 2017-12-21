@@ -16,7 +16,6 @@ class TaskHistory extends Component {
     };
 
     formatHistory = (history) => {
-        console.info(history);
         if (history && history.length > 0) {
             let tempHistory = [];
             history.map((item, i) => {

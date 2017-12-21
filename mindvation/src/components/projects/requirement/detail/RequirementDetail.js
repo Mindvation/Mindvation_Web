@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom';
 import Image from '../../../common/Image';
 import Discussion from './Discussion';
-import Reward from '../../../../containers/reward_container';
+import Issue from '../../../../containers/issue_container';
 
 class RequirementDetail extends Component {
     state = {activeTab: 0, activeTab2: 0};
@@ -112,14 +112,14 @@ class RequirementDetail extends Component {
                 </Tab.Pane>
             },
             {
-                menuItem: <Menu.Item key="reward">
+                menuItem: <Menu.Item key="issue">
                     <div className="detail-tab-title">
                         <Image name={activeTab2 === 1 ? "knowledge_selected" : "knowledge_unselected"}/>
                         求助
                     </div>
                 </Menu.Item>,
-                pane: <Tab.Pane attached={false} key="check-reward">
-                    <Reward active={activeTab2 === 1}/>
+                pane: <Tab.Pane attached={false} key="check-issue">
+                    <Issue active={activeTab2 === 1}/>
                 </Tab.Pane>
             }
         ];

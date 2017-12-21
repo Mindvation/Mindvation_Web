@@ -7,20 +7,20 @@ import AddTags from "../../containers/tag_container";
 import Select from '../common/Select';
 import {staffStatusOptions} from '../../res/data/dataOptions';
 
-class CreateReward extends Component {
+class CreateIssue extends Component {
     state = {modalOpen: false};
 
     openModal = () => this.setState({modalOpen: true});
 
     closeModal = () => this.setState({modalOpen: false});
 
-    newReward = () => {
-        /*let rewardInfo = {
+    newIssue = () => {
+        /*let issueInfo = {
             name: this.nameNode.getValue()
         };
-        let flag = checkValid(rewardInfo);
+        let flag = checkValid(issueInfo);
         if (flag) {
-            rewardInfo = getDataInfo(rewardInfo);
+            issueInfo = getDataInfo(issueInfo);
         }*/
         this.closeModal();
     };
@@ -30,7 +30,10 @@ class CreateReward extends Component {
         return (
             <div className="model-main-container">
                 <div className="edit-detail-button" onClick={() => this.openModal()}>
-                    发布求助信息
+                    <FormattedMessage
+                        id='newIssue'
+                        defaultMessage='New Issue'
+                    />
                 </div>
                 <Modal
                     closeOnEscape={false}
@@ -38,10 +41,13 @@ class CreateReward extends Component {
                     open={modalOpen}
                     size='large'>
                     <Modal.Header className="modal-title-border">
-                        发布求助信息
+                        <FormattedMessage
+                            id='newIssue'
+                            defaultMessage='New Issue'
+                        />
                     </Modal.Header>
                     <Modal.Content>
-                        <Simditor label="Department Name"
+                        <Simditor label="Description"
                                   ref={node => this.nameNode = node}
                         />
                         <div className={"components-item item-horizontal align-right"}>
@@ -64,7 +70,7 @@ class CreateReward extends Component {
                                 defaultMessage='Cancel'
                             />
                         </Button>
-                        <Button className="confirm-button" onClick={() => this.newReward()}>
+                        <Button className="confirm-button" onClick={() => this.newIssue()}>
                             <FormattedMessage
                                 id='confirm'
                                 defaultMessage='Confirm'
@@ -77,4 +83,4 @@ class CreateReward extends Component {
     }
 }
 
-export default CreateReward;
+export default CreateIssue;

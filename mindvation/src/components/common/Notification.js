@@ -61,33 +61,35 @@ class Notification extends Component {
         }
     };
 
-    formatMessage = (res) => {
+    formatNotify = (res) => {
+        const {formatMessage} = this.props.intl;
         res = JSON.parse(res);
         let info = {};
         info.avatar = res.initiator.avatar;
         info.name = res.initiator.name;
         if (res.subjectType === "project" || res.subjectType === "requirement" || res.subjectType === "story") {
             if (res.type === 'update') {
-                info.message = "更新了" + res.subjectId;
+                info.message = formatMessage(messages.notifyUpdated) + res.subjectId;
                 info.searchId = res.subjectId;
             } else if (res.type === 'create') {
-                info.message = "创建了" + res.subjectId;
+                info.message = formatMessage(messages.notifyCreated) + res.subjectId;
                 info.searchId = res.subjectId;
             }
         } else if (res.subjectType === "task") {
             if (res.type === 'update') {
-                info.message = "更新了" + res.subjectId;
+                info.message = formatMessage(messages.notifyUpdated) + res.subjectId;
                 info.searchId = res.taskByStoryId;
             } else if (res.type === 'create') {
-                info.message = "创建了" + res.subjectId;
+                info.message = formatMessage(messages.notifyCreated) + res.subjectId;
                 info.searchId = res.taskByStoryId;
             } else if (res.type === "update progress") {
-                info.message = "更新" + res.subjectId + "进度: " + res.oldProgress + "% -- " + res.newProgress + "%";
+                info.message = formatMessage(messages.notifyUpdated) + res.subjectId
+                    + formatMessage(messages.notifyProgress) + ": " + res.oldProgress + "% -- " + res.newProgress + "%";
                 info.searchId = res.taskByStoryId;
             }
         } else if (res.subjectType === "comment") {
             if (res.type === 'at') {
-                info.message = "给你留言了";
+                info.message = formatMessage(messages.notifyLeaveMessage);
                 info.searchId = res.subjectId;
             }
         }
@@ -100,7 +102,7 @@ class Notification extends Component {
 
         const key = `open${Date.now()}`;
 
-        const info = this.formatMessage(message);
+        const info = this.formatNotify(message);
 
         const msg = <div className="notify-content">
             <div className="notify-left">

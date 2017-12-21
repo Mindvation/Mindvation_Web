@@ -251,6 +251,11 @@ const zh_CN = {
     removeTaskHistory: "删除附件",
     createTaskHistory: "创建任务",
     updateTaskProgress: "更新进度到",
-    check: "查看"
+    check: "查看",
+    updated: "更新了",
+    created: "创建了",
+    leaveMessage: "给你留言了",
+    clickForMore: "点击查看更多",
+    newIssue: "发布求助信息"
 };
 export default zh_CN;

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import QuestionDetail from './QuestionDetail';
-import {getRewardList} from '../../actions/reward_action';
+import {getIssueList} from '../../actions/issue_action';
 
 class QuestionList extends Component {
     componentDidMount() {
-        this.props.dispatch(getRewardList());
+        this.props.dispatch(getIssueList());
     };
 
     pageChange = (page) => {
@@ -13,20 +13,20 @@ class QuestionList extends Component {
 
     getQuestionList = (total) => {
         let res = [];
-        for (let i = 0; i < total; i++) {
+        for (let i = 0; i < total.length; i++) {
             res.push(<div key={i}>{i}</div>)
         }
         return res;
     };
 
     render() {
-        const {active, reward, dispatch} = this.props;
+        const {active, issue, dispatch} = this.props;
         return (
             <div>
                 <div className="question-list">
-                    {this.getQuestionList(reward.totalElements)}
+                    {this.getQuestionList(issue.totalElements)}
                 </div>
-                <QuestionDetail dispatch={dispatch} active={active} question={reward.rewards[0]}/>
+                <QuestionDetail dispatch={dispatch} active={active} question={issue.issues[0]}/>
             </div>
         );
     }

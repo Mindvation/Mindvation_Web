@@ -14,7 +14,6 @@ class UploadFile extends Component {
     };
 
     handleChange = ({file, fileList}) => {
-        console.info(file.status);
         this.setState({fileList});
         if (file.status === 'done') {
             this.setFileUrl(fileList, file);

@@ -1,7 +1,7 @@
 {
-  "rewards": [
+  "issues": [
     {
-      "rewardId": "R1",
+      "issueId": "R1",
       "author": {
         "text": "Frank",
         "value": "E8",
@@ -10,6 +10,7 @@
       "time": "2017-11-11 06:07:26",
       "text": "怎样实现垂直居中？",
       "reward": 50,
+      "isResolved": true,
       "tag": {
         "tagId": "T8",
         "name": "React",
@@ -94,5 +95,9 @@
       ]
     }
   ],
-  "totalElements": 6
+  "totalElements": [
+    "R1",
+    "R3",
+    "R5"
+  ]
 }

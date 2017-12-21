@@ -76,5 +76,21 @@ export const messages = defineMessages({
     closeDesc: {
         id: 'close',
         defaultMessage: 'Close'
+    },
+    notifyUpdated: {
+        id: 'updated',
+        defaultMessage: 'Updated '
+    },
+    notifyCreated: {
+        id: 'created',
+        defaultMessage: 'Created '
+    },
+    notifyProgress: {
+        id: 'progress',
+        defaultMessage: 'Progress'
+    },
+    notifyLeaveMessage:{
+        id: 'leaveMessage',
+        defaultMessage: 'Leave a Message for you'
     }
 });

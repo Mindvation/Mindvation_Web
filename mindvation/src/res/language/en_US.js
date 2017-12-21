@@ -251,6 +251,11 @@ const en_US = {
     removeTaskHistory: "Remove Attachment",
     createTaskHistory: "Create Task",
     updateTaskProgress: "Updated progress to ",
-    check: "Check"
+    check: "Check",
+    updated: "Updated ",
+    created: "Created ",
+    leaveMessage: "Leave a Message for you",
+    clickForMore: "Click For More",
+    newIssue: "New Issue"
 };
 export default en_US;
