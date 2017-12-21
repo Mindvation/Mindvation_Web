@@ -33,13 +33,8 @@ export function createTag(tag, callback) {
     }
 }
 
-export function retrieveTags(page, pageSize) {
+export function retrieveTags() {
     return dispatch => {
-        const params = {
-            "page": page,
-            "pageSize": pageSize
-        };
-
         post(url.retrieveTags, {})
             .then((res) => {
                 dispatch(retrievedTags(res.responseBody.tags))

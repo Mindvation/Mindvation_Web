@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input, Header, Button, Icon} from 'semantic-ui-react';
+import {Input, Button} from 'semantic-ui-react';
 import {Tree} from 'antd';
 import {FormattedMessage} from 'react-intl';
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table, Image, Header, Icon, Button} from 'semantic-ui-react';
+import {Table, Image} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 
 class ChooseMembers extends Component {

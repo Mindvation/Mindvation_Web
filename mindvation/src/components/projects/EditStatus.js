@@ -60,7 +60,7 @@ class EditStatus extends Component {
                                 defaultMessage='Close'
                             />
                         </Button>
-                        <Button className={status.status === "hold" ? "status-indicator" : "" + " status-button"}
+                        <Button className={(status.status === "hold" ? "status-indicator" : "") + " status-button"}
                                 disabled={disabled}
                                 onClick={() => this.changeStatus('hold')}>
                             <FormattedMessage

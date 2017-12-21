@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Modal, Icon} from 'semantic-ui-react';
+import {Button, Modal} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from './BasicInfo';
 import AdditionalInfo from './AdditionalInfo';
 import OptionalItem from './OptionalItem';
 import {addStoryToList} from '../../../actions/stories_action';
-import {clearTempTask} from '../../../actions/task_action';
 import {checkValid, getDataInfo} from '../../../util/CommUtil';
 import {hasAuth} from '../../../util/AuthUtil';
 import SuccessAlert from '../SuccessAlert';
@@ -18,7 +17,6 @@ class CreateRequirement extends Component {
     openModal = () => this.setState({modalOpen: true});
 
     closeModal = () => {
-        this.props.dispatch(clearTempTask());
         this.setState({modalOpen: false});
     };
 

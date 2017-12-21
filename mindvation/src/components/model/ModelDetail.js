@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, Label, Segment, Header} from 'semantic-ui-react';
+import {List} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import {Tree} from 'antd';
 import DisplayRoles from './createModel/DisplayRoles';
@@ -26,9 +26,6 @@ class ModelDetail extends Component {
     }
 
     initModelData = (model) => {
-        /*this.setState({
-            model: model
-        })*/
         getModelDetail(model, function (data) {
             this.setState({
                 model: data

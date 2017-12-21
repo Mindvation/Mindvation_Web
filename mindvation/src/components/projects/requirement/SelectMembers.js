@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, Popup, Icon, Image, Table} from 'semantic-ui-react';
+import {Button, Modal, Popup, Image, Table} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import ChooseMembers from '../../../containers/member_container';
 import MVImage from '../../common/Image';

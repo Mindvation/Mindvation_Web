@@ -2,17 +2,9 @@ import React, {Component} from 'react';
 import {Mention, Form} from 'antd';
 import {Image} from 'semantic-ui-react';
 import {retrieveStaff} from '../../util/Service';
-import {isEmpty} from '../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 
 const {getMentions, toContentState} = Mention;
-
-const webFrameworks = [
-    {name: 'Bob', type: 'FE', icon: require('../../res/image/photo.jpg'), id: "1"},
-    {name: 'Frank', type: 'BA', icon: require('../../res/image/photo.jpg'), id: "2"},
-    {name: 'Darcy', type: 'PM', icon: require('../../res/image/photo.jpg'), id: "3"},
-    {name: 'Migun', type: 'BE', icon: require('../../res/image/photo.jpg'), id: "4"}
-];
 
 class MVMention extends Component {
     constructor() {

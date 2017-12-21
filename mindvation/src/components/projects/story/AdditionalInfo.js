@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Modal, Icon} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import Select from '../../common/Select';
 import Input from '../../common/Input';
 import DatePicker from '../../common/DatePicker';

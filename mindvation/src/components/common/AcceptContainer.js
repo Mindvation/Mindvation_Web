@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DropTarget} from 'react-dnd';
-import ItemTypes from './ItemTypes';
 
 let data;
 

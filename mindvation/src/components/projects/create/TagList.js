@@ -73,10 +73,6 @@ class TagList extends Component {
             tagList.length === 0 ? null : <List horizontal className={className}>
                 {tagList.map((tag, i) => {
                     return <List.Item key={i} style={{position: 'relative'}}>
-                        {/*{toggle && this.checkTagStatus(selectedTags, tag) ?
-                            <Icon name="check circle outline" color="green" size="large"
-                                  className="tags-icon"
-                            /> : null}*/}
                         <div
                             className={((toggle && this.checkTagStatus(selectedTags, tag) || isSelected) ? "tag-selected " : "")
                             + "tag-style tag-style-" + (tag.tagStyle || 'default')}

@@ -2,7 +2,6 @@ import {combineReducers} from 'redux';
 import projects from './projects_reducer';
 import project from './project_reducer';
 import userInfo from './user_reducer';
-import task from './task_reducer';
 import member from './member_reducer';
 import requirement from './requirement_reducer';
 import requirements from './requirements_reducer';
@@ -19,7 +18,6 @@ import issue from './issue_reducer';
 const mindvationApp = combineReducers({
     projects,
     userInfo,
-    task,
     project,
     member,
     requirement,

@@ -5,10 +5,6 @@ import {FormattedMessage} from 'react-intl';
 import Image from '../../common/Image';
 
 class Story extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div className="requirement-segment">

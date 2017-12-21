@@ -1181,9 +1181,21 @@ img.ui.image.notify-avatar {
 .question-list > div {
     padding: 5px 10px;
     margin: 5px;
-    border: 1px solid #eeeeee;
+    border: 2px solid #eeeeee;
     cursor: pointer;
-    background: #0ea432;
+    background: #f4f4f4;
+    font-size: 12px;
+    color: #666666;
+    border-radius: 4px;
+}
+
+.question-list > div.resolved-issue {
+    background: #aece44;
+    color: #ffffff;
+}
+
+.question-list > div.selected-issue {
+    border: 2px solid #577ca6;
 }
 
 .question-author {
@@ -1239,7 +1251,7 @@ img.ui.image.notify-avatar {
 }
 
 .issue-score {
-    margin-right: 20px;
+    margin-right: 30px;
     color: #d4865b;
 }
 

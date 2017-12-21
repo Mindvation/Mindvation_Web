@@ -30,6 +30,8 @@ class SuccessAlert extends Component {
             case "S":
                 history.push(`/home/story/${id}`);
                 break;
+            default:
+                return;
         }
     };
 

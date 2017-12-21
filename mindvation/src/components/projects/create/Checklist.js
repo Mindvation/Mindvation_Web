@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table, Button} from 'semantic-ui-react';
+import {Table} from 'semantic-ui-react';
 import {getDesc, isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';
 import {deleteChecklist} from '../../../actions/checklist_action';
@@ -42,7 +42,7 @@ class Checklist extends Component {
         let displayHeader = showAction ? headerWithAction : header;
         return (
             <div>
-                <Table  textAlign="center">
+                <Table textAlign="center">
                     <Table.Header>
                         <Table.Row>
                             {

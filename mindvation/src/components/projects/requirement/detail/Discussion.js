@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Transition} from 'semantic-ui-react';
+/*import {Transition} from 'semantic-ui-react';*/
 import Comment from '../../../common/Comment';
 import {createRequirementComment, voteRequirementComment} from '../../../../actions/requirement_action';
-import Image from '../../../common/Image';
-import {FormattedMessage} from 'react-intl';
+/*import Image from '../../../common/Image';
+import {FormattedMessage} from 'react-intl';*/
 
 class Discussion extends Component {
     state = {

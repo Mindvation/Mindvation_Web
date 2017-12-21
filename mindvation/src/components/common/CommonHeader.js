@@ -30,6 +30,8 @@ class CommonHeader extends Component {
             case "S":
                 this.props.history.push(`/home/story/${searchId}`);
                 break;
+            default:
+                return;
         }
     };
 

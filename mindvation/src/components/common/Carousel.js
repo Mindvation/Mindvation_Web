@@ -49,7 +49,9 @@ class Carousel extends Component {
     up = () => {
         let targetElm = this.refs.myCarousel.firstElementChild;
         let tempScrollTop = targetElm.scrollTop - targetElm.clientHeight / 2;
-        tempScrollTop < 5 ? tempScrollTop = 0 : tempScrollTop;
+        if (tempScrollTop < 5) {
+            tempScrollTop = 0
+        }
         $(targetElm).animate({scrollTop: tempScrollTop}, 400, this.checkScrollable);
         return false;
     };

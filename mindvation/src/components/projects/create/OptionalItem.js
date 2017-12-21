@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Icon, Modal} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import Checklists from '../../../containers/checklist_container';
 import AddChecklist from './AddChecklist';
 import {FormattedMessage} from 'react-intl';

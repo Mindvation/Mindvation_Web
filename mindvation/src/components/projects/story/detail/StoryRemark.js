@@ -81,7 +81,7 @@ class StoryRemark extends Component {
                         <div className="story-remark-text read-only-text">
                             <div className="simditor">
                                 <div className="simditor-body"
-                                     dangerouslySetInnerHTML={{__html: story.storyNote && story.storyNote.noteDesc || "N/A"}}/>
+                                     dangerouslySetInnerHTML={{__html: (story.storyNote && story.storyNote.noteDesc) || "N/A"}}/>
                             </div>
                         </div>
                     </div>}

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Table, Button} from 'semantic-ui-react';
+import {Table} from 'semantic-ui-react';
 import {Pagination} from 'antd';
 import {isEmpty} from '../../../util/CommUtil';
 import {FormattedMessage} from 'react-intl';

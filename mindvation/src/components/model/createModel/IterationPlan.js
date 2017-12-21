@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input, Button, Icon, Modal, Segment, List} from 'semantic-ui-react';
+import {Input, Button, Modal, List} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import _ from 'lodash';
 import {arrOrder} from '../../../util/CommUtil';

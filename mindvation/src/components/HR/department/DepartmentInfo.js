@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon, Modal, Divider, Button} from 'semantic-ui-react';
+import {Modal, Button} from 'semantic-ui-react';
 import {FormattedMessage} from 'react-intl';
 import Input from '../../common/Input';
 import _ from 'lodash';

@@ -4,10 +4,6 @@ import CreateRequirement from '../../../containers/requirement_container';
 import {FormattedMessage} from 'react-intl';
 
 class Requirement extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div className="requirement-segment">

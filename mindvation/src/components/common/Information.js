@@ -102,6 +102,8 @@ class Information extends Component {
                     this.props.history.push(`/home/story/${searchId}`);
                 }
                 break;
+            default:
+                return;
         }
     };
 

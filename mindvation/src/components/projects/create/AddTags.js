@@ -80,16 +80,6 @@ class AddTags extends Component {
             if (existOption) {
                 this.openPopup();
             } else {
-                /*let willAddTag = {
-                    tagId: "T" + (tempTags.length + 1),
-                    name: tag,
-                    color: getRandomColor()
-                };
-                tempTags.push(willAddTag);
-                /!*this.setState({
-                    allTags: tempTags
-                });*!/*/
-
                 this.props.dispatch(createTagAction({
                     name: tag,
                     creatorId: getStaffId(),
