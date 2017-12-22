@@ -256,6 +256,7 @@ const en_US = {
     created: "Created ",
     leaveMessage: "Leave a Message for you",
     clickForMore: "Click For More",
-    newIssue: "New Issue"
+    newIssue: "New Issue",
+    Reward: "Reward"
 };
 export default en_US;

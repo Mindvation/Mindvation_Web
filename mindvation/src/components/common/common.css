@@ -1189,12 +1189,12 @@ img.ui.image.notify-avatar {
     border-radius: 4px;
 }
 
-.question-list > div.resolved-issue {
+.question-list > div.issue-resolved {
     background: #aece44;
     color: #ffffff;
 }
 
-.question-list > div.selected-issue {
+.question-list > div.issue-selected {
     border: 2px solid #577ca6;
 }
 

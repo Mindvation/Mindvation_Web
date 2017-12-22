@@ -40,6 +40,7 @@ class Information extends Component {
     formatInfo = (res) => {
         const {formatMessage} = this.props.intl;
         let info = {};
+        info.id = res.uuId;
         info.avatar = res.initiator.avatar;
         info.name = res.initiator.name;
         if (res.subjectType === "project" || res.subjectType === "requirement" || res.subjectType === "story") {

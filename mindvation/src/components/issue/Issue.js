@@ -5,11 +5,11 @@ import CreateIssue from './CreateIssue';
 class Issue extends Component {
 
     render() {
-        const {issue, dispatch, active} = this.props;
+        const {issue, dispatch, active, subject} = this.props;
         return (
             <div>
-                <CreateIssue dispatch={dispatch}/>
-                <QuestionList dispatch={dispatch} active={active} issue={issue}/>
+                <CreateIssue dispatch={dispatch} subject={subject}/>
+                <QuestionList dispatch={dispatch} active={active} issue={issue} subject={subject}/>
             </div>
         );
     }

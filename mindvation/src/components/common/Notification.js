@@ -12,7 +12,7 @@ let webSocket;
 
 class Notification extends Component {
     componentDidMount() {
-        webSocket = new WebSocket("ws://192.168.0.254:8080/mdvn-websocket/websocket/" + getStaffId());
+        webSocket = new WebSocket("ws://47.100.100.211:8080/mdvn-websocket/websocket/" + getStaffId());
         webSocket.onopen = () => {
             console.info('webSocket connected')
         };

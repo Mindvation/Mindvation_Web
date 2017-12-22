@@ -119,7 +119,8 @@ class RequirementDetail extends Component {
                     </div>
                 </Menu.Item>,
                 pane: <Tab.Pane attached={false} key="check-issue">
-                    <Issue active={activeTab2 === 1}/>
+                    <Issue subject={{id: requirement.reqId, projectId: requirement.projectId}}
+                           active={activeTab2 === 1}/>
                 </Tab.Pane>
             }
         ];

@@ -6,6 +6,13 @@ import {Anchor} from 'antd';
 import {FormattedMessage} from 'react-intl';
 import Mention from '../common/Mention';
 import {getStaffId} from '../../util/UserStore';
+import {
+    answerIssue,
+    updateAnswerJudgement,
+    adoptAnswer,
+    createAnswerComment,
+    voteAnswerComment
+} from '../../actions/issue_action';
 
 const {Link} = Anchor;
 
@@ -41,17 +48,39 @@ class QuestionDetail extends Component {
         })
     };
 
-    updateAnswerComment = (comment, action, callback) => {
+    sendAnswer = () => {
+        let answerInfo = this.mentionNode.getInfo();
+        this.props.dispatch(answerIssue(this.props.question, answerInfo, () => {
+            this.mentionNode.handleReset();
+            this.cancelAnswer();
+        }))
+    };
+
+    updateAnswerComment = (answer, comment, action, callback) => {
         const {question, dispatch} = this.props;
         if (action === 'add') {
+            dispatch(createAnswerComment(question, answer, comment, callback));
         } else {
+            dispatch(voteAnswerComment(answer, comment, action));
         }
-        callback && callback();
+    };
+
+    agreeAnswer = (answer) => {
+        answer.action = 'like';
+        this.props.dispatch(updateAnswerJudgement(answer));
+    };
+
+    disagreeAnswer = (answer) => {
+        answer.action = 'dislike';
+        this.props.dispatch(updateAnswerJudgement(answer));
+    };
+
+    userAdoptAnswer = (answer) => {
+        this.props.dispatch(adoptAnswer(this.props.question, answer));
     };
 
     render() {
         const {question} = this.props;
-
         return (
             question ? <div>
                 <div className="issue-question">
@@ -65,8 +94,10 @@ class QuestionDetail extends Component {
                             <div className="question-time">{question.time}</div>
                         </div>
                     </div>
-                    <div className="question-content">
-                        {question.text}
+                    <div className="question-content read-only-text">
+                        <div className="simditor">
+                            <div className="simditor-body" dangerouslySetInnerHTML={{__html: question.text}}/>
+                        </div>
                     </div>
                     <div className="question-bottom">
                         <div className="issue-score">
@@ -104,20 +135,27 @@ class QuestionDetail extends Component {
                                     </div>
                                 </div>
                                 <div className="answer-adopt">
-                                    <MVImage name={answer.isAdopt ? "adopt_ic_pre" : "adopt_ic"}
-                                             style={{marginRight: 0}}/>
+                                    {!question.isResolved && getStaffId() === question.author.value ?
+                                        <div onClick={() => this.userAdoptAnswer(answer)}>
+                                            <MVImage name="adopt_ic"
+                                                     style={{marginRight: 0}}/>
+                                        </div> : null}
+
+                                    {question.isResolved && answer.isAdopt ?
+                                        <MVImage name="adopt_ic_pre"
+                                                 style={{marginRight: 0}}/> : null}
                                 </div>
                                 <div className="question-content">
                                     {answer.text}
                                 </div>
                                 <div className="answer-bottom">
-                                    <div>
+                                    <div onClick={() => this.agreeAnswer(answer)}>
                                         {answer.approve.indexOf(getStaffId()) > -1 ?
                                             <MVImage name="like_withMe"/> :
                                             <MVImage name="like"/>}
                                         {answer.approve.length}
                                     </div>
-                                    <div>
+                                    <div onClick={() => this.disagreeAnswer(answer)}>
                                         {answer.disagree.indexOf(getStaffId()) > -1 ? <MVImage name="dislike_withMe"/> :
                                             <MVImage name="dislike"/>}
                                         {answer.disagree.length}
@@ -133,7 +171,7 @@ class QuestionDetail extends Component {
                                     <div className="issue-comment">
                                         <Comment comments={answer.comments}
                                                  changeComment={(comment, action, callback) => {
-                                                     this.updateAnswerComment(comment, action, callback)
+                                                     this.updateAnswerComment(answer, comment, action, callback)
                                                  }}/>
                                     </div>
                                 </Transition>
@@ -151,7 +189,9 @@ class QuestionDetail extends Component {
                             defaultMessage='Cancel'
                         />
                     </Button>
-                    <Button className="comment-action-button"
+                    <Button onClick={() => {
+                        this.sendAnswer()
+                    }} className="comment-action-button"
                             primary>
                         <FormattedMessage
                             id='send'

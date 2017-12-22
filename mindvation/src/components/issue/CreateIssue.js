@@ -4,8 +4,8 @@ import {FormattedMessage} from 'react-intl';
 import {checkValid, getDataInfo} from '../../util/CommUtil';
 import Simditor from '../common/Simditor';
 import AddTags from "../../containers/tag_container";
-import Select from '../common/Select';
-import {staffStatusOptions} from '../../res/data/dataOptions';
+import Input from '../common/Input';
+import {createIssue} from '../../actions/issue_action';
 
 class CreateIssue extends Component {
     state = {modalOpen: false};
@@ -15,14 +15,17 @@ class CreateIssue extends Component {
     closeModal = () => this.setState({modalOpen: false});
 
     newIssue = () => {
-        /*let issueInfo = {
-            name: this.nameNode.getValue()
+        let issueInfo = {
+            description: this.descriptionNode.getValue(),
+            tag: this.skillTagsNode.getWrappedInstance().getValue(),
+            reward: this.rewardNode.getWrappedInstance().getValue()
         };
         let flag = checkValid(issueInfo);
         if (flag) {
             issueInfo = getDataInfo(issueInfo);
-        }*/
-        this.closeModal();
+            this.props.dispatch(createIssue(this.props.subject, issueInfo, this.closeModal))
+        }
+        //this.closeModal();
     };
 
     render() {
@@ -48,7 +51,8 @@ class CreateIssue extends Component {
                     </Modal.Header>
                     <Modal.Content>
                         <Simditor label="Description"
-                                  ref={node => this.nameNode = node}
+                                  ref={node => this.descriptionNode = node}
+                                  required={true}
                         />
                         <div className={"components-item item-horizontal align-right"}>
                             <div className='field-title'>
@@ -59,9 +63,8 @@ class CreateIssue extends Component {
                             </div>
                             <AddTags singleSelect={true} ref={node => this.skillTagsNode = node}/>
                         </div>
-                        <Select options={staffStatusOptions} label="Status"
-                                ref={node => this.statusNode = node}
-                        />
+                        <Input label="Reward" required={true} type="number" step="1"
+                               ref={node => this.rewardNode = node}/>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button className="cancel-button" onClick={() => this.closeModal()}>

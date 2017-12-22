@@ -1711,3 +1711,89 @@ export function convertCommentToLocal(res) {
 
     return comment;
 }
+
+export function convertIssuesToLocal(res) {
+    let issues = {
+        totalElements: res.totalElements
+    };
+
+    if (res.issueDetail) {
+        issues.issueDetail = {
+            projectId: res.issueDetail.issueInfo.projId,
+            subjectId: res.issueDetail.issueInfo.subjectId,
+            issueId: res.issueDetail.issueInfo.issueId,
+            author: {
+                text: res.issueDetail.issueInfo.creatorInfo.name,
+                value: res.issueDetail.issueInfo.creatorInfo.staffId,
+                image: res.issueDetail.issueInfo.creatorInfo.avatar
+            },
+            time: dateFormat(new Date(res.issueDetail.issueInfo.createTime), "yyyy-MM-dd hh:mm:ss"),
+            text: res.issueDetail.issueInfo.content,
+            reward: res.issueDetail.issueInfo.reward,
+            isResolved: res.issueDetail.issueInfo.isResolved,
+            tag: res.issueDetail.issueInfo.tagInfo,
+            answers: []
+        };
+        if (res.issueDetail.issueAnswerInfos && res.issueDetail.issueAnswerInfos.length > 0) {
+            res.issueDetail.issueAnswerInfos.map((answer) => {
+                issues.issueDetail.answers.push(convertAnswerToLocal(answer));
+            })
+        }
+    }
+    return issues;
+}
+
+export function convertAnswerToLocal(res) {
+    let answer = {
+        answerId: res.answerId,
+        author: {
+            text: res.creatorInfo.name,
+            value: res.creatorInfo.staffId,
+            image: res.creatorInfo.avatar
+        },
+        time: dateFormat(new Date(res.createTime), "yyyy-MM-dd hh:mm:ss"),
+        text: res.content,
+        approve: res.likeIds ? res.likeIds.split(",") : [],
+        disagree: res.dislikeIds ? res.dislikeIds.split(",") : [],
+        isAdopt: res.isAdopt,
+        comments: []
+    };
+
+    if (res.commentDetails && res.commentDetails.length > 0) {
+        res.commentDetails.map((comm) => {
+            answer.comments.push(convertCommentToLocal(comm))
+        });
+    }
+
+    return answer;
+}
+
+export function convertAnswerJudgementToLocal(res) {
+    return {
+        answerId: res.answerId,
+        approve: res.likeIds ? res.likeIds.split(",") : [],
+        disagree: res.dislikeIds ? res.dislikeIds.split(",") : [],
+    }
+}
+
+export function convertAnswerCommentToServer(question, answer, commentInfo) {
+    let params = {
+        projId: question.projectId,
+        subjectId: answer.answerId,
+        creatorId: getStaffId(),
+        content: commentInfo.text,
+        passiveAts: []
+    };
+
+    if (commentInfo.mentions && commentInfo.mentions.length > 0) {
+        commentInfo.mentions.map((mention) => {
+            params.passiveAts.push(mention.value)
+        })
+    }
+
+    if (commentInfo.reply && commentInfo.reply.commentId) {
+        params.replyId = commentInfo.reply.commentId
+    }
+
+    return params;
+}

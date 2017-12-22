@@ -140,7 +140,8 @@ class StoryDetail extends Component {
                     </div>
                 </Menu.Item>,
                 pane: <Tab.Pane attached={false} key="check-issue">
-                    <Issue active={activeTab2 === 1}/>
+                    <Issue subject={{id: story.storyId, projectId: story.projectId}}
+                           active={activeTab2 === 1}/>
                 </Tab.Pane>
             }
         ];

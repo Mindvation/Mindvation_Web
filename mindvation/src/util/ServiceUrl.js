@@ -2,7 +2,7 @@ let url;
 const isProduction = true;
 
 if (isProduction) {
-    const gateWay = "http://192.168.0.254:";
+    const gateWay = "http://47.100.100.211:";
     url = {
         login: gateWay + '8080/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -54,10 +54,15 @@ if (isProduction) {
         changePassword: gateWay + '8080/mdvn-staff-papi/staff/updateStaffPassword',
         getTaskHistory: gateWay + '8080/mdvn-task-papi/task/retrieveTaskHistoryInfo',
         getInformationList: gateWay + '8080/mdvn-websocket-papi/websocket/rtrvServerPushInfoList',
-        deleteInformation: gateWay + '8080/mdvn-websocket-papi/websocket/deleteServerPushInfo'
+        deleteInformation: gateWay + '8080/mdvn-websocket-papi/websocket/deleteServerPushInfo',
+        getIssueList: gateWay + '8080/mdvn-issue/issues/rtrvIssueDetail',
+        createIssue: gateWay + '8080/mdvn-issue/issues/createIssueInfo',
+        answerIssue: gateWay + '8080/mdvn-issue/issues/createIssueAnswerInfo',
+        judgeAnswer: gateWay + '8080/mdvn-issue/issues/likeOrDislikeAnswer',
+        adoptAnswer: gateWay + '8080/mdvn-issue/issues/adoptAnswer'
     };
 } else {
-    const gateWay = "http://192.168.0.111:";
+    const gateWay = "http://192.168.0.107:";
     url = {
         login: gateWay + '10014/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
@@ -109,7 +114,12 @@ if (isProduction) {
         changePassword: gateWay + '10014/mdvn-staff-papi/staff/updateStaffPassword',
         getTaskHistory: gateWay + '10003/mdvn-task-papi/task/retrieveTaskHistoryInfo',
         getInformationList: gateWay + '10028/mdvn-websocket-papi/websocket/rtrvServerPushInfoList',
-        deleteInformation: gateWay + '10028/mdvn-websocket-papi/websocket/deleteServerPushInfo'
+        deleteInformation: gateWay + '10028/mdvn-websocket-papi/websocket/deleteServerPushInfo',
+        getIssueList: gateWay + '10029/mdvn-issue/issues/rtrvIssueDetail',
+        createIssue: gateWay + '10029/mdvn-issue/issues/createIssueInfo',
+        answerIssue: gateWay + '10029/mdvn-issue/issues/createIssueAnswerInfo',
+        judgeAnswer: gateWay + '10029/mdvn-issue/issues/likeOrDislikeAnswer',
+        adoptAnswer: gateWay + '10029/mdvn-issue/issues/adoptAnswer'
     };
 }
 
