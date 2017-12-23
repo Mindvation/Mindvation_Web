@@ -9,6 +9,7 @@ import {getProjectById} from '../../actions/project_action';
 import {getRequirementById} from '../../actions/requirement_action';
 import {getStoryById, clearStory} from '../../actions/story_action';
 import {messages} from '../../res/language/defineMessages';
+import {getDateDiff} from '../../util/CommUtil';
 
 const size = 3;
 
@@ -43,6 +44,7 @@ class Information extends Component {
         info.id = res.uuId;
         info.avatar = res.initiator.avatar;
         info.name = res.initiator.name;
+        info.time = getDateDiff(res.createTime);
         if (res.subjectType === "project" || res.subjectType === "requirement" || res.subjectType === "story") {
             if (res.type === 'update') {
                 info.message = formatMessage(messages.notifyUpdated) + res.subjectId;
@@ -68,6 +70,17 @@ class Information extends Component {
                 info.message = formatMessage(messages.notifyLeaveMessage);
                 info.searchId = res.subjectId;
             }
+        } else if (res.subjectType === "issue") {
+            if (res.type === 'create') {
+                info.message = formatMessage(messages.notifyCreatedIssue);
+                info.searchId = res.subjectId;
+            } else if (res.type === 'adopt') {
+                info.message = formatMessage(messages.notifyAdoptedAnswer);
+                info.searchId = res.subjectId;
+            }
+        } else if (res.subjectType === "answer") {
+            info.message = formatMessage(messages.notifyAnsweredIssue);
+            info.searchId = res.subjectId;
         }
 
         return info;
@@ -133,7 +146,10 @@ class Information extends Component {
                                src={info.avatar}
                                avatar/>
                         <div className="notify-message-content">
-                            <div className="information-name">{info.name}</div>
+                            <div className="display-flex">
+                                <div className="information-name">{info.name}</div>
+                                <div className="information-time">{info.time}</div>
+                            </div>
                             <div className="information-message">{info.message}</div>
                         </div>
                     </div>

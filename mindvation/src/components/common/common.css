@@ -1114,6 +1114,12 @@ img.ui.image.notify-avatar {
     color: #333333;
 }
 
+.information-time {
+    font-size: 12px;
+    color: #999999;
+    margin-left: 10px;
+}
+
 .information-message {
     margin-top: 10px;
     font-size: 12px;

@@ -257,6 +257,9 @@ const zh_CN = {
     leaveMessage: "给你留言了",
     clickForMore: "点击查看更多",
     newIssue: "发布求助信息",
-    Reward: "悬赏"
+    Reward: "积分悬赏",
+    createdIssue: "发布了求助",
+    answeredIssue: "回答了你的求助",
+    adoptedAnswer: "采纳了你的回答"
 };
 export default zh_CN;

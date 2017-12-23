@@ -94,6 +94,17 @@ class Notification extends Component {
                 info.message = formatMessage(messages.notifyLeaveMessage);
                 info.searchId = res.subjectId;
             }
+        } else if (res.subjectType === "issue") {
+            if (res.type === 'create') {
+                info.message = formatMessage(messages.notifyCreatedIssue);
+                info.searchId = res.subjectId;
+            } else if (res.type === 'adopt') {
+                info.message = formatMessage(messages.notifyAdoptedAnswer);
+                info.searchId = res.subjectId;
+            }
+        } else if (res.subjectType === "answer") {
+            info.message = formatMessage(messages.notifyAnsweredIssue);
+            info.searchId = res.subjectId;
         }
 
         return info;

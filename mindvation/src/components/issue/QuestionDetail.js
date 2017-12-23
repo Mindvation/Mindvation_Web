@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Comment from '../common/Comment';
 import {Button, Image, Transition} from 'semantic-ui-react';
 import MVImage from "../common/Image";
-import {Anchor} from 'antd';
+import {Anchor, Popconfirm} from 'antd';
 import {FormattedMessage} from 'react-intl';
 import Mention from '../common/Mention';
 import {getStaffId} from '../../util/UserStore';
@@ -136,11 +136,26 @@ class QuestionDetail extends Component {
                                 </div>
                                 <div className="answer-adopt">
                                     {!question.isResolved && getStaffId() === question.author.value ?
-                                        <div onClick={() => this.userAdoptAnswer(answer)}>
-                                            <MVImage name="adopt_ic"
-                                                     style={{marginRight: 0}}/>
-                                        </div> : null}
-
+                                        <Popconfirm placement="topRight" title={'采纳该答案之后，回答者会获取相应的积分或标签，且不可更改，是否确认采纳？'}
+                                                    onConfirm={() => this.userAdoptAnswer(answer)}
+                                                    okText={
+                                                        <FormattedMessage
+                                                            id='yes'
+                                                            defaultMessage='Yes'
+                                                        />
+                                                    }
+                                                    cancelText={
+                                                        <FormattedMessage
+                                                            id='no'
+                                                            defaultMessage='No'
+                                                        />
+                                                    }>
+                                            <div>
+                                                <MVImage name="adopt_ic"
+                                                         style={{marginRight: 0}}/>
+                                            </div>
+                                        </Popconfirm>
+                                        : null}
                                     {question.isResolved && answer.isAdopt ?
                                         <MVImage name="adopt_ic_pre"
                                                  style={{marginRight: 0}}/> : null}

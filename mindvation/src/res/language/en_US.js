@@ -257,6 +257,9 @@ const en_US = {
     leaveMessage: "Leave a Message for you",
     clickForMore: "Click For More",
     newIssue: "New Issue",
-    Reward: "Reward"
+    Reward: "Reward",
+    createdIssue: "Seeking help",
+    answeredIssue: "Offered your help",
+    adoptedAnswer: "Adopted your answer"
 };
 export default en_US;

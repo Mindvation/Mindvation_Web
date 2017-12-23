@@ -89,8 +89,20 @@ export const messages = defineMessages({
         id: 'progress',
         defaultMessage: 'Progress'
     },
-    notifyLeaveMessage:{
+    notifyLeaveMessage: {
         id: 'leaveMessage',
         defaultMessage: 'Leave a Message for you'
+    },
+    notifyCreatedIssue: {
+        id: 'createdIssue',
+        defaultMessage: 'Seeking help'
+    },
+    notifyAnsweredIssue: {
+        id: 'answeredIssue',
+        defaultMessage: 'Offered your help'
+    },
+    notifyAdoptedAnswer: {
+        id: 'adoptedAnswer',
+        defaultMessage: 'Adopted your answer'
     }
 });
