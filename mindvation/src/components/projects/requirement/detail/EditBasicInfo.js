@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Button} from 'semantic-ui-react';
+import {Modal, Button, Image} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../BasicInfo';
@@ -7,7 +7,6 @@ import {checkValid, getDataInfo} from '../../../../util/CommUtil';
 import {updateRequirementBasic} from '../../../../actions/requirement_action';
 
 let basicModule;
-let mandatoryFile = ["summary", "description"];
 
 class EditBasicInfo extends Component {
 
@@ -47,6 +46,11 @@ class EditBasicInfo extends Component {
                     <ReadOnly title="Summary" value={requirement.summary}/>
                     <ReadOnly title="Description" type="html"
                               value={requirement.description}/>
+                    {requirement.creatorInfo ? <ReadOnly title="Creator" value={<div>
+                        <Image verticalAlign="middle" src={requirement.creatorInfo.avatar}
+                               avatar/>
+                        <span>{requirement.creatorInfo.name}</span>
+                    </div>}/> : null}
                 </div>
                 <Modal
                     closeOnEscape={false}

@@ -88,11 +88,13 @@ class AddTask extends Component {
                                       }}/>
                             <DatePicker label="Start / End Date"
                                         range={true}
+                                        required={true}
                                         ref={node => {
                                             this.startEndDate = node
                                         }}
                             />
                             <Input label="Workload" type="number"
+                                   required={true}
                                    ref={node => {
                                        this.workloadNode = node
                                    }}

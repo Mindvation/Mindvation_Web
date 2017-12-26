@@ -69,6 +69,13 @@ class MVDatePicker extends Component {
             }
         }
 
+        if (range) {
+            this.setState({
+                returnValue: defaultValue || []
+            });
+            return;
+        }
+
         this.setState({
             returnValue: defaultValue
         })

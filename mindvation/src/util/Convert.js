@@ -18,6 +18,7 @@ export const convertProjectToLocal = (res) => {
             percent: res.project.progress || 0,
             ragStatus: res.project.ragStatus
         },
+        creatorInfo: res.project.creatorInfo,
         requirementInfo: {
             requirementInfos: res.reqmntListResponse.requirementInfos,
             totalElements: res.reqmntListResponse.totalElements
@@ -613,7 +614,8 @@ export function convertRequirementToLocal(res) {
             ragStatus: res.reqmntInfo.ragStatus
         },
         fileList: [],
-        model: res.reqmntInfo.modelId
+        model: res.reqmntInfo.modelId,
+        creatorInfo: res.reqmntInfo.creatorInfo
     };
 
     if (!isEmpty(res.reqmntInfo.startDate)) {
@@ -1024,7 +1026,8 @@ export function convertStoryToLocal(res) {
             ragStatus: res.storyInfo.ragStatus
         },
         taskDeliveries: [],
-        storyNote: res.storyNote || {}
+        storyNote: res.storyNote || {},
+        creatorInfo: res.storyInfo.creatorInfo
     };
 
     if (!isEmpty(res.storyInfo.storyPoint)) {

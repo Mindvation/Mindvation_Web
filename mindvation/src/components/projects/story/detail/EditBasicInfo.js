@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Button} from 'semantic-ui-react';
+import {Modal, Button, Image} from 'semantic-ui-react';
 import ReadOnly from '../../../common/ReadOnly';
 import {FormattedMessage} from 'react-intl';
 import BasicInfo from '../BasicInfo';
@@ -43,6 +43,11 @@ class EditBasicInfo extends Component {
                     <ReadOnly title="Summary" value={story.summary}/>
                     <ReadOnly title="Description" type="html"
                               value={story.description}/>
+                    {story.creatorInfo ? <ReadOnly title="Creator" value={<div>
+                        <Image verticalAlign="middle" src={story.creatorInfo.avatar}
+                               avatar/>
+                        <span>{story.creatorInfo.name}</span>
+                    </div>}/> : null}
                 </div>
                 <Modal
                     closeOnEscape={false}
