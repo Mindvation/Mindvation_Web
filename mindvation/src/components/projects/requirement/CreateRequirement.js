@@ -55,7 +55,7 @@ class CreateRequirement extends Component {
         const {requirement, dispatch, project} = this.props;
         return (
             <div>
-                {hasAuth("createRequirement", project.authCode) ?
+                {!hasAuth("createRequirement", project.authCode) ?
                     <div className="create-requirement-button"
                          onClick={() => this.createTempRequirement()}>
                         + <FormattedMessage

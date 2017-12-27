@@ -39,7 +39,7 @@ class OtherInfo extends Component {
     getInfo = () => {
         return {
             priority: priority.getWrappedInstance().getValue(),
-            leaders: leaders.getWrappedInstance().getValue(),
+            leaders: leaders.getWrappedInstance().getFullValue(),
             startDate: startEndDate.getValue() ? startEndDate.getValue()[0] : "",
             endDate: startEndDate.getValue() ? startEndDate.getValue()[1] : "",
             softwareModel: softwareModel.getWrappedInstance().getValue(),

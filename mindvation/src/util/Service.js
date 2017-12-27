@@ -14,9 +14,12 @@ import {getStaffId} from "./UserStore";
 import {convertTaskToLocal} from "./Convert";
 
 export function retrieveModels(callback) {
-    post(url.retrieveModels, {})
+    post(url.retrieveModels, {
+        criterion: 1,
+        staffId: getStaffId()
+    })
         .then((res) => {
-            callback(convertModelOptionToLocal(res.responseBody));
+            callback(convertModelOptionToLocal(res.data));
         })
         .catch((error) => {
             console.info(error);
@@ -24,9 +27,11 @@ export function retrieveModels(callback) {
 }
 
 export function retrieveStaff(callback) {
-    post(url.retrieveStaff, {})
+    post(url.retrieveStaff, {
+        staffId: getStaffId()
+    })
         .then((res) => {
-            callback(convertStaffOptionToLocal(res.responseBody));
+            callback(convertStaffOptionToLocal(res.data));
         })
         .catch((error) => {
             console.info(error);
@@ -34,9 +39,13 @@ export function retrieveStaff(callback) {
 }
 
 export function getModelById(id, callback) {
-    post(url.getModelById, {modelId: id})
+    post(url.getModelById, {
+            staffId: getStaffId(),
+            criterion: id
+        }
+    )
         .then((res) => {
-            callback(convertModelInfoToLocal(res.responseBody));
+            callback(convertModelInfoToLocal(res.data));
         })
         .catch((error) => {
             console.info(error);

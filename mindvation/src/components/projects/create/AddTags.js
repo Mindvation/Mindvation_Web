@@ -107,7 +107,7 @@ class AddTags extends Component {
     getTagIndex = (tagArr, tag) => {
         let index = -1;
         tagArr.some((item, i) => {
-            if (item.tagId === tag.tagId) {
+            if (item.id === tag.id) {
                 index = i;
                 return true;
             }

@@ -152,34 +152,85 @@ export const parseNumber = (number, decimal = 2) => {
     return Number(parseFloat(number).toFixed(decimal));
 };
 
-export function getDateDiff(dateTimeStamp){
-    let result="刚刚";
+export function getDateDiff(dateTimeStamp) {
+    let result = "刚刚";
     let minute = 1000 * 60;
     let hour = minute * 60;
     let day = hour * 24;
     let month = day * 30;
     let now = new Date().getTime();
     let diffValue = now - dateTimeStamp;
-    if(diffValue < 0){return;}
-    let monthC =diffValue/month;
-    let weekC =diffValue/(7*day);
-    let dayC =diffValue/day;
-    let hourC =diffValue/hour;
-    let minC =diffValue/minute;
-    if(monthC>=1){
-        result="" + parseInt(monthC) + "月前";
+    if (diffValue < 0) {
+        return;
     }
-    else if(weekC>=1){
-        result="" + parseInt(weekC) + "周前";
+    let monthC = diffValue / month;
+    let weekC = diffValue / (7 * day);
+    let dayC = diffValue / day;
+    let hourC = diffValue / hour;
+    let minC = diffValue / minute;
+    if (monthC >= 1) {
+        result = "" + parseInt(monthC) + "月前";
     }
-    else if(dayC>=1){
-        result=""+ parseInt(dayC) +"天前";
+    else if (weekC >= 1) {
+        result = "" + parseInt(weekC) + "周前";
     }
-    else if(hourC>=1){
-        result=""+ parseInt(hourC) +"小时前";
+    else if (dayC >= 1) {
+        result = "" + parseInt(dayC) + "天前";
     }
-    else if(minC>=1){
-        result=""+ parseInt(minC) +"分钟前";
+    else if (hourC >= 1) {
+        result = "" + parseInt(hourC) + "小时前";
+    }
+    else if (minC >= 1) {
+        result = "" + parseInt(minC) + "分钟前";
     }
     return result;
 }
+
+export const checkChange = (ordinary, now, key = 'id') => {
+    let returnObj = {
+        addList: [],
+        removeList: []
+    };
+    if (ordinary.length === 0) {
+        now.map((item) => {
+            returnObj.addList.push(item[key])
+        });
+    } else if (now.length === 0) {
+        ordinary.map((item) => {
+            returnObj.removeList.push(item[key])
+        });
+    } else {
+        now.map((nowItem) => {
+            let flag = false;
+            ordinary.some((ordItem) => {
+                if (nowItem[key] === ordItem[key]) {
+                    flag = true;
+                    return true;
+                }
+            });
+            if (!flag) {
+                returnObj.addList.push(nowItem[key])
+            }
+        });
+        ordinary.map((ordItem) => {
+            let flag = false;
+            now.some((nowItem) => {
+                if (nowItem[key] === ordItem[key]) {
+                    flag = true;
+                    return true;
+                }
+            });
+            if (!flag) {
+                returnObj.removeList.push(ordItem[key])
+            }
+        })
+    }
+
+    if (returnObj.addList.length === 0) {
+        delete returnObj.addList
+    }
+    if (returnObj.removeList.length === 0) {
+        delete returnObj.removeList
+    }
+    return returnObj;
+};

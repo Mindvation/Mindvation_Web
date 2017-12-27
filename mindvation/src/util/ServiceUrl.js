@@ -1,23 +1,23 @@
 let url;
-const isProduction = true;
+const isProduction = false;
 
 if (isProduction) {
-    const gateWay = "http://47.100.100.211:";
+    const gateWay = "http://192.168.0.254:";
     url = {
         login: gateWay + '8080/mdvn-staff-papi/staff/login',
         getRequirementById: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
         updateReqmntInfo: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo',
         retrieveModels: gateWay + '8080/mdvn-model-papi/model/rtrvModelList',
         retrieveStaff: gateWay + '8080/mdvn-staff-papi/staff/rtrvStaffList',
-        getModelById: gateWay + '8080/mdvn-model-papi/model/findById',
+        getModelById: gateWay + '8080/mdvn-template/templates/retrieve',
         createTag: gateWay + '8080/mdvn-tag-papi/tag/createTag',
         retrieveTags: gateWay + '8080/mdvn-tag-papi/tag/rtrvTagList',
         createProject: gateWay + '8080/mdvn-project-papi/project/createProject',
         retrieveProjects: gateWay + '8080/mdvn-project-papi/project/rtrvProjInfoList',
         getProjectById: gateWay + '8080/mdvn-project-papi/project/rtrvProjectInfo',
         updateProject: gateWay + '8080/mdvn-project-papi/project/updateProject',
-        createRequirement: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/createReqmnt',
-        retrieveRequirements: gateWay + '8080/mdvn-reqmnt-papi/reqmnts/rtrvReqmntList',
+        createRequirement: gateWay + '8080/mdvn-requirement/requirements/create',
+        retrieveRequirements: gateWay + '8080/mdvn-requirement/requirements/retrieveList',
         createStory: gateWay + '8080/mdvn-story-papi/story/createStory',
         getStoryById: gateWay + '8080/mdvn-story-papi/story/rtrvStoryInfo',
         retrieveStories: gateWay + '8080/mdvn-story-papi/story/rtrvStoryInfoList',
@@ -59,25 +59,27 @@ if (isProduction) {
         createIssue: gateWay + '8080/mdvn-issue/issues/createIssueInfo',
         answerIssue: gateWay + '8080/mdvn-issue/issues/createIssueAnswerInfo',
         judgeAnswer: gateWay + '8080/mdvn-issue/issues/likeOrDislikeAnswer',
-        adoptAnswer: gateWay + '8080/mdvn-issue/issues/adoptAnswer'
+        adoptAnswer: gateWay + '8080/mdvn-issue/issues/adoptAnswer',
+        updateProjectBasicInfo: gateWay + '8080/mdvn-project/projects/updateBasicInfo',
+        updateProjectOtherInfo: gateWay + '8080/mdvn-project/projects/updateOtherInfo'
     };
 } else {
-    const gateWay = "http://192.168.0.106:";
+    const gateWay = "http://192.168.0.101:";
     url = {
-        login: gateWay + '10014/mdvn-staff-papi/staff/login',
+        login: gateWay + '20001/mdvn-staff/staff/login',
         getRequirementById: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntInfo',
         updateReqmntInfo: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/updateReqmntInfo',
-        retrieveModels: gateWay + '10010/mdvn-model-papi/model/rtrvModelList',
-        retrieveStaff: gateWay + '10014/mdvn-staff-papi/staff/rtrvStaffList',
-        getModelById: gateWay + '10010/mdvn-model-papi/model/findById',
+        retrieveModels: gateWay + '20004/mdvn-template/templates/retrieveByIndustry',
+        retrieveStaff: gateWay + '20001/mdvn-staff/staff/retrieveAll',
+        getModelById: gateWay + '20004/mdvn-template/templates/retrieve',
         createTag: gateWay + '10001/mdvn-tag-papi/tag/createTag',
-        retrieveTags: gateWay + '10001/mdvn-tag-papi/tag/rtrvTagList',
-        createProject: gateWay + '10006/mdvn-project-papi/project/createProject',
-        retrieveProjects: gateWay + '10006/mdvn-project-papi/project/rtrvProjInfoList',
-        getProjectById: gateWay + '10006/mdvn-project-papi/project/rtrvProjectInfo',
+        retrieveTags: gateWay + '20002/mdvn-tag/tags/retrieveAll',
+        createProject: gateWay + '20005/mdvn-project/projects/create',
+        retrieveProjects: gateWay + '20005/mdvn-project/projects/retrieveAll',
+        getProjectById: gateWay + '20005/mdvn-project/projects/retrieveDetail',
         updateProject: gateWay + '10006/mdvn-project-papi/project/updateProject',
-        createRequirement: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/createReqmnt',
-        retrieveRequirements: gateWay + '10011/mdvn-reqmnt-papi/reqmnts/rtrvReqmntList',
+        createRequirement: gateWay + '20006/mdvn-requirement/requirements/create',
+        retrieveRequirements: gateWay + '20006/mdvn-requirement/requirements/retrieveList',
         createStory: gateWay + '10016/mdvn-story-papi/story/createStory',
         getStoryById: gateWay + '10016/mdvn-story-papi/story/rtrvStoryInfo',
         retrieveStories: gateWay + '10016/mdvn-story-papi/story/rtrvStoryInfoList',
@@ -119,7 +121,9 @@ if (isProduction) {
         createIssue: gateWay + '10029/mdvn-issue/issues/createIssueInfo',
         answerIssue: gateWay + '10029/mdvn-issue/issues/createIssueAnswerInfo',
         judgeAnswer: gateWay + '10029/mdvn-issue/issues/likeOrDislikeAnswer',
-        adoptAnswer: gateWay + '10029/mdvn-issue/issues/adoptAnswer'
+        adoptAnswer: gateWay + '10029/mdvn-issue/issues/adoptAnswer',
+        updateProjectBasicInfo: gateWay + '20005/mdvn-project/projects/updateBasicInfo',
+        updateProjectOtherInfo: gateWay + '20005/mdvn-project/projects/updateOtherInfo'
     };
 }
 

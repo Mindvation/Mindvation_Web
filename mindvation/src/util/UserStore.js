@@ -11,7 +11,7 @@ export function getUser() {
 }
 
 export function checkUser(history) {
-    if (!getUser().staffInfo || !getUser().staffInfo.staffId) {
+    if (!getUser().staffInfo || !getUser().staffInfo.id) {
         history.push('/login')
     }
 }
@@ -21,5 +21,5 @@ export function removeUser() {
 }
 
 export function getStaffId() {
-    return getUser().staffInfo.staffId;
+    return getUser().staffInfo.id;
 }

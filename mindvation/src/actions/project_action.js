@@ -17,6 +17,7 @@ import StaticLoad from '../components/common/Loading';
 import StaticDialog from '../components/common/Dialog';
 import {url} from '../util/ServiceUrl';
 import {getStaffId} from '../util/UserStore';
+import {retrieveRequirements} from './requirements_action';
 
 export const GET_PROJECT_BY_ID = 'GET_PROJECT_BY_ID';
 export const UPDATE_PROJECT = 'UPDATE_PROJECT';
@@ -37,26 +38,26 @@ export function getProjectById(id) {
     return dispatch => {
         StaticLoad.show("getProjectById");
         post(url.getProjectById, {
-            "projId": id,
-            "staffId": getStaffId()
+            criterion: id,
+            staffId: getStaffId()
         })
             .then((res) => {
                 StaticLoad.remove("getProjectById");
-                const project = convertProjectToLocal(res.responseBody.projectDetail);
-                project.authCode = res.responseBody.staffAuthInfo;
+                const project = convertProjectToLocal(res.data);
+                project.authCode = res.data.staffAuthInfo;
                 /*if (res.responseBody.staffAuthInfo && res.responseBody.staffAuthInfo.length > 0) {
                     res.responseBody.staffAuthInfo.map((auth) => {
                         project.authCode.push(auth.authCode)
                     })
                 }*/
                 dispatch(retrievedProject(project));
-                dispatch(setRequirement(project.requirementInfo));
+                dispatch(retrieveRequirements(1, 10, id));
             })
             .catch((error) => {
                 StaticLoad.remove("getProjectById");
-                StaticDialog.show("getProjectById-error", error.responseCode, error.message);
+                StaticDialog.show("getProjectById-error", error.code, error.msg);
                 dispatch(retrievedProject({}));
-                dispatch(setRequirement());
+                //dispatch(setRequirement());
             });
     }
 }
@@ -65,40 +66,48 @@ export function updateProject(updatedInfo) {
     return {type: UPDATE_PROJECT, updatedInfo}
 }
 
-export function updateProjectBasic(basicInfo, callback) {
+export function updateProjectBasic(projectInfo, basicInfo, callback) {
     return dispatch => {
-        const params = convertProjectBasicToServer(basicInfo);
+        const params = convertProjectBasicToServer(projectInfo, basicInfo);
+        if (!params) {
+            callback();
+            return;
+        }
         StaticLoad.show("updateProBasic");
-        post(url.updateProject, params)
-            .then((res) => {
+        post(url.updateProjectBasicInfo, params)
+            .then(() => {
                 StaticLoad.remove("updateProBasic");
-                const project = convertProjectBasicToLocal(res.responseBody.projectDetail);
-                dispatch(updateProject(project));
+                //const project = convertProjectBasicToLocal(basicInfo);
+                dispatch(updateProject(basicInfo));
                 callback();
             })
             .catch((error) => {
                 StaticLoad.remove("updateProBasic");
-                StaticDialog.show("updateProBasic-error", error.responseCode, error.message);
+                StaticDialog.show("updateProBasic-error", error.code, error.msg);
                 console.info(error);
             });
     }
 }
 
-export function updateProjectAdditional(additionalInfo, callback) {
+export function updateProjectAdditional(projectInfo, additionalInfo, callback) {
     return dispatch => {
-        const params = convertProjectAdditionalToServer(additionalInfo);
+        const params = convertProjectAdditionalToServer(projectInfo, additionalInfo);
+        if (!params) {
+            callback();
+            return;
+        }
         StaticLoad.show("updateProAdditional");
-        post(url.updateProject, params)
-            .then((res) => {
+        post(url.updateProjectOtherInfo, params)
+            .then(() => {
                 StaticLoad.remove("updateProAdditional");
-                const project = convertProjectAdditionalToLocal(res.responseBody.projectDetail);
-                project.authCode = res.responseBody.staffAuthInfo;
-                dispatch(updateProject(project));
+                // const project = convertProjectAdditionalToLocal(res.responseBody.projectDetail);
+                //project.authCode = res.data.staffAuthInfo;
+                dispatch(updateProject(additionalInfo));
                 callback();
             })
             .catch((error) => {
                 StaticLoad.remove("updateProAdditional");
-                StaticDialog.show("updateProAdditional-error", error.responseCode, error.message);
+                StaticDialog.show("updateProAdditional-error", error.code, error.msg);
                 console.info(error);
             });
     }

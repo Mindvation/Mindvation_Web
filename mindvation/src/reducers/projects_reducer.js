@@ -10,7 +10,10 @@ function projects(state = {
             temp.projects.push(action.project);
             return temp;
         case RETRIEVED_PROJECTS:
-            return action.projects;
+            return {
+                projects: action.projects.content,
+                totalElements: action.projects.totalElements
+            };
         default:
             return state
     }

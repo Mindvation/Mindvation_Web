@@ -4,6 +4,7 @@ import CreateRequirement from '../../../containers/requirement_container';
 import {FormattedMessage} from 'react-intl';
 
 class Requirement extends Component {
+
     render() {
         return (
             <div className="requirement-segment">
@@ -14,7 +15,7 @@ class Requirement extends Component {
                     />
                 </div>
                 <CreateRequirement/>
-                <RequirementList/>
+                <RequirementList projectId={this.props.projectId}/>
             </div>
         );
     }

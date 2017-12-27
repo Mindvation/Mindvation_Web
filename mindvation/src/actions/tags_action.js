@@ -3,6 +3,7 @@
  */
 import {post} from '../util/request';
 import {url} from '../util/ServiceUrl';
+import {getStaffId} from '../util/UserStore';
 
 export const CREATED_TAG = 'CREATE_TAGS';
 export const RETRIEVED_TAGS = 'RETRIEVE_TAGS';
@@ -35,9 +36,11 @@ export function createTag(tag, callback) {
 
 export function retrieveTags() {
     return dispatch => {
-        post(url.retrieveTags, {})
+        post(url.retrieveTags, {
+            staffId: getStaffId()
+        })
             .then((res) => {
-                dispatch(retrievedTags(res.responseBody.tags))
+                dispatch(retrievedTags(res.data.content))
             })
             .catch((error) => {
                 console.info(error);

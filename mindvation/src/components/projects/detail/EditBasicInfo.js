@@ -23,8 +23,8 @@ class EditBasicInfo extends Component {
         let flag = checkValid(basicInfo);
         if (flag) {
             basicInfo = getDataInfo(basicInfo);
-            basicInfo.projectId = this.props.project.projectId;
-            this.props.dispatch(updateProjectBasic(basicInfo, () => this.closeModal()));
+            basicInfo.id = this.props.project.id;
+            this.props.dispatch(updateProjectBasic(this.props.project, basicInfo, () => this.closeModal()));
         }
     };
 

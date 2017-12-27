@@ -11,7 +11,7 @@ import {priorityOptions} from '../../res/data/dataOptions';
 import Image from '../common/Image';
 
 const header = ["Project ID", "Project Name", "Description", "Priority", "Start Date", "End Date", "Efficiency", "Progress", "Story Qty", "Story Points", "Checklist Qty", "CR Qty", "CR SPs", "CR Cost", "SPs Cost", "CR Rate"];
-const projectKey = ['projId', 'name', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPointQty', 'checklistQty', 'crStoryQty', 'crStoryPointQty', 'crCost', 'cost', 'crRate'];
+const projectKey = ['serialNo', 'name', 'description', 'priority', 'startDate', 'endDate', 'efficiency', 'progress', 'storyQty', 'storyPointQty', 'checklistQty', 'crStoryQty', 'crStoryPointQty', 'crCost', 'cost', 'crRate'];
 
 class ProjectsList extends Component {
     componentDidMount() {
@@ -23,7 +23,7 @@ class ProjectsList extends Component {
     }
 
     handleDisplayData(data, key) {
-        if (key === "projId") {
+        if (key === "serialNo") {
             return <Link to={`projects/${data[key]}`}>
                 {data[key]}
             </Link>

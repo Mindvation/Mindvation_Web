@@ -1,87 +1,41 @@
-import {isEmpty, dateFormat, getTimeAndRandom} from './CommUtil';
+import {isEmpty, dateFormat, getTimeAndRandom, checkChange} from './CommUtil';
 import {getStaffId} from './UserStore';
 
 export const convertProjectToLocal = (res) => {
     let project = {
-        projectId: res.project.projId,
-        projectName: res.project.name,
-        description: res.project.description,
-        priority: res.project.priority,
-        leaders: res.leaders,
+        id: res.id,
+        projectId: res.serialNo,
+        projectName: res.name,
+        description: res.description,
+        priority: res.priority,
+        leaders: [],
         displayLeaders: [],
         tags: res.tags,
         checklists: [],
         fileList: [],
-        contingency: res.project.contingency,
+        contingency: res.contingency,
         status: {
-            status: res.project.status,
-            percent: res.project.progress || 0,
-            ragStatus: res.project.ragStatus
+            status: res.status,
+            percent: res.progress || 0,
+            ragStatus: res.ragStatus
         },
-        creatorInfo: res.project.creatorInfo,
-        requirementInfo: {
-            requirementInfos: res.reqmntListResponse.requirementInfos,
-            totalElements: res.reqmntListResponse.totalElements
-        }
+        creatorInfo: res.creatorInfo
     };
 
-    if (!isEmpty(res.project.startDate)) {
-        project.startDate = dateFormat(new Date(res.project.startDate), "yyyy-MM-dd");
+    if (!isEmpty(res.startDate)) {
+        project.startDate = dateFormat(new Date(res.startDate), "yyyy-MM-dd");
     }
 
-    if (!isEmpty(res.project.endDate)) {
-        project.endDate = dateFormat(new Date(res.project.endDate), "yyyy-MM-dd");
+    if (!isEmpty(res.endDate)) {
+        project.endDate = dateFormat(new Date(res.endDate), "yyyy-MM-dd");
     }
 
-    if (res.checkLists && res.checkLists.length > 0) {
-        res.checkLists.map((item) => {
-            project.checklists.push(
-                {
-                    idNumber: item.projChecklists.checkListId,
-                    description: item.projChecklists.checkListDesc,
-                    assignee: {
-                        value: item.executorInfo ? item.executorInfo.staffId : '',
-                        text: item.executorInfo ? item.executorInfo.name : ''
-                    },
-                    assigner: {
-                        value: item.assignerInfo.staffId,
-                        text: item.assignerInfo.name
-                    },
-                    createDate: dateFormat(new Date(item.projChecklists.createTime), "yyyy-MM-dd hh:mm"),
-                    lastUpdateDate: dateFormat(new Date(item.projChecklists.lastUpdateTime), "yyyy-MM-dd hh:mm"),
-                    status: item.projChecklists.status
-                }
-            );
-        })
-    }
-
-    if (res.models && res.models.length > 0) {
-        res.models.map((model) => {
-            if (model.modelType === "software") {
+    if (res.templates && res.templates.length > 0) {
+        res.templates.map((item) => {
+            if (item.industry.style === 1) {
                 project.softwareModel = {
-                    text: model.name,
-                    value: model.modelId
-                }
-            }
-
-            if (model.modelType === "engineering") {
-                project.engineeringModel = {
-                    text: model.name,
-                    value: model.modelId
-                }
-            }
-
-            if (model.modelType === "business requirements") {
-                project.businessModel = {
-                    text: model.name,
-                    value: model.modelId
-                }
-            }
-
-            if (model.modelType === "technology") {
-                project.techniqueModel = {
-                    text: model.name,
-                    value: model.modelId
+                    text: item.templates[0].name,
+                    value: item.templates[0].id
                 }
             }
         })
@@ -89,12 +43,13 @@ export const convertProjectToLocal = (res) => {
 
     if (res.leaders && res.leaders.length > 0) {
         res.leaders.map((leader) => {
-            project.displayLeaders.push(leader.staffId);
+            project.displayLeaders.push(leader.id);
+            project.leaders.push({
+                value: leader.id,
+                text: leader.name,
+                image: {avatar: true, src: leader.avatar}
+            })
         })
-    }
-
-    if (res.requirementInfos && res.requirementInfos.length > 0) {
-        project.requirements = res.requirementInfos;
     }
 
     if (res.attchInfos && res.attchInfos.length > 0) {
@@ -109,17 +64,6 @@ export const convertProjectToLocal = (res) => {
         });
     }
 
-    /*if (project.requirementInfo.requirementInfos && project.requirementInfo.requirementInfos.length > 0) {
-        project.requirementInfo.requirementInfos.map((req) => {
-            let tempComments = [];
-            if (req.commentDetails && req.commentDetails.length > 0) {
-                req.commentDetails.map((comm) => {
-                    tempComments.push(convertCommentToLocal(comm))
-                })
-            }
-            req.comments = tempComments;
-        })
-    }*/
 
     return project;
 };
@@ -127,14 +71,14 @@ export const convertProjectToLocal = (res) => {
 export const convertProjectToServer = (project) => {
 
     let params = {
-        staffId: getStaffId(),
+        creatorId: getStaffId(),
         name: project.projectName,
         description: project.description,
         priority: project.priority,
         contingency: project.contingency,
         leaders: [],
         checkLists: [],
-        tags: project.tags,
+        tags: [],
         models: [],
         attchUrls: []
     };
@@ -149,44 +93,24 @@ export const convertProjectToServer = (project) => {
 
     if (project.leaders && project.leaders.length > 0) {
         project.leaders.map((leader) => {
-            params.leaders.push({
-                staffId: leader
-            })
-        })
-    }
-
-    if (project.checklists && project.checklists.length > 0) {
-        project.checklists.map((checklist) => {
-            params.checkLists.push({
-                checkListDesc: checklist.description,
-                executorId: checklist.assignee ? checklist.assignee.value : '',
-                assignerId: getStaffId()
-            })
+            params.leaders.push(leader.value)
         })
     }
 
     if (project.softwareModel) {
-        params.models.push({
-            modelId: project.softwareModel
-        })
+        params.models.push(project.softwareModel)
     }
 
     if (project.techniqueModel) {
-        params.models.push({
-            modelId: project.techniqueModel
-        })
+        params.models.push(project.techniqueModel)
     }
 
     if (project.businessModel) {
-        params.models.push({
-            modelId: project.businessModel
-        })
+        params.models.push(project.businessModel)
     }
 
     if (project.engineeringModel) {
-        params.models.push({
-            modelId: project.engineeringModel
-        })
+        params.models.push(project.engineeringModel)
     }
 
     if (project.fileList && project.fileList.length > 0) {
@@ -197,16 +121,32 @@ export const convertProjectToServer = (project) => {
         });
     }
 
+    if (project.tags && project.tags.length > 0) {
+        project.tags.map((tag) => {
+            params.tags.push(tag.id)
+        });
+    }
+
     return params;
 };
 
-export const convertProjectBasicToServer = (basicInfo) => {
-    return {
-        projId: basicInfo.projectId,
-        staffId: getStaffId(),
-        name: basicInfo.projectName,
-        description: basicInfo.description
-    };
+export const convertProjectBasicToServer = (projectInfo, basicInfo) => {
+    let params = {};
+    if (projectInfo.projectName !== basicInfo.projectName) {
+        params.firstParam = basicInfo.projectName;
+    }
+
+    if (projectInfo.description !== basicInfo.description) {
+        params.secondParam = basicInfo.description;
+    }
+
+    if (JSON.stringify(params) === '{}') {
+        return null;
+    }
+
+    params.hostId = basicInfo.id;
+    params.staffId = getStaffId();
+    return params;
 };
 
 export const convertProjectBasicToLocal = (res) => {
@@ -216,57 +156,37 @@ export const convertProjectBasicToLocal = (res) => {
     };
 };
 
-export const convertProjectAdditionalToServer = (additionalInfo) => {
+export const convertProjectAdditionalToServer = (projectInfo, additionalInfo) => {
+    let params = {};
 
-    let params = {
-        projId: additionalInfo.projectId,
-        staffId: getStaffId(),
-        priority: additionalInfo.priority,
-        contingency: additionalInfo.contingency,
-        leaders: [],
-        tags: additionalInfo.tags,
-        models: []
-    };
-
-    if (additionalInfo.startDate) {
-        params.startDate = new Date(additionalInfo.startDate).getTime()
+    let changeLeaders = checkChange(projectInfo.leaders, additionalInfo.leaders, 'value');
+    if (changeLeaders.addList || changeLeaders.removeList) {
+        params.leaders = changeLeaders;
     }
 
-    if (additionalInfo.endDate) {
-        params.endDate = new Date(additionalInfo.endDate).getTime()
+    let changeTags = checkChange(projectInfo.tags, additionalInfo.tags);
+    if (changeTags.addList || changeTags.removeList) {
+        params.tags = changeTags;
     }
 
-    if (additionalInfo.leaders && additionalInfo.leaders.length > 0) {
-        additionalInfo.leaders.map((leader) => {
-            params.leaders.push({
-                staffId: leader
-            })
-        })
+    if (projectInfo.startDate !== additionalInfo.startDate) {
+        params.startDate = new Date(additionalInfo.startDate).getTime();
     }
 
-    if (additionalInfo.softwareModel) {
-        params.models.push({
-            modelId: additionalInfo.softwareModel
-        })
+    if (projectInfo.endDate !== additionalInfo.endDate) {
+        params.endDate = new Date(additionalInfo.endDate).getTime();
     }
 
-    if (additionalInfo.techniqueModel) {
-        params.models.push({
-            modelId: additionalInfo.techniqueModel
-        })
+    if (projectInfo.priority !== additionalInfo.priority) {
+        params.priority = additionalInfo.priority;
     }
 
-    if (additionalInfo.businessModel) {
-        params.models.push({
-            modelId: additionalInfo.businessModel
-        })
+    if (JSON.stringify(params) === '{}') {
+        return null;
     }
 
-    if (additionalInfo.engineeringModel) {
-        params.models.push({
-            modelId: additionalInfo.engineeringModel
-        })
-    }
+    params.staffId = getStaffId();
+    params.hostId = additionalInfo.id;
 
     return params;
 };
@@ -430,6 +350,24 @@ export const convertModelOptionToLocal = (res) => {
         techniqueOption: []
     };
 
+    if (res && res.length > 0) {
+        res.map((model) => {
+            modelOption.softwareOption.push({
+                text: model.name,
+                value: model.id
+            })
+        });
+    }
+
+    return modelOption;
+
+    /*let modelOption = {
+        softwareOption: [],
+        engineeringOption: [],
+        businessOption: [],
+        techniqueOption: []
+    };
+
     if (res.models && res.models.length > 0) {
         res.models.map((model) => {
             if (model.model.modelType === "software") {
@@ -462,17 +400,17 @@ export const convertModelOptionToLocal = (res) => {
         })
     }
 
-    return modelOption;
+    return modelOption;*/
 };
 
 export const convertStaffOptionToLocal = (res) => {
     let staffOption = [];
 
-    if (res.staffs && res.staffs.length > 0) {
-        res.staffs.map((staff) => {
+    if (res.content && res.content.length > 0) {
+        res.content.map((staff) => {
             staffOption.push({
                 text: staff.name,
-                value: staff.staffId,
+                value: staff.id,
                 image: {avatar: true, src: staff.avatar}
             })
         })
@@ -508,10 +446,10 @@ export const convertModelInfoToLocal = (res) => {
     let functionOptions = [];
     let roles = [];
 
-    if (res.modelRoles && res.modelRoles.length > 0) {
-        res.modelRoles.map((role) => {
+    if (res.roles && res.roles.length > 0) {
+        res.roles.map((role) => {
             roles.push({
-                key: role.roleId,
+                key: role.id,
                 name: role.name
             })
         })
@@ -521,7 +459,7 @@ export const convertModelInfoToLocal = (res) => {
         res.functionLabels.map((label) => {
             functionOptions.push({
                 text: label.name,
-                value: label.labelId
+                value: label.id
             })
         })
     }
@@ -530,17 +468,14 @@ export const convertModelInfoToLocal = (res) => {
 
 export const convertRequirementToServer = (requirement) => {
     let params = {
-        projId: requirement.projectId,
         creatorId: getStaffId(),
+        hostSerialNo: requirement.projectId,
         summary: requirement.summary,
         description: requirement.description,
+        tags: [],
         priority: requirement.priority,
-        functionLabel: {},
-        modelId: requirement.model,
-        members: [],
-        tags: requirement.tags,
-        rCheckLists: [],
-        attchUrls: []
+        templateId: requirement.model,
+        members: []
     };
 
     if (requirement.startDate) {
@@ -551,43 +486,31 @@ export const convertRequirementToServer = (requirement) => {
         params.endDate = new Date(requirement.endDate).getTime()
     }
 
-    if (requirement.functionLabel !== 'other') {
-        params.functionLabel.labelId = requirement.functionLabel;
-    } else {
-        params.functionLabel.name = requirement.otherFunctionLabel;
+    if (requirement.tags && requirement.tags.length > 0) {
+        requirement.tags.map((tag) => {
+            params.tags.push(tag.id)
+        });
     }
 
-    if (requirement.checklists && requirement.checklists.length > 0) {
-        requirement.checklists.map((checklist) => {
-            params.rCheckLists.push({
-                description: checklist.description,
-                assigneeId: checklist.assignee ? checklist.assignee.value : '',
-                assignerId: getStaffId()
-            })
-        })
+    if (requirement.functionLabel !== 'other') {
+        params.functionLabel = requirement.functionLabel;
+    } else {
+        params.functionLabel = requirement.otherFunctionLabel;
     }
 
     if (requirement.roles && requirement.roles.length > 0) {
         requirement.roles.map((role) => {
             let tempRole = {
                 roleId: role.key,
-                memberIds: []
+                addList: []
             };
             if (role.members && role.members.length > 0) {
                 role.members.map((member) => {
-                    tempRole.memberIds.push(member.name.value)
+                    tempRole.addList.push(member.name.value)
                 })
             }
             params.members.push(tempRole);
         })
-    }
-
-    if (requirement.fileList && requirement.fileList.length > 0) {
-        requirement.fileList.map((file) => {
-            params.attchUrls.push({
-                attachmentId: file.fileId
-            })
-        });
     }
 
     return params;

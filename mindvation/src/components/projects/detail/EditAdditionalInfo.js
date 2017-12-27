@@ -27,8 +27,8 @@ class EditAdditionalInfo extends Component {
         let flag = checkValid(additionalInfo);
         if (flag) {
             additionalInfo = getDataInfo(additionalInfo);
-            additionalInfo.projectId = this.props.project.projectId;
-            this.props.dispatch(updateProjectAdditional(additionalInfo, () => this.closeModal()));
+            additionalInfo.id = this.props.project.id;
+            this.props.dispatch(updateProjectAdditional(this.props.project, additionalInfo, () => this.closeModal()));
         }
     };
 
@@ -52,7 +52,7 @@ class EditAdditionalInfo extends Component {
                 return <div className="read-only-text-member" key={i}>
                     {/*<Image verticalAlign="middle" src={member.avatar}
                            avatar/>*/}
-                    <span>{member.name}</span>
+                    <span>{member.text}</span>
                 </div>
             }) : ""
         }, {

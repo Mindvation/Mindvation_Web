@@ -165,7 +165,7 @@ class ProjectDetail extends Component {
                                         />
                                     </div>
                                 } key="requirements">
-                                    <Requirement/>
+                                    <Requirement projectId={this.props.match.params.id}/>
                                 </TabPane>
                                 <TabPane tab={
                                     <div className="detail-tab-title">

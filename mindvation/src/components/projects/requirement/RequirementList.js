@@ -10,7 +10,7 @@ import {
 import {priorityOptions} from '../../../res/data/dataOptions';
 
 const header = ["Req ID", "Summary", "Priority", "Start Time", "End Time", "Leader", "Members"];
-const rmKey = ["reqmntId", "summary", "priority", "startDate", "endDate", "leader", "memberCunt"];
+const rmKey = ["serialNo", "summary", "priority", "startDate", "endDate", "leader", "memberCunt"];
 
 class RequirementList extends Component {
     pageChange(page, pageSize) {
@@ -18,7 +18,7 @@ class RequirementList extends Component {
     }
 
     handleDisplayData(data, key) {
-        if (key === "reqmntId") {
+        if (key === "serialNo") {
             return <Link to={`/home/requirement/${data[key]}`}>
                 {data[key]}
             </Link>

@@ -29,7 +29,7 @@ export function logon(user, callback) {
         StaticLoad.show("logon");
         post(url.login, user)
             .then((res) => {
-                dispatch(setUserInfo({staffInfo: res.responseBody}));
+                dispatch(setUserInfo({staffInfo: res.data}));
                 StaticLoad.remove("logon");
                 callback();
             })

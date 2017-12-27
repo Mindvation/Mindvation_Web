@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, List} from 'semantic-ui-react';
+import {List} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 class TagListForMember extends Component {
@@ -33,16 +33,16 @@ class TagListForMember extends Component {
         return (
             tagList.length === 0 ? null : <List horizontal className="member-tag-list">
                 {tagList.map((tag) => {
-                    return <List.Item key={tag.tagId} style={{position: 'relative'}}>
+                    return <List.Item key={tag.id} style={{position: 'relative'}}>
                         <div
                             className={"tag-selected tag-style tag-style-" + (tag.tagStyle || 'default')}
                             onClick={() => {
-                                return shortTag ? {} : this.mappingTagOrder(tag.tagId);
+                                return shortTag ? {} : this.mappingTagOrder(tag.id);
                             }}>
                             {shortTag ? tag.name.substr(0, 1) : tag.name}
                         </div>
-                        {this.state.order[tag.tagId] && !shortTag ? <div className="tag-footer">
-                            <div className="tag-footer-text">{this.state.order[tag.tagId]}</div>
+                        {this.state.order[tag.id] && !shortTag ? <div className="tag-footer">
+                            <div className="tag-footer-text">{this.state.order[tag.id]}</div>
                         </div> : null}
                     </List.Item>
                 })}

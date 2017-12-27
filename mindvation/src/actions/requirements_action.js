@@ -29,12 +29,12 @@ export function createRequirement(requirement, callback) {
         post(url.createRequirement, params)
             .then((res) => {
                 StaticLoad.remove("createRequirement");
-                dispatch(createdRequirement(res.responseBody));
-                callback(res.responseBody.reqmntId);
+                dispatch(createdRequirement(res.data));
+                callback(res.data.serialNo);
             })
             .catch((error) => {
                 StaticLoad.remove("createRequirement");
-                StaticDialog.show("createRequirement-error", error.responseCode, error.message);
+                StaticDialog.show("createRequirement-error", error.code, error.msg);
             });
     }
 }
@@ -46,15 +46,20 @@ function retrievedRequirements(requirements) {
 export function retrieveRequirements(page, pageSize, projectId) {
     return dispatch => {
         const params = {
-            "projId": projectId,
-            "staffId": getStaffId(),
-            "page": page,
-            "pageSize": pageSize
+            staffId: getStaffId(),
+            criterion: projectId,
+            pageableCriteria: {
+                page: page,
+                size: pageSize
+            }
         };
 
         post(url.retrieveRequirements, params)
             .then((res) => {
-                dispatch(retrievedRequirements(res.responseBody))
+                dispatch(retrievedRequirements({
+                    requirementInfos: res.data.content,
+                    totalElements: res.data.totalElements
+                }))
             })
             .catch((error) => {
                 console.info(error);

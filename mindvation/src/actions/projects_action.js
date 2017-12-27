@@ -31,12 +31,12 @@ export function createProject(project, callback) {
         post(url.createProject, params)
             .then((res) => {
                 StaticLoad.remove("createProject");
-                dispatch(createdProject(res.responseBody));
-                callback(res.responseBody.projId);
+                dispatch(createdProject(res.data));
+                callback(res.data.serialNo);
             })
             .catch((error) => {
                 StaticLoad.remove("createProject");
-                StaticDialog.show("createProject-error", error.responseCode, error.message);
+                StaticDialog.show("createProject-error", error.code, error.msg);
                 console.info(error);
             });
     }
@@ -45,14 +45,16 @@ export function createProject(project, callback) {
 export function retrieveProjects(page, pageSize) {
     return dispatch => {
         const params = {
-            "staffId": getStaffId(),
-            "page": page,
-            "pageSize": pageSize
+            staffId: getStaffId(),
+            pageableCriteria: {
+                page: page,
+                size: pageSize
+            }
         };
 
         post(url.retrieveProjects, params)
             .then((res) => {
-                dispatch(retrievedProjects(res.responseBody))
+                dispatch(retrievedProjects(res.data))
             })
             .catch((error) => {
                 console.info(error);
